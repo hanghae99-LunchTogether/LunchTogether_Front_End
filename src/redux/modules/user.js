@@ -41,6 +41,11 @@ export const logInAPI = user => {
       .logIn(user)
       .then(res => {
         console.log(res);
+        const token = res.data.token;
+        const user = res.data.data.user;
+        localStorage.setItem("token", token);
+        dispatch(logIn(user));
+        history.push("/");
       })
       .catch(err => {
         console.log(err.response);

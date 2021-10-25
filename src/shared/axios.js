@@ -25,7 +25,7 @@ export const apis = {
 
   //회원정보 요청
   getUser: () =>
-    instance.get(`/main`, {
+    instance.get(`/login`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };
