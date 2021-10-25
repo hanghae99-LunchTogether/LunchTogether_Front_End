@@ -1,7 +1,12 @@
 import React from "react";
+import { history } from "../redux/configureStore";
 
 const Home = props => {
-  return <div>홈</div>;
+  return (
+    <>
+      <button onClick={() => history.push("/signup")}>회원가입</button>
+    </>
+  );
 };
 
 export default Home;
