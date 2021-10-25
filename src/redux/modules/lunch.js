@@ -16,9 +16,9 @@ const REMOVE_COMMENT = "posts/REMOVE_COMMENT";
 
 //action creater
 
-const loadPosts = (postList, totalElements) => ({
+const loadPosts = (postList) => ({
   type: LOAD_POST_LIST,
-  payload: { postList, totalElements },
+  payload: { postList },
 });
 
 const loadCurrentPost = (postId, data) => ({
@@ -60,6 +60,16 @@ const initialState = {
   postList: [],
   current: {},
 };
+
+//Middleware
+export const aaddPostToAxios = (CreateLunch) => async (dispatch) => {
+  console.log('포스트추가', CreateLunch);
+  // try {
+  //   const { data } = await ;
+  // } catch (error) {
+
+  // }
+}
 
 export default function postsReducer(state = initialState, action) {
   return produce(state, draft => {
