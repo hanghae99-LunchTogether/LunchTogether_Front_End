@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://",
+  baseURL: "http://3.35.54.135/",
 });
 
 export const apis = {
@@ -15,7 +15,7 @@ export const apis = {
     }),
 
   //로그인
-  login: user =>
+  logIn: user =>
     instance.post(`/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -24,8 +24,8 @@ export const apis = {
     }),
 
   //회원정보 요청
-  login: () =>
-    instance.post(`/login`, {
+  getUser: () =>
+    instance.get(`/main`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };
