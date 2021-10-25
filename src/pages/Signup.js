@@ -1,11 +1,16 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
 
-const Login = props => {
+const Signup = props => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [nickname, setNickname] = useState("");
   const [pwd, setPwd] = useState("");
+  const [pwdCheck, setPwdCheck] = useState("");
 
   const onChange = e => {
     const {
@@ -13,19 +18,29 @@ const Login = props => {
     } = e;
     if (name === "email") {
       setEmail(value);
+    } else if (name === "username") {
+      setUsername(value);
+    } else if (name === "nickname") {
+      setNickname(value);
     } else if (name === "password") {
       setPwd(value);
+    } else if (name === "password") {
+      setPwd(value);
+    } else if (name === "passwordCheck") {
+      setPwdCheck(value);
     }
   };
 
   const dispatch = useDispatch();
 
-  const logIn = () => {
+  const signUp = () => {
     const user = {
       email,
+      name: username,
+      nickName: nickname,
       password: pwd,
     };
-    dispatch(userActions.logInAPI(user));
+    dispatch(userActions.signUpAPI(user));
   };
 
   return (
@@ -37,7 +52,24 @@ const Login = props => {
             <p>이메일 </p>
             <input onChange={onChange} value={email} name="email" type="text" />
           </InputWrapper>
-
+          <InputWrapper>
+            <p>이름 </p>
+            <input
+              onChange={onChange}
+              value={username}
+              name="username"
+              type="text"
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <p>닉네임 </p>
+            <input
+              onChange={onChange}
+              value={nickname}
+              name="nickname"
+              type="text"
+            />
+          </InputWrapper>
           <InputWrapper>
             <p>비밀번호</p>
             <input
@@ -47,15 +79,23 @@ const Login = props => {
               type="password"
             />
           </InputWrapper>
-
-          <button onClick={logIn}>회원가입</button>
+          <InputWrapper>
+            <p>비밀번호 확인</p>
+            <input
+              onChange={onChange}
+              value={pwdCheck}
+              name="passwordCheck"
+              type="password"
+            />
+          </InputWrapper>
+          <button onClick={signUp}>회원가입</button>
         </Wrap>
       </Wrap>
     </>
   );
 };
 
-export default Login;
+export default Signup;
 
 const Wrap = styled.div`
   display: flex;
