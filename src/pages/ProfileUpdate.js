@@ -7,7 +7,7 @@ import { useState, useRef } from "react";
 const ProfileUpdate = (props) => {
   const imgInput = useRef();
 
-  const imgUploadBtnClick = () => {
+  const imgUploadBtnClick = (e) => {
     imgInput.current.click();
   };
 
@@ -18,6 +18,9 @@ const ProfileUpdate = (props) => {
   const [introduction, setIntroduction] = useState("");
 
   const changeImage = (e) => {
+    console.log("s", e);
+    console.log("ss", e.target);
+    console.log("sss", e.target.files[0]);
     setImage(e.target.value);
   };
 
