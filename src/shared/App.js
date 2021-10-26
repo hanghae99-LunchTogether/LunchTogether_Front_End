@@ -9,6 +9,7 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
+import Lunch from '../pages/Lunch';
 import ProfileUpdate from "../pages/ProfileUpdate";
 
 import Header from "../components/Header";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile/:id" exact component={Profile}></Route>
+          <Route path="/lunchpost" exact component={Lunch}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>

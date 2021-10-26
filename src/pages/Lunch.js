@@ -1,14 +1,16 @@
-import React from 'react'
-import CreateLunch from '../components/CreateLunch';
-import UpdateProfile from '../components/UpdateProfile';
+import React from "react";
+import CreateLunch from "../components/CreateLunch";
+import EditLunch from '../components/EditLunch';
+import UpdateProfile from "../components/UpdateProfile";
 
 const Lunch = () => {
   return (
     <>
-      <CreateLunch/>
-      <UpdateProfile/>
+      <CreateLunch />
+      <UpdateProfile />
+      <EditLunch />
     </>
-  )
-}
+  );
+};
 
 export default Lunch;
