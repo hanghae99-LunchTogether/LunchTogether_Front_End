@@ -1,13 +1,12 @@
 import React from "react";
 import CreateLunch from "../components/CreateLunch";
-import EditLunch from '../components/EditLunch';
-import UpdateProfile from "../components/UpdateProfile";
+import EditLunch from "../components/EditLunch";
 
 const Lunch = () => {
   return (
     <>
       <CreateLunch />
-      <UpdateProfile />
+
       <EditLunch />
     </>
   );
