@@ -3,28 +3,37 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useRef } from "react";
+import { history } from "../redux/configureStore";
+import { profileActions } from "../redux/modules/profile";
+import { useDispatch } from "react-redux";
 
 //본인일 경우에만 페이지 접근가능하게 하기
 
 const ProfileUpdate = props => {
+  const dispatch = useDispatch();
+  const [imageUrl, setImageUrl] = useState(null);
   const imgInput = useRef();
+
+  const changeImage = e => {
+    const reader = new FileReader();
+    const file = imgInput.current.files[0];
+    console.log(file);
+
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      console.log(reader.result);
+      setImageUrl(reader.result);
+    };
+  };
 
   const imgUploadBtnClick = e => {
     imgInput.current.click();
   };
 
-  const [image, setImage] = useState("");
   const [nickname, setNickname] = useState("");
   const [job, setJob] = useState("");
   const [mbti, setMbti] = useState("");
   const [introduction, setIntroduction] = useState("");
-
-  const changeImage = e => {
-    console.log("s", e);
-    console.log("ss", e.target);
-    console.log("sss", e.target.files[0]);
-    setImage(e.target.value);
-  };
 
   const changeNickname = e => {
     setNickname(e.target.value);
@@ -40,17 +49,50 @@ const ProfileUpdate = props => {
     setIntroduction(e.target.value);
   };
 
+  const saveProfile = () => {
+    const image = imgInput.current.files[0];
+
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const profileInfo = {
+      username: "string",
+      password: "string",
+      email: "string",
+      nickname: nickname,
+      image: formData,
+      mbti: mbti,
+      gender: "String",
+      location: "String",
+      menu: "String",
+      company: job,
+      introduction: introduction,
+    };
+
+    dispatch(profileActions.updateProfileAPI(profileInfo));
+  };
+
   return (
     <React.Fragment>
       <ProfileBox>
         <div>
-          <img src={"/img/profile.png"}></img>
-          <Uploade
+          <img
+            src={
+              imageUrl
+                ? imageUrl
+                : "https://cdn.eyesmag.com/content/uploads/posts/2020/04/16/dune-first-behind-scene-release-main-343e8e4c-69d5-4966-99c9-4b935c10b610.jpg"
+            }
+            style={{ width: "100px", height: "100px" }}
+          ></img>
+          {/* <img src={preview ? preview : "/img/profile.png"}></img> */}
+          <Upload
             ref={imgInput}
             type="file"
             accept="image/*"
             onChange={changeImage}
-          ></Uploade>
+          ></Upload>
+          {/* 프리뷰 부분 */}
+          <div src={imageUrl ? imageUrl : "/img/profile.png"} />
           <button
             onClick={() => {
               imgUploadBtnClick();
@@ -77,7 +119,7 @@ const ProfileUpdate = props => {
           </div>
           <div></div>
         </div>
-        <button>저장하기</button>
+        <button onClick={saveProfile}>저장하기</button>
       </ProfileBox>
     </React.Fragment>
   );
@@ -94,7 +136,7 @@ const ProfileBox = styled.div`
   justify-content: center;
 `;
 
-const Uploade = styled.input`
+const Upload = styled.input`
   display: none;
 `;
 

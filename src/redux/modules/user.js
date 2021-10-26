@@ -5,11 +5,11 @@ import { produce } from "immer";
 import { apis } from "../../shared/axios";
 
 const SIGN_UP = "SIGN_UP";
-const LOG_IN = "LOG_IN";
+const SET_USER = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 
 const signUp = createAction(SIGN_UP);
-const logIn = createAction(LOG_IN, user => ({ user }));
+const setUser = createAction(SET_USER, user => ({ user }));
 const logOut = createAction(LOG_OUT);
 
 const initialState = {
@@ -45,7 +45,7 @@ export const logInAPI = user => {
         const token = res.data.token;
         const user = res.data.data.user;
         localStorage.setItem("token", token);
-        dispatch(logIn(user));
+        dispatch(setUser(user));
         history.push("/");
       })
       .catch(err => {
@@ -66,7 +66,8 @@ export const logOutAPI = () => {
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getUser().then(res => {
-      console.log(res);
+      const user = res.data.data.user[0];
+      dispatch(setUser(user));
     });
   };
 };
@@ -77,7 +78,7 @@ export default handleActions(
       produce(state, draft => {
         console.log(action);
       }),
-    [LOG_IN]: (state, action) =>
+    [SET_USER]: (state, action) =>
       produce(state, draft => {
         draft.user = action.payload.user;
         draft.isLoggedIn = true;

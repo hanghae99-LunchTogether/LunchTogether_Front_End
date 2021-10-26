@@ -2,32 +2,42 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
 
-//actions Type
-const SET_PROFILE = "SET_PROFILE";
 const UPDATE_PROFILE = "UPDATE_PROFILE";
 
-//action creator
+const updateProfile = createAction(UPDATE_PROFILE, profile => ({ profile }));
 
-//initialState
 const initialState = {
-    // image:,
-    nickname:"닉네임",
-    job:"직업",
-    mbti:"MBTI",
-    introduction:"자기소개",
-
+  profile: null,
 };
 
-//middleware
-const updateProfileAPI = () => {
-    return function (dispatch, getState, { history }) {
+export const updateProfileAPI = profile => {
+  return function (dispatch, getState, { history }) {
+    console.log(profile);
 
-    };
+    apis
+      .updateProfile(profile)
+      .then(res => {
+        console.log(res);
+        dispatch(updateProfile(res.data.data.user));
+      })
+      .catch(res => {
+        console.log(res.response);
+      });
   };
+};
 
-//reducer
+export default handleActions(
+  {
+    [UPDATE_PROFILE]: (state, action) =>
+      produce(state, draft => {
+        draft.profile = action.payload.profile;
+      }),
+  },
+  initialState
+);
 
-//action creator export
-const profileActions = {};
+const profileActions = {
+  updateProfileAPI,
+};
 
 export { profileActions };
