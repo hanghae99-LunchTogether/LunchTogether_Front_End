@@ -28,12 +28,6 @@ const ProfileUpdate = props => {
 
   const imgUploadBtnClick = e => {
     imgInput.current.click();
-    // const image = imgInput.current.files[0];
-
-    // const formData = new FormData();
-    // formData.append('image', image);
-
-    // dispatch(updateProfileAPI(formData));
   };
 
   const [nickname, setNickname] = useState("");
@@ -56,12 +50,17 @@ const ProfileUpdate = props => {
   };
 
   const saveProfile = () => {
+    const image = imgInput.current.files[0];
+
+    const formData = new FormData();
+    formData.append("image", image);
+
     const profileInfo = {
       username: "string",
       password: "string",
       email: "string",
       nickname: nickname,
-      image: "image",
+      image: formData,
       mbti: mbti,
       gender: "String",
       location: "String",
