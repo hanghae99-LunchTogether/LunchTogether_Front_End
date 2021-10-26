@@ -15,6 +15,7 @@ import ProfileUpdate from "../pages/ProfileUpdate";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
 
 function App() {
@@ -31,13 +32,12 @@ function App() {
       <ConnectedRouter history={history}>
         <Header />
         <Switch>
-          <Route path="/" exact component={Home}></Route>
+          <Route path="/home" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile" exact component={Profile}></Route>
           <Route path="/profileupdate" exact component={ProfileUpdate}></Route>
           <Route path="/lunchpost" exact component={Lunch}></Route>
-          <Route path="/lunchpost/:lunchid" exact component={Lunch}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>
