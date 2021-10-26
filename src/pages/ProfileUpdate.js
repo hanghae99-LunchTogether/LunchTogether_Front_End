@@ -11,24 +11,32 @@ import { useDispatch } from "react-redux";
 
 const ProfileUpdate = (props) => {
   const dispatch = useDispatch();
-
-  const [image, setImage] = useState("");
-  //   const preview = useSelector((state) => state.image.preview);
+  const [imageUrl, setImageUrl] = useState("");
   const imgInput = useRef();
 
   const changeImage = (e) => {
+    if (!imgInput.current.files[0]) {
+      return;
+    }
+
     const reader = new FileReader();
     const file = imgInput.current.files[0];
-    reader.readAsDataURL(file);
 
+    reader.readAsDataURL(file);
     reader.onloadend = () => {
-      // 이미지url
-      console.log("내용물", reader.result);
+      setImageUrl(reader.result);
     };
+    console.log("이미지주소", imageUrl);
   };
 
   const imgUploadBtnClick = (e) => {
     imgInput.current.click();
+    // const image = imgInput.current.files[0];
+
+    // const formData = new FormData();
+    // formData.append('image', image);
+
+    // dispatch(updateProfileAPI(formData));
   };
 
   const [nickname, setNickname] = useState("");
@@ -62,6 +70,8 @@ const ProfileUpdate = (props) => {
             accept="image/*"
             onChange={changeImage}
           ></Uploade>
+          {/* 프리뷰 부분 */}
+          <div src={imageUrl ? imageUrl : "/img/profile.png"} />
           <button
             onClick={() => {
               imgUploadBtnClick();
