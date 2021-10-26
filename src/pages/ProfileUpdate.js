@@ -3,40 +3,50 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useRef } from "react";
+import { actionCreators as profileActions } from "../redux/modules/profile";
+import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
 
 //본인일 경우에만 페이지 접근가능하게 하기
 
-const ProfileUpdate = props => {
+const ProfileUpdate = (props) => {
+  const dispatch = useDispatch();
+
+  const [image, setImage] = useState("");
+  //   const preview = useSelector((state) => state.image.preview);
   const imgInput = useRef();
 
-  const imgUploadBtnClick = e => {
+  const changeImage = (e) => {
+    const reader = new FileReader();
+    const file = imgInput.current.files[0];
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      // 이미지url
+      console.log("내용물", reader.result);
+    };
+  };
+
+  const imgUploadBtnClick = (e) => {
     imgInput.current.click();
   };
 
-  const [image, setImage] = useState("");
   const [nickname, setNickname] = useState("");
   const [job, setJob] = useState("");
   const [mbti, setMbti] = useState("");
   const [introduction, setIntroduction] = useState("");
 
-  const changeImage = e => {
-    console.log("s", e);
-    console.log("ss", e.target);
-    console.log("sss", e.target.files[0]);
-    setImage(e.target.value);
-  };
-
-  const changeNickname = e => {
+  const changeNickname = (e) => {
     setNickname(e.target.value);
   };
 
-  const changeJob = e => {
+  const changeJob = (e) => {
     setJob(e.target.value);
   };
-  const changeMbti = e => {
+  const changeMbti = (e) => {
     setMbti(e.target.value);
   };
-  const changeIntroduction = e => {
+  const changeIntroduction = (e) => {
     setIntroduction(e.target.value);
   };
 
@@ -45,6 +55,7 @@ const ProfileUpdate = props => {
       <ProfileBox>
         <div>
           <img src={"/img/profile.png"}></img>
+          {/* <img src={preview ? preview : "/img/profile.png"}></img> */}
           <Uploade
             ref={imgInput}
             type="file"
