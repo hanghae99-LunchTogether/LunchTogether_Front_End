@@ -10,7 +10,7 @@ const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 //initialState
 const initialState = {
-    image:,
+    // image:,
     nickname:"닉네임",
     job:"직업",
     mbti:"MBTI",

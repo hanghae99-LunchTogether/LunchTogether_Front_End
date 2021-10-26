@@ -35,5 +35,9 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  //점신 약속 수정
+  //점심 약속 수정
+  updateaLunch: (post) =>
+    instance.patch(`/lunchpost${post}`, post, {
+      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 };
