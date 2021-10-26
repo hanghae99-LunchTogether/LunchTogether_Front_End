@@ -1,13 +1,15 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 import { useState, useRef } from "react";
 
 //본인일 경우에만 페이지 접근가능하게 하기
 
-const ProfileUpdate = (props) => {
+const ProfileUpdate = props => {
   const imgInput = useRef();
 
-  const imgUploadBtnClick = (e) => {
+  const imgUploadBtnClick = e => {
     imgInput.current.click();
   };
 
@@ -17,24 +19,24 @@ const ProfileUpdate = (props) => {
   const [mbti, setMbti] = useState("");
   const [introduction, setIntroduction] = useState("");
 
-  const changeImage = (e) => {
+  const changeImage = e => {
     console.log("s", e);
     console.log("ss", e.target);
     console.log("sss", e.target.files[0]);
     setImage(e.target.value);
   };
 
-  const changeNickname = (e) => {
+  const changeNickname = e => {
     setNickname(e.target.value);
   };
 
-  const changeJob = (e) => {
+  const changeJob = e => {
     setJob(e.target.value);
   };
-  const changeMbti = (e) => {
+  const changeMbti = e => {
     setMbti(e.target.value);
   };
-  const changeIntroduction = (e) => {
+  const changeIntroduction = e => {
     setIntroduction(e.target.value);
   };
 

@@ -36,8 +36,8 @@ const Signup = props => {
   const signUp = () => {
     const user = {
       email,
-      name: username,
-      nickName: nickname,
+      username,
+      nickname,
       password: pwd,
     };
     dispatch(userActions.signUpAPI(user));
@@ -102,7 +102,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1050px;
+  width: 100%;
   height: 500px;
   margin: 30px auto;
   box-sizing: border-box;
