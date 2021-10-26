@@ -24,6 +24,7 @@ const initialState = {
 export const createLunchAPI = _lunch => {
   return function (dispatch, getState, { history }) {
     const post = { content: _lunch, date: "2021-10-26", location: "asdlkfjas" };
+
     apis
       .createLunch(post)
       .then(res => {
@@ -32,7 +33,6 @@ export const createLunchAPI = _lunch => {
       .catch(error => {
         console.log(error.response);
       });
-    console.log("포스트추가", post);
   };
 };
 

@@ -13,8 +13,13 @@ const Header = props => {
   };
   return (
     <>
-      <div>헤더</div>
-      <button onClick={logOut}>로그아웃</button>
+      <Wrap>
+        <Logo>😋</Logo>
+        <MenuWrapper>
+          <button onClick={() => history.push("/profile")}>내정보</button>
+          <button onClick={logOut}>로그아웃</button>
+        </MenuWrapper>
+      </Wrap>
     </>
   );
 };
@@ -26,16 +31,22 @@ const Wrap = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 1050px;
-  height: 200px;
+  height: 100px;
+  box-sizing: border-box;
+`;
+
+const MenuWrapper = styled.div`
+  display: flex;
+  width: 300px;
+  align-items: center;
   box-sizing: border-box;
 `;
 
 const Logo = styled.div`
-  position: absolute;
   width: 120px;
-  margin-left: -60px;
   height: 100px;
-  background-size: cover;
+  line-height: 100px;
   cursor: pointer;
+  text-align: center;
   font-size: 50px;
 `;

@@ -64,7 +64,9 @@ export const logOutAPI = () => {
 
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
-    console.log("getUserAPI");
+    apis.getUser().then(res => {
+      console.log(res);
+    });
   };
 };
 

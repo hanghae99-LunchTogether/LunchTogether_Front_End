@@ -57,7 +57,7 @@ const Login = props => {
     <>
       <Wrap>
         <Wrap>
-          <Title>회원가입</Title>
+          <Title>로그인</Title>
           <InputWrapper>
             <p>이메일 </p>
             <input onChange={onChange} value={email} name="email" type="text" />
@@ -73,7 +73,7 @@ const Login = props => {
             />
           </InputWrapper>
 
-          <button onClick={logIn}>회원가입</button>
+          <button onClick={logIn}>로그인</button>
           <button
             onClick={loginWithKakao}
             style={{ border: "none", padding: "0" }}
