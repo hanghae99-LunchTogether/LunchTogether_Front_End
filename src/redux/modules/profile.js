@@ -10,20 +10,17 @@ const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 //initialState
 const initialState = {
-    // image:,
-    nickname:"닉네임",
-    job:"직업",
-    mbti:"MBTI",
-    introduction:"자기소개",
-
+  // image:,
+  nickname: "닉네임",
+  job: "직업",
+  mbti: "MBTI",
+  introduction: "자기소개",
 };
 
 //middleware
 const updateProfileAPI = () => {
-    return function (dispatch, getState, { history }) {
-
-    };
-  };
+  return function (dispatch, getState, { history }) {};
+};
 
 //reducer
 
