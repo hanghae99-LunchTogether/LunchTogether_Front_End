@@ -29,7 +29,7 @@ function App() {
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile/:id" exact component={Profile}></Route>
-          <Route path="/lunchPost" exact component={Lunch}></Route>
+          <Route path="/lunchpost" exact component={Lunch}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>

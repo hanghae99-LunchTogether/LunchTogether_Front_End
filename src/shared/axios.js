@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const apis = {
   //회원가입
-  registerUser: user =>
+  registerUser: (user) =>
     instance.post(`/signup`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -15,7 +15,7 @@ export const apis = {
     }),
 
   //로그인
-  logIn: user =>
+  logIn: (user) =>
     instance.post(`/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -28,4 +28,13 @@ export const apis = {
     instance.get(`/login`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+
+  //점심 약속 등록
+  createLunch: (post) =>
+    instance.post(`/lunchpost`, post, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //점신 약속 수정
+  
 };

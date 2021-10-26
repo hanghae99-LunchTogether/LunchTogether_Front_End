@@ -1,121 +1,71 @@
 /* eslint-disable */
 
 import { produce } from "immer";
+import { create } from "lodash";
+import { createAction, handleActions } from "redux-actions";
 
-//posts
-const LOAD_POST_LIST = "posts/LOAD_POST_LIST";
-const LOAD_CURRENT_POST = "posts/LOAD_CURRENT_POST";
-const CREATE = "posts/CREATE";
-const UPDATE = "posts/UPDATE";
-const DELETE = "posts/DELETE";
+import { apis } from "../../shared/axios";
 
-//comment
-const ADD_COMMENT = "posts/ADD_COMMENT";
-const MODIFY_COMMENT = "posts/MODIFY_COMMENT";
-const REMOVE_COMMENT = "posts/REMOVE_COMMENT";
+//action
+const CREATE_LUNCH = "lunch/CREATE_LUNCH";
+const UPDATE_LUNCH = "lunch/UPDATE_LUNCH";
+const DELETE_LUNCH = "lunch/DELETE_LUNCH";
 
 //action creater
+const createLunch = createAction(CREATE_LUNCH, (lunch) => ({ lunch }));
 
-const loadPosts = (postList) => ({
-  type: LOAD_POST_LIST,
-  payload: { postList },
-});
-
-const loadCurrentPost = (postId, data) => ({
-  type: LOAD_CURRENT_POST,
-  payload: { postId, data },
-});
-
-const createPost = newPost => ({
-  type: CREATE,
-  payload: newPost,
-});
-
-const updatePost = updatedPost => ({
-  type: UPDATE,
-  payload: updatedPost,
-});
-
-const deletePost = postId => ({
-  type: DELETE,
-  payload: postId,
-});
-
-const addCommentToPost = addedComment => ({
-  type: ADD_COMMENT,
-  payload: addedComment,
-});
-
-const modifyCommentToPost = (commentId, newComment) => ({
-  type: MODIFY_COMMENT,
-  payload: { commentId, newComment },
-});
-
-const removeCommentToPost = commentId => ({
-  type: REMOVE_COMMENT,
-  payload: commentId,
-});
-
+//initialState
 const initialState = {
-  postList: [],
-  current: {},
+  lunchList: [],
 };
 
 //Middleware
-export const aaddPostToAxios = (CreateLunch) => async (dispatch) => {
-  console.log('포스트추가', CreateLunch);
-  // try {
-  //   const { data } = await ;
-  // } catch (error) {
+//런치추가
+export const createLunchAPI = (_lunch) => {
+  return function (dispatch, getState, { history }) {
+    const post = { content: _lunch, date: "2021-10-26", location: "asdlkfjas" };
+    apis
+      .createLunch(post)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    console.log("포스트추가", post);
+  };
+};
 
-  // }
-}
+//런치수정
+export const updateLunchAPI = (lunch) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .updateLunch(lunch)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+};
 
-export default function postsReducer(state = initialState, action) {
-  return produce(state, draft => {
-    switch (action.type) {
-      case LOAD_POST_LIST: {
-        console.log("LOAD_POST_LIST");
-        console.log(action.payload);
-        break;
-      }
-      case LOAD_CURRENT_POST: {
-        console.log("LOAD_CURRENT_POST");
-        console.log(action.payload);
-        break;
-      }
-      case CREATE: {
+//reducer
+export default handleActions(
+  {
+    [CREATE_LUNCH]: (state, action) =>
+      produce(state, (draft) => {
         console.log("CREATE");
         console.log(action.payload);
-        break;
-      }
-      case UPDATE: {
-        console.log("UPDATE");
-        console.log(action.payload);
-        break;
-      }
-      case DELETE: {
-        console.log("DELETE");
-        console.log(action.payload);
-        break;
-      }
-      case ADD_COMMENT: {
-        console.log("ADD_COMMENT");
-        console.log(action.payload);
-        break;
-      }
-      case MODIFY_COMMENT: {
-        console.log("MODIFY_COMMENT");
-        console.log(action.payload);
-        break;
-      }
-      case REMOVE_COMMENT: {
-        console.log("REMOVE_COMMENT");
-        console.log(action.payload);
-        break;
-      }
-      default:
-        break;
-    }
-  });
-}
+        draft.lunchList.push(action.payload.lunch);
+      }),
+  },
+  initialState
+);
+
+//action creator export
+const lunchActions = {
+  createLunchAPI,
+};
+
+export { lunchActions };

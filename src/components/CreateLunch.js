@@ -1,33 +1,35 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { aaddPostToAxios } from '../redux/modules/lunch';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { lunchActions } from "../redux/modules/lunch";
 
-
-const CreateLunch = () => {
-  const [addPostInput, setAddPostInput] = React.useState('');
+const CreateLunch = (props) => {
   const dispatch = useDispatch();
-
-
+  const [createLunch, setCreateLunch] = React.useState("");
 
   const changeContent = (e) => {
-    setAddPostInput(e.target.value);
-  }
+    setCreateLunch(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(aaddPostToAxios(addPostInput));
-    console.log('연결됫누?', addPostInput);
-  }
+    dispatch(lunchActions.createLunchAPI(createLunch));
+  };
 
   return (
     <CreateLunchBox>
-      <input value={addPostInput} onChange={changeContent} placeholder="오늘은 누구랑 먹을까?"/>
-      <CreateLunchButton onClick={handleSubmit} type="submit"/>
+      <input
+        value={createLunch}
+        onChange={changeContent}
+        placeholder="오늘은 누구랑 먹을까?"
+      />
+      <CreateLunchButton onClick={handleSubmit} type="submit">
+        추가하기
+      </CreateLunchButton>
     </CreateLunchBox>
-  )
-}
+  );
+};
 
 const CreateLunchBox = styled.div`
   display: flex;
@@ -36,15 +38,12 @@ const CreateLunchBox = styled.div`
   height: 300px;
   width: 300px;
   margin: auto;
-  background-color: red;
+  background-color: #ffad60;
 `;
 
 const CreateLunchButton = styled.button`
   height: 22px;
-  width: 22px;
+  width: 100px;
 `;
-
-
-
 
 export default CreateLunch;
