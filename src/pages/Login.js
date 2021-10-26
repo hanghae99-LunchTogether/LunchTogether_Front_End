@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
 
 const Login = props => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,30 @@ const Login = props => {
     dispatch(userActions.logInAPI(user));
   };
 
+  const { Kakao } = window;
+
+  const loginWithKakao = () => {
+    // 카카오 로그인
+    Kakao.Auth.login({
+      success: authObj => {
+        console.log(authObj);
+
+        // 유저정보 요청코드
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success: function (res) {
+            const kakao_account = res.kakao_account;
+            console.log(kakao_account);
+            history.push("/");
+          },
+          fail: function (error) {
+            console.log(error);
+          },
+        });
+      },
+    });
+  };
+
   return (
     <>
       <Wrap>
@@ -49,6 +74,15 @@ const Login = props => {
           </InputWrapper>
 
           <button onClick={logIn}>회원가입</button>
+          <button
+            onClick={loginWithKakao}
+            style={{ border: "none", padding: "0" }}
+          >
+            <img
+              src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+              width="222"
+            />
+          </button>
         </Wrap>
       </Wrap>
     </>

@@ -15,12 +15,16 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 function App() {
+  useEffect(() => {
+    Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+    console.log(Kakao.isInitialized());
+  }, []);
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
         <Header />
         <Switch>
-          <Route path="/" exact component={Home}></Route>
+          <Route path="/home" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile/:id" exact component={Profile}></Route>
