@@ -7,7 +7,7 @@ import LunchList from "../components/LunchList";
 import HomeProfile from "../components/HomeProfile";
 import styled from "styled-components";
 
-const Home = props => {
+const Home = (props) => {
   return (
     <>
       <Wrapper>
