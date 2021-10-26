@@ -16,7 +16,15 @@ const createLunch = createAction(CREATE_LUNCH, lunch => ({ lunch }));
 
 //initialState
 const initialState = {
-  lunchList: [],
+  lunchList: [{
+    lunchid: 0,
+    title : '하이',
+    content : '하이하이',
+    date : '2021-01-01',
+    location : '서울',
+    time : '2020-01-01',
+    membernum : 125,
+  }],
 };
 
 //Middleware
@@ -37,10 +45,11 @@ export const createLunchAPI = _lunch => {
 };
 
 //런치수정
-export const updateLunchAPI = lunch => {
+export const updateLunchAPI = _lunch => {
   return function (dispatch, getState, { history }) {
+    const post = { content: _lunch, date: "2021-10-26", location: "asdlkfjas" };
     apis
-      .updateLunch(lunch)
+      .updateLunch(post)
       .then(res => {
         console.log(res);
       })
@@ -59,9 +68,18 @@ export default handleActions(
         console.log(action.payload);
         draft.lunchList.push(action.payload.lunch);
       }),
+    
+    [UPDATE_LUNCH]: (state, action) =>
+      produce(state, draft => {
+        console.log("UPDATE");
+        console.log(action.payload);
+
+        draft.lunchList.indexOf
+      })
   },
   initialState
 );
+
 
 //action creator export
 const lunchActions = {

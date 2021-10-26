@@ -26,6 +26,7 @@ export const signUpAPI = user => {
       .registerUser(user)
       .then(res => {
         console.log(res);
+        history.push("/login");
       })
       .catch(err => {
         console.log(err.response);

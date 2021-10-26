@@ -3,18 +3,17 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 
-const CreateLunch = props => {
+const CreateLunch = (props) => {
   const dispatch = useDispatch();
   const [createLunch, setCreateLunch] = React.useState("");
 
-  const changeContent = e => {
+  const changeContent = (e) => {
     setCreateLunch(e.target.value);
   };
-
-  const handleSubmit = e => {
+    
+  const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(createLunch);
     dispatch(lunchActions.createLunchAPI(createLunch));
   };
 

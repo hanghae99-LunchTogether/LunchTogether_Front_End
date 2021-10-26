@@ -1,27 +1,35 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-const EditLunch = (currentPost) => {
+const EditLunch = currentPost => {
   const dispatch = useDispatch();
   const [upDateLunch, setUpDateLunch] = useState("변경될 내용");
 
   const postId = currentPost.postId;
 
-  const changeContent = (e) => {
+  const changeContent = e => {
     setUpDateLunch(e.target.value);
-  }
+  };
 
-  const updateLunch = (e) => {
+  const updateLunch = e => {
     e.preventDefault();
     e.stopPropagation();
     // dispatch(())
-  }
+  };
 
   return (
     <CreateLunchBox>
-      <input value={upDateLunch} onChange={changeContent} placeholder="오늘은 누구랑 먹을까?" />
-      <CreateLunchButton onClick={updateLunch} type="submit" >저장하기</CreateLunchButton>
+      <input
+        value={upDateLunch}
+        onChange={changeContent}
+        placeholder="오늘은 누구랑 먹을까?"
+      />
+      <CreateLunchButton onClick={updateLunch} type="submit">
+        저장하기
+      </CreateLunchButton>
     </CreateLunchBox>
   );
 };
