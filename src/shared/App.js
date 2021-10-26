@@ -8,8 +8,8 @@ import { history } from "../redux/configureStore";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
-import Profile from "../pages/Profile";
-import ProfileUpdate from "../pages/ProfileUpdate";
+import MyProfile from "../pages/MyProfile";
+import MyProfileUpdate from "../pages/MyProfileUpdate";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
-          <Route path="/profile/:id" exact component={Profile}></Route>
+          <Route path="/myprofile" exact component={MyProfile}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>
