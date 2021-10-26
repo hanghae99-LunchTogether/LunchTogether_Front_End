@@ -4,12 +4,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { connectRouter } from "connected-react-router";
 import User from "./modules/user";
 import Lunch from "./modules/lunch";
+// import Profile from "./modules/profile";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: User,
   lunch: Lunch,
+  // profile: Profile,
   router: connectRouter(history),
 });
 
@@ -29,6 +31,6 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-let store = initialStore => createStore(rootReducer, enhancer);
+let store = (initialStore) => createStore(rootReducer, enhancer);
 
 export default store();
