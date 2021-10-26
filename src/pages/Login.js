@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -96,7 +98,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1050px;
+  width: 100%;
   height: 500px;
   margin: 30px auto;
   box-sizing: border-box;
