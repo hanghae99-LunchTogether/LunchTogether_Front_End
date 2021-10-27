@@ -1,8 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const { kakao } = window;
 
-const MapContainer = () => {
+const MapContainer = ({ searchPlace }) => {
+  const [search, setSearch] = useState("");
+
+  const onChange = e => {
+    const {
+      target: { value },
+    } = e;
+    setSearch(value);
+  };
+
+  const onSearch = () => {};
+
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -14,7 +25,7 @@ const MapContainer = () => {
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
     var ps = new kakao.maps.services.Places();
-    ps.keywordSearch("스타벅스 GS타워점", placesSearchCB);
+    ps.keywordSearch(searchPlace, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
@@ -45,16 +56,18 @@ const MapContainer = () => {
         infowindow.open(map, marker);
       });
     }
-  }, []);
+  }, [searchPlace]);
 
   return (
-    <div
-      id="myMap"
-      style={{
-        width: "500px",
-        height: "500px",
-      }}
-    ></div>
+    <>
+      <div
+        id="myMap"
+        style={{
+          width: "500px",
+          height: "500px",
+        }}
+      ></div>
+    </>
   );
 };
 
