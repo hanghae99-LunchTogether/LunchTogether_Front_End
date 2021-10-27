@@ -7,6 +7,7 @@ import { reviewActions } from "../redux/modules/review";
 const Review = props => {
   const { reviewUserId, reviewContent, reviewId, lunchId } = props;
   const user = useSelector(state => state.user.user);
+  console.log(user);
   const dispatch = useDispatch();
 
   const deleteReview = () => {
@@ -14,22 +15,23 @@ const Review = props => {
   };
 
   useEffect(() => {
-    dispatch(reviewActions.getReviewAPI(lunchId));
+    // dispatch(reviewActions.getReviewAPI(lunchId));
   }, []);
 
   return (
     <>
-      {user && (
-        <Wrap>
-          <ReviewWrap>
-            <User>{reviewUserId}</User>
-            <UserReview>{reviewContent}</UserReview>
-            <DeleteBtn onClick={deleteReview}>
-              {user.userId === reviewUserId && <div>X</div>}
-            </DeleteBtn>
-          </ReviewWrap>
-        </Wrap>
-      )}
+      <Wrap>
+        <ReviewWrap>
+          <p>리뷰</p>
+          <input type="text" />
+          <button>등록</button>
+        </ReviewWrap>
+        <div>유저아이디</div>
+        <div>리뷰내용</div>
+        <DeleteBtn onClick={deleteReview}>
+          {user.userid === reviewUserId && <div>X</div>}
+        </DeleteBtn>
+      </Wrap>
     </>
   );
 };
@@ -46,9 +48,7 @@ const Wrap = styled.div`
 `;
 
 const ReviewWrap = styled.div`
-  position: relative;
   display: flex;
-  justify-content: flex-start;
   margin: 10px 0;
 `;
 const User = styled.div`

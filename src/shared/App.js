@@ -17,6 +17,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
+import Review from "../components/Review";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
             exact
             component={LunchCreateUpdate}
           ></Route>
+          <Route path="/review" exact component={Review}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>

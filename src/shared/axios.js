@@ -49,4 +49,19 @@ export const apis = {
     instance.patch("/myProfile", profile, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+
+  addReview: review =>
+    instance.post("/review", review, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  getReview: lunchId =>
+    instance.get("/review", lunchId, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  deleteReview: reviewId =>
+    instance.delete("/review", reviewId, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 };
