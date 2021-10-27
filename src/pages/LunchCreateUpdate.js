@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 
-const CreateLunch = (props) => {
+const LunchCreateUpdate = props => {
   const dispatch = useDispatch();
 
   const post_list = useSelector(state => state.lunch.lunchList);
@@ -160,4 +160,4 @@ const Button = styled.button`
   width: 100px;
 `;
 
-export default CreateLunch;
+export default LunchCreateUpdate;

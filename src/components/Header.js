@@ -26,7 +26,24 @@ const Header = props => {
           </Logo>
           <MenuWrapper>
             <div style={{ marginRight: "1rem" }}>안녕하세요 덕현님!</div>
-            <button onClick={() => history.push("/profile")}>내정보</button>
+            <button
+              style={{ margin: "10px" }}
+              onClick={() => history.push("/profile")}
+            >
+              내정보
+            </button>
+            <button
+              style={{ margin: "10px" }}
+              onClick={() => history.push("/signup")}
+            >
+              회원가입
+            </button>
+            <button
+              style={{ margin: "10px" }}
+              onClick={() => history.push("/login")}
+            >
+              로그인
+            </button>
             <button onClick={logOut}>로그아웃</button>
           </MenuWrapper>
         </HeaderWrap>
