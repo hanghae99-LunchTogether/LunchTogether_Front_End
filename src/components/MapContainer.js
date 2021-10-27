@@ -14,12 +14,10 @@ const MapContainer = () => {
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
     var ps = new kakao.maps.services.Places();
-    ps.keywordSearch("삼성동 스타벅스", placesSearchCB);
+    ps.keywordSearch("스타벅스 GS타워점", placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
         console.log(data);
         var bounds = new kakao.maps.LatLngBounds();
 
@@ -28,7 +26,6 @@ const MapContainer = () => {
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
       }
     }
