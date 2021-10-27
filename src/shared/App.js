@@ -10,19 +10,22 @@ import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
-import Lunch from "../pages/Lunch";
+import LunchCreateUpdate from "../pages/LunchCreateUpdate";
 import ProfileUpdate from "../pages/ProfileUpdate";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
+import Review from "../components/Review";
+import MapContainer from "../components/MapContainer";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
-    console.log(Kakao.isInitialized());
+    // Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+    // console.log(Kakao.isInitialized());
 
     dispatch(userActions.getUserAPI());
   }, []);
@@ -36,8 +39,14 @@ function App() {
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile" exact component={Profile}></Route>
           <Route path="/profileupdate" exact component={ProfileUpdate}></Route>
-          <Route path="/lunchpost" exact component={Lunch}></Route>
-          <Route path="/lunchpost/:lunchid" exact component={Lunch}></Route>
+          <Route path="/lunchpost" exact component={LunchCreateUpdate}></Route>
+          <Route
+            path="/lunchpost/:lunchid"
+            exact
+            component={LunchCreateUpdate}
+          ></Route>
+          <Route path="/review" exact component={Review}></Route>
+          <Route path="/map" exact component={MapContainer}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>
