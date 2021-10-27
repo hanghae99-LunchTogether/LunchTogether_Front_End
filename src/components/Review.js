@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import { reviewActions } from "../redux/modules/review";
 
 const Review = props => {
+  const [content, setContent] = useState("");
   const { reviewUserId, reviewContent, reviewId, lunchId } = props;
   const user = useSelector(state => state.user.user);
   console.log(user);
@@ -12,6 +13,17 @@ const Review = props => {
 
   const deleteReview = () => {
     dispatch(reviewActions.deleteReviewAPI(reviewId));
+  };
+
+  const onChange = e => {
+    const {
+      target: { value },
+    } = e;
+    setContent(value);
+  };
+
+  const addReview = () => {
+    dispatch(reviewActions.addReviewAPI(content));
   };
 
   useEffect(() => {
@@ -23,13 +35,13 @@ const Review = props => {
       <Wrap>
         <ReviewWrap>
           <p>리뷰</p>
-          <input type="text" />
-          <button>등록</button>
+          <input type="text" onChange={onChange} value={content} />
+          <button onClick={addReview}>등록</button>
         </ReviewWrap>
         <div>유저아이디</div>
         <div>리뷰내용</div>
         <DeleteBtn onClick={deleteReview}>
-          {user.userid === reviewUserId && <div>X</div>}
+          {/* {user.userid === reviewUserId && <div>X</div>} */}
         </DeleteBtn>
       </Wrap>
     </>
