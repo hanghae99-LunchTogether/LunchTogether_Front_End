@@ -14,7 +14,7 @@ const DELETE_LUNCH = "lunch/DELETE_LUNCH";
 //action creater
 const createLunch = createAction(CREATE_LUNCH, (lunch) => ({ lunch }));
 const updateLunch = createAction(UPDATE_LUNCH, (lunch) => ({ lunch }));
-const deleteLunch = createAction(DELETE_LUNCH, (lunch) => ({ lunch}));
+const deleteLunch = createAction(DELETE_LUNCH, (lunch) => ({ lunch }));
 
 //initialState
 const initialState = {
@@ -49,13 +49,13 @@ export const createLunchAPI = (_lunch) => {
 };
 
 //런치수정
-export const updateLunchAPI = (_lunch) => {
+export const updateLunchAPI = (post_id, _lunch) => {
   return function (dispatch, getState, { history }) {
     apis
-      .updateLunch(_lunch)
+      .updateLunch(post_id, _lunch)
       .then((res) => {
         console.log(res);
-        dispatch(updateLunch(_lunch))
+        // dispatch(updateLunch(post_id, _lunch))
         // history.push("/");
       })
       .catch((error) => {
@@ -71,6 +71,7 @@ export const deleteLunchAPI = (_lunch) => {
       .deleteLunch(_lunch)
       .then((res) => {
         console.log(res);
+        dispatch(deleteLunch(_lunch));
       })
       .catch((error) => {
         console.log(error.response);
@@ -85,19 +86,26 @@ export default handleActions(
       produce(state, (draft) => {
         console.log(action.payload);
         draft.lunchList.push(action.payload.lunch);
+        console.log(lunchList);
       }),
 
     [UPDATE_LUNCH]: (state, action) =>
       produce(state, (draft) => {
         console.log(action.payload);
+        let idx = draft.lunchList.findIndex(
+          (p) => p.lunchid === action.payload.post_id
+        );
 
-        draft.lunchList.indexOf;
+        draft.lunchList[idx] = { ...draft.lunchList[idx], ...action.payload._lunch };
       }),
 
-      [DELETE_LUNCH]: (state, action) =>
+    [DELETE_LUNCH]: (state, action) =>
       produce(state, (draft) => {
         console.log(action.payload);
-      })
+        draft.lunchList = draft.lunchList.filter(
+          (p) => p.lunchid !== action.payload.lunchid
+        );
+      }),
   },
   initialState
 );
@@ -106,7 +114,7 @@ export default handleActions(
 const lunchActions = {
   createLunchAPI,
   updateLunchAPI,
-  deleteLunchAPI
+  deleteLunchAPI,
 };
 
 export { lunchActions };

@@ -38,14 +38,20 @@ export const apis = {
     instance.post(`/lunchpost`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
-
-  //점심 약속 수정
-  updateLunch: (post) =>
-    instance.patch(`/lunchpost${post}`, post, {
+    
+    //점심 약속 수정
+    updateLunch: (lunchId) =>
+    instance.patch(`/lunchpost${lunchId}`, lunchId, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+    
+    //점심 약속 삭제
+    deleteLunch: (lunchId) =>
+      instance.delete(`/lunchpost${lunchId}`, lunchId, {
+        header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }),
 
-  updateProfile: profile =>
+    updateProfile: profile =>
     instance.patch("/myProfile", profile, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
@@ -65,9 +71,4 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  //점심 약속 삭제
-  deleteLunch: (post) =>
-    instance.delete(`/lunchpost${post}`, post, {
-      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
 };
