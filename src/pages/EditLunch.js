@@ -4,20 +4,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-const EditLunch = currentPost => {
+const EditLunch = (currentPost) => {
   const dispatch = useDispatch();
-  const [upDateLunch, setUpDateLunch] = useState("변경될 내용");
+  const [upDateLunch, setUpDateLunch] = useState("");
 
   const postId = currentPost.postId;
 
-  const changeContent = e => {
+  const changeContent = (e) => {
     setUpDateLunch(e.target.value);
   };
 
-  const updateLunch = e => {
+  const updateLunch = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // dispatch()
+    dispatch(updateLunchAPI(upDateLunch));
   };
 
   return (
@@ -27,9 +27,17 @@ const EditLunch = currentPost => {
         onChange={changeContent}
         placeholder="오늘은 누구랑 먹을까?"
       />
-      <CreateLunchButton onClick={updateLunch} type="submit">
-        저장하기
-      </CreateLunchButton>
+      <div>
+        {is_edit ? (
+          <Button onClick={updateLunch} type="submit">
+            수정하기
+          </Button>
+        ) : (
+          <Button onClick={updateLunch} type="submit">
+            저장하기
+          </Button>
+        )}
+      </div>
     </CreateLunchBox>
   );
 };
@@ -44,7 +52,7 @@ const CreateLunchBox = styled.div`
   background-color: #ffeead;
 `;
 
-const CreateLunchButton = styled.button`
+const Button = styled.button`
   height: 22px;
   width: 100px;
 `;

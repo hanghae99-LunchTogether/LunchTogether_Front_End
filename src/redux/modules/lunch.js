@@ -12,48 +12,67 @@ const UPDATE_LUNCH = "lunch/UPDATE_LUNCH";
 const DELETE_LUNCH = "lunch/DELETE_LUNCH";
 
 //action creater
-const createLunch = createAction(CREATE_LUNCH, lunch => ({ lunch }));
+const createLunch = createAction(CREATE_LUNCH, (lunch) => ({ lunch }));
+const updateLunch = createAction(UPDATE_LUNCH, (lunch) => ({ lunch }));
+const deleteLunch = createAction(DELETE_LUNCH, (lunch) => ({ lunch}));
 
 //initialState
 const initialState = {
-  lunchList: [{
-    lunchid: 0,
-    title : '하이',
-    content : '하이하이',
-    date : '2021-01-01',
-    location : '서울',
-    time : '2020-01-01',
-    membernum : 125,
-  }],
+  lunchList: [
+    {
+      lunchid: 0,
+      title: "하이",
+      content: "하이하이",
+      date: "2021-01-01",
+      location: "서울",
+      membernum: 125,
+    },
+  ],
 };
 
 //Middleware
 //런치추가
-export const createLunchAPI = _lunch => {
+export const createLunchAPI = (_lunch) => {
   return function (dispatch, getState, { history }) {
-    const post = { content: _lunch, date: "2021-10-26", location: "asdlkfjas" };
-
+    console.log(_lunch);
     apis
-      .createLunch(post)
-      .then(res => {
+      .createLunch(_lunch)
+      .then((res) => {
         console.log(res);
+        dispatch(createLunch(_lunch));
+        // history.push("/");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   };
 };
 
 //런치수정
-export const updateLunchAPI = _lunch => {
+export const updateLunchAPI = (_lunch) => {
   return function (dispatch, getState, { history }) {
-    const post = { content: _lunch, date: "2021-10-26", location: "asdlkfjas" };
     apis
-      .updateLunch(post)
-      .then(res => {
+      .updateLunch(_lunch)
+      .then((res) => {
+        console.log(res);
+        dispatch(updateLunch(_lunch))
+        // history.push("/");
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+};
+
+//런치삭제
+export const deleteLunchAPI = (_lunch) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .deleteLunch(_lunch)
+      .then((res) => {
         console.log(res);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
       });
   };
@@ -63,27 +82,31 @@ export const updateLunchAPI = _lunch => {
 export default handleActions(
   {
     [CREATE_LUNCH]: (state, action) =>
-      produce(state, draft => {
-        console.log("CREATE");
+      produce(state, (draft) => {
         console.log(action.payload);
         draft.lunchList.push(action.payload.lunch);
       }),
-    
+
     [UPDATE_LUNCH]: (state, action) =>
-      produce(state, draft => {
-        console.log("UPDATE");
+      produce(state, (draft) => {
         console.log(action.payload);
 
-        draft.lunchList.indexOf
+        draft.lunchList.indexOf;
+      }),
+
+      [DELETE_LUNCH]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(action.payload);
       })
   },
   initialState
 );
 
-
 //action creator export
 const lunchActions = {
   createLunchAPI,
+  updateLunchAPI,
+  deleteLunchAPI
 };
 
 export { lunchActions };
