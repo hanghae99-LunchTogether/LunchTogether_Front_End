@@ -3,17 +3,6 @@ import React, { useEffect, useState } from "react";
 const { kakao } = window;
 
 const MapContainer = ({ searchPlace }) => {
-  const [search, setSearch] = useState("");
-
-  const onChange = e => {
-    const {
-      target: { value },
-    } = e;
-    setSearch(value);
-  };
-
-  const onSearch = () => {};
-
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
