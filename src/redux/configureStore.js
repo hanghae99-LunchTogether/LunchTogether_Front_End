@@ -4,14 +4,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { connectRouter } from "connected-react-router";
 import User from "./modules/user";
 import Lunch from "./modules/lunch";
-// import Profile from "./modules/profile";
+import Profile from "./modules/profile";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: User,
   lunch: Lunch,
-  // profile: Profile,
+  profile: Profile,
   router: connectRouter(history),
 });
 

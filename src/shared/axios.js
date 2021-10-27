@@ -4,9 +4,13 @@ const instance = axios.create({
   baseURL: "http://3.35.54.135",
 });
 
+const saebom = {
+  age: 30,
+};
+
 export const apis = {
   //회원가입
-  registerUser: user =>
+  registerUser: (user) =>
     instance.post(`/signup`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -15,7 +19,7 @@ export const apis = {
     }),
 
   //로그인
-  logIn: user =>
+  logIn: (user) =>
     instance.post(`/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -30,7 +34,7 @@ export const apis = {
     }),
 
   //점심 약속 등록
-  createLunch: post =>
+  createLunch: (post) =>
     instance.post(`/lunchpost`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
@@ -38,6 +42,11 @@ export const apis = {
   //점심 약속 수정
   updateaLunch: (post) =>
     instance.patch(`/lunchpost${post}`, post, {
-      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  updateProfile: (profile) =>
+    instance.patch("/myProfile", profile, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };
