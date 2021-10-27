@@ -33,6 +33,7 @@ const LunchCreateUpdate = props => {
     membernum,
   };
   
+  //작성 되지않은 인덱스값 위치로가면 돌아가기
   React.useEffect(() => {
     if(is_edit && !_post) {
       console.log('포스트 정보가 없어요!');
