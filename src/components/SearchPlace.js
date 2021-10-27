@@ -18,7 +18,7 @@ const SearchPlace = props => {
     <>
       <form onSubmit={onSubmit}>
         <input type="text" onChange={onChange} value={input} />
-        <input type="submit" name="검색" />
+        <input type="submit" value="검색" />
       </form>
       <MapContainer searchPlace={place} />
     </>
