@@ -1,12 +1,10 @@
+/* eslint-disable */
+
 import axios from "axios";
 
 const instance = axios.create({
   baseURL: "http://3.35.54.135",
 });
-
-const saebom = {
-  age: 30,
-};
 
 export const apis = {
   //회원가입
