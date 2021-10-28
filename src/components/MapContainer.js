@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const { kakao } = window;
@@ -6,10 +6,21 @@ const { kakao } = window;
 const MapContainer = ({ searchPlace }) => {
   const [places, setPlaces] = useState([]);
   const [place, setPlace] = useState(null);
+  console.log(places);
 
-  const selectPlace = id => {
-    console.log(id);
+  const selectPlace = place => {
+    setPlace(place);
+    const index = places.findIndex(p => p.id === place.id);
+    console.log(place.id);
+    console.log(index);
+    setPlaces(
+      places.map(p =>
+        p.id === place.id ? { ...p, selected: true } : { ...p, selected: false }
+      )
+    );
   };
+  console.log(place);
+
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -25,7 +36,12 @@ const MapContainer = ({ searchPlace }) => {
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        setPlaces(data);
+        let temp_place = [];
+        data.forEach(p => {
+          p = { ...p, selected: false };
+          temp_place.push(p);
+        });
+        setPlaces(temp_place);
         var bounds = new kakao.maps.LatLngBounds();
 
         for (var i = 0; i < data.length; i++) {
@@ -50,7 +66,8 @@ const MapContainer = ({ searchPlace }) => {
             "</div>"
         );
         infowindow.open(map, marker);
-        setPlace(place);
+        // place.selected = false;
+        selectPlace(place);
       });
     }
   }, [searchPlace]);
@@ -69,11 +86,13 @@ const MapContainer = ({ searchPlace }) => {
           {places &&
             places.map((p, idx) => {
               return (
-                <div key={idx}>
-                  <p style={{ marginTop: "10px" }}>{p.place_name}</p>
+                <div active={p.selected} key={idx}>
+                  <p style={p.selected ? { color: "red" } : { color: "blue" }}>
+                    {p.place_name}
+                  </p>
                   <button
                     onClick={() => {
-                      selectPlace(p.id);
+                      selectPlace(p);
                     }}
                   >
                     확인
