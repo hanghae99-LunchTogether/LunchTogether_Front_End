@@ -45,30 +45,22 @@ const MapContainer = ({ searchPlace }) => {
     }
 
     function displayMarker(place) {
+      // 마커를 생성하고 지도에 표시합니다
       var marker = new kakao.maps.Marker({
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
 
-      marker.setMap(map);
-
-      window.getPlace = () => {
-        setPlace(place);
-      };
-
-      var iwContent = `<div style="padding:5px;"> 
-      <p>${place.place_name}</p> 
-      <button onclick="getPlace()">확인</button>
-      </div>`,
-        iwRemoveable = true;
-
-      var infowindow = new kakao.maps.InfoWindow({
-        content: iwContent,
-        removable: iwRemoveable,
-      });
-
+      // 마커에 클릭이벤트를 등록합니다
       kakao.maps.event.addListener(marker, "click", function () {
+        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+        infowindow.setContent(
+          '<div style="padding:5px;font-size:12px;">' +
+            place.place_name +
+            "</div>"
+        );
         infowindow.open(map, marker);
+        setPlace(place);
       });
     }
   }, [searchPlace]);
@@ -85,7 +77,7 @@ const MapContainer = ({ searchPlace }) => {
       <PlaceListWrapper>
         {places.map((p, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <div> {p.place_name}</div>
               <div> {p.x}</div>
               <button onClick={() => changeLocation(p.x, p.y)}>확인</button>
