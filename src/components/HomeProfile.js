@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import { Image } from "../elements";
 
 const HomeProfile = props => {
-  const user = useSelector(state => state);
+  const user = useSelector(state => state.user.user);
   console.log(user);
   return (
     <>
       <Wrapper>
         <Image shape="circle" size="100" />
-        <div>닉네임</div>
+        <div>{user.nickname}</div>
         <div>직무명 | 회사명</div>
         <button>점심약속 보기</button>
         <button>점심약속 만들기</button>
