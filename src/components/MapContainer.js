@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const { kakao } = window;
 
 const MapContainer = ({ searchPlace }) => {
   const [places, setPlaces] = useState([]);
   const [place, setPlace] = useState(null);
-  console.log(places);
+
+  const selectPlace = id => {
+    console.log(id);
+  };
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -57,15 +61,48 @@ const MapContainer = ({ searchPlace }) => {
       <div>
         장소명: {place ? place.place_name : "만날 장소를 선택해주세요"}{" "}
       </div>
-      <div
-        id="myMap"
-        style={{
-          width: "500px",
-          height: "500px",
-        }}
-      ></div>
+      <Wrap>
+        <MapWrapper>
+          <div id="myMap" style={{ width: "500px", height: "500px" }}></div>
+        </MapWrapper>
+        <PlaceListWrapper>
+          {places &&
+            places.map((p, idx) => {
+              return (
+                <div key={idx}>
+                  <p style={{ marginTop: "10px" }}>{p.place_name}</p>
+                  <button
+                    onClick={() => {
+                      selectPlace(p.id);
+                    }}
+                  >
+                    확인
+                  </button>
+                </div>
+              );
+            })}
+        </PlaceListWrapper>
+      </Wrap>
     </>
   );
 };
+
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const MapWrapper = styled.div`
+  margin-right: 5%;
+`;
+
+const PlaceListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  max-height: 500px;
+  overflow: scroll;
+`;
 
 export default MapContainer;
