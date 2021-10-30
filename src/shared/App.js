@@ -12,6 +12,7 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import LunchCreateUpdate from "../pages/LunchCreateUpdate";
 import ProfileUpdate from "../pages/ProfileUpdate";
+import LunchDetail from "../pages/LunchDetail"
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
