@@ -10,21 +10,28 @@ import { apis } from "../../shared/axios";
 const CREATE_LUNCH = "lunch/CREATE_LUNCH";
 const UPDATE_LUNCH = "lunch/UPDATE_LUNCH";
 const DELETE_LUNCH = "lunch/DELETE_LUNCH";
+const GET_LUNCHLIST_MAIN = "lunch/GET_LUNCHLIST_MAIN";
 
 //action creater
 const createLunch = createAction(CREATE_LUNCH, lunch => ({ lunch }));
+const getLunchListMain = createAction(GET_LUNCHLIST_MAIN, lunchList => ({
+  lunchList,
+}));
 
 //initialState
 const initialState = {
-  lunchList: [{
-    lunchid: 0,
-    title : '하이',
-    content : '하이하이',
-    date : '2021-01-01',
-    location : '서울',
-    time : '2020-01-01',
-    membernum : 125,
-  }],
+  lunchListMain: [],
+  lunchList: [
+    {
+      lunchid: 0,
+      title: "하이",
+      content: "하이하이",
+      date: "2021-01-01",
+      location: "서울",
+      time: "2020-01-01",
+      membernum: 125,
+    },
+  ],
 };
 
 //Middleware
@@ -59,6 +66,15 @@ export const updateLunchAPI = _lunch => {
   };
 };
 
+export const getLunchListMainAPI = () => {
+  return function (dispatch, getState, { history }) {
+    apis.getLunchListMain().then(res => {
+      const lunchList = res.data.lunch;
+      dispatch(getLunchListMain(lunchList));
+    });
+  };
+};
+
 //reducer
 export default handleActions(
   {
@@ -68,22 +84,26 @@ export default handleActions(
         console.log(action.payload);
         draft.lunchList.push(action.payload.lunch);
       }),
-    
+
     [UPDATE_LUNCH]: (state, action) =>
       produce(state, draft => {
         console.log("UPDATE");
         console.log(action.payload);
 
-        draft.lunchList.indexOf
-      })
+        draft.lunchList.indexOf;
+      }),
+    [GET_LUNCHLIST_MAIN]: (state, action) =>
+      produce(state, draft => {
+        draft.lunchListMain = action.payload.lunchList;
+      }),
   },
   initialState
 );
 
-
 //action creator export
 const lunchActions = {
   createLunchAPI,
+  getLunchListMainAPI,
 };
 
 export { lunchActions };

@@ -39,7 +39,7 @@ export const logInAPI = user => {
     console.log(user);
 
     apis
-      .logIn(user)
+      .logIn(user, normal)
       .then(res => {
         console.log(res);
         const token = res.data.token;
