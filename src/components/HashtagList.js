@@ -1,19 +1,14 @@
 import React from "react";
 
-function Hashtag({ hashtag }) {
-  return (
-    <span>#{hashtag.hashtagcontent}</span>
-  );
-}
-
 const HashtagList = ({ hashtags }) => {
   return (
     <div>
-      {
-        hashtags.map(
-          (h,idx) => (<Hashtag hashtag={h} key={idx}/>)
-        )
-      }
+      {hashtags.map((h, idx) => (
+        <>
+          <span>{h.text}</span>
+          <button>X</button>
+        </>
+      ))}
     </div>
   );
 };

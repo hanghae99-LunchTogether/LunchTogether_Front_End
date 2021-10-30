@@ -4,18 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
 
-const LunchCreateUpdate = (props) => {
+const LunchCreateUpdate = props => {
   const dispatch = useDispatch();
 
-  const post_list = useSelector((state) => state.lunch.lunchList);
-  
+  const post_list = useSelector(state => state.lunch.lunchList);
+
   //params가져오기
   const post_id = props.match.params.lunchid;
   const is_edit = post_id ? true : false;
 
   //작성, 수정 페이지 구별
   const _post = is_edit
-    ? post_list.find((p) => p.lunchid === Number(post_id))
+    ? post_list.find(p => p.lunchid === Number(post_id))
     : null;
 
   const [title, setCreateTitle] = React.useState(_post ? _post.title : "");
@@ -31,11 +31,9 @@ const LunchCreateUpdate = (props) => {
   );
 
   //해시태그
-  const [hashtagInput, setHashtagInput] = useState({
-    hashtag: '',
-  });
-  const { hashtag } = hashtagInput;
-  const onChangeHash = (e) => {
+  const [hashtagInput, setHashtagInput] = useState("");
+
+  const onChangeHash = e => {
     setHashtagInput(e.target.value);
   };
   const [hashtags, setHashtags] = useState([]);
@@ -43,17 +41,15 @@ const LunchCreateUpdate = (props) => {
   const nextId = useRef(1);
 
   //해시태그 엔터키 작동
-  const onKeyPress = (e) => {
+  const onKeyPress = e => {
     if (e.key === "Enter") {
       const hashtag = {
         id: nextId.current,
+        text: hashtagInput,
       };
-      console.log(hashtag);
-      setHashtags(hashtags.concat(hashtag));
+      setHashtags([...hashtags, hashtag]);
 
-      setHashtagInput({
-        hashtag: "",
-      });
+      setHashtagInput("");
 
       nextId.current += 1;
     }
@@ -80,7 +76,7 @@ const LunchCreateUpdate = (props) => {
   }, []);
 
   //각 input값 가져오기
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
@@ -97,98 +93,98 @@ const LunchCreateUpdate = (props) => {
     }
   };
 
-  const addLunch = (e) => {
+  const addLunch = e => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.createLunchAPI(MadeLunch));
   };
 
-  const editLunch = (e) => {
+  const editLunch = e => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.updateLunchAPI(MadeLunch));
   };
 
   return (
-      <CreateLunchBox>
-        <HashtagList hashtags={hashtags} />
+    <CreateLunchBox>
+      <HashtagList hashtags={hashtags} />
+      <label>
+        hashtag:
+        <input
+          name="hashtagInput"
+          value={hashtagInput}
+          onChange={onChangeHash}
+          onKeyPress={onKeyPress}
+          placeholder="해시태그를 입력해주세요"
+        />
+      </label>
+      <div>
         <label>
-          hashtag:
+          title:
           <input
-            name="hashtagInput"
-            value={hashtagInput}
-            onChange={onChangeHash}
-            onKeyPress={onKeyPress}
-            placeholder="해시태그를 입력해주세요"
+            name="title"
+            value={title}
+            onChange={onChange}
+            placeholder="오늘은 누구랑 먹을까?"
           />
         </label>
-        <div>
-          <label>
-            title:
-            <input
-              name="title"
-              value={title}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            content:
-            <input
-              name="content"
-              value={content}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            date:
-            <input
-              name="date"
-              value={date}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            location:
-            <input
-              name="location"
-              value={location}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            membernum:
-            <input
-              name="membernum"
-              value={membernum}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            />
-          </label>
-        </div>
-        <div>
-          {is_edit ? (
-            <Button onClick={editLunch} type="submit">
-              수정하기
-            </Button>
-          ) : (
-            <Button onClick={addLunch} type="submit">
-              저장하기
-            </Button>
-          )}
-        </div>
-      </CreateLunchBox>
+      </div>
+      <div>
+        <label>
+          content:
+          <input
+            name="content"
+            value={content}
+            onChange={onChange}
+            placeholder="오늘은 누구랑 먹을까?"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          date:
+          <input
+            name="date"
+            value={date}
+            onChange={onChange}
+            placeholder="오늘은 누구랑 먹을까?"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          location:
+          <input
+            name="location"
+            value={location}
+            onChange={onChange}
+            placeholder="오늘은 누구랑 먹을까?"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          membernum:
+          <input
+            name="membernum"
+            value={membernum}
+            onChange={onChange}
+            placeholder="오늘은 누구랑 먹을까?"
+          />
+        </label>
+      </div>
+      <div>
+        {is_edit ? (
+          <Button onClick={editLunch} type="submit">
+            수정하기
+          </Button>
+        ) : (
+          <Button onClick={addLunch} type="submit">
+            저장하기
+          </Button>
+        )}
+      </div>
+    </CreateLunchBox>
   );
 };
 

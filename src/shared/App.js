@@ -12,7 +12,7 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import LunchCreateUpdate from "../pages/LunchCreateUpdate";
 import ProfileUpdate from "../pages/ProfileUpdate";
-import LunchDetail from "../pages/LunchDetail"
+import LunchDetail from "../pages/LunchDetail";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -39,9 +39,13 @@ function App() {
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile" exact component={Profile}></Route>
           <Route path="/profileupdate" exact component={ProfileUpdate}></Route>
-          <Route path="/lunchpost" exact component={LunchCreateUpdate}></Route>
           <Route
             path="/lunchpost/:lunchid"
+            exact
+            component={LunchDetail}
+          ></Route>
+          <Route
+            path="/lunchregister"
             exact
             component={LunchCreateUpdate}
           ></Route>
