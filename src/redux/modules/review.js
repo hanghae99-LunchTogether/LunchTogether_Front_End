@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
@@ -25,7 +27,6 @@ const getReviewAPI = lunchId => {
     apis
       .getReview(lunchId)
       .then(res => {
-        console.log(res);
         // dispatch(getReview(reviewList));
       })
       .catch(err => {

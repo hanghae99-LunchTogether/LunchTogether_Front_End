@@ -23,5 +23,5 @@ const BannerWrapper = styled.div`
   max-height: 500px;
   max-width: 1050px;
   box-sizing: border-box;
-  background-color: green;
+  border-radius: 10px;
 `;

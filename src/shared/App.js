@@ -19,14 +19,13 @@ import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
 import Review from "../components/Review";
 import MapContainer from "../components/MapContainer";
+import SearchPlace from "../components/SearchPlace";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
-    // console.log(Kakao.isInitialized());
-
+    Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
     dispatch(userActions.getUserAPI());
   }, []);
   return (
@@ -46,9 +45,9 @@ function App() {
             component={LunchCreateUpdate}
           ></Route>
           <Route path="/review" exact component={Review}></Route>
-          <Route path="/map" exact component={MapContainer}></Route>
+          <Route path="/map" exact component={SearchPlace}></Route>
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </ConnectedRouter>
     </React.Fragment>
   );

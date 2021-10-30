@@ -10,14 +10,19 @@ import { apis } from "../../shared/axios";
 const CREATE_LUNCH = "lunch/CREATE_LUNCH";
 const UPDATE_LUNCH = "lunch/UPDATE_LUNCH";
 const DELETE_LUNCH = "lunch/DELETE_LUNCH";
+const GET_LUNCHLIST_MAIN = "lunch/GET_LUNCHLIST_MAIN";
 
 //action creater
 const createLunch = createAction(CREATE_LUNCH, (lunch) => ({ lunch }));
 const updateLunch = createAction(UPDATE_LUNCH, (lunch) => ({ lunch }));
 const deleteLunch = createAction(DELETE_LUNCH, (lunch) => ({ lunch }));
+const getLunchListMain = createAction(GET_LUNCHLIST_MAIN, lunchList => ({
+  lunchList,
+}));
 
 //initialState
 const initialState = {
+  lunchListMain: [],
   lunchList: [
     {
       lunchid: 0,
@@ -25,6 +30,7 @@ const initialState = {
       content: "하이하이",
       date: "2021-01-01",
       location: "서울",
+      time: "2020-01-01",
       membernum: 125,
     },
   ],
@@ -80,6 +86,15 @@ export const deleteLunchAPI = (_lunch) => {
   };
 };
 
+export const getLunchListMainAPI = () => {
+  return function (dispatch, getState, { history }) {
+    apis.getLunchListMain().then(res => {
+      const lunchList = res.data.lunch;
+      dispatch(getLunchListMain(lunchList));
+    });
+  };
+};
+
 //reducer
 export default handleActions(
   {
@@ -94,7 +109,6 @@ export default handleActions(
         let idx = draft.lunchList.findIndex(
           (p) => p.lunchid === action.payload.post_id
         );
-
         draft.lunchList[idx] = {
           ...draft.lunchList[idx],
           ...action.payload._lunch,
@@ -107,6 +121,11 @@ export default handleActions(
         draft.lunchList = draft.lunchList.filter(
           (p) => p.lunchid !== action.payload.lunchid
         );
+        draft.lunchList.indexOf;
+      }),
+    [GET_LUNCHLIST_MAIN]: (state, action) =>
+      produce(state, draft => {
+        draft.lunchListMain = action.payload.lunchList;
       }),
   },
   initialState
@@ -117,6 +136,8 @@ const lunchActions = {
   createLunchAPI,
   updateLunchAPI,
   deleteLunchAPI,
+  getLunchListMainAPI,
+
 };
 
 export { lunchActions };
