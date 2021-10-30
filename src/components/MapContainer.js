@@ -6,20 +6,16 @@ const { kakao } = window;
 const MapContainer = ({ searchPlace }) => {
   const [places, setPlaces] = useState([]);
   const [place, setPlace] = useState(null);
-  console.log(places);
+  console.log(place);
 
   const selectPlace = place => {
     setPlace(place);
-    const index = places.findIndex(p => p.id === place.id);
-    console.log(place.id);
-    console.log(index);
     setPlaces(
       places.map(p =>
         p.id === place.id ? { ...p, selected: true } : { ...p, selected: false }
       )
     );
   };
-  console.log(place);
 
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });

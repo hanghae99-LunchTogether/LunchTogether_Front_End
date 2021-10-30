@@ -31,29 +31,39 @@ const Login = props => {
     dispatch(userActions.logInAPI(user));
   };
 
-  // const { Kakao } = window;
+  const { Kakao } = window;
 
-  // const loginWithKakao = () => {
-  //   // 카카오 로그인
-  //   Kakao.Auth.login({
-  //     success: authObj => {
-  //       console.log(authObj);
+  const loginWithKakao = () => {
+    // 카카오 로그인
+    Kakao.Auth.login({
+      success: authObj => {
+        console.log(authObj);
 
-  //       // 유저정보 요청코드
-  //       Kakao.API.request({
-  //         url: "/v2/user/me",
-  //         success: function (res) {
-  //           const kakao_account = res.kakao_account;
-  //           console.log(kakao_account);
-  //           history.push("/");
-  //         },
-  //         fail: function (error) {
-  //           console.log(error);
-  //         },
-  //       });
-  //     },
-  //   });
-  // };
+        // 유저정보 요청코드
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success: function (res) {
+            const kakao_account = res.kakao_account;
+            console.log(kakao_account);
+            const user = {
+              age_range: "30~39",
+              birthday: "0107",
+              birthday_type: "SOLAR",
+              gender: "male",
+              nickname: "Deokhyun Kim",
+              profile_image_url:
+                "http://k.kakaocdn.net/dn/cvw1iT/btrd1yEdeYZ/NbKz6C9WRVfkCl66aTPkd0/img_640x640.jpg",
+              email: "",
+            };
+            history.push("/");
+          },
+          fail: function (error) {
+            console.log(error);
+          },
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -76,7 +86,7 @@ const Login = props => {
           </InputWrapper>
 
           <button onClick={logIn}>로그인</button>
-          {/* <button
+          <button
             onClick={loginWithKakao}
             style={{ border: "none", padding: "0" }}
           >
@@ -84,7 +94,7 @@ const Login = props => {
               src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
               width="222"
             />
-          </button> */}
+          </button>
         </Wrap>
       </Wrap>
     </>

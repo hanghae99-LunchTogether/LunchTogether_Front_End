@@ -25,7 +25,12 @@ const Header = props => {
             😋
           </Logo>
           <MenuWrapper>
-            <div style={{ marginRight: "1rem" }}>안녕하세요 덕현님!</div>
+            <button
+              style={{ margin: "10px" }}
+              onClick={() => history.push("/map")}
+            >
+              맵
+            </button>
             <button
               style={{ margin: "10px" }}
               onClick={() => history.push("/profile")}
@@ -44,6 +49,7 @@ const Header = props => {
             >
               로그인
             </button>
+
             <button onClick={logOut}>로그아웃</button>
           </MenuWrapper>
         </HeaderWrap>

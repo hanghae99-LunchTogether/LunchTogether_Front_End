@@ -17,8 +17,8 @@ export const apis = {
     }),
 
   //로그인
-  logIn: user =>
-    instance.post(`/login`, user, {
+  logIn: (user, channel) =>
+    instance.post(`/login`, (user, channel), {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",

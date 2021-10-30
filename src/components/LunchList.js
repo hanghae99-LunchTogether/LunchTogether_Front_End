@@ -12,11 +12,34 @@ const LunchList = props => {
     dispatch(lunchActions.getLunchListMainAPI());
   }, []);
 
-  return <></>;
+  return (
+    <>
+      {lunchList && (
+        <Wrapper>
+          {lunchList.map((l, idx) => {
+            return (
+              <>
+                <CardWrapper>
+                  <div>{l.title}</div>
+                  <div>{l.content}</div>
+                  {/* <div>{l.user.nickName}</div> */}
+                </CardWrapper>
+              </>
+            );
+          })}
+        </Wrapper>
+      )}
+    </>
+  );
 };
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
+
+const CardWrapper = styled.div``;
 
 export default LunchList;
