@@ -40,14 +40,14 @@ export const apis = {
     }),
     
     //점심 약속 수정
-    updateLunch: (lunchId) =>
-    instance.patch(`/lunchpost${lunchId}`, lunchId, {
+    updateLunch: (_lunch) =>
+    instance.patch(`/lunchpost/${_lunch.lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
     
     //점심 약속 삭제
     deleteLunch: (lunchId) =>
-      instance.delete(`/lunchpost${lunchId}`, lunchId, {
+      instance.delete(`/lunchpost/${lunchId}`, lunchId, {
         header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }),
 

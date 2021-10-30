@@ -34,12 +34,11 @@ const initialState = {
 //런치추가
 export const createLunchAPI = (_lunch) => {
   return function (dispatch, getState, { history }) {
-    console.log(_lunch);
     apis
       .createLunch(_lunch)
       .then((res) => {
-        console.log(res);
-        dispatch(createLunch(_lunch));
+        console.log(res.data);
+        dispatch(createLunch(res.data.data.lunch));
         // history.push("/");
       })
       .catch((error) => {
@@ -49,18 +48,20 @@ export const createLunchAPI = (_lunch) => {
 };
 
 //런치수정
-export const updateLunchAPI = (post_id, _lunch) => {
+export const updateLunchAPI = ( _lunch ) => {
   return function (dispatch, getState, { history }) {
+    // console.log( post_id, _lunch );
     apis
-      .updateLunch(post_id, _lunch)
+      .updateLunch( _lunch )
       .then((res) => {
         console.log(res);
-        // dispatch(updateLunch(post_id, _lunch))
-        // history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+
+    // dispatch(updateLunch(post_id, _lunch))
+    // history.push("/");
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
   };
 };
 
@@ -84,9 +85,7 @@ export default handleActions(
   {
     [CREATE_LUNCH]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
         draft.lunchList.push(action.payload.lunch);
-        console.log(lunchList);
       }),
 
     [UPDATE_LUNCH]: (state, action) =>
@@ -96,7 +95,10 @@ export default handleActions(
           (p) => p.lunchid === action.payload.post_id
         );
 
-        draft.lunchList[idx] = { ...draft.lunchList[idx], ...action.payload._lunch };
+        draft.lunchList[idx] = {
+          ...draft.lunchList[idx],
+          ...action.payload._lunch,
+        };
       }),
 
     [DELETE_LUNCH]: (state, action) =>
