@@ -8,7 +8,7 @@ const instance = axios.create({
 
 export const apis = {
   //회원가입
-  registerUser: user =>
+  registerUser: (user) =>
     instance.post(`/signup`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -17,8 +17,8 @@ export const apis = {
     }),
 
   //로그인
-  logIn: (user, channel) =>
-    instance.post(`/login`, (user, channel), {
+  logIn: (user) =>
+    instance.post(`/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
@@ -32,18 +32,24 @@ export const apis = {
     }),
 
   //점심 약속 등록
-  createLunch: post =>
+  createLunch: (post) =>
     instance.post(`/lunchpost`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
-
-  //점심 약속 수정
-  updateaLunch: post =>
-    instance.patch(`/lunchpost${post}`, post, {
+    
+    //점심 약속 수정
+    updateLunch: (_lunch) =>
+    instance.patch(`/lunchpost/${_lunch.lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+    
+    //점심 약속 삭제
+    deleteLunch: (lunchId) =>
+      instance.delete(`/lunchpost/${lunchId}`, lunchId, {
+        header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }),
 
-  updateProfile: profile =>
+    updateProfile: profile =>
     instance.patch("/myProfile", profile, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),

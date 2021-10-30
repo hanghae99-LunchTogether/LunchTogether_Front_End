@@ -12,6 +12,7 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import LunchCreateUpdate from "../pages/LunchCreateUpdate";
 import ProfileUpdate from "../pages/ProfileUpdate";
+import LunchDetail from "../pages/LunchDetail"
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -33,7 +34,7 @@ function App() {
       <ConnectedRouter history={history}>
         <Header />
         <Switch>
-          <Route path="/" exact component={Home}></Route>
+          <Route path="/home" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile" exact component={Profile}></Route>
