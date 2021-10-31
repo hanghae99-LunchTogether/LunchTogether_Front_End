@@ -56,8 +56,8 @@ export const apis = {
     }),
 
   //프로필 수정
-  updateProfile: (profile) =>
-    instance.patch(`/myProfile`, profile, {
+  updateProfile: (profileInfo) =>
+    instance.patch(`/myProfile`, profileInfo, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 

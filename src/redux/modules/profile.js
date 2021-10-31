@@ -8,7 +8,9 @@ const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 // action creators
 const getProfile = createAction(GET_PROFILE, (profile) => ({ profile }));
-const updateProfile = createAction(UPDATE_PROFILE, (profile) => ({ profile }));
+const updateProfile = createAction(UPDATE_PROFILE, (profile) => ({
+  profile,
+}));
 
 //initialState
 const initialState = {
@@ -30,13 +32,11 @@ const initialState = {
 //middleware
 const getProfileAPI = () => {
   return function (dispatch, getState, { history }) {
-    // console.log("연결됐다!");
-
     apis
       .getProfile()
       .then((res) => {
         dispatch(getProfile(res.data.data.user[0]));
-        // console.log("응답", res.data.data.user[0]);
+        console.log("응답", res.data.data.user[0]);
       })
       .catch((res) => {
         console.log(res.response);
@@ -44,15 +44,14 @@ const getProfileAPI = () => {
   };
 };
 
-const updateProfileAPI = (profile) => {
+const updateProfileAPI = (profileInfo) => {
   return function (dispatch, getState, { history }) {
-    console.log(profile);
-
     apis
-      .updateProfile(profile)
+      .updateProfile(profileInfo)
       .then((res) => {
-        console.log(res);
-        dispatch(updateProfile(res.data.data.user));
+        console.log("응답", res);
+        dispatch(updateProfile(res));
+        // history.push("/profile");
       })
       .catch((res) => {
         console.log(res.response);
@@ -63,7 +62,7 @@ const updateProfileAPI = (profile) => {
 //reducer
 export default handleActions(
   {
-    GET_PROFILE: (state, action) =>
+    [GET_PROFILE]: (state, action) =>
       produce(state, (draft) => {
         draft.profile = action.payload.profile;
       }),

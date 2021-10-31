@@ -9,14 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 //본인일 경우에만 페이지 접근가능하게 하기
 
 const ProfileUpdate = (props) => {
-  const user = useSelector((state) => state.user.user);
-  // console.log("네", user);
-
-  // useEffect(() => {
-  //   dispatch(commentAction.getProfileAPI(userId));
-  // }, []);
-
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.profile.profile);
+
+  useEffect(() => {
+    dispatch(profileActions.getProfileAPI());
+  }, []);
+
   const [imageUrl, setImageUrl] = useState(null);
   const fileRef = useRef();
 
@@ -27,7 +26,7 @@ const ProfileUpdate = (props) => {
 
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader.result);
+      // console.log(reader.result);
       setImageUrl(reader.result);
     };
   };
@@ -36,9 +35,6 @@ const ProfileUpdate = (props) => {
     fileRef.current.click();
   };
 
-  // const username = useSelector((state) => state.user.user.username);
-  // const email = useSelector((state) => state.user.user.email);
-  // const nickname = useSelector((state) => state.user.user.nickname);
   const [nickname, setNickname] = useState("");
   const [job, setJob] = useState("");
   const [mbti, setMbti] = useState("");
@@ -64,27 +60,22 @@ const ProfileUpdate = (props) => {
     const formData = new FormData();
     formData.append("image", image);
 
-    const profileInfo = {
-      username: "string",
-      password: "string",
-      email: "string",
+    const editProfile = {
+      username: user.username,
+      password: user.password,
+      email: user.email,
       nickname: nickname,
       image: formData,
       mbti: mbti,
-      gender: "String",
-      location: "String",
-      menu: "String",
+      gender: "",
+      location: "",
+      menu: "",
       company: job,
       introduction: introduction,
     };
 
-    dispatch(profileActions.updateProfileAPI(profileInfo));
+    dispatch(profileActions.updateProfileAPI(editProfile));
   };
-
-  console.log(
-    "고객정보",
-    useSelector((state) => state)
-  );
 
   return (
     <>
@@ -113,8 +104,8 @@ const ProfileUpdate = (props) => {
               </button>
             </div>
             <div>
-              <div>1. 이름 : </div>
-              <div>2. 이메일 : </div>
+              <div>1. 이름 : {user.username}</div>
+              <div>2. 이메일 : {user.email}</div>
               <div>
                 3. 닉네임 :
                 <input
@@ -135,9 +126,6 @@ const ProfileUpdate = (props) => {
                 6. 자기소개 :{" "}
                 <input type="text" onChange={changeIntroduction}></input>
               </div>
-              <div>7. 메뉴정보(선호?혹은못먹는) 해시태그로 </div>
-              <div>8. 내위치</div>
-              <div>9. 성별</div>
             </div>
             <button onClick={saveProfile}>저장하기</button>
           </ProfileBox>
