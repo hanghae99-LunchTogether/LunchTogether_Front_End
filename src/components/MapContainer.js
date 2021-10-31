@@ -1,26 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
 const { kakao } = window;
 
-const MapContainer = () => {
+const MapContainer = ({ searchPlace }) => {
+  const [places, setPlaces] = useState([]);
+  const [place, setPlace] = useState(null);
+  console.log(place);
+
+  const selectPlace = place => {
+    setPlace(place);
+    setPlaces(
+      places.map(p =>
+        p.id === place.id ? { ...p, selected: true } : { ...p, selected: false }
+      )
+    );
+  };
+
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
     const mapContainer = document.getElementById("myMap");
     const mapOption = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(37.49808633653005, 127.02800140627488),
       level: 3,
     };
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
     var ps = new kakao.maps.services.Places();
-    ps.keywordSearch("삼성동 스타벅스", placesSearchCB);
+    ps.keywordSearch(searchPlace, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        console.log(data);
+        let temp_place = [];
+        data.forEach(p => {
+          p = { ...p, selected: false };
+          temp_place.push(p);
+        });
+        setPlaces(temp_place);
         var bounds = new kakao.maps.LatLngBounds();
 
         for (var i = 0; i < data.length; i++) {
@@ -28,7 +45,6 @@ const MapContainer = () => {
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
       }
     }
@@ -46,19 +62,62 @@ const MapContainer = () => {
             "</div>"
         );
         infowindow.open(map, marker);
+        // place.selected = false;
+        selectPlace(place);
       });
     }
-  }, []);
+  }, [searchPlace]);
 
   return (
-    <div
-      id="myMap"
-      style={{
-        width: "500px",
-        height: "500px",
-      }}
-    ></div>
+    <>
+      <div>만나는 장소</div>
+      <div>
+        장소명: {place ? place.place_name : "만날 장소를 선택해주세요"}{" "}
+      </div>
+      <Wrap>
+        <MapWrapper>
+          <div id="myMap" style={{ width: "500px", height: "500px" }}></div>
+        </MapWrapper>
+        <PlaceListWrapper>
+          {places &&
+            places.map((p, idx) => {
+              return (
+                <div active={p.selected} key={idx}>
+                  <p style={p.selected ? { color: "red" } : { color: "blue" }}>
+                    {p.place_name}
+                  </p>
+                  <button
+                    onClick={() => {
+                      selectPlace(p);
+                    }}
+                  >
+                    확인
+                  </button>
+                </div>
+              );
+            })}
+        </PlaceListWrapper>
+      </Wrap>
+    </>
   );
 };
+
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const MapWrapper = styled.div`
+  margin-right: 5%;
+`;
+
+const PlaceListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  max-height: 500px;
+  overflow: scroll;
+`;
 
 export default MapContainer;

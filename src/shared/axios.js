@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import axios from "axios";
 
 const instance = axios.create({
@@ -36,9 +38,15 @@ export const apis = {
     }),
 
   //점심 약속 수정
-  updateaLunch: (post) =>
-    instance.patch(`/lunchpost${post}`, post, {
+  updateLunch: (_lunch) =>
+    instance.patch(`/lunchpost/${_lunch.lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //점심 약속 삭제
+  deleteLunch: (lunchId) =>
+    instance.delete(`/lunchpost/${lunchId}`, lunchId, {
+      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //프로필 조회
@@ -53,18 +61,39 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  //리뷰추가
   addReview: (review) =>
     instance.post("/review", review, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  // 리뷰 조회
   getReview: (lunchId) =>
     instance.get("/review", lunchId, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  // 리뷰 삭제
   deleteReview: (reviewId) =>
     instance.delete("/review", reviewId, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 내 프로필 조회
+  getMyProfile: () =>
+    instance.get("/myProfile", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 내 프로필 조회
+  editMyProfile: () =>
+    instance.get("/myProfile", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 점약 전체 리스트 조회
+  getLunchListMain: () =>
+    instance.get("/lunchpost", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };

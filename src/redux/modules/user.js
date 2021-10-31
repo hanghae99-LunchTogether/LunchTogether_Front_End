@@ -36,8 +36,6 @@ export const signUpAPI = user => {
 
 export const logInAPI = user => {
   return function (dispatch, getState, { history }) {
-    console.log(user);
-
     apis
       .logIn(user)
       .then(res => {
