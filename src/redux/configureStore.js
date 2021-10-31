@@ -6,7 +6,6 @@ import User from "./modules/user";
 import Lunch from "./modules/lunch";
 import Profile from "./modules/profile";
 import Review from "./modules/review";
-// import Profile from "./modules/profile";
 
 export const history = createBrowserHistory();
 
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
   lunch: Lunch,
   profile: Profile,
   review: Review,
-  // profile: Profile,
   router: connectRouter(history),
 });
 

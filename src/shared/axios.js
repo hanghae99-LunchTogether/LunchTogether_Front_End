@@ -4,10 +4,6 @@ const instance = axios.create({
   baseURL: "http://3.35.54.135",
 });
 
-const saebom = {
-  age: 30,
-};
-
 export const apis = {
   //회원가입
   registerUser: (user) =>
@@ -45,8 +41,15 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  //프로필 조회
+  getProfile: () =>
+    instance.get(`/myProfile`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //프로필 수정
   updateProfile: (profile) =>
-    instance.patch("/myProfile", profile, {
+    instance.patch(`/myProfile`, profile, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
