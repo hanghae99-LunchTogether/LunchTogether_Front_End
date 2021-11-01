@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
 
-const LunchCreateUpdate = props => {
+const LunchCreateUpdate = (props) => {
   const dispatch = useDispatch();
 
   const post_list = useSelector(state => state.lunch.lunchList);
@@ -43,10 +43,10 @@ const LunchCreateUpdate = props => {
   //해시태그 엔터키 작동
   const onKeyPress = e => {
     if (e.key === "Enter") {
-      const hashtag = {
+      const hashtag = [{
         id: nextId.current,
         text: hashtagInput,
-      };
+      }];
       setHashtags([...hashtags, hashtag]);
 
       setHashtagInput("");
@@ -54,6 +54,11 @@ const LunchCreateUpdate = props => {
       nextId.current += 1;
     }
   };
+
+  const onRemove = (id) => {
+    // window.alert("와우 삭제 가능?")
+    setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
+  }
 
   const { history } = props;
 
@@ -66,7 +71,7 @@ const LunchCreateUpdate = props => {
     membernum,
   };
 
-  //작성 되지않은 인덱스값 위치로가면 돌아가기
+  //작성 되지 않은 인덱스값 위치로가면 돌아가기
   useEffect(() => {
     if (is_edit && !_post) {
       console.log("포스트 정보가 없어요!");
@@ -107,7 +112,7 @@ const LunchCreateUpdate = props => {
 
   return (
     <CreateLunchBox>
-      <HashtagList hashtags={hashtags} />
+      <HashtagList hashtags={hashtags} onRemove={onRemove} />
       <label>
         hashtag:
         <input

@@ -37,6 +37,20 @@ const initialState = {
 };
 
 //Middleware
+
+//런치요청
+export const loadLunchAPI = () => {
+  return function (dispatch, getState, { history }) {
+    apis.loadLunch().then(res => {
+
+    })
+    .catch(error => {
+      console.log(error.response);
+    })
+  }
+}
+
+
 //런치추가
 export const createLunchAPI = _lunch => {
   return function (dispatch, getState, { history }) {
