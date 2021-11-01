@@ -37,22 +37,22 @@ export const apis = {
 
   //점심 약속 등록
 
-  createLunch: (post) =>
+  createLunch: post =>
     instance.post(`/lunchregister`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
-    
-    //점심 약속 수정
-    updateLunch: (_lunch) =>
+
+  //점심 약속 수정
+  updateLunch: _lunch =>
     instance.patch(`/lunchregister/${_lunch.lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
-    
-    //점심 약속 삭제
-    deleteLunch: (lunchId) =>
-      instance.delete(`/lunchregister/${lunchId}`, lunchId, {
-        header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      }),
+
+  //점심 약속 삭제
+  deleteLunch: lunchId =>
+    instance.delete(`/lunchregister/${lunchId}`, lunchId, {
+      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 
   //점심 약속 삭제
   deleteLunch: lunchId =>

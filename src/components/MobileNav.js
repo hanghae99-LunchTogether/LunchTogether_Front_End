@@ -10,6 +10,10 @@ const MobaileNav = props => {
           <MenuText>🏠</MenuText>
           <MenuText>홈</MenuText>
         </MenuWrapper>
+        <MenuWrapper onClick={() => history.push("/memberlist")}>
+          <MenuText>😎</MenuText>
+          <MenuText>멤버</MenuText>
+        </MenuWrapper>
         <MenuWrapper onClick={() => history.push("/")}>
           <MenuText>🥄</MenuText>
           <MenuText>
@@ -17,9 +21,9 @@ const MobaileNav = props => {
             만들기
           </MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={() => history.push("/")}>
-          <MenuText>⚡️</MenuText>
-          <MenuText>내점약</MenuText>
+        <MenuWrapper onClick={() => history.push("/notification")}>
+          <MenuText>🔔</MenuText>
+          <MenuText>알림</MenuText>
         </MenuWrapper>
         <MenuWrapper onClick={() => history.push("/profile")}>
           <MenuText>🤵‍♂️</MenuText>
