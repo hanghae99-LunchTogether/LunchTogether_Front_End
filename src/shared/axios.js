@@ -8,7 +8,7 @@ const instance = axios.create({
 
 export const apis = {
   //회원가입
-  registerUser: (user) =>
+  registerUser: user =>
     instance.post(`/signup`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -17,7 +17,7 @@ export const apis = {
     }),
 
   //로그인
-  logIn: (user) =>
+  logIn: user =>
     instance.post(`/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -36,6 +36,7 @@ export const apis = {
   //   instance.get(`/lunchDetail`)
 
   //점심 약속 등록
+
   createLunch: (post) =>
     instance.post(`/lunchregister`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -53,7 +54,13 @@ export const apis = {
         header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }),
 
-    updateProfile: profile =>
+  //점심 약속 삭제
+  deleteLunch: lunchId =>
+    instance.delete(`/lunchpost/${lunchId}`, lunchId, {
+      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  updateProfile: profile =>
     instance.patch("/myProfile", profile, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
