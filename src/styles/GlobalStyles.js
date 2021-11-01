@@ -3,10 +3,6 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
-    a{
-        text-decoration:none;
-        color:inherit;
-    }
     *{
         box-sizing:border-box;
     }
@@ -22,7 +18,10 @@ const GlobalStyle = createGlobalStyle`
     input{
         display: flex;
         outline: none;
-        padding-left: 10px;
+    }
+    a{
+        text-decoration:none;
+        color:inherit;
     }
 
     

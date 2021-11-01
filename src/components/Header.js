@@ -8,7 +8,6 @@ import MobaileNav from "./MobileNav";
 
 const Header = props => {
   const user = useSelector(state => state.user.user);
-  console.log(user);
 
   const { Kakao } = window;
 

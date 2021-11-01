@@ -9,41 +9,67 @@ const Profile = props => {
   const [user, setUser] = useState(null);
   const dispatch = useDispatch();
   const userId = props.match.params.id;
-  console.log(userId);
+  console.log(user);
 
   const getUser = async () => {
-    const user = await apis.getProfile(userId);
-    console.log(user);
+    const data = await apis.getProfile(userId);
+    setUser(data.data.data[0]);
   };
 
   useEffect(() => {
-    console.log(userId);
     getUser();
   }, []);
 
   return (
     <>
-      <Wrapper>
-        <ProfileInfoWarpper>
-          <Image
-            shape="circle"
-            size="200"
-            src="https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg"
-          />
-          <p>타이틀</p>
-        </ProfileInfoWarpper>
-        <ProfileHistoryWrapper> 점심약속 영역</ProfileHistoryWrapper>
-      </Wrapper>
+      {user && (
+        <Wrapper>
+          <ProfileInfoWarpper>
+            <ImageCircle />
+            <NickName>Deokhyun Kim</NickName>
+            <p style={{ color: "#696969", lineHeight: "2", marginTop: "10px" }}>
+              Frontend Developer
+            </p>
+            <p style={{ color: "#696969", lineHeight: "1", marginTop: "5px" }}>
+              📍&nbsp;Gangnam-gu, Seoul
+            </p>
+            <Intro>
+              AGE creative is a team focused on planning integration and visual
+              coordination. We work closely with artists, designers and planners
+              in various fields, from 2D Motion, 3D Motion, filming, to art
+              direction in graphic design, Brand design, album design, and
+              creative planning, strategic analysis, and m…
+            </Intro>
+            <LunchIndex>
+              <div>점심지수</div>
+              <div style={{ fontWeight: "600" }}>100</div>
+            </LunchIndex>
+            <LunchIndex>
+              <div>매너지수</div>
+              <div style={{ fontWeight: "600" }}>4.5</div>
+            </LunchIndex>
+            <LunchIndex>
+              <div>메뉴</div>
+              <div style={{ fontWeight: "600" }}>100</div>
+            </LunchIndex>
+            <LunchIndex>
+              <div>MBTI</div>
+              <div style={{ fontWeight: "600" }}>ESTJ</div>
+            </LunchIndex>
+            <LunchBtn>Get Lunch</LunchBtn>
+          </ProfileInfoWarpper>
+          <ProfileHistoryWrapper> 점심약속 영역</ProfileHistoryWrapper>
+        </Wrapper>
+      )}
     </>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
+  max-width: 1024px;
   justify-content: center;
   align-items: center;
-  width: 1024px;
-  margin: 0 auto;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -51,29 +77,97 @@ const Wrapper = styled.div`
 `;
 
 const ProfileInfoWarpper = styled.div`
-  width: 35%;
-  margin-right: 5%;
+  max-width: 374px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px 0px #ebecf0;
+  box-shadow: 5px 5px 5px 5px #ebecf0;
   height: 70vh;
   padding-top: 50px;
 
   @media only screen and (max-width: 768px) {
-    width: 70%;
-    margin-right: 0%;
-    margin-bottom: 5%;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 5px 5px #ebecf0;
+    height: 400px;
+    padding-top: 10px;
+  }
+`;
+
+const ImageCircle = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+
+  background-image: url("https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+`;
+
+const NickName = styled.p`
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 1rem;
+`;
+
+const Intro = styled.p`
+  color: #696969;
+  line-height: 1.5;
+  margin: 20px 0px;
+  padding: 20px;
+  height: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media only screen and (max-width: 768px) {
+    height: 50px;
+    overflow: hidden;
+    margin: 0px;
+    text-overflow: ellipsis;
+  }
+`;
+
+const LunchBtn = styled.button`
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 0px;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+  max-width: 650px;
+  color: white;
+  font-weight: bold;
+  background: blue;
+  cursor: pointer;
+`;
+
+const LunchIndex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 `;
 
 const ProfileHistoryWrapper = styled.div`
-  width: 65%;
+  width: 70%;
   height: 500px;
+  min-width: 400px;
   height: 70vh;
   border-radius: 10px;
-  box-shadow: 2px 3px 5px 0px #ebecf0;
+  box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
 export default Profile;

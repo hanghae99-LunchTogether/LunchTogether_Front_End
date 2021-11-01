@@ -32,15 +32,28 @@ export const apis = {
     }),
 
   //점심 약속 등록
+
   createLunch: post =>
-    instance.post(`/lunchpost`, post, {
+    instance.post(`/lunchregister`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 수정
   updateLunch: _lunch =>
-    instance.patch(`/lunchpost/${_lunch.lunchid}`, _lunch, {
+    instance.patch(`/lunchregister/${_lunch.lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //점심 약속 삭제
+  deleteLunch: lunchId =>
+    instance.delete(`/lunchregister/${lunchId}`, lunchId, {
+      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //점심 약속 삭제
+  deleteLunch: lunchId =>
+    instance.delete(`/lunchregister/${lunchId}`, lunchId, {
+      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 삭제
@@ -54,21 +67,21 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  //리뷰 추가
-  addReview: review =>
-    instance.post("/review", review, {
+  // 댓글 조회
+  getComment: lunchId =>
+    instance.get("/comment", lunchId, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  // 리뷰 조회
-  getReview: lunchId =>
-    instance.get("/review", lunchId, {
+  //댓글 추가
+  addComment: comment =>
+    instance.post("/comment", comment, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  // 리뷰 삭제
-  deleteReview: reviewId =>
-    instance.delete("/review", reviewId, {
+  // 댓글 삭제
+  deleteComment: commnetId =>
+    instance.delete("/comment", commentId, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
