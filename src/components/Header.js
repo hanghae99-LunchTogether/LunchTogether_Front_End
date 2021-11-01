@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
+import MobaileNav from "./MobileNav";
 
 const Header = props => {
   const { Kakao } = window;
@@ -26,34 +27,40 @@ const Header = props => {
           </Logo>
           <MenuWrapper>
             <button
-              style={{ margin: "10px" }}
+              style={{ padding: "10px", border: "none", background: "none" }}
               onClick={() => history.push("/map")}
             >
               맵
             </button>
             <button
-              style={{ margin: "10px" }}
+              style={{ padding: "10px", border: "none", background: "none" }}
               onClick={() => history.push("/profile")}
             >
               내정보
             </button>
             <button
-              style={{ margin: "10px" }}
+              style={{ padding: "10px", border: "none", background: "none" }}
               onClick={() => history.push("/signup")}
             >
               회원가입
             </button>
             <button
-              style={{ margin: "10px" }}
+              style={{ padding: "10px", border: "none", background: "none" }}
               onClick={() => history.push("/login")}
             >
               로그인
             </button>
 
-            <button onClick={logOut}>로그아웃</button>
+            <button
+              onClick={logOut}
+              style={{ padding: "10px", border: "none", background: "none" }}
+            >
+              로그아웃
+            </button>
           </MenuWrapper>
         </HeaderWrap>
       </Wrap>
+      <MobaileNav />
     </>
   );
 };
@@ -65,9 +72,17 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100px;
   margin: 0 auto;
   box-sizing: border-box;
+
+  // 블록안에 코드가 나타나야할 최대 스크린 사이즈는 768px
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+  // 블록안에 코드가 나타나야할 최소 스크린 사이즈는 768px
+  /* @media only screen and (min-width: 768px) {
+    background-color: blue;
+  } */
 `;
 
 const HeaderWrap = styled.div`
@@ -75,7 +90,6 @@ const HeaderWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100px;
   box-sizing: border-box;
 `;
 
@@ -90,9 +104,7 @@ const MenuWrapper = styled.div`
 
 const Logo = styled.div`
   width: 120px;
-  height: 100px;
-  line-height: 100px;
   cursor: pointer;
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
 `;

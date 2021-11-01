@@ -1,7 +1,16 @@
 import React from "react";
 
-const LunchDetail = props => {
-  return <div>런치 디테일</div>;
+import styled from "styled-components";
+
+const LunchDetail = (props) => {
+  return (
+    <div>
+      <h1>title</h1>
+      <p>작성자</p>
+    </div>
+  );
 };
+
+
 
 export default LunchDetail;
