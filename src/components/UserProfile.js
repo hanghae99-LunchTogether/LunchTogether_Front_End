@@ -22,7 +22,7 @@ const UserProfile = (props) => {
     <React.Fragment>
       <ProfileBox>
         <div>
-          <img src={"/img/profile.png"}></img>
+          <img src={profileInfo.image}></img>
         </div>
         <div>
           <div>이메일 : {profileInfo.email}</div>

@@ -16,17 +16,15 @@ const ProfileUpdate = (props) => {
     dispatch(profileActions.getProfileAPI());
   }, []);
 
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const fileRef = useRef();
 
   const changeImage = (e) => {
     const reader = new FileReader();
     const file = fileRef.current.files[0];
-    console.log(file);
 
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      // console.log(reader.result);
       setImageUrl(reader.result);
     };
   };
@@ -56,6 +54,8 @@ const ProfileUpdate = (props) => {
 
   const saveProfile = () => {
     const image = fileRef.current.files[0];
+    // const image = imageUrl;
+    // console.log("이미지", image);
 
     const formData = new FormData();
     formData.append("image", image);
@@ -66,12 +66,14 @@ const ProfileUpdate = (props) => {
       email: user.email,
       nickname: nickname,
       image: formData,
+      // imageUrl: imageUrl,
       mbti: mbti,
       gender: "",
       location: "",
       menu: "",
       company: job,
       introduction: introduction,
+      // mannerStatus: "",
     };
 
     dispatch(profileActions.updateProfileAPI(editProfile));
@@ -85,7 +87,7 @@ const ProfileUpdate = (props) => {
             <h1>프로필 수정페이지 입니다.</h1>
             <div>
               <img
-                src={imageUrl ? imageUrl : "img/profile.png"}
+                src={imageUrl ? imageUrl : "/img/profile.png"}
                 style={{ width: "100px", height: "100px" }}
               ></img>
               <input

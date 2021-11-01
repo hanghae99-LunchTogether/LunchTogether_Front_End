@@ -19,6 +19,7 @@ const initialState = {
     password: "password",
     email: "email",
     nickname: "nickname",
+    // imageUrl: "imageUrl",
     image: "/img/profile.png",
     mbti: "mbti",
     gender: "gender",
@@ -26,6 +27,7 @@ const initialState = {
     menu: "menu",
     company: "company",
     introduction: "introduction",
+    // mannerStatus: "mannerStatus",
   },
 };
 
@@ -36,7 +38,7 @@ const getProfileAPI = () => {
       .getProfile()
       .then((res) => {
         dispatch(getProfile(res.data.data.user[0]));
-        console.log("응답", res.data.data.user[0]);
+        console.log("get응답", res.data.data.user[0]);
       })
       .catch((res) => {
         console.log(res.response);
