@@ -31,27 +31,16 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  //점심 약속 상세보기 정보요청
-  // getLunch: () =>
-  //   instance.get(`/lunchDetail`)
-
   //점심 약속 등록
-
   createLunch: post =>
-    instance.post(`/lunchregister`, post, {
+    instance.post(`/lunchpost`, post, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 수정
   updateLunch: _lunch =>
-    instance.patch(`/lunchregister/${_lunch.lunchid}`, _lunch, {
+    instance.patch(`/lunchpost/${_lunch.lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
-
-  //점심 약속 삭제
-  deleteLunch: lunchId =>
-    instance.delete(`/lunchregister/${lunchId}`, lunchId, {
-      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 삭제
@@ -84,8 +73,8 @@ export const apis = {
     }),
 
   // 내 프로필 조회
-  getMyProfile: () =>
-    instance.get("/myProfile", {
+  getProfile: userid =>
+    instance.get(`/myprofile/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 

@@ -5,7 +5,6 @@ import { connectRouter } from "connected-react-router";
 import User from "./modules/user";
 import Lunch from "./modules/lunch";
 import Profile from "./modules/profile";
-import Review from "./modules/review";
 
 export const history = createBrowserHistory();
 
