@@ -1,11 +1,15 @@
 /* eslint-disable */
 
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import MobaileNav from "./MobileNav";
 
 const Header = props => {
+  const user = useSelector(state => state.user.user);
+  console.log(user);
+
   const { Kakao } = window;
 
   const logOut = () => {
@@ -26,35 +30,33 @@ const Header = props => {
             😋
           </Logo>
           <MenuWrapper>
+            <p style={{ marginRight: "20px" }}>안녕하세요, 덕현님!</p>
             <button
-              style={{ padding: "10px", border: "none", background: "none" }}
+              style={{ padding: "10px" }}
               onClick={() => history.push("/map")}
             >
               맵
             </button>
             <button
-              style={{ padding: "10px", border: "none", background: "none" }}
-              onClick={() => history.push("/profile")}
+              style={{ padding: "10px" }}
+              onClick={() => history.push(`/profile/${user.userid}`)}
             >
-              내정보
+              프로필
             </button>
             <button
-              style={{ padding: "10px", border: "none", background: "none" }}
+              style={{ padding: "10px" }}
               onClick={() => history.push("/signup")}
             >
               회원가입
             </button>
             <button
-              style={{ padding: "10px", border: "none", background: "none" }}
+              style={{ padding: "10px" }}
               onClick={() => history.push("/login")}
             >
               로그인
             </button>
 
-            <button
-              onClick={logOut}
-              style={{ padding: "10px", border: "none", background: "none" }}
-            >
+            <button onClick={logOut} style={{ padding: "10px" }}>
               로그아웃
             </button>
           </MenuWrapper>
@@ -95,7 +97,7 @@ const HeaderWrap = styled.div`
 
 const MenuWrapper = styled.div`
   display: flex;
-  max-width: 300px;
+  max-width: 500px;
   align-items: center;
   box-sizing: border-box;
   justify-content: flex-end;

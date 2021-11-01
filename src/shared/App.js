@@ -21,6 +21,8 @@ import { userActions } from "../redux/modules/user";
 import CommentWrite from "../components/CommentWrite";
 import MapContainer from "../components/MapContainer";
 import SearchPlace from "../components/SearchPlace";
+import MemberList from "../pages/MemberList";
+import Notification from "../pages/Notification";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ function App() {
           <Route path="/home" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
-          <Route path="/profile" exact component={Profile}></Route>
+          <Route path="/profile/:id" exact component={Profile}></Route>
           <Route path="/profileupdate" exact component={ProfileUpdate}></Route>
           <Route
             path="/lunchpost/:lunchid"
@@ -55,6 +57,8 @@ function App() {
             component={LunchCreateUpdate}
           ></Route>
           <Route path="/comment" exact component={CommentWrite}></Route>
+          <Route path="/memberlist" exact component={MemberList}></Route>
+          <Route path="/notification" exact component={Notification}></Route>
           <Route path="/map" exact component={SearchPlace}></Route>
         </Switch>
         {/* <Footer /> */}
