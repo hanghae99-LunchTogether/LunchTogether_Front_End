@@ -49,6 +49,11 @@ function App() {
             exact
             component={LunchCreateUpdate}
           ></Route>
+          <Route
+            path="/lunchregister/:lunchid"
+            exact
+            component={LunchCreateUpdate}
+          ></Route>
           <Route path="/review" exact component={Review}></Route>
           <Route path="/map" exact component={SearchPlace}></Route>
         </Switch>
