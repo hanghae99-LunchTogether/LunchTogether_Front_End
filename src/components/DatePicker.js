@@ -24,9 +24,10 @@ const Calendar = () => {
       }) => (
         <div
           style={{
+            width: "300px",
             margin: 10,
             display: "flex",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
@@ -64,7 +65,6 @@ const Calendar = () => {
       )}
       selected={startDate}
       dateFormat={"yyyy-MM-dd"}
-      shouldCloseOnSelect={false}
       locale={ko}
       onChange={date => setStartDate(date)}
     />
