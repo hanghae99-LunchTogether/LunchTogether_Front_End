@@ -36,6 +36,25 @@ const LunchCreateUpdate = props => {
     _post ? _post.membernum : ""
   );
 
+  // const [lunch, setLunch] = useState({
+  //   title: _post.title,
+  //   content: _post.content,
+  //   date: _post.date,
+  //   location: _post.location,
+  //   membernum: _post.membernum,
+  // });
+
+  // const onChange = e => {
+  //   const {
+  //     target: { name, value },
+  //   } = e;
+
+  //   setLunch({
+  //     ...lunch,
+  //     [name]: value,
+  //   });
+  // };
+
   //해시태그
   const [hashtagInput, setHashtagInput] = useState("");
 
