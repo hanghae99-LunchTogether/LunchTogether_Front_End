@@ -7,7 +7,6 @@ import Lunch from "../components/Lunch";
 
 const Home = props => {
   const [lunchList, setLunchList] = useState([]);
-  console.log(lunchList);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
     const lunchList = data.data.lunch;
