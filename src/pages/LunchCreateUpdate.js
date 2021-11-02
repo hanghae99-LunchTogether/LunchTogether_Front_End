@@ -12,7 +12,7 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 const LunchCreateUpdate = props => {
   const dispatch = useDispatch();
 
-  const post_list = useSelector((state) => state.lunch.lunchList);
+  const post_list = useSelector(state => state.lunch.lunchList);
 
   //params가져오기
   const post_id = props.match.params.lunchid;
@@ -20,7 +20,7 @@ const LunchCreateUpdate = props => {
 
   //작성, 수정 페이지 구별
   const _post = is_edit
-    ? post_list.find((p) => p.lunchid === Number(post_id))
+    ? post_list.find(p => p.lunchid === Number(post_id))
     : null;
 
   const [title, setCreateTitle] = React.useState(_post ? _post.title : "");
@@ -28,6 +28,7 @@ const LunchCreateUpdate = props => {
     _post ? _post.content : ""
   );
   const [date, setCreateDate] = React.useState(_post ? _post.date : "");
+  console.log(date);
   const [location, setCreateLocation] = React.useState(
     _post ? _post.location : ""
   );
@@ -38,7 +39,7 @@ const LunchCreateUpdate = props => {
   //해시태그
   const [hashtagInput, setHashtagInput] = useState("");
 
-  const onChangeHash = (e) => {
+  const onChangeHash = e => {
     setHashtagInput(e.target.value);
   };
   const [hashtags, setHashtags] = useState([]);
@@ -46,7 +47,7 @@ const LunchCreateUpdate = props => {
   const nextId = useRef(1);
 
   //해시태그 엔터키 작동
-  const onKeyPress = (e) => {
+  const onKeyPress = e => {
     if (e.key === "Enter") {
       const hashtag = [
         {
@@ -65,7 +66,7 @@ const LunchCreateUpdate = props => {
   const onRemove = id => {
     // window.alert("와우 삭제 가능?")
 
-    setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
+    setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
   };
 
   const { history } = props;
@@ -78,7 +79,6 @@ const LunchCreateUpdate = props => {
     location,
     membernum,
   };
-  console.log(MadeLunch);
 
   //작성 되지 않은 인덱스값 위치로가면 돌아가기
   useEffect(() => {
@@ -90,7 +90,7 @@ const LunchCreateUpdate = props => {
   }, []);
 
   //각 input값 가져오기
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
@@ -99,6 +99,7 @@ const LunchCreateUpdate = props => {
     } else if (name === "content") {
       setCreateContent(value);
     } else if (name === "date") {
+      console.log(value);
       setCreateDate(value);
     } else if (name === "location") {
       setCreateLocation(value);
@@ -107,13 +108,13 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const addLunch = (e) => {
+  const addLunch = e => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.createLunchAPI(MadeLunch));
   };
 
-  const editLunch = (e) => {
+  const editLunch = e => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.updateLunchAPI(MadeLunch));
@@ -214,7 +215,12 @@ const LunchCreateUpdate = props => {
             </Button>
           )}
         </ButtonWrap>
-        <Calendar name="date" value={date} onChange={onChange} />
+        <Calendar
+          name="date"
+          value={date}
+          onChange={onChange}
+          setDate={setCreateDate}
+        />
       </CreateLunchBox>
     </>
   );

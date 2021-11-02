@@ -1,15 +1,29 @@
 import React, { useState } from "react";
-import { getYear, getMonth } from "date-fns"; // getYear, getMonth 
-import DatePicker, { registerLocale } from "react-datepicker";  // 한국어적용
-import ko from 'date-fns/locale/ko'; // 한국어적용
-registerLocale("ko", ko) // 한국어적용
-const _ = require('lodash');
+import { getYear, getMonth } from "date-fns"; // getYear, getMonth
+import DatePicker, { registerLocale } from "react-datepicker"; // 한국어적용
+import ko from "date-fns/locale/ko"; // 한국어적용
+registerLocale("ko", ko); // 한국어적용
+const _ = require("lodash");
 
-
-const Calendar = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const years = _.range(2021, getYear(new Date()) + 1, 1); // 수정
-    const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']; 
+const Calendar = props => {
+  const { setDate } = props;
+  const [startDate, setStartDate] = useState(new Date());
+  setDate(startDate);
+  const years = _.range(2021, getYear(new Date()) + 1, 1); // 수정
+  const months = [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ];
 
   return (
     <DatePicker
@@ -20,7 +34,7 @@ const Calendar = () => {
         decreaseMonth,
         increaseMonth,
         prevMonthButtonDisabled,
-        nextMonthButtonDisabled
+        nextMonthButtonDisabled,
       }) => (
         <div
           style={{
@@ -60,7 +74,6 @@ const Calendar = () => {
           <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
             {">"}
           </button>
-
         </div>
       )}
       selected={startDate}
@@ -71,4 +84,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar
+export default Calendar;
