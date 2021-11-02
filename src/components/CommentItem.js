@@ -9,7 +9,7 @@ const CommentItem = (props) => {
           <UserInfo>
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
-              <UserName>닉에님</UserName>
+              <UserName>닉네임</UserName>
               <Time>시간</Time>
             </div>
           </UserInfo>

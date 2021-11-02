@@ -84,10 +84,10 @@ export const apis = {
     }),
 
   // 댓글 삭제
-  deleteComment: (commnetId) =>
-    instance.delete("/comment", commentId, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
+  // deleteComment: (commnetId) =>
+  //   instance.delete("/comment", commentId, {
+  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  //   }),
 
   // 내 프로필 조회
   getMyProfile: () =>
