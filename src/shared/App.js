@@ -21,8 +21,6 @@ import { userActions } from "../redux/modules/user";
 import CommentWrite from "../components/CommentWrite";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +33,6 @@ function App() {
     <React.Fragment>
       <GlobalStyle />
       <ConnectedRouter history={history}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Header />
         <Switch>
           <Route path="/" exact component={Home}></Route>
@@ -67,7 +64,6 @@ function App() {
           <Route path="/notification" exact component={Notification}></Route>
         </Switch>
         {/* <Footer /> */}
-        </LocalizationProvider>
       </ConnectedRouter>
     </React.Fragment>
   );
