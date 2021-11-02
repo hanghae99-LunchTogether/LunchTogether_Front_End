@@ -40,9 +40,7 @@ const BannerImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 400px;
-  height: 30%;
-  width: 100%;
+  height: 30vh;
   background-color: green;
   background-image: url("${props => props.src}");
   background-repeat: no-repeat;

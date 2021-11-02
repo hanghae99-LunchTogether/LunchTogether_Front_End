@@ -42,7 +42,11 @@ function App() {
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile/:id" exact component={Profile}></Route>
-          <Route path="/profileupdate" exact component={ProfileUpdate}></Route>
+          <Route
+            path="/profileupdate/:id"
+            exact
+            component={ProfileUpdate}
+          ></Route>
           <Route
             path="/lunchpost/:lunchid"
             exact
