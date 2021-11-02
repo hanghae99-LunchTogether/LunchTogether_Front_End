@@ -8,7 +8,6 @@ import MobaileNav from "./MobileNav";
 
 const Header = props => {
   const user = useSelector(state => state.user.user);
-  console.log(user);
 
   const { Kakao } = window;
 
@@ -60,6 +59,7 @@ const Header = props => {
               로그아웃
             </button>
           </MenuWrapper>
+          <CreateLunch>점약만들기</CreateLunch>
         </HeaderWrap>
       </Wrap>
       <MobaileNav />
@@ -78,9 +78,7 @@ const Wrap = styled.div`
   box-sizing: border-box;
 
   // 블록안에 코드가 나타나야할 최대 스크린 사이즈는 768px
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
+
   // 블록안에 코드가 나타나야할 최소 스크린 사이즈는 768px
   /* @media only screen and (min-width: 768px) {
     background-color: blue;
@@ -102,6 +100,18 @@ const MenuWrapper = styled.div`
   box-sizing: border-box;
   justify-content: flex-end;
   margin-right: 1rem;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const CreateLunch = styled.button`
+  display: none;
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 
 const Logo = styled.div`

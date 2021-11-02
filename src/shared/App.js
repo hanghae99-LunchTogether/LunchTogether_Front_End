@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useEffect } from "react";
+import GlobalStyle from "../styles/GlobalStyles";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
@@ -33,10 +34,11 @@ function App() {
   }, []);
   return (
     <React.Fragment>
+      <GlobalStyle />
       <ConnectedRouter history={history}>
         <Header />
         <Switch>
-          <Route path="/home" exact component={Home}></Route>
+          <Route path="/" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/profile/:id" exact component={Profile}></Route>

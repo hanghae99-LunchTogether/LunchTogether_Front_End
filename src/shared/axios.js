@@ -31,10 +31,6 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  //점심 약속 상세보기 정보요청
-  // getLunch: () =>
-  //   instance.get(`/lunchDetail`)
-
   //점심 약속 등록
 
   createLunch: (post) =>
@@ -84,14 +80,14 @@ export const apis = {
     }),
 
   // 댓글 삭제
-  // deleteComment: (commnetId) =>
-  //   instance.delete("/comment", commentId, {
-  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //   }),
+  deleteComment: (commentId) =>
+    instance.delete("/comment", commentId, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 
   // 내 프로필 조회
-  getMyProfile: () =>
-    instance.get("/myProfile", {
+  getProfile: (userid) =>
+    instance.get(`/myprofile/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
