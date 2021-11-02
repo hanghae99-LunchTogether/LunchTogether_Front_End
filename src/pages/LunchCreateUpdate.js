@@ -2,14 +2,17 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import "react-datepicker/dist/react-datepicker.css"; // css import
 import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
+import Calendar from "../components/DatePicker";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
 
 const LunchCreateUpdate = props => {
   const dispatch = useDispatch();
 
-  const post_list = useSelector(state => state.lunch.lunchList);
+  const post_list = useSelector((state) => state.lunch.lunchList);
 
   //params가져오기
   const post_id = props.match.params.lunchid;
@@ -17,7 +20,7 @@ const LunchCreateUpdate = props => {
 
   //작성, 수정 페이지 구별
   const _post = is_edit
-    ? post_list.find(p => p.lunchid === Number(post_id))
+    ? post_list.find((p) => p.lunchid === Number(post_id))
     : null;
 
   const [title, setCreateTitle] = React.useState(_post ? _post.title : "");
@@ -35,7 +38,7 @@ const LunchCreateUpdate = props => {
   //해시태그
   const [hashtagInput, setHashtagInput] = useState("");
 
-  const onChangeHash = e => {
+  const onChangeHash = (e) => {
     setHashtagInput(e.target.value);
   };
   const [hashtags, setHashtags] = useState([]);
@@ -43,7 +46,7 @@ const LunchCreateUpdate = props => {
   const nextId = useRef(1);
 
   //해시태그 엔터키 작동
-  const onKeyPress = e => {
+  const onKeyPress = (e) => {
     if (e.key === "Enter") {
       const hashtag = [
         {
@@ -61,7 +64,8 @@ const LunchCreateUpdate = props => {
 
   const onRemove = id => {
     // window.alert("와우 삭제 가능?")
-    setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
+
+    setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
   };
 
   const { history } = props;
@@ -74,6 +78,7 @@ const LunchCreateUpdate = props => {
     location,
     membernum,
   };
+  console.log(MadeLunch);
 
   //작성 되지 않은 인덱스값 위치로가면 돌아가기
   useEffect(() => {
@@ -85,7 +90,7 @@ const LunchCreateUpdate = props => {
   }, []);
 
   //각 input값 가져오기
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -102,98 +107,116 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const addLunch = e => {
+  const addLunch = (e) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.createLunchAPI(MadeLunch));
   };
 
-  const editLunch = e => {
+  const editLunch = (e) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.updateLunchAPI(MadeLunch));
   };
 
   return (
-    <CreateLunchBox>
-      <HashtagList hashtags={hashtags} onRemove={onRemove} />
-      <label>
-        hashtag:
-        <input
-          name="hashtagInput"
-          value={hashtagInput}
-          onChange={onChangeHash}
-          onKeyPress={onKeyPress}
-          placeholder="해시태그를 입력해주세요"
-        />
-      </label>
-      <div>
-        <label>
-          title:
-          <input
-            name="title"
-            value={title}
-            onChange={onChange}
-            placeholder="오늘은 누구랑 먹을까?"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          content:
-          <input
-            name="content"
-            value={content}
-            onChange={onChange}
-            placeholder="오늘은 누구랑 먹을까?"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          date:
-          <input
-            name="date"
-            value={date}
-            onChange={onChange}
-            placeholder="오늘은 누구랑 먹을까?"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          location:
-          <input
-            name="location"
-            value={location}
-            onChange={onChange}
-            placeholder="오늘은 누구랑 먹을까?"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          membernum:
-          <input
-            name="membernum"
-            value={membernum}
-            onChange={onChange}
-            placeholder="오늘은 누구랑 먹을까?"
-          />
-        </label>
-      </div>
-      <div>
+    <>
+      <CreateLunchBox>
         {is_edit ? (
-          <Button onClick={editLunch} type="submit">
-            수정하기
-          </Button>
+          <LunchPageName>점심약속 수정하기</LunchPageName>
         ) : (
-          <Button onClick={addLunch} type="submit">
-            저장하기
-          </Button>
+          <LunchPageName>점심약속 등록하기</LunchPageName>
         )}
-      </div>
-    </CreateLunchBox>
+        <LunchPageDescWrap>
+          <LunchPageDesc>새로운 사람과의 즐거운 점심을 위해</LunchPageDesc>
+          <LunchPageDesc>점심약속을 작성해보세요</LunchPageDesc>
+        </LunchPageDescWrap>
+        <HashtagList hashtags={hashtags} onRemove={onRemove} />
+        <InputWrap>
+          <label>
+            <LabelName>hashtag</LabelName>
+            <LunchInput
+              name="hashtagInput"
+              value={hashtagInput}
+              onChange={onChangeHash}
+              onKeyPress={onKeyPress}
+              placeholder="해시태그를 입력해주세요"
+            />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>타이틀</LabelName>
+            <LunchInput
+              name="title"
+              value={title}
+              onChange={onChange}
+              placeholder="작성해주세요."
+            />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>설명</LabelName>
+            <LunchInputContent
+              name="content"
+              value={content}
+              onChange={onChange}
+              placeholder="점심약속에 대한 간단한 설명을 작성해주세요."
+            />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>약속시간</LabelName>
+            {/* <LunchInput
+              name="date"
+              value={date}
+              onChange={onChange}
+              placeholder="오늘은 누구랑 먹을까?"
+            /> */}
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>
+              <FmdGoodIcon style={{ fontSize: "small" }} /> 만나는 장소
+            </LabelName>
+            <LunchInput
+              name="location"
+              value={location}
+              onChange={onChange}
+              placeholder="오늘은 누구랑 먹을까?"
+            />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>모집인원</LabelName>
+            <MemberNum onChange={onChange} value={membernum} name="membernum">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+            </MemberNum>
+          </label>
+        </InputWrap>
+        <ButtonWrap>
+          {is_edit ? (
+            <Button onClick={editLunch} type="submit">
+              수정하기
+            </Button>
+          ) : (
+            <Button onClick={addLunch} type="submit">
+              저장하기
+            </Button>
+          )}
+        </ButtonWrap>
+        <Calendar name="date" value={date} onChange={onChange} />
+      </CreateLunchBox>
+    </>
   );
 };
 
@@ -202,15 +225,73 @@ const CreateLunchBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 300px;
-  width: 300px;
+  height: 100vh;
+  width: 33.33vw;
+  min-width: 350px;
   margin: auto;
-  background-color: #ffad60;
+  // background-color: #ffad60;
+`;
+
+const LunchPageName = styled.h1`
+  font-weight: bold;
+  font-size: 20px;
+  margin: 30px;
+`;
+
+const LunchPageDescWrap = styled.div`
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 30px;
+`;
+
+const LunchPageDesc = styled.p``;
+
+const InputWrap = styled.div`
+  flex: 1;
+  padding: 10px;
+  width: 100%;
+`;
+
+const LabelName = styled.p`
+  font-size: 12px;
+  font-weight: bold;
+  padding-bottom: 10px;
+`;
+
+const LunchInput = styled.input`
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #dadada;
+  border-radius: 5px;
+`;
+
+const LunchInputContent = styled.textarea`
+  height: 129px;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #dadada;
+  border-radius: 5px;
+`;
+
+const MemberNum = styled.select`
+  width: 100%;
+  padding: 11px;
+  border: 2px solid #dadada;
+  border-radius: 10px;
+`;
+
+const ButtonWrap = styled.div`
+  width: 40%;
 `;
 
 const Button = styled.button`
-  height: 22px;
-  width: 100px;
+  background-color: #646464;
+  color: white;
+  height: 40px;
+  width: 100%;
+  border-radius: 20px;
+  border: none;
 `;
 
 export default LunchCreateUpdate;
