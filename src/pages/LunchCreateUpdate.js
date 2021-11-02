@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css"; // css import
@@ -7,7 +9,7 @@ import HashtagList from "../components/HashtagList";
 import Calendar from "../components/DatePicker";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 
-const LunchCreateUpdate = (props) => {
+const LunchCreateUpdate = props => {
   const dispatch = useDispatch();
 
   const post_list = useSelector((state) => state.lunch.lunchList);
@@ -60,8 +62,9 @@ const LunchCreateUpdate = (props) => {
     }
   };
 
-  const onRemove = (id) => {
+  const onRemove = id => {
     // window.alert("와우 삭제 가능?")
+
     setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
   };
 

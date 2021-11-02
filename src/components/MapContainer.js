@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -71,10 +73,7 @@ const MapContainer = ({ searchKeyword }) => {
     <>
       <Wrap>
         <FakeDiv />
-        <MapWrapper
-          id="myMap"
-          // style={{ width: "420px", height: "420px", borderRadius: "10px" }}
-        ></MapWrapper>
+        <MapWrapper id="myMap"></MapWrapper>
       </Wrap>
     </>
   );

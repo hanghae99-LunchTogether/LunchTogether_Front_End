@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
+import { apis } from "../shared/axios";
 
 const Login = props => {
   const [email, setEmail] = useState("");
@@ -43,20 +44,16 @@ const Login = props => {
         // 유저정보 요청코드
         Kakao.API.request({
           url: "/v2/user/me",
-          success: function (res) {
-            const kakao_account = res.kakao_account;
-            console.log(kakao_account);
-            const user = {
-              age_range: "30~39",
-              birthday: "0107",
-              birthday_type: "SOLAR",
-              gender: "male",
-              nickname: "Deokhyun Kim",
-              profile_image_url:
-                "http://k.kakaocdn.net/dn/cvw1iT/btrd1yEdeYZ/NbKz6C9WRVfkCl66aTPkd0/img_640x640.jpg",
-              email: "",
-            };
-            history.push("/");
+          data: {
+            property_keys: [
+              "kakao_account.email",
+              "properties.profile_image",
+              "kakao_account.gender",
+              "properties.nickname",
+            ],
+          },
+          success: async function (res) {
+            console.log(res);
           },
           fail: function (error) {
             console.log(error);
