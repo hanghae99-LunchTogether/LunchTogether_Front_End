@@ -12,10 +12,13 @@ import { history } from "../redux/configureStore";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log(userInfo);
   const [image, setImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
-  const [place, setPlace] = useState("");
+  const [places, setPlaces] = useState([]);
+  console.log(userInfo);
+
+  const [place, setPlace] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState("");
   const userId = props.match.params.id;
   const dispatch = useDispatch();
 
@@ -54,7 +57,6 @@ const ProfileUpdate = props => {
   const getProfileData = async () => {
     try {
       const data = await apis.getProfile(userId);
-      console.log(data);
       const user = data.data.data.user[0];
       setUserInfo(user);
     } catch (error) {
@@ -67,7 +69,7 @@ const ProfileUpdate = props => {
   };
 
   const searchPlace = () => {
-    setPlace(placeInput);
+    setSearchKeyword(placeInput);
   };
 
   const onUpdateProfile = async () => {
@@ -76,7 +78,7 @@ const ProfileUpdate = props => {
       console.log(data);
       history.push(`/profile/${userId}`);
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 
@@ -148,7 +150,11 @@ const ProfileUpdate = props => {
             <Input
               name="location"
               onChange={onChange}
-              value={userInfo.location}
+              value={
+                userInfo.location
+                  ? userInfo.location.place_name
+                  : "장소를 선택해주세요"
+              }
             ></Input>
           </InputWrapper>
 
@@ -166,7 +172,12 @@ const ProfileUpdate = props => {
             </PlaceWrapper>
           </InputWrapper>
 
-          <MapContainer searchKeyword={place} />
+          <MapContainer
+            searchKeyword={searchKeyword}
+            setPlace={setPlace}
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+          />
           <UpdateBtn onClick={onUpdateProfile}>수정하기</UpdateBtn>
         </Wrapper>
       )}

@@ -45,12 +45,7 @@ const Login = props => {
         Kakao.API.request({
           url: "/v2/user/me",
           data: {
-            property_keys: [
-              "kakao_account.email",
-              "properties.profile_image",
-              "kakao_account.gender",
-              "properties.nickname",
-            ],
+            property_keys: ["properties.profile_image", "properties.nickname"],
           },
           success: async function (res) {
             console.log(res);

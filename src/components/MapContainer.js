@@ -5,17 +5,13 @@ import styled from "styled-components";
 
 const { kakao } = window;
 
-const MapContainer = ({ searchKeyword }) => {
-  const [places, setPlaces] = useState([]);
-  const [place, setPlace] = useState(null);
-
+const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
   const selectPlace = place => {
-    setPlace(place);
-    setPlaces(
-      places.map(p =>
-        p.id === place.id ? { ...p, selected: true } : { ...p, selected: false }
-      )
-    );
+    // setPlaces(
+    //   places.map(p =>
+    //     p.id === place.id ? { ...p, selected: true } : { ...p, selected: false }
+    //   )
+    // );
   };
 
   useEffect(() => {
@@ -38,7 +34,7 @@ const MapContainer = ({ searchKeyword }) => {
           p = { ...p, selected: false };
           temp_place.push(p);
         });
-        setPlaces(temp_place);
+        // setPlaces(temp_place);
         var bounds = new kakao.maps.LatLngBounds();
 
         for (var i = 0; i < data.length; i++) {
@@ -64,7 +60,10 @@ const MapContainer = ({ searchKeyword }) => {
         );
         infowindow.open(map, marker);
         // place.selected = false;
-        selectPlace(place);
+        setUserInfo({
+          ...userInfo,
+          location: place,
+        });
       });
     }
   }, [searchKeyword]);
