@@ -17,14 +17,10 @@ import LunchDetail from "../pages/LunchDetail";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
-import MapContainer from "../components/MapContainer";
-import SearchPlace from "../components/SearchPlace";
+import CommentWrite from "../components/CommentWrite";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,43 +29,41 @@ function App() {
     Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
     dispatch(userActions.getUserAPI());
   }, []);
+
   return (
     <React.Fragment>
       <GlobalStyle />
       <ConnectedRouter history={history}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Header />
-          <Switch>
-            <Route path="/" exact component={Home}></Route>
-            <Route path="/signup" exact component={Signup}></Route>
-            <Route path="/login" exact component={Login}></Route>
-            <Route path="/profile/:id" exact component={Profile}></Route>
-            <Route
-              path="/profileupdate"
-              exact
-              component={ProfileUpdate}
-            ></Route>
-            <Route
-              path="/lunchpost/:lunchid"
-              exact
-              component={LunchDetail}
-            ></Route>
-            <Route
-              path="/lunchregister"
-              exact
-              component={LunchCreateUpdate}
-            ></Route>
-            <Route
-              path="/lunchregister/:lunchid"
-              exact
-              component={LunchCreateUpdate}
-            ></Route>
-            <Route path="/memberlist" exact component={MemberList}></Route>
-            <Route path="/notification" exact component={Notification}></Route>
-            <Route path="/map" exact component={SearchPlace}></Route>
-          </Switch>
-          {/* <Footer /> */}
-        </LocalizationProvider>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={Home}></Route>
+          <Route path="/signup" exact component={Signup}></Route>
+          <Route path="/login" exact component={Login}></Route>
+          <Route path="/profile/:id" exact component={Profile}></Route>
+          <Route
+            path="/profileupdate/:id"
+            exact
+            component={ProfileUpdate}
+          ></Route>
+          <Route
+            path="/lunchpost/:lunchid"
+            exact
+            component={LunchDetail}
+          ></Route>
+          <Route
+            path="/lunchregister"
+            exact
+            component={LunchCreateUpdate}
+          ></Route>
+          <Route
+            path="/lunchregister/:lunchid"
+            exact
+            component={LunchCreateUpdate}
+          ></Route>
+          <Route path="/memberlist" exact component={MemberList}></Route>
+          <Route path="/notification" exact component={Notification}></Route>
+        </Switch>
+        {/* <Footer /> */}
       </ConnectedRouter>
     </React.Fragment>
   );

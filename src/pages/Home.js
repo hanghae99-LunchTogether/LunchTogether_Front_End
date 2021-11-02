@@ -1,8 +1,6 @@
 /* eslint-disable */
 
 import React, { useEffect, useState } from "react";
-import { history } from "../redux/configureStore";
-import Banner from "../components/Banner";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import Lunch from "../components/Lunch";
@@ -42,9 +40,7 @@ const BannerImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 400px;
-  height: 30%;
-  width: 100%;
+  height: 30vh;
   background-color: green;
   background-image: url("${props => props.src}");
   background-repeat: no-repeat;

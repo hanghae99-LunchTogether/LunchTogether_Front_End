@@ -28,10 +28,10 @@ const initialState = {
       lunchid: 0,
       title: "하이",
       content: "하이하이",
-      date: "2021-01-01",
+      date: "2021-10-02",
       location: "서울",
-      time: "2020-01-01",
-      membernum: 125,
+      time: "12:00 am",
+      membernum: 3,
     },
   ],
 };

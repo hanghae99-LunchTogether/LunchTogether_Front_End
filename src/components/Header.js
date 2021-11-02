@@ -1,12 +1,14 @@
 /* eslint-disable */
 
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../redux/modules/user";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import MobaileNav from "./MobileNav";
 
 const Header = props => {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user.user);
 
   const { Kakao } = window;
@@ -17,6 +19,10 @@ const Header = props => {
       history.push("/login");
     });
   };
+
+  useEffect(() => {
+    dispatch(userActions.getUserAPI());
+  }, []);
   return (
     <>
       <Wrap>
