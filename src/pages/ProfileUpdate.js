@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Image } from "../elements";
@@ -6,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { profileActions } from "../redux/modules/profile";
 import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
+import { history } from "../redux/configureStore";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
@@ -28,10 +31,19 @@ const ProfileUpdate = props => {
 
   const profileImage = useRef();
 
-  const selectFile = e => {
+  const selectFile = () => {
     const reader = new FileReader();
     const file = profileImage.current.files[0];
-    console.log(file);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log(formData);
+
+    setUserInfo({
+      ...userInfo,
+      image: formData,
+    });
+
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
@@ -42,7 +54,8 @@ const ProfileUpdate = props => {
   const getProfileData = async () => {
     try {
       const data = await apis.getProfile(userId);
-      const user = data.data.data[0];
+      console.log(data);
+      const user = data.data.data.user[0];
       setUserInfo(user);
     } catch (error) {
       console.log(error);
@@ -61,6 +74,7 @@ const ProfileUpdate = props => {
     try {
       const data = await apis.updateProfile(userInfo);
       console.log(data);
+      history.push(`/profile/${userId}`);
     } catch (error) {
       console.log(error);
     }

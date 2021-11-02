@@ -29,6 +29,7 @@ function App() {
     Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
     dispatch(userActions.getUserAPI());
   }, []);
+
   return (
     <React.Fragment>
       <GlobalStyle />

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
@@ -14,7 +16,8 @@ const initialState = {
 const getProfileAPI = userId => {
   return function (dispatch, getState, { history }) {
     apis.getProfile(userId).then(res => {
-      const user = res.data.data[0];
+      console.log(res);
+      const user = res.data.data.user[0];
       dispatch(getProfile(user));
     });
   };

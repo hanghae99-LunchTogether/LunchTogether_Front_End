@@ -1,10 +1,12 @@
+/* eslint-disable */
+
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
 
-const LunchCreateUpdate = (props) => {
+const LunchCreateUpdate = props => {
   const dispatch = useDispatch();
 
   const post_list = useSelector(state => state.lunch.lunchList);
@@ -43,10 +45,12 @@ const LunchCreateUpdate = (props) => {
   //해시태그 엔터키 작동
   const onKeyPress = e => {
     if (e.key === "Enter") {
-      const hashtag = [{
-        id: nextId.current,
-        text: hashtagInput,
-      }];
+      const hashtag = [
+        {
+          id: nextId.current,
+          text: hashtagInput,
+        },
+      ];
       setHashtags([...hashtags, hashtag]);
 
       setHashtagInput("");
@@ -55,10 +59,10 @@ const LunchCreateUpdate = (props) => {
     }
   };
 
-  const onRemove = (id) => {
+  const onRemove = id => {
     // window.alert("와우 삭제 가능?")
     setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
-  }
+  };
 
   const { history } = props;
 
