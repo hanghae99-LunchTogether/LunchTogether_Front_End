@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import "react-datepicker/dist/react-datepicker.css"; // css import 
 import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
+import StaticDatePickerLandscape from '../components/DateTimePicker';
+import Calendar from '../components/DatePicker';
 
 const LunchCreateUpdate = (props) => {
   const dispatch = useDispatch();
@@ -111,6 +114,7 @@ const LunchCreateUpdate = (props) => {
   };
 
   return (
+    <>
     <CreateLunchBox>
       <HashtagList hashtags={hashtags} onRemove={onRemove} />
       <label>
@@ -190,6 +194,9 @@ const LunchCreateUpdate = (props) => {
         )}
       </div>
     </CreateLunchBox>
+    <StaticDatePickerLandscape/>
+    <Calendar />
+    </>
   );
 };
 
