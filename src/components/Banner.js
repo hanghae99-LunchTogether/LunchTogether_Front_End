@@ -5,23 +5,19 @@ import { Image } from "../elements";
 const Banner = props => {
   return (
     <>
-      <BannerWrapper>
-        <Image shape="rectangle" />
-      </BannerWrapper>
+      <BannerImage src="https://cdn-images-1.medium.com/fit/t/1600/480/1*fGeFJt_t-P7lQPLyYI2YQQ.png" />
     </>
   );
 };
 
 export default Banner;
 
-const BannerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const BannerImage = styled.image`
   margin: 0 auto;
-  width: 65%;
   max-height: 500px;
-  max-width: 1050px;
-  box-sizing: border-box;
-  border-radius: 10px;
+  width: 100%;
+  background-image: url("${props => props.src}");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top; ;
 `;

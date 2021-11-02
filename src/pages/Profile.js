@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../redux/modules/profile";
 import { Image } from "../elements";
 import { apis } from "../shared/axios";
+import { history } from "../redux/configureStore";
 
 const Profile = props => {
   const [user, setUser] = useState(null);
-  const dispatch = useDispatch();
   const userId = props.match.params.id;
   console.log(user);
 
@@ -25,7 +25,7 @@ const Profile = props => {
       {user && (
         <Wrapper>
           <ProfileInfoWarpper>
-            <ImageCircle />
+            <ImageCircle src="https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg" />
             <NickName>Deokhyun Kim</NickName>
             <p style={{ color: "#696969", lineHeight: "2", marginTop: "10px" }}>
               Frontend Developer
@@ -57,6 +57,9 @@ const Profile = props => {
               <div style={{ fontWeight: "600" }}>ESTJ</div>
             </LunchIndex>
             <LunchBtn>Get Lunch</LunchBtn>
+            <UpdateBtn onClick={() => history.push("/profileupdate")}>
+              Update Profile
+            </UpdateBtn>
           </ProfileInfoWarpper>
           <ProfileHistoryWrapper> 점심약속 영역</ProfileHistoryWrapper>
         </Wrapper>
@@ -70,6 +73,7 @@ const Wrapper = styled.div`
   max-width: 1024px;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -100,15 +104,15 @@ const ProfileInfoWarpper = styled.div`
   }
 `;
 
-const ImageCircle = styled.div`
+const ImageCircle = styled.image`
   width: 100px;
   height: 100px;
   border-radius: 100px;
 
-  background-image: url("https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg");
+  background-image: url("${props => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top;
+  background-position: top; ;
 `;
 
 const NickName = styled.p`
@@ -147,6 +151,23 @@ const LunchBtn = styled.button`
   font-weight: bold;
   background: blue;
   cursor: pointer;
+  width: 90%;
+`;
+
+const UpdateBtn = styled.button`
+  cursor: pointer;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 0px;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+  max-width: 650px;
+  color: white;
+  font-weight: bold;
+  background: blue;
+  cursor: pointer;
+  width: 90%;
 `;
 
 const LunchIndex = styled.div`
