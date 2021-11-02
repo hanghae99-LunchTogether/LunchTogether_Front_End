@@ -19,7 +19,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
-import CommentWrite from "../components/CommentWrite";
 import MapContainer from "../components/MapContainer";
 import SearchPlace from "../components/SearchPlace";
 import MemberList from "../pages/MemberList";
@@ -58,7 +57,6 @@ function App() {
             exact
             component={LunchCreateUpdate}
           ></Route>
-          <Route path="/comment" exact component={CommentWrite}></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/map" exact component={SearchPlace}></Route>

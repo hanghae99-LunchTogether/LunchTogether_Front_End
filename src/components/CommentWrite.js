@@ -8,37 +8,37 @@ import CommentList from "./CommentList";
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
 
-  // const user = useSelector((state) => state.user);
-  // const isLoggedIn = user.isLoggedIn;
-  // console.log("유저", user);
-
-  //임시 lunchid받아오기
-  // const lunchId = useSelector((state) => state.lunch.lunchList[0].lunchid);
-
-  const { lunchId } = props;
+  const url = useSelector((state) => state.router);
+  const lunchId = url.location.pathname.slice(11);
+  const user = useSelector((state) => state.user);
+  const isLoggedIn = user.isLoggedIn;
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     dispatch(commentAction.getCommentAPI(lunchId));
   }, []);
-
-  const [content, setContent] = useState("");
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
   const onClickWrite = () => {
-    // if (content === "") {
-    //   window.alert("내용을 입력해주세요.");
-    // }
-    // if (isLoggedIn === false) {
-    //   window.alert("로그인 후 이용해 주세요.");
-    //   history.push("/login");
-    // }
+    const comment = {
+      lunchId: lunchId,
+      content: content,
+    };
 
-    dispatch(commentAction.addCommentAPI(content));
+    if (content === "") {
+      window.alert("내용을 입력해주세요.");
+    }
+    if (isLoggedIn === false) {
+      window.alert("로그인 후 이용해 주세요.");
+      history.push("/login");
+    }
+
+    dispatch(commentAction.addCommentAPI(comment));
     dispatch(commentAction.getCommentAPI(lunchId));
-    // setContent("");
+    setContent("");
   };
 
   return (

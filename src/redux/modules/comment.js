@@ -24,12 +24,12 @@ const initialState = {
 //middleware
 const getCommentAPI = (lunchId) => {
   return function (dispatch, getState, { history }) {
-    console.log("연결돼라");
+    console.log("불러오기연결");
 
     apis
       .getComment(lunchId)
       .then((res) => {
-        // dispatch(getComment(commentList));
+        dispatch(getComment(res.data));
       })
       .catch((e) => {
         alert("댓글을 불러오는데 실패하였습니다.");
@@ -39,11 +39,11 @@ const getCommentAPI = (lunchId) => {
 
 const addCommentAPI = (comment) => {
   return function (dispatch, getState, { history }) {
-    console.log("연결완료");
+    console.log("등록연결");
     apis
       .addComment(comment)
       .then((res) => {
-        dispatch(getCommentAPI(comment));
+        dispatch(getCommentAPI(comment.lunchId));
       })
       .catch((e) => {
         alert("댓글을 작성하는데 실패하였습니다.");
@@ -88,6 +88,7 @@ export default handleActions(
 
 //action creator export
 const actionCreators = {
+  getComment,
   addCommentAPI,
   getCommentAPI,
   deleteCommentAPI,
