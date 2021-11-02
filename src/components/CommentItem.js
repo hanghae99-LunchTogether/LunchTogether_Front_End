@@ -1,7 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
+  const commentList = useSelector((state) => state.comment.commentList.comment);
+  console.log("자자자", commentList);
+  const { index } = props;
+  const commentIndex = commentList[index];
+
   return (
     <React.Fragment>
       <Container>
@@ -9,8 +16,8 @@ const CommentItem = (props) => {
           <UserInfo>
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
-              <UserName>닉네임</UserName>
-              <Time>시간</Time>
+              <UserName>{commentIndex.user.nickname}</UserName>
+              <Time>{commentIndex.time}</Time>
             </div>
           </UserInfo>
           <Edit>
@@ -18,7 +25,7 @@ const CommentItem = (props) => {
             <span>삭제</span>
           </Edit>
         </User>
-        <Content>내용</Content>
+        <Content>{commentIndex.comment}</Content>
       </Container>
     </React.Fragment>
   );

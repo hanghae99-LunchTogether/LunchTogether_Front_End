@@ -64,19 +64,19 @@ export const apis = {
 
   // 댓글 조회
   getComment: (lunchId) =>
-    instance.get(`/comment${lunchId}`, {
+    instance.get(`/comment/${lunchId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //댓글 추가
   addComment: (comment) =>
-    instance.post(`/comment${lunchId}`, comment, {
+    instance.post(`/comment/${lunchId}`, comment, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   // 댓글 삭제
   deleteComment: (commentId) =>
-    instance.delete(`/comment${commentId}`, commentId, {
+    instance.delete(`/comment/${commentId}`, commentId, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 

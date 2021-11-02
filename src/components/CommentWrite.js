@@ -8,11 +8,8 @@ import CommentList from "./CommentList";
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
 
-  // const lunchId = props.match.params.lunchid;
-  // console.log("?", lunchId);
   const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
-  console.log("아이디", lunchId);
   const user = useSelector((state) => state.user);
   const isLoggedIn = user.isLoggedIn;
   const [content, setContent] = useState("");

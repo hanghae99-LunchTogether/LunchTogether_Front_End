@@ -27,8 +27,7 @@ const getCommentAPI = (lunchId) => {
     apis
       .getComment(lunchId)
       .then((res) => {
-        console.log("불러오기연결성공????", res);
-        // dispatch(getComment(res.data));
+        dispatch(getComment(res.data));
       })
       .catch((e) => {
         alert("댓글을 불러오는데 실패하였습니다.");
