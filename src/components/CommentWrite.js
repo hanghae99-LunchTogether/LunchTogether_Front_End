@@ -1,30 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import CommentList from "./CommentList";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
+import { actionCreators as commentAction } from "../redux/modules/comment";
+import CommentList from "./CommentList";
 
 const CommentWrite = (props) => {
+  const dispatch = useDispatch();
+  const commentList = useSelector((state) => state.comment.commentList.comment);
+  const url = useSelector((state) => state.router);
+  const lunchId = url.location.pathname.slice(11);
   const user = useSelector((state) => state.user);
   const isLoggedIn = user.isLoggedIn;
-  // const lunchId =
-  console.log(
-    "이거",
-    useSelector((state) => state)
-  );
-
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    dispatch(commentAction.getCommentAPI(lunchId));
+  }, []);
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
-  console.log(content);
 
   const onClickWrite = () => {
-    // const content ={
-    //   lunchId: lunchId,
-    //   content: content,
-    // }
+    const comment = {
+      lunchId: lunchId,
+      comment: content,
+    };
 
     if (content === "") {
       window.alert("내용을 입력해주세요.");
@@ -33,13 +35,20 @@ const CommentWrite = (props) => {
       window.alert("로그인 후 이용해 주세요.");
       history.push("/login");
     }
+
+    dispatch(commentAction.addCommentAPI(comment));
+    setContent("");
   };
 
   return (
     <React.Fragment>
       <Container>
-        <Count>0개의 댓글</Count>
-        <Input placeholder="댓글을 작성하세요" onChange={onChangeContent} />
+        <Count>{commentList?.length}개의 댓글</Count>
+        <Input
+          placeholder="댓글을 작성하세요"
+          onChange={onChangeContent}
+          value={content}
+        />
         <Button
           onClick={() => {
             onClickWrite();

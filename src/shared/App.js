@@ -60,7 +60,6 @@ function App() {
             exact
             component={LunchCreateUpdate}
           ></Route>
-          <Route path="/comment" exact component={CommentWrite}></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
         </Switch>
