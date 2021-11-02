@@ -22,24 +22,24 @@ const CommentWrite = (props) => {
     setContent(e.target.value);
   };
 
-  const onClickWrite = () => {
-    const comment = {
-      lunchId: lunchId,
-      content: content,
-    };
+  // const onClickWrite = () => {
+  //   const comment = {
+  //     lunchId: lunchId,
+  //     content: content,
+  //   };
 
-    if (content === "") {
-      window.alert("내용을 입력해주세요.");
-    }
-    if (isLoggedIn === false) {
-      window.alert("로그인 후 이용해 주세요.");
-      history.push("/login");
-    }
+  //   if (content === "") {
+  //     window.alert("내용을 입력해주세요.");
+  //   }
+  //   if (isLoggedIn === false) {
+  //     window.alert("로그인 후 이용해 주세요.");
+  //     history.push("/login");
+  //   }
 
-    dispatch(commentAction.addCommentAPI(comment));
-    dispatch(commentAction.getCommentAPI(lunchId));
-    setContent("");
-  };
+  //   dispatch(commentAction.addCommentAPI(comment));
+  //   dispatch(commentAction.getCommentAPI(lunchId));
+  //   setContent("");
+  // };
 
   return (
     <React.Fragment>
@@ -48,7 +48,7 @@ const CommentWrite = (props) => {
         <Input placeholder="댓글을 작성하세요" onChange={onChangeContent} />
         <Button
           onClick={() => {
-            onClickWrite();
+            // onClickWrite();
           }}
         >
           댓글 작성

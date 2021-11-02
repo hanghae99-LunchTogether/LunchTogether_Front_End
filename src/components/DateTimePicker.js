@@ -16,10 +16,10 @@ export default function ResponsiveDateTimePickers() {
         <MobileDateTimePicker
           value={value}
           inputFormat="yyyy/MM/dd hh:mm a"
-          onChange={(newValue) => {
+          onChange={newValue => {
             setValue(newValue);
           }}
-          renderInput={(params) => (
+          renderInput={params => (
             <TextField style={{ margin: "auto", width: "300px" }} {...params} />
           )}
         />

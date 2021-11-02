@@ -24,6 +24,7 @@ const initialState = {
 //middleware
 const getCommentAPI = (lunchId) => {
   return function (dispatch, getState, { history }) {
+    console.log(lunchId);
     apis
       .getComment(lunchId)
       .then((res) => {

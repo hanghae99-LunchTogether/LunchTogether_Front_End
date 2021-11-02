@@ -23,8 +23,8 @@ import MapContainer from "../components/MapContainer";
 import SearchPlace from "../components/SearchPlace";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,34 +37,38 @@ function App() {
     <React.Fragment>
       <GlobalStyle />
       <ConnectedRouter history={history}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Header />
-        <Switch>
-          <Route path="/" exact component={Home}></Route>
-          <Route path="/signup" exact component={Signup}></Route>
-          <Route path="/login" exact component={Login}></Route>
-          <Route path="/profile/:id" exact component={Profile}></Route>
-          <Route path="/profileupdate" exact component={ProfileUpdate}></Route>
-          <Route
-            path="/lunchpost/:lunchid"
-            exact
-            component={LunchDetail}
-          ></Route>
-          <Route
-            path="/lunchregister"
-            exact
-            component={LunchCreateUpdate}
-          ></Route>
-          <Route
-            path="/lunchregister/:lunchid"
-            exact
-            component={LunchCreateUpdate}
-          ></Route>
-          <Route path="/memberlist" exact component={MemberList}></Route>
-          <Route path="/notification" exact component={Notification}></Route>
-          <Route path="/map" exact component={SearchPlace}></Route>
-        </Switch>
-        {/* <Footer /> */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Header />
+          <Switch>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/signup" exact component={Signup}></Route>
+            <Route path="/login" exact component={Login}></Route>
+            <Route path="/profile/:id" exact component={Profile}></Route>
+            <Route
+              path="/profileupdate"
+              exact
+              component={ProfileUpdate}
+            ></Route>
+            <Route
+              path="/lunchpost/:lunchid"
+              exact
+              component={LunchDetail}
+            ></Route>
+            <Route
+              path="/lunchregister"
+              exact
+              component={LunchCreateUpdate}
+            ></Route>
+            <Route
+              path="/lunchregister/:lunchid"
+              exact
+              component={LunchCreateUpdate}
+            ></Route>
+            <Route path="/memberlist" exact component={MemberList}></Route>
+            <Route path="/notification" exact component={Notification}></Route>
+            <Route path="/map" exact component={SearchPlace}></Route>
+          </Switch>
+          {/* <Footer /> */}
         </LocalizationProvider>
       </ConnectedRouter>
     </React.Fragment>
