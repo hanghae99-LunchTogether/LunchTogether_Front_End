@@ -5,15 +5,15 @@ import { history } from "../redux/configureStore";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import CommentList from "./CommentList";
 
-const CommentWrite = (props) => {
+const CommentWrite = props => {
   const dispatch = useDispatch();
 
   // const lunchId = props.match.params.lunchid;
   // console.log("?", lunchId);
-  const url = useSelector((state) => state.router);
+  const url = useSelector(state => state.router);
   const lunchId = url.location.pathname.slice(11);
   console.log("아이디", lunchId);
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const isLoggedIn = user.isLoggedIn;
   const [content, setContent] = useState("");
 
@@ -21,28 +21,28 @@ const CommentWrite = (props) => {
     dispatch(commentAction.getCommentAPI(lunchId));
   }, []);
 
-  const onChangeContent = (e) => {
+  const onChangeContent = e => {
     setContent(e.target.value);
   };
 
-  const onClickWrite = () => {
-    const comment = {
-      lunchId: lunchId,
-      content: content,
-    };
+  // const onClickWrite = () => {
+  //   const comment = {
+  //     lunchId: lunchId,
+  //     content: content,
+  //   };
 
-    if (content === "") {
-      window.alert("내용을 입력해주세요.");
-    }
-    if (isLoggedIn === false) {
-      window.alert("로그인 후 이용해 주세요.");
-      history.push("/login");
-    }
+  //   if (content === "") {
+  //     window.alert("내용을 입력해주세요.");
+  //   }
+  //   if (isLoggedIn === false) {
+  //     window.alert("로그인 후 이용해 주세요.");
+  //     history.push("/login");
+  //   }
 
-    dispatch(commentAction.addCommentAPI(comment));
-    dispatch(commentAction.getCommentAPI(lunchId));
-    setContent("");
-  };
+  //   dispatch(commentAction.addCommentAPI(comment));
+  //   dispatch(commentAction.getCommentAPI(lunchId));
+  //   setContent("");
+  // };
 
   return (
     <React.Fragment>
@@ -51,7 +51,7 @@ const CommentWrite = (props) => {
         <Input placeholder="댓글을 작성하세요" onChange={onChangeContent} />
         <Button
           onClick={() => {
-            onClickWrite();
+            // onClickWrite();
           }}
         >
           댓글 작성

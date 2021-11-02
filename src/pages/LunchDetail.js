@@ -4,17 +4,14 @@ import { useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import CommentWrite from "../components/CommentWrite";
 
-const LunchDetail = (props) => {
+const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector((state) => state);
-  const post_info = useSelector((state) => state.lunch.lunchList);
-  console.log(user_info);
-  console.log(post_info);
+  const user_info = useSelector(state => state);
+  const post_info = useSelector(state => state.lunch.lunchList);
 
   const id = props.match.params.lunchid;
-  console.log(id);
 
   useEffect(() => {
     // 런치 조회

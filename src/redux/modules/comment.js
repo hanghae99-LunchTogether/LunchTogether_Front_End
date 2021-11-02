@@ -8,7 +8,7 @@ const GET_COMMENT = "GET_COMMENT";
 // const DELETE_COMMENT = "DELETE_COMMENT";
 
 //액션생성자
-const getComment = createAction(GET_COMMENT, (commentList) => ({
+const getComment = createAction(GET_COMMENT, commentList => ({
   commentList,
 }));
 // const addComment = createAction(ADD_COMMENT, (comment) => ({ comment }));
@@ -22,15 +22,16 @@ const initialState = {
 };
 
 //middleware
-const getCommentAPI = (lunchId) => {
+const getCommentAPI = lunchId => {
   return function (dispatch, getState, { history }) {
+    console.log(lunchId);
     apis
       .getComment(lunchId)
-      .then((res) => {
+      .then(res => {
         console.log("불러오기연결성공????", res);
         // dispatch(getComment(res.data));
       })
-      .catch((e) => {
+      .catch(e => {
         alert("댓글을 불러오는데 실패하였습니다.");
       });
   };
@@ -68,7 +69,7 @@ const getCommentAPI = (lunchId) => {
 export default handleActions(
   {
     [GET_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.commentList = action.payload.commentList;
       }),
     // [ADD_COMMENT]: (state, action) =>
