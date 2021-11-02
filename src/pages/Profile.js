@@ -7,17 +7,12 @@ import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
 
 const Profile = props => {
-  const [user, setUser] = useState(null);
+  const user = useSelector(state => state.profile.user);
+  const dispatch = useDispatch();
   const userId = props.match.params.id;
-  console.log(user);
-
-  const getUser = async () => {
-    const data = await apis.getProfile(userId);
-    setUser(data.data.data[0]);
-  };
 
   useEffect(() => {
-    getUser();
+    dispatch(profileActions.getProfileAPI(userId));
   }, []);
 
   return (
@@ -57,11 +52,14 @@ const Profile = props => {
               <div style={{ fontWeight: "600" }}>ESTJ</div>
             </LunchIndex>
             <LunchBtn>Get Lunch</LunchBtn>
-            <UpdateBtn onClick={() => history.push("/profileupdate")}>
+            <UpdateBtn onClick={() => history.push(`/profileupdate/${userId}`)}>
               Update Profile
             </UpdateBtn>
           </ProfileInfoWarpper>
-          <ProfileHistoryWrapper> 점심약속 영역</ProfileHistoryWrapper>
+          <ProfileHistoryWrapper>
+            <TabBtn>점심약속</TabBtn>
+            <TabBtn>후기</TabBtn>
+          </ProfileHistoryWrapper>
         </Wrapper>
       )}
     </>
@@ -72,8 +70,8 @@ const Wrapper = styled.div`
   display: flex;
   max-width: 1024px;
   justify-content: center;
-  align-items: center;
   margin: 0 auto;
+  margin-top: 50px;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -87,8 +85,9 @@ const ProfileInfoWarpper = styled.div`
   align-items: center;
   border-radius: 10px;
   box-shadow: 5px 5px 5px 5px #ebecf0;
-  height: 70vh;
+  height: 50vh;
   padding-top: 50px;
+  margin-right: 2rem;
 
   @media only screen and (max-width: 768px) {
     min-width: 400px;
@@ -188,7 +187,13 @@ const ProfileHistoryWrapper = styled.div`
   min-width: 400px;
   height: 70vh;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px #ebecf0;
+`;
+
+const TabBtn = styled.button`
+  background: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
 `;
 
 export default Profile;

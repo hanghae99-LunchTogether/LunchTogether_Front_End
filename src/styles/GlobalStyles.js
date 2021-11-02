@@ -23,8 +23,6 @@ const GlobalStyle = createGlobalStyle`
         text-decoration:none;
         color:inherit;
     }
-
-    
 `;
 
 export default GlobalStyle;
