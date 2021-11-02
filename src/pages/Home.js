@@ -1,8 +1,6 @@
 /* eslint-disable */
 
 import React, { useEffect, useState } from "react";
-import { history } from "../redux/configureStore";
-import Banner from "../components/Banner";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import Lunch from "../components/Lunch";
