@@ -33,6 +33,6 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-let store = (initialStore) => createStore(rootReducer, enhancer);
+let store = initialStore => createStore(rootReducer, enhancer);
 
 export default store();

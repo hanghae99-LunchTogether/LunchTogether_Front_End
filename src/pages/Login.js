@@ -32,6 +32,7 @@ const Login = props => {
   };
 
   const { Kakao } = window;
+  // 밤중이라 챗남기고 갑니다 로그인 덕현님이 말한대로 구현했슴다 근대 테스트한다고 바디에 which값을 넣어주셔야되요 로그인 요청에 카카오 로그인이면 which = 2 로 헤더는 덕현님이 말한대로 authorization : 엑세스 토큰
 
   const loginWithKakao = () => {
     // 카카오 로그인
