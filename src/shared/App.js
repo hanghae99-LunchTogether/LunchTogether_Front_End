@@ -19,8 +19,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { userActions } from "../redux/modules/user";
 import CommentWrite from "../components/CommentWrite";
-import MapContainer from "../components/MapContainer";
-import SearchPlace from "../components/SearchPlace";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
 
@@ -64,7 +62,6 @@ function App() {
           <Route path="/comment" exact component={CommentWrite}></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
-          <Route path="/map" exact component={SearchPlace}></Route>
         </Switch>
         {/* <Footer /> */}
       </ConnectedRouter>

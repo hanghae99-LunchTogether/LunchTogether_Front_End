@@ -5,11 +5,14 @@ import { Image } from "../elements";
 import { useSelector, useDispatch } from "react-redux";
 import { profileActions } from "../redux/modules/profile";
 import { apis } from "../shared/axios";
+import MapContainer from "../components/MapContainer";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
   console.log(userInfo);
   const [image, setImage] = useState(null);
+  const [placeInput, setPlaceInput] = useState("");
+  const [place, setPlace] = useState("");
   const userId = props.match.params.id;
   const dispatch = useDispatch();
 
@@ -32,7 +35,6 @@ const ProfileUpdate = props => {
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
-      // dispatch(profileActions.setPreview(reader.result));
       setImage(reader.result);
     };
   };
@@ -40,9 +42,25 @@ const ProfileUpdate = props => {
   const getProfileData = async () => {
     try {
       const data = await apis.getProfile(userId);
-      console.log(data);
       const user = data.data.data[0];
       setUserInfo(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onSearchKeywordChange = e => {
+    setPlaceInput(e.target.value);
+  };
+
+  const searchPlace = () => {
+    setPlace(placeInput);
+  };
+
+  const onUpdateProfile = async () => {
+    try {
+      const data = await apis.updateProfile(userInfo);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +84,7 @@ const ProfileUpdate = props => {
                 image
                   ? image
                   : "https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg"
+                // : userInfo.imageUrl
               }
             />
             <InputWrapper>
@@ -85,6 +104,15 @@ const ProfileUpdate = props => {
               value={userInfo.nickname}
             ></Input>
           </InputWrapper>
+          <TextAreaWrapper>
+            <Text> Intro</Text>
+            <TextArea
+              style={{}}
+              name="intro"
+              onChange={onChange}
+              value={userInfo.introduction}
+            ></TextArea>
+          </TextAreaWrapper>
           <InputWrapper>
             <Text> MBTI</Text>
             <Input
@@ -93,32 +121,39 @@ const ProfileUpdate = props => {
               value={userInfo.mbti}
             ></Input>
           </InputWrapper>
-          <TextAreaWrapper>
-            <Text> Intro</Text>
-            <TextArea
-              style={{}}
-              name="intro"
-              onChange={onChange}
-              value={userInfo.mbti}
-            ></TextArea>
-          </TextAreaWrapper>
           <InputWrapper>
             <Text> 직무</Text>
             <Input
-              name="mbti"
+              name="company"
               onChange={onChange}
-              value={userInfo.mbti}
+              value={userInfo.company}
             ></Input>
           </InputWrapper>
           <InputWrapper>
-            <Text> 직무</Text>
+            <Text> 약속 장소</Text>
             <Input
-              name="mbti"
+              name="location"
               onChange={onChange}
-              value={userInfo.mbti}
+              value={userInfo.location}
             ></Input>
           </InputWrapper>
-          <UpdateBtn>수정하기</UpdateBtn>
+
+          <InputWrapper>
+            <Text> </Text>
+            <PlaceWrapper>
+              <Text> 장소변경</Text>
+              <Input
+                name="location"
+                onChange={onSearchKeywordChange}
+                value={placeInput}
+                style={{ width: "70%", margin: "0 5%" }}
+              ></Input>
+              <SearchBtn onClick={searchPlace}>검색</SearchBtn>
+            </PlaceWrapper>
+          </InputWrapper>
+
+          <MapContainer searchKeyword={place} />
+          <UpdateBtn onClick={onUpdateProfile}>수정하기</UpdateBtn>
         </Wrapper>
       )}
     </>
@@ -156,7 +191,19 @@ const InputWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 44px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+`;
+
+const PlaceWrapper = styled.div`
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  color: black;
 `;
 
 const Text = styled.p`
@@ -164,11 +211,11 @@ const Text = styled.p`
   white-space: nowrap;
   color: #333333;
   font-size: 1rem;
-  width: 5%;
+  width: 12%;
 `;
 
 const Input = styled.input`
-  width: 30%;
+  width: 50%;
   height: 3rem;
   padding: 15px 10px;
   border: 1px solid #bebebe;
@@ -184,13 +231,12 @@ const TextAreaWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 44px;
-  margin-bottom: 2rem;
-  padding: 2rem 0;
+
+  height: 110px;
 `;
 
 const TextArea = styled.textarea`
-  width: 30%;
+  width: 50%;
   height: 6rem;
   padding: 15px 10px;
   border: 1px solid #bebebe;
@@ -200,9 +246,18 @@ const TextArea = styled.textarea`
   border-radius: 5px;
   color: black;
 `;
+const SearchBtn = styled.button`
+  background-color: black;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  width: 30%;
+  height: 3rem;
+  border-radius: 10px;
+`;
 
 const UpdateBtn = styled.button`
-  width: 35%;
+  width: 60%;
   background-color: black;
   color: white;
   font-size: 1.1rem;
@@ -210,6 +265,7 @@ const UpdateBtn = styled.button`
   height: 3rem;
   border-radius: 10px;
   margin-top: 2rem;
+  margin-bottom: 20rem;
 `;
 
 export default ProfileUpdate;

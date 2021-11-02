@@ -3,10 +3,9 @@ import styled from "styled-components";
 
 const { kakao } = window;
 
-const MapContainer = ({ searchPlace }) => {
+const MapContainer = ({ searchKeyword }) => {
   const [places, setPlaces] = useState([]);
   const [place, setPlace] = useState(null);
-  console.log(place);
 
   const selectPlace = place => {
     setPlace(place);
@@ -28,7 +27,7 @@ const MapContainer = ({ searchPlace }) => {
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
     var ps = new kakao.maps.services.Places();
-    ps.keywordSearch(searchPlace, placesSearchCB);
+    ps.keywordSearch(searchKeyword, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
@@ -66,37 +65,16 @@ const MapContainer = ({ searchPlace }) => {
         selectPlace(place);
       });
     }
-  }, [searchPlace]);
+  }, [searchKeyword]);
 
   return (
     <>
-      <div>만나는 장소</div>
-      <div>
-        장소명: {place ? place.place_name : "만날 장소를 선택해주세요"}{" "}
-      </div>
       <Wrap>
-        <MapWrapper>
-          <div id="myMap" style={{ width: "500px", height: "500px" }}></div>
-        </MapWrapper>
-        <PlaceListWrapper>
-          {places &&
-            places.map((p, idx) => {
-              return (
-                <div active={p.selected} key={idx}>
-                  <p style={p.selected ? { color: "red" } : { color: "blue" }}>
-                    {p.place_name}
-                  </p>
-                  <button
-                    onClick={() => {
-                      selectPlace(p);
-                    }}
-                  >
-                    확인
-                  </button>
-                </div>
-              );
-            })}
-        </PlaceListWrapper>
+        <FakeDiv />
+        <MapWrapper
+          id="myMap"
+          // style={{ width: "420px", height: "420px", borderRadius: "10px" }}
+        ></MapWrapper>
       </Wrap>
     </>
   );
@@ -104,20 +82,18 @@ const MapContainer = ({ searchPlace }) => {
 
 const Wrap = styled.div`
   display: flex;
-  justify-content: center;
   width: 100%;
+  justify-content: center;
+  /* justify-content: center; */
 `;
 
 const MapWrapper = styled.div`
-  margin-right: 5%;
+  width: 50vw;
+  height: 35vh;
+  border-radius: 20px;
 `;
-
-const PlaceListWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  max-height: 500px;
-  overflow: scroll;
+const FakeDiv = styled.div`
+  width: 12%;
 `;
 
 export default MapContainer;
