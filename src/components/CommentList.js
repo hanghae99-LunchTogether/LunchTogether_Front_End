@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import CommentItem from "./CommentItem";
 
 const CommentList = (props) => {
-  // const user = useSelector((state) => state);
   const commentList = useSelector((state) => state.comment.commentList.comment);
 
   return (

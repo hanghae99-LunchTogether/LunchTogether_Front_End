@@ -7,7 +7,7 @@ import CommentList from "./CommentList";
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-
+  const commentList = useSelector((state) => state.comment.commentList.comment);
   const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
   const user = useSelector((state) => state.user);
@@ -22,33 +22,36 @@ const CommentWrite = (props) => {
     setContent(e.target.value);
   };
 
-  // const onClickWrite = () => {
-  //   const comment = {
-  //     lunchId: lunchId,
-  //     content: content,
-  //   };
+  const onClickWrite = () => {
+    const comment = {
+      lunchId: lunchId,
+      comment: content,
+    };
 
-  //   if (content === "") {
-  //     window.alert("내용을 입력해주세요.");
-  //   }
-  //   if (isLoggedIn === false) {
-  //     window.alert("로그인 후 이용해 주세요.");
-  //     history.push("/login");
-  //   }
+    if (content === "") {
+      window.alert("내용을 입력해주세요.");
+    }
+    if (isLoggedIn === false) {
+      window.alert("로그인 후 이용해 주세요.");
+      history.push("/login");
+    }
 
-  //   dispatch(commentAction.addCommentAPI(comment));
-  //   dispatch(commentAction.getCommentAPI(lunchId));
-  //   setContent("");
-  // };
+    dispatch(commentAction.addCommentAPI(comment));
+    setContent("");
+  };
 
   return (
     <React.Fragment>
       <Container>
-        <Count>0개의 댓글</Count>
-        <Input placeholder="댓글을 작성하세요" onChange={onChangeContent} />
+        <Count>{commentList?.length}개의 댓글</Count>
+        <Input
+          placeholder="댓글을 작성하세요"
+          onChange={onChangeContent}
+          value={content}
+        />
         <Button
           onClick={() => {
-            // onClickWrite();
+            onClickWrite();
           }}
         >
           댓글 작성
