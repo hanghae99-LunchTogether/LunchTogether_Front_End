@@ -58,18 +58,22 @@ const ProfileUpdate = props => {
         <Wrapper>
           <MenuTitle>프로필 수정</MenuTitle>
           <ImageWrapper>
-            <Image shape="circle" size="200" value={image} src={image} />
+            <Image
+              shape="circle"
+              size="200"
+              value={image}
+              src={
+                image
+                  ? image
+                  : "https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg"
+              }
+            />
             <InputWrapper>
               <input
                 ref={profileImage}
                 onChange={selectFile}
                 type="file"
                 accept="image/jpeg"
-                src={
-                  image
-                    ? image
-                    : "https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg"
-                }
               />
             </InputWrapper>
           </ImageWrapper>

@@ -69,7 +69,7 @@ export const apis = {
 
   // 댓글 조회
   getComment: lunchId =>
-    instance.get("/comment", lunchId, {
+    instance.get(`/comment/${lunchId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 

@@ -17,7 +17,6 @@ import LunchDetail from "../pages/LunchDetail";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Banner from "../components/Banner";
 import { userActions } from "../redux/modules/user";
 import CommentWrite from "../components/CommentWrite";
 import MapContainer from "../components/MapContainer";
