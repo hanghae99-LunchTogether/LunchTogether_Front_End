@@ -23,6 +23,8 @@ import MapContainer from "../components/MapContainer";
 import SearchPlace from "../components/SearchPlace";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ function App() {
     <React.Fragment>
       <GlobalStyle />
       <ConnectedRouter history={history}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Header />
         <Switch>
           <Route path="/" exact component={Home}></Route>
@@ -62,6 +65,7 @@ function App() {
           <Route path="/map" exact component={SearchPlace}></Route>
         </Switch>
         {/* <Footer /> */}
+        </LocalizationProvider>
       </ConnectedRouter>
     </React.Fragment>
   );
