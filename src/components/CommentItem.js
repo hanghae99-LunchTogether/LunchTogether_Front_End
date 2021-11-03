@@ -1,7 +1,28 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as commentAction } from "../redux/modules/comment";
 
 const CommentItem = (props) => {
+  const dispatch = useDispatch();
+  const commentList = useSelector((state) => state.comment.commentList.comment);
+  const { index } = props;
+  const commentIndex = commentList[index];
+  const commentId = commentIndex.commentid;
+  const url = useSelector((state) => state.router);
+  const lunchId = url.location.pathname.slice(11);
+  // const loginUser = useSelector((state) => state);
+  // const loginUser = useSelector((state) => state.user.user.nickname);
+  // console.log("찾아보자", loginUser);
+
+  const onClickDelete = () => {
+    const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
+
+    if (result) {
+      dispatch(commentAction.deleteCommentAPI(commentId, lunchId));
+    }
+  };
+
   return (
     <React.Fragment>
       <Container>
@@ -9,16 +30,15 @@ const CommentItem = (props) => {
           <UserInfo>
             <img src={"/img/profile.png"} />
             <div style={{ margin: "auto" }}>
-              <UserName>닉에님</UserName>
-              <Time>시간</Time>
+              <UserName>{commentIndex.user.nickname}</UserName>
+              <Time>{commentIndex.time}</Time>
             </div>
           </UserInfo>
           <Edit>
-            <span>수정</span>
-            <span>삭제</span>
+            <span onClick={onClickDelete}>삭제</span>
           </Edit>
         </User>
-        <Content>내용</Content>
+        <Content>{commentIndex.comment}</Content>
       </Container>
     </React.Fragment>
   );

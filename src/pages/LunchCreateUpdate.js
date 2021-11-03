@@ -8,10 +8,10 @@ import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
 import Calendar from "../components/DatePicker";
 
-const LunchCreateUpdate = props => {
+const LunchCreateUpdate = (props) => {
   const dispatch = useDispatch();
 
-  const post_list = useSelector(state => state.lunch.lunchList);
+  const post_list = useSelector((state) => state.lunch.lunchList);
 
   //params가져오기
   const post_id = props.match.params.lunchid;
@@ -19,7 +19,7 @@ const LunchCreateUpdate = props => {
 
   //작성, 수정 페이지 구별
   const _post = is_edit
-    ? post_list.find(p => p.lunchid === Number(post_id))
+    ? post_list.find((p) => p.lunchid === Number(post_id))
     : null;
 
   const [title, setCreateTitle] = React.useState(_post ? _post.title : "");
@@ -57,7 +57,7 @@ const LunchCreateUpdate = props => {
   //해시태그
   const [hashtagInput, setHashtagInput] = useState("");
 
-  const onChangeHash = e => {
+  const onChangeHash = (e) => {
     setHashtagInput(e.target.value);
   };
   const [hashtags, setHashtags] = useState([]);
@@ -65,7 +65,7 @@ const LunchCreateUpdate = props => {
   const nextId = useRef(1);
 
   //해시태그 엔터키 작동
-  const onKeyPress = e => {
+  const onKeyPress = (e) => {
     if (e.key === "Enter") {
       const hashtag = [
         {
@@ -81,10 +81,10 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const onRemove = id => {
+  const onRemove = (id) => {
     // window.alert("와우 삭제 가능?")
 
-    setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
+    setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
   };
 
   const { history } = props;
@@ -93,7 +93,7 @@ const LunchCreateUpdate = props => {
     lunchid: post_id,
     title,
     content,
-    date,
+    // date,
     location,
     membernum,
   };
@@ -108,7 +108,7 @@ const LunchCreateUpdate = props => {
   }, []);
 
   //각 input값 가져오기
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -126,13 +126,13 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const addLunch = e => {
+  const addLunch = (e) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.createLunchAPI(MadeLunch));
   };
 
-  const editLunch = e => {
+  const editLunch = (e) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(lunchActions.updateLunchAPI(MadeLunch));
@@ -153,7 +153,6 @@ const LunchCreateUpdate = props => {
         <HashtagList hashtags={hashtags} onRemove={onRemove} />
         <InputWrap>
           <label>
-            <LabelName>hashtag</LabelName>
             <LunchInput
               name="hashtagInput"
               value={hashtagInput}
@@ -163,6 +162,7 @@ const LunchCreateUpdate = props => {
             />
           </label>
         </InputWrap>
+        <hr />
         <InputWrap>
           <label>
             <LabelName>타이틀</LabelName>
@@ -188,12 +188,12 @@ const LunchCreateUpdate = props => {
         <InputWrap>
           <label>
             <LabelName>약속시간</LabelName>
-            {/* <LunchInput
+            <Calendar
               name="date"
               value={date}
               onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            /> */}
+              setDate={setCreateDate}
+            />
           </label>
         </InputWrap>
         <InputWrap>
@@ -211,12 +211,10 @@ const LunchCreateUpdate = props => {
           <label>
             <LabelName>모집인원</LabelName>
             <MemberNum onChange={onChange} value={membernum} name="membernum">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
+              <Option>1</Option>
+              <Option>2</Option>
+              <Option>3</Option>
+              <Option>4</Option>
             </MemberNum>
           </label>
         </InputWrap>
@@ -227,16 +225,10 @@ const LunchCreateUpdate = props => {
             </Button>
           ) : (
             <Button onClick={addLunch} type="submit">
-              저장하기
+              등록하기
             </Button>
           )}
         </ButtonWrap>
-        <Calendar
-          name="date"
-          value={date}
-          onChange={onChange}
-          setDate={setCreateDate}
-        />
       </CreateLunchBox>
     </>
   );
@@ -247,11 +239,11 @@ const CreateLunchBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   width: 33.33vw;
   min-width: 350px;
-  margin: auto;
-  // background-color: #ffad60;
+  max-width: 1024px;
+  margin: 30px auto;
+  box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
 const LunchPageName = styled.h1`
@@ -300,11 +292,14 @@ const MemberNum = styled.select`
   width: 100%;
   padding: 11px;
   border: 2px solid #dadada;
-  border-radius: 10px;
+  border-radius: 5px;
 `;
+
+const Option = styled.option``;
 
 const ButtonWrap = styled.div`
   width: 40%;
+  margin: 30px;
 `;
 
 const Button = styled.button`
@@ -314,6 +309,9 @@ const Button = styled.button`
   width: 100%;
   border-radius: 20px;
   border: none;
+  &:hover {
+    background-color: #204969;
+  }
 `;
 
 export default LunchCreateUpdate;

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { getYear, getMonth } from "date-fns"; // getYear, getMonth
 import DatePicker, { registerLocale } from "react-datepicker"; // 한국어적용
 import ko from "date-fns/locale/ko"; // 한국어적용
 registerLocale("ko", ko); // 한국어적용
 const _ = require("lodash");
 
-const Calendar = props => {
+const Calendar = (props) => {
   const { setDate } = props;
   const [startDate, setStartDate] = useState(new Date());
   setDate(startDate);
@@ -26,7 +29,7 @@ const Calendar = props => {
   ];
 
   return (
-    <DatePicker
+    <SelectDate
       renderCustomHeader={({
         date,
         changeYear,
@@ -38,50 +41,75 @@ const Calendar = props => {
       }) => (
         <div
           style={{
-            width: "300px",
-            margin: 10,
+            width: "330px",
+            margin: "10px auto",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "space-evenly",
           }}
         >
-          <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-            {"<"}
-          </button>
-          <select
-            value={getYear(date)}
-            onChange={({ target: { value } }) => changeYear(value)}
-          >
-            {years.map(option => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          <ArrowBtn onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+            <NavigateBeforeIcon/>
+          </ArrowBtn>
+          <div>
+            <YmSelecter
+              value={getYear(date)}
+              onChange={({ target: { value } }) => changeYear(value)}
+            >
+              {years.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </YmSelecter>
 
-          <select
-            value={months[getMonth(date)]}
-            onChange={({ target: { value } }) =>
-              changeMonth(months.indexOf(value))
-            }
-          >
-            {months.map(option => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+            <YmSelecter
+              value={months[getMonth(date)]}
+              onChange={({ target: { value } }) =>
+                changeMonth(months.indexOf(value))
+              }
+            >
+              {months.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </YmSelecter>
+          </div>
 
-          <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-            {">"}
-          </button>
+          <ArrowBtn onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+            <NavigateNextIcon />
+          </ArrowBtn>
         </div>
       )}
       selected={startDate}
-      dateFormat={"yyyy-MM-dd"}
+      minDate={new Date()}
       locale={ko}
-      onChange={date => setStartDate(date)}
+      onChange={(date) => setStartDate(date)}
+      inline
+      // dateFormat="yyyy-MM-dd"
+      timeInputLabel="Time:"
+      dateFormat="yyyy-MM-dd h:mm"
+      showTimeInput
     />
   );
 };
+
+const SelectDate = styled(DatePicker)`
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #dadada;
+  border-radius: 5px;
+`;
+
+const ArrowBtn = styled.button`
+  border: none;
+`;
+
+const YmSelecter = styled.select`
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 0px 5px;
+`;
 
 export default Calendar;

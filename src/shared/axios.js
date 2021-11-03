@@ -78,13 +78,13 @@ export const apis = {
 
   //댓글 추가
   addComment: comment =>
-    instance.post("/comment", comment, {
+    instance.post(`/comment/${comment.lunchId}`, comment, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   // 댓글 삭제
-  deleteComment: commnetId =>
-    instance.delete("/comment", commentId, {
+  deleteComment: commentId =>
+    instance.delete(`/comment/${commentId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
