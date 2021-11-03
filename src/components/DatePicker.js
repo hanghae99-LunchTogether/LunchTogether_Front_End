@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+// import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+// import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { getYear, getMonth } from "date-fns"; // getYear, getMonth
 import DatePicker, { registerLocale } from "react-datepicker"; // 한국어적용
 import ko from "date-fns/locale/ko"; // 한국어적용
@@ -48,7 +48,7 @@ const Calendar = (props) => {
           }}
         >
           <ArrowBtn onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-            <NavigateBeforeIcon/>
+            {/* <NavigateBeforeIcon /> */}
           </ArrowBtn>
           <div>
             <YmSelecter
@@ -77,7 +77,7 @@ const Calendar = (props) => {
           </div>
 
           <ArrowBtn onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-            <NavigateNextIcon />
+            {/* <NavigateNextIcon /> */}
           </ArrowBtn>
         </div>
       )}
