@@ -10,19 +10,20 @@ import { Image } from "../elements";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import { apis } from "../shared/axios";
+import MapContainer from '../components/MapContainer';
 
 const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
   const user_info = useSelector(state => state);
-  const post_info = useSelector(state => state);
+  console.log(user_info);
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
-  console.log(post_info);
+
   const lunchId = props.match.params.lunchid;
 
   const [lunch, setLunch] = useState("null");
-
+  console.log(lunch);
   const getLunch = async () => {
     const data = await apis.getOneLunch(lunchId);
     const lunchData = data.data.data.lunch;
@@ -32,10 +33,11 @@ const LunchDetail = props => {
   useEffect(() => {
     getLunch();
   }, []);
+
   return (
     <>
       <LunchDetailBox>
-        <Title>하이디라오 강남점에서 점심 같이 먹어요👀</Title>
+        <Title>{lunch.title}</Title>
         <p style={{ fontWeight: "bold" }}>작성자</p>
         <UserInfoBox>
           <Image
@@ -66,8 +68,7 @@ const LunchDetail = props => {
           <label>
             <LabelName>설명</LabelName>
             <DetailDesc>
-              마라탕 같이 드실 분 구해요. 저희 회사 분들은 매운걸 못 드시네요
-              같이 점심 드실분?
+              {lunch.content}
             </DetailDesc>
           </label>
         </InfoWrap>
@@ -75,7 +76,7 @@ const LunchDetail = props => {
           <label>
             <LabelName>약속 날짜/시간</LabelName>
             <DetailInfo>
-              2021년 12월31일 (수) 12시 30분~13시 30분(1시간)
+              {lunch.date}
             </DetailInfo>
           </label>
         </InfoWrap>
@@ -85,6 +86,7 @@ const LunchDetail = props => {
             <DetailInfo>서울특별시 서초구 서초동 서초대로77길 54</DetailInfo>
           </label>
         </InfoWrap>
+            <MapContainer styled/>
         <MemberAndButtonWrap>
           <MemberNum>
             <MemberNumLeft>
@@ -97,7 +99,7 @@ const LunchDetail = props => {
               >
                 모집인원
               </p>
-              <span style={{ fontSize: "12px", color: "#a2a9af" }}>2/4 명</span>
+              <span style={{ fontSize: "12px", color: "#a2a9af" }}>{lunch.membernum}/4 명</span>
             </MemberNumLeft>
             <AvatarGroup max={4}>
               <Avatar
