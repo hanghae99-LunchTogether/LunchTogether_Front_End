@@ -6,6 +6,7 @@ import styled from "styled-components";
 const { kakao } = window;
 
 const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
+  console.log(userInfo);
   const selectPlace = place => {
     // setPlaces(
     //   places.map(p =>
@@ -25,6 +26,7 @@ const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
     var ps = new kakao.maps.services.Places();
+    // displayMarker(userInfo.location = placesSearchCB);
     ps.keywordSearch(searchKeyword, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
@@ -47,6 +49,7 @@ const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
     }
 
     function displayMarker(place) {
+      console.log(place);
       var marker = new kakao.maps.Marker({
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x),

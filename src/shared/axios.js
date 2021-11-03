@@ -65,8 +65,8 @@ export const apis = {
       header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  updateProfile: profile =>
-    instance.patch("/myprofile", profile, {
+  updateProfile: (profile, image) =>
+    instance.patch("/myprofile", (profile, image), {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 

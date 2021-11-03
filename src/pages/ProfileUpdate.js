@@ -12,7 +12,8 @@ import { history } from "../redux/configureStore";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
-  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [uploadImage, setUploadImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
   const [places, setPlaces] = useState([]);
 
@@ -41,16 +42,12 @@ const ProfileUpdate = props => {
     formData.append("image", file);
     console.log(formData);
 
-    setUserInfo({
-      ...userInfo,
-      image: "받아랏",
-    });
-    console.log(userInfo);
+    setUploadImage(formData);
 
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
-      setImage(reader.result);
+      setPreview(reader.result);
     };
   };
 
@@ -75,7 +72,7 @@ const ProfileUpdate = props => {
   const onUpdateProfile = async () => {
     console.log(userInfo, "업데이트직전");
     try {
-      const data = await apis.updateProfile(userInfo);
+      const data = await apis.updateProfile(userInfo, uploadImage);
       history.push(`/profile/${userId}`);
     } catch (error) {
       console.log(error.response);
@@ -95,9 +92,8 @@ const ProfileUpdate = props => {
             <Image
               shape="circle"
               size="200"
-              value={image}
               src={
-                image ? image : userInfo.image
+                preview ? preview : userInfo.image
                 // : userInfo.imageUrl
               }
             />
