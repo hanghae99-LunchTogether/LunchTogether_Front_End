@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -5,12 +7,12 @@ import { history } from "../redux/configureStore";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import CommentList from "./CommentList";
 
-const CommentWrite = (props) => {
+const CommentWrite = props => {
   const dispatch = useDispatch();
-  const commentList = useSelector((state) => state.comment.commentList.comment);
-  const url = useSelector((state) => state.router);
+  const commentList = useSelector(state => state.comment.commentList.comment);
+  const url = useSelector(state => state.router);
   const lunchId = url.location.pathname.slice(11);
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const isLoggedIn = user.isLoggedIn;
   const [content, setContent] = useState("");
 
@@ -18,7 +20,7 @@ const CommentWrite = (props) => {
     dispatch(commentAction.getCommentAPI(lunchId));
   }, []);
 
-  const onChangeContent = (e) => {
+  const onChangeContent = e => {
     setContent(e.target.value);
   };
 
@@ -64,8 +66,6 @@ const CommentWrite = (props) => {
 
 const Container = styled.div`
   box-sizing: border-box;
-  max-width: 768px;
-  min-width: 452px;
   width: 100%;
   height: 200px;
   margin: 0 auto 3rem auto;
