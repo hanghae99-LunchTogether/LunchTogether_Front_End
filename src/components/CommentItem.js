@@ -1,15 +1,17 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 
-const CommentItem = (props) => {
+const CommentItem = props => {
   const dispatch = useDispatch();
-  const commentList = useSelector((state) => state.comment.commentList.comment);
+  const commentList = useSelector(state => state.comment.commentList.comment);
   const { index } = props;
   const commentIndex = commentList[index];
   const commentId = commentIndex.commentid;
-  const url = useSelector((state) => state.router);
+  const url = useSelector(state => state.router);
   const lunchId = url.location.pathname.slice(11);
   // const loginUser = useSelector((state) => state);
   // const loginUser = useSelector((state) => state.user.user.nickname);

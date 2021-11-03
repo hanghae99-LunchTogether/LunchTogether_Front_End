@@ -1,25 +1,22 @@
 /* eslint-disable */
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import styled from "styled-components";
 import { Image } from "../elements";
 
-import { useSelector, useDispatch } from "react-redux";
-import { profileActions } from "../redux/modules/profile";
+import { useSelector } from "react-redux";
 import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
-  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [uploadImage, setUploadImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
-  const [places, setPlaces] = useState([]);
-
-  const [place, setPlace] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [place, setPlace] = useState(null);
   const userId = props.match.params.id;
-  const dispatch = useDispatch();
 
   const onChange = e => {
     const {
@@ -36,21 +33,12 @@ const ProfileUpdate = props => {
   const selectFile = () => {
     const reader = new FileReader();
     const file = profileImage.current.files[0];
-
     const formData = new FormData();
     formData.append("image", file);
-    console.log(formData);
-
-    setUserInfo({
-      ...userInfo,
-      image: "받아랏",
-    });
-    console.log(userInfo);
-
+    setUploadImage(formData);
     reader.readAsDataURL(file);
-
     reader.onloadend = () => {
-      setImage(reader.result);
+      setPreview(reader.result);
     };
   };
 
@@ -59,6 +47,7 @@ const ProfileUpdate = props => {
       const data = await apis.getProfile(userId);
       const user = data.data.data.user[0];
       setUserInfo(user);
+      setUploadImage(user.image);
     } catch (error) {
       console.log(error);
     }
@@ -72,10 +61,18 @@ const ProfileUpdate = props => {
     setSearchKeyword(placeInput);
   };
 
+  console.log(userInfo);
+
+  // const place = useSelector(state => state.place.place);
+
   const onUpdateProfile = async () => {
-    console.log(userInfo, "업데이트직전");
+    setUserInfo({
+      ...userInfo,
+      location: place,
+    });
     try {
-      const data = await apis.updateProfile(userInfo);
+      console.log(userInfo, "호출 직전");
+      const data = await apis.updateProfile(userInfo, uploadImage);
       history.push(`/profile/${userId}`);
     } catch (error) {
       console.log(error.response);
@@ -95,9 +92,8 @@ const ProfileUpdate = props => {
             <Image
               shape="circle"
               size="200"
-              value={image}
               src={
-                image ? image : userInfo.image
+                preview ? preview : userInfo.image
                 // : userInfo.imageUrl
               }
             />
@@ -156,11 +152,8 @@ const ProfileUpdate = props => {
             <Input
               name="location"
               onChange={onChange}
-              value={
-                userInfo.location
-                  ? userInfo.location.place_name
-                  : "장소를 선택해주세요"
-              }
+              defaultValue={userInfo.location && userInfo.location}
+              value={place && place.place_name}
             ></Input>
           </InputWrapper>
 
@@ -178,12 +171,7 @@ const ProfileUpdate = props => {
             </PlaceWrapper>
           </InputWrapper>
 
-          <MapContainer
-            searchKeyword={searchKeyword}
-            setPlace={setPlace}
-            userInfo={userInfo}
-            setUserInfo={setUserInfo}
-          />
+          <MapContainer searchKeyword={searchKeyword} setPlace={setPlace} />
           <UpdateBtn onClick={onUpdateProfile}>수정하기</UpdateBtn>
         </Wrapper>
       )}

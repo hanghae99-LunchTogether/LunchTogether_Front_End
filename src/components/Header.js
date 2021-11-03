@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import styled from "styled-components";
@@ -10,8 +10,6 @@ import MobaileNav from "./MobileNav";
 const Header = props => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.user);
-  const token = localStorage.getItem("token");
-  console.log(user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -40,9 +38,9 @@ const Header = props => {
                 </p>
                 <button
                   style={{ padding: "10px" }}
-                  onClick={() => history.push("/map")}
+                  onClick={() => history.push(`/lunchregister`)}
                 >
-                  맵
+                  점약만들기
                 </button>
                 <button
                   style={{ padding: "10px" }}

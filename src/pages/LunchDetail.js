@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+/* eslint-disable */
+
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -7,20 +9,28 @@ import CommentWrite from "../components/CommentWrite";
 import { Image } from "../elements";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import { apis } from "../shared/axios";
 
-const LunchDetail = (props) => {
+const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector((state) => state);
-  const post_info = useSelector((state) => state);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const user_info = useSelector(state => state);
+  const post_info = useSelector(state => state);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   console.log(post_info);
-  const Post_id = props.match.params.lunchid;
+  const lunchId = props.match.params.lunchid;
+
+  const [lunch, setLunch] = useState("null");
+
+  const getLunch = async () => {
+    const data = await apis.getOneLunch(lunchId);
+    const lunchData = data.data.data.lunch;
+    setLunch(lunchData);
+  };
 
   useEffect(() => {
-    // 런치 조회
-    dispatch(lunchActions.getOneLunchAPI(Post_id));
+    getLunch();
   }, []);
   return (
     <>
@@ -79,13 +89,15 @@ const LunchDetail = (props) => {
           <MemberNum>
             <MemberNumLeft>
               <p
-                style={{ fontSize: "12px", fontWeight: "bold", margin: "5px 0px" }}
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  margin: "5px 0px",
+                }}
               >
                 모집인원
               </p>
-              <span style={{ fontSize: "12px", color: "#a2a9af" }}>
-                2/4 명
-              </span>
+              <span style={{ fontSize: "12px", color: "#a2a9af" }}>2/4 명</span>
             </MemberNumLeft>
             <AvatarGroup max={4}>
               <Avatar
