@@ -7,12 +7,14 @@ import { createAction, handleActions } from "redux-actions";
 import { apis } from "../../shared/axios";
 
 //action
+const GET_ONE_LUNCH = "lunch/GET_ONE_LUNCH";
 const CREATE_LUNCH = "lunch/CREATE_LUNCH";
 const UPDATE_LUNCH = "lunch/UPDATE_LUNCH";
 const DELETE_LUNCH = "lunch/DELETE_LUNCH";
 const GET_LUNCHLIST_MAIN = "lunch/GET_LUNCHLIST_MAIN";
 
 //action creater
+const getOneLunch = createAction(GET_ONE_LUNCH, (lunch) => ({lunch}));
 const createLunch = createAction(CREATE_LUNCH, (lunch) => ({ lunch }));
 const updateLunch = createAction(UPDATE_LUNCH, (lunch) => ({ lunch }));
 const deleteLunch = createAction(DELETE_LUNCH, (lunch) => ({ lunch }));
@@ -23,17 +25,7 @@ const getLunchListMain = createAction(GET_LUNCHLIST_MAIN, (lunchList) => ({
 //initialState
 const initialState = {
   lunchListMain: [],
-  lunchList: [
-    {
-      lunchid: 0,
-      title: "하이",
-      content: "하이하이",
-      date: "2021-10-02",
-      location: "서울",
-      time: "12:00 am",
-      membernum: 3,
-    },
-  ],
+  lunchList: [],
 };
 
 //Middleware
@@ -44,7 +36,8 @@ export const getOneLunchAPI = (id) => {
     apis
       .getOneLunch(id)
       .then((res) => {
-        console.log("게시글을 불러오는데 성공?", res);
+        console.log('게시글을 불러오는데 성공?', res.data)
+        distpatch(getOneLunch(res.data.data.lunch))
       })
       .catch((error) => {
         console.log(error.response);
@@ -59,7 +52,7 @@ export const createLunchAPI = (_lunch) => {
       .createLunch(_lunch)
       .then((res) => {
         console.log(res.data);
-        dispatch(createLunch(res.data.data.lunch));
+        dispatch(createLunch(res.data.data));
         // history.push("/");
       })
       .catch((error) => {
@@ -114,6 +107,13 @@ export const getLunchListMainAPI = () => {
 //reducer
 export default handleActions(
   {
+    [GET_ONE_LUNCH]: (state, action) =>
+    produce(state, (draft) => {
+      draft.lunchList = action.payload.lunchList;
+      console.log('GET_ONE_LUNCH');
+      console.log(action.payload);
+    }),
+
     [CREATE_LUNCH]: (state, action) =>
       produce(state, (draft) => {
         draft.lunchList.push(action.payload.lunch);

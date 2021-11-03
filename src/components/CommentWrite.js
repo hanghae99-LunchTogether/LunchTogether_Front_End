@@ -64,8 +64,6 @@ const CommentWrite = (props) => {
 
 const Container = styled.div`
   box-sizing: border-box;
-  max-width: 768px;
-  min-width: 452px;
   width: 100%;
   height: 200px;
   margin: 0 auto 3rem auto;

@@ -48,8 +48,6 @@ const Container = styled.div`
   margin: 2.5rem;
   box-sizing: border-box;
   width: 100%;
-  max-width: 768px;
-  min-width: 452px;
   margin: auto;
   border-bottom: 1px solid rgb(233, 236, 239);
   padding: 1.5rem 0 1.5rem 0;
