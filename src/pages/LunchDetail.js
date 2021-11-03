@@ -24,7 +24,7 @@ const LunchDetail = props => {
         <p>작성자</p>
         <p>설명</p>
         <p>약속 날짜/시간</p>
-        <p>음식점 위치</p>
+        <p>음식점 위치???</p>
       </div>
       <CommentWrite></CommentWrite>
     </>
