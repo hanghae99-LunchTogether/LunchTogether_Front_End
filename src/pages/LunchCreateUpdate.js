@@ -94,7 +94,7 @@ const LunchCreateUpdate = (props) => {
     lunchid: post_id,
     title,
     content,
-    date,
+    // date,
     location,
     membernum,
   };
@@ -154,7 +154,6 @@ const LunchCreateUpdate = (props) => {
         <HashtagList hashtags={hashtags} onRemove={onRemove} />
         <InputWrap>
           <label>
-            <LabelName>hashtag</LabelName>
             <LunchInput
               name="hashtagInput"
               value={hashtagInput}
@@ -164,6 +163,7 @@ const LunchCreateUpdate = (props) => {
             />
           </label>
         </InputWrap>
+        <hr />
         <InputWrap>
           <label>
             <LabelName>타이틀</LabelName>
@@ -189,12 +189,6 @@ const LunchCreateUpdate = (props) => {
         <InputWrap>
           <label>
             <LabelName>약속시간</LabelName>
-            {/* <LunchInput
-              name="date"
-              value={date}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            /> */}
             <Calendar
               name="date"
               value={date}
@@ -206,7 +200,7 @@ const LunchCreateUpdate = (props) => {
         <InputWrap>
           <label>
             <LabelName>
-              <FmdGoodIcon style={{ fontSize: "small", color: "red"}} /> 만나는 장소
+              만나는 장소
             </LabelName>
             <LunchInput
               name="location"
@@ -248,12 +242,11 @@ const CreateLunchBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // height: 100vh;
   width: 33.33vw;
   min-width: 350px;
   max-width: 1024px;
-  margin: auto;
-  // background-color: #ffad60;
+  margin: 30px auto;
+  box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
 const LunchPageName = styled.h1`
@@ -305,9 +298,7 @@ const MemberNum = styled.select`
   border-radius: 5px;
 `;
 
-const Option = styled.option`
-  
-`;
+const Option = styled.option``;
 
 const ButtonWrap = styled.div`
   width: 40%;
