@@ -15,7 +15,6 @@ const ProfileUpdate = props => {
   const [image, setImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
   const [places, setPlaces] = useState([]);
-  console.log(userInfo);
 
   const [place, setPlace] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -39,13 +38,14 @@ const ProfileUpdate = props => {
     const file = profileImage.current.files[0];
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("image", file);
     console.log(formData);
 
     setUserInfo({
       ...userInfo,
-      image: formData,
+      image: "받아랏",
     });
+    console.log(userInfo);
 
     reader.readAsDataURL(file);
 
@@ -73,9 +73,9 @@ const ProfileUpdate = props => {
   };
 
   const onUpdateProfile = async () => {
+    console.log(userInfo, "업데이트직전");
     try {
       const data = await apis.updateProfile(userInfo);
-      console.log(data);
       history.push(`/profile/${userId}`);
     } catch (error) {
       console.log(error.response);
@@ -97,9 +97,7 @@ const ProfileUpdate = props => {
               size="200"
               value={image}
               src={
-                image
-                  ? image
-                  : "https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg"
+                image ? image : userInfo.image
                 // : userInfo.imageUrl
               }
             />
@@ -108,7 +106,7 @@ const ProfileUpdate = props => {
                 ref={profileImage}
                 onChange={selectFile}
                 type="file"
-                accept="image/jpeg"
+                accept="image/jpeg/png"
               />
             </InputWrapper>
           </ImageWrapper>
@@ -124,7 +122,7 @@ const ProfileUpdate = props => {
             <Text> Intro</Text>
             <TextArea
               style={{}}
-              name="intro"
+              name="introduction"
               onChange={onChange}
               value={userInfo.introduction}
             ></TextArea>
@@ -143,6 +141,14 @@ const ProfileUpdate = props => {
               name="company"
               onChange={onChange}
               value={userInfo.company}
+            ></Input>
+          </InputWrapper>
+          <InputWrapper>
+            <Text> 메뉴</Text>
+            <Input
+              name="menu"
+              onChange={onChange}
+              value={userInfo.menu}
             ></Input>
           </InputWrapper>
           <InputWrapper>
