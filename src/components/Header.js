@@ -10,65 +10,81 @@ import MobaileNav from "./MobileNav";
 const Header = props => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.user);
-
+  const token = localStorage.getItem("token");
+  console.log(user);
   const { Kakao } = window;
 
   const logOut = () => {
     Kakao.Auth.logout(() => {
       console.log(Kakao.Auth.getAccessToken());
-      history.push("/login");
     });
+    dispatch(userActions.logOutAPI());
   };
 
-  useEffect(() => {
-    dispatch(userActions.getUserAPI());
-  }, []);
   return (
     <>
-      <Wrap>
-        <HeaderWrap>
-          <Logo
-            onClick={() => {
-              history.push("/");
-            }}
-          >
-            😋
-          </Logo>
-          <MenuWrapper>
-            <p style={{ marginRight: "20px" }}>안녕하세요, 덕현님!</p>
-            <button
-              style={{ padding: "10px" }}
-              onClick={() => history.push("/map")}
-            >
-              맵
-            </button>
-            <button
-              style={{ padding: "10px" }}
-              onClick={() => history.push(`/profile/${user.userid}`)}
-            >
-              프로필
-            </button>
-            <button
-              style={{ padding: "10px" }}
-              onClick={() => history.push("/signup")}
-            >
-              회원가입
-            </button>
-            <button
-              style={{ padding: "10px" }}
-              onClick={() => history.push("/login")}
-            >
-              로그인
-            </button>
+      {user ? (
+        <>
+          <Wrap>
+            <HeaderWrap>
+              <Logo
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                😋
+              </Logo>
+              <MenuWrapper>
+                <p style={{ marginRight: "20px" }}>
+                  반가워요, {user.nickname}님!
+                </p>
+                <button
+                  style={{ padding: "10px" }}
+                  onClick={() => history.push("/map")}
+                >
+                  맵
+                </button>
+                <button
+                  style={{ padding: "10px" }}
+                  onClick={() => history.push(`/profile/${user.userid}`)}
+                >
+                  프로필
+                </button>
 
-            <button onClick={logOut} style={{ padding: "10px" }}>
-              로그아웃
-            </button>
-          </MenuWrapper>
-          <CreateLunch>점약만들기</CreateLunch>
-        </HeaderWrap>
-      </Wrap>
-      <MobaileNav />
+                <button onClick={logOut} style={{ padding: "10px" }}>
+                  로그아웃
+                </button>
+              </MenuWrapper>
+              <CreateLunch>점약만들기</CreateLunch>
+            </HeaderWrap>
+          </Wrap>
+          <MobaileNav />
+        </>
+      ) : (
+        <>
+          <Wrap>
+            <HeaderWrap>
+              <Logo
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                😋
+              </Logo>
+              <MenuWrapper>
+                <button
+                  style={{ padding: "10px" }}
+                  onClick={() => history.push("/login")}
+                >
+                  로그인
+                </button>
+              </MenuWrapper>
+              <CreateLunch>점약만들기</CreateLunch>
+            </HeaderWrap>
+          </Wrap>
+          <MobaileNav />
+        </>
+      )}
     </>
   );
 };

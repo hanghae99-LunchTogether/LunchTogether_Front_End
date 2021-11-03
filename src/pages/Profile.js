@@ -10,6 +10,7 @@ import { history } from "../redux/configureStore";
 
 const Profile = props => {
   const user = useSelector(state => state.profile.user);
+  console.log(user);
   const dispatch = useDispatch();
   const userId = props.match.params.id;
 
@@ -22,21 +23,15 @@ const Profile = props => {
       {user && (
         <Wrapper>
           <ProfileInfoWarpper>
-            <ImageCircle src="https://cdn.imweb.me/thumbnail/20210130/a7d09236f9041.jpg" />
-            <NickName>Deokhyun Kim</NickName>
+            <ImageCircle src={user.image} />
+            <NickName>{user.nickname}</NickName>
             <p style={{ color: "#696969", lineHeight: "2", marginTop: "10px" }}>
               Frontend Developer
             </p>
             <p style={{ color: "#696969", lineHeight: "1", marginTop: "5px" }}>
               📍&nbsp;Gangnam-gu, Seoul
             </p>
-            <Intro>
-              AGE creative is a team focused on planning integration and visual
-              coordination. We work closely with artists, designers and planners
-              in various fields, from 2D Motion, 3D Motion, filming, to art
-              direction in graphic design, Brand design, album design, and
-              creative planning, strategic analysis, and m…
-            </Intro>
+            <Intro>{user.introduction}</Intro>
             <LunchIndex>
               <div>점심지수</div>
               <div style={{ fontWeight: "600" }}>100</div>
@@ -47,11 +42,11 @@ const Profile = props => {
             </LunchIndex>
             <LunchIndex>
               <div>메뉴</div>
-              <div style={{ fontWeight: "600" }}>100</div>
+              <div style={{ fontWeight: "600" }}>{user.menu}</div>
             </LunchIndex>
             <LunchIndex>
               <div>MBTI</div>
-              <div style={{ fontWeight: "600" }}>ESTJ</div>
+              <div style={{ fontWeight: "600" }}>{user.mbti}</div>
             </LunchIndex>
             <LunchBtn>Get Lunch</LunchBtn>
             <UpdateBtn onClick={() => history.push(`/profileupdate/${userId}`)}>
@@ -126,6 +121,7 @@ const Intro = styled.p`
   color: #696969;
   line-height: 1.5;
   margin: 20px 0px;
+  min-width: 350px;
   padding: 20px;
   height: 120px;
   overflow: hidden;

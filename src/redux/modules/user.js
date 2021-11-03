@@ -39,7 +39,6 @@ export const logInAPI = user => {
     apis
       .logIn(user)
       .then(res => {
-        console.log(res);
         const token = res.data.token;
         const user = res.data.data.user;
         localStorage.setItem("token", token);
@@ -54,7 +53,6 @@ export const logInAPI = user => {
 
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
-    console.log(user);
     localStorage.removeItem("token");
     dispatch(logOut());
     history.replace("/");

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
 import Calendar from "../components/DatePicker";
-// import FmdGoodIcon from "@mui/icons-material/FmdGood";
 
 const LunchCreateUpdate = (props) => {
   const dispatch = useDispatch();
@@ -94,7 +93,7 @@ const LunchCreateUpdate = (props) => {
     lunchid: post_id,
     title,
     content,
-    date,
+    // date,
     location,
     membernum,
   };
@@ -154,7 +153,6 @@ const LunchCreateUpdate = (props) => {
         <HashtagList hashtags={hashtags} onRemove={onRemove} />
         <InputWrap>
           <label>
-            <LabelName>hashtag</LabelName>
             <LunchInput
               name="hashtagInput"
               value={hashtagInput}
@@ -164,6 +162,7 @@ const LunchCreateUpdate = (props) => {
             />
           </label>
         </InputWrap>
+        <hr />
         <InputWrap>
           <label>
             <LabelName>타이틀</LabelName>
@@ -189,19 +188,17 @@ const LunchCreateUpdate = (props) => {
         <InputWrap>
           <label>
             <LabelName>약속시간</LabelName>
-            {/* <LunchInput
+            <Calendar
               name="date"
               value={date}
               onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            /> */}
+              setDate={setCreateDate}
+            />
           </label>
         </InputWrap>
         <InputWrap>
           <label>
-            <LabelName>
-              {/* <FmdGoodIcon style={{ fontSize: "small" }} /> 만나는 장소 */}
-            </LabelName>
+            <LabelName>만나는 장소</LabelName>
             <LunchInput
               name="location"
               value={location}
@@ -214,12 +211,10 @@ const LunchCreateUpdate = (props) => {
           <label>
             <LabelName>모집인원</LabelName>
             <MemberNum onChange={onChange} value={membernum} name="membernum">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
+              <Option>1</Option>
+              <Option>2</Option>
+              <Option>3</Option>
+              <Option>4</Option>
             </MemberNum>
           </label>
         </InputWrap>
@@ -230,16 +225,10 @@ const LunchCreateUpdate = (props) => {
             </Button>
           ) : (
             <Button onClick={addLunch} type="submit">
-              저장하기
+              등록하기
             </Button>
           )}
         </ButtonWrap>
-        <Calendar
-          name="date"
-          value={date}
-          onChange={onChange}
-          setDate={setCreateDate}
-        />
       </CreateLunchBox>
     </>
   );
@@ -250,11 +239,11 @@ const CreateLunchBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   width: 33.33vw;
   min-width: 350px;
-  margin: auto;
-  // background-color: #ffad60;
+  max-width: 1024px;
+  margin: 30px auto;
+  box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
 const LunchPageName = styled.h1`
@@ -303,11 +292,14 @@ const MemberNum = styled.select`
   width: 100%;
   padding: 11px;
   border: 2px solid #dadada;
-  border-radius: 10px;
+  border-radius: 5px;
 `;
+
+const Option = styled.option``;
 
 const ButtonWrap = styled.div`
   width: 40%;
+  margin: 30px;
 `;
 
 const Button = styled.button`
@@ -317,6 +309,9 @@ const Button = styled.button`
   width: 100%;
   border-radius: 20px;
   border: none;
+  &:hover {
+    background-color: #204969;
+  }
 `;
 
 export default LunchCreateUpdate;
