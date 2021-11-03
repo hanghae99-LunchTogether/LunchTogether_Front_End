@@ -9,7 +9,7 @@ import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 // import Calendar from "../components/DatePicker";
 
-const LunchCreateUpdate = props => {
+const LunchCreateUpdate = (props) => {
   const [lunch, setLunch] = useState(null);
   const [date, setDate] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
@@ -27,7 +27,7 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const post_list = useSelector(state => state.lunch.lunchList);
+  const post_list = useSelector((state) => state.lunch.lunchList);
 
   //params가져오기
   const post_id = props.match.params.lunchid;
@@ -35,10 +35,10 @@ const LunchCreateUpdate = props => {
 
   //작성, 수정 페이지 구별
   const _post = is_edit
-    ? post_list.find(p => p.lunchid === Number(post_id))
+    ? post_list.find((p) => p.lunchid === Number(post_id))
     : null;
 
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -57,12 +57,12 @@ const LunchCreateUpdate = props => {
 
   const nextId = useRef(1);
 
-  const onChangeHash = e => {
+  const onChangeHash = (e) => {
     setHashtagInput(e.target.value);
   };
 
   //해시태그 엔터키 작동
-  const onKeyPress = e => {
+  const onKeyPress = (e) => {
     if (e.key === "Enter") {
       const hashtag = [
         {
@@ -76,8 +76,8 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const onRemove = id => {
-    setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
+  const onRemove = (id) => {
+    setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
   };
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const LunchCreateUpdate = props => {
     }
   }, []);
 
-  const onSearchKeywordChange = e => {
+  const onSearchKeywordChange = (e) => {
     setPlaceInput(e.target.value);
   };
 
