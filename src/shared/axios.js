@@ -26,6 +26,14 @@ export const apis = {
       },
     }),
 
+  kakaologin: user =>
+    instance.post(`/kakaologin`, user, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
+
   //회원정보 요청
   getUser: () =>
     instance.get(`/login`, {

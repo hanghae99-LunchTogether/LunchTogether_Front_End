@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
 import Calendar from "../components/DatePicker";
-import FmdGoodIcon from "@mui/icons-material/FmdGood";
 
 const LunchCreateUpdate = (props) => {
   const dispatch = useDispatch();
@@ -199,9 +198,7 @@ const LunchCreateUpdate = (props) => {
         </InputWrap>
         <InputWrap>
           <label>
-            <LabelName>
-              만나는 장소
-            </LabelName>
+            <LabelName>만나는 장소</LabelName>
             <LunchInput
               name="location"
               value={location}
