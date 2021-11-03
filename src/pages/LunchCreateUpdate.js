@@ -6,6 +6,7 @@ import HashtagList from "../components/HashtagList";
 import { apis } from "../shared/axios";
 import Calendar from "../components/Calendar";
 import MapContainer from "../components/MapContainer";
+import { history } from "../redux/configureStore";
 // import Calendar from "../components/DatePicker";
 
 const LunchCreateUpdate = props => {
@@ -15,7 +16,6 @@ const LunchCreateUpdate = props => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [place, setPlace] = useState(null);
   const lunchId = props.match.params.id;
-  const dispatch = useDispatch();
 
   const getLunchData = async () => {
     try {
@@ -46,6 +46,8 @@ const LunchCreateUpdate = props => {
     setLunch({
       ...lunch,
       [name]: value,
+      location: place,
+      date: date,
     });
   };
 
@@ -92,17 +94,13 @@ const LunchCreateUpdate = props => {
     setSearchKeyword(placeInput);
   };
 
-  const addLunch = async e => {
-    e.preventDefault();
-    const newDate = date.getTime();
-    console.log(newDate);
-    console.log(new Date(newDate));
-    // setLunch({
-    //   ...lunch,
-    //   date: date,
-    // });
-    // console.log(lunch);
-    // await apis.createLunch(lunch);
+  const addLunch = async () => {
+    console.log(lunch);
+    const data = await apis.createLunch(lunch);
+    console.log(data);
+    const newLunchId = data.data.data.lunch.lunchid;
+    console.log(newLunchId);
+    history.push(`/lunchpost/${newLunchId}`);
   };
 
   return (
@@ -143,7 +141,7 @@ const LunchCreateUpdate = props => {
         </InputWrap>
         <InputWrap>
           <LabelName>약속 날짜 및 시간</LabelName>
-          <Calendar setDate={setDate} />
+          <Calendar setDate={setDate} style={{ width: "100%" }} />
         </InputWrap>
         <InputWrap>
           <label>
@@ -189,9 +187,10 @@ const LunchCreateUpdate = props => {
             </MemberNum>
           </label>
         </InputWrap>
-        <HashtagList hashtags={hashtags} onRemove={onRemove} />
         <InputWrap>
           <label>
+            <LabelName>해시태그</LabelName>
+            <HashtagList hashtags={hashtags} onRemove={onRemove} />
             <LunchInput
               name="hashtagInput"
               value={hashtagInput}
