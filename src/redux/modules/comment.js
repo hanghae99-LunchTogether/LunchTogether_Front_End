@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/axios";
@@ -8,11 +10,11 @@ const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 
 //액션생성자
-const getComment = createAction(GET_COMMENT, (commentList) => ({
+const getComment = createAction(GET_COMMENT, commentList => ({
   commentList,
 }));
-const addComment = createAction(ADD_COMMENT, (comment) => ({ comment }));
-const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
+const addComment = createAction(ADD_COMMENT, comment => ({ comment }));
+const deleteComment = createAction(DELETE_COMMENT, commentId => ({
   commentId,
 }));
 
@@ -22,27 +24,27 @@ const initialState = {
 };
 
 //middleware
-const getCommentAPI = (lunchId) => {
+const getCommentAPI = lunchId => {
   return function (dispatch, getState, { history }) {
     apis
       .getComment(lunchId)
-      .then((res) => {
+      .then(res => {
         dispatch(getComment(res.data));
       })
-      .catch((e) => {
+      .catch(e => {
         alert("댓글을 불러오는데 실패하였습니다.");
       });
   };
 };
 
-const addCommentAPI = (comment) => {
+const addCommentAPI = comment => {
   return function (dispatch, getState, { history }) {
     apis
       .addComment(comment)
-      .then((res) => {
+      .then(res => {
         dispatch(getCommentAPI(comment.lunchId));
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e.response);
         alert("댓글을 작성하는데 실패하였습니다.");
       });
@@ -53,11 +55,11 @@ const deleteCommentAPI = (commentId, lunchId) => {
   return function (dispatch, getState, { history }) {
     apis
       .deleteComment(commentId)
-      .then((res) => {
+      .then(res => {
         // dispatch(deleteComment(commentId));
         dispatch(getCommentAPI(lunchId));
       })
-      .catch((e) => {
+      .catch(e => {
         alert("댓글 삭제에 실패하였습니다.");
       });
   };
@@ -67,11 +69,11 @@ const deleteCommentAPI = (commentId, lunchId) => {
 export default handleActions(
   {
     [GET_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.commentList = action.payload.commentList;
       }),
     [ADD_COMMENT]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.commentList.unshift(action.payload.comment);
       }),
     // [DELETE_COMMENT]: (state, action) =>

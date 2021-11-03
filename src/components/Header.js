@@ -38,9 +38,9 @@ const Header = props => {
                 </p>
                 <button
                   style={{ padding: "10px" }}
-                  onClick={() => history.push("/map")}
+                  onClick={() => history.push(`/lunchregister`)}
                 >
-                  맵
+                  점약만들기
                 </button>
                 <button
                   style={{ padding: "10px" }}

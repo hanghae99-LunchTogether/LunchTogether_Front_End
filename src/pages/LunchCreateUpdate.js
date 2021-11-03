@@ -1,17 +1,33 @@
-/* eslint-disable */
-
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css"; // css import
 import { useDispatch, useSelector } from "react-redux";
-import { lunchActions } from "../redux/modules/lunch";
 import HashtagList from "../components/HashtagList";
-import Calendar from "../components/DatePicker";
+import { apis } from "../shared/axios";
+import Calendar from "../components/Calendar";
+import MapContainer from "../components/MapContainer";
+// import Calendar from "../components/DatePicker";
 
-const LunchCreateUpdate = (props) => {
+const LunchCreateUpdate = props => {
+  const [lunch, setLunch] = useState(null);
+  const [date, setDate] = useState(null);
+  const [placeInput, setPlaceInput] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [place, setPlace] = useState(null);
+  const lunchId = props.match.params.id;
   const dispatch = useDispatch();
 
-  const post_list = useSelector((state) => state.lunch.lunchList);
+  const getLunchData = async () => {
+    try {
+      const data = await apis.getOneLunch(lunchId);
+      const lunch = data.data.lunch;
+      setLunch(lunch);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const post_list = useSelector(state => state.lunch.lunchList);
 
   //params가져오기
   const post_id = props.match.params.lunchid;
@@ -19,53 +35,32 @@ const LunchCreateUpdate = (props) => {
 
   //작성, 수정 페이지 구별
   const _post = is_edit
-    ? post_list.find((p) => p.lunchid === Number(post_id))
+    ? post_list.find(p => p.lunchid === Number(post_id))
     : null;
 
-  const [title, setCreateTitle] = React.useState(_post ? _post.title : "");
-  const [content, setCreateContent] = React.useState(
-    _post ? _post.content : ""
-  );
-  const [date, setCreateDate] = React.useState(_post ? _post.date : "");
-  console.log(date);
-  const [location, setCreateLocation] = React.useState(
-    _post ? _post.location : ""
-  );
-  const [membernum, setCreateMemberNum] = React.useState(
-    _post ? _post.membernum : ""
-  );
+  const onChange = e => {
+    const {
+      target: { name, value },
+    } = e;
 
-  // const [lunch, setLunch] = useState({
-  //   title: _post.title,
-  //   content: _post.content,
-  //   date: _post.date,
-  //   location: _post.location,
-  //   membernum: _post.membernum,
-  // });
-
-  // const onChange = e => {
-  //   const {
-  //     target: { name, value },
-  //   } = e;
-
-  //   setLunch({
-  //     ...lunch,
-  //     [name]: value,
-  //   });
-  // };
+    setLunch({
+      ...lunch,
+      [name]: value,
+    });
+  };
 
   //해시태그
   const [hashtagInput, setHashtagInput] = useState("");
-
-  const onChangeHash = (e) => {
-    setHashtagInput(e.target.value);
-  };
   const [hashtags, setHashtags] = useState([]);
 
   const nextId = useRef(1);
 
+  const onChangeHash = e => {
+    setHashtagInput(e.target.value);
+  };
+
   //해시태그 엔터키 작동
-  const onKeyPress = (e) => {
+  const onKeyPress = e => {
     if (e.key === "Enter") {
       const hashtag = [
         {
@@ -74,68 +69,40 @@ const LunchCreateUpdate = (props) => {
         },
       ];
       setHashtags([...hashtags, hashtag]);
-
       setHashtagInput("");
-
       nextId.current += 1;
     }
   };
 
-  const onRemove = (id) => {
-    // window.alert("와우 삭제 가능?")
-
-    setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
+  const onRemove = id => {
+    setHashtags(hashtags.filter(hashtag => hashtag[0].id !== id));
   };
 
-  const { history } = props;
-
-  const MadeLunch = {
-    lunchid: post_id,
-    title,
-    content,
-    // date,
-    location,
-    membernum,
-  };
-
-  //작성 되지 않은 인덱스값 위치로가면 돌아가기
   useEffect(() => {
-    if (is_edit && !_post) {
-      console.log("포스트 정보가 없어요!");
-      history.goBack();
-      return;
+    if (lunchId) {
+      getLunchData();
     }
   }, []);
 
-  //각 input값 가져오기
-  const onChange = (e) => {
-    const {
-      target: { name, value },
-    } = e;
-    if (name === "title") {
-      setCreateTitle(value);
-    } else if (name === "content") {
-      setCreateContent(value);
-    } else if (name === "date") {
-      console.log(value);
-      setCreateDate(value);
-    } else if (name === "location") {
-      setCreateLocation(value);
-    } else if (name === "membernum") {
-      setCreateMemberNum(value);
-    }
+  const onSearchKeywordChange = e => {
+    setPlaceInput(e.target.value);
   };
 
-  const addLunch = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch(lunchActions.createLunchAPI(MadeLunch));
+  const searchPlace = () => {
+    setSearchKeyword(placeInput);
   };
 
-  const editLunch = (e) => {
+  const addLunch = async e => {
     e.preventDefault();
-    e.stopPropagation();
-    dispatch(lunchActions.updateLunchAPI(MadeLunch));
+    const newDate = date.getTime();
+    console.log(newDate);
+    console.log(new Date(newDate));
+    // setLunch({
+    //   ...lunch,
+    //   date: date,
+    // });
+    // console.log(lunch);
+    // await apis.createLunch(lunch);
   };
 
   return (
@@ -150,6 +117,78 @@ const LunchCreateUpdate = (props) => {
           <LunchPageDesc>새로운 사람과의 즐거운 점심을 위해</LunchPageDesc>
           <LunchPageDesc>점심약속을 작성해보세요</LunchPageDesc>
         </LunchPageDescWrap>
+
+        <hr />
+        <InputWrap>
+          <label>
+            <LabelName>타이틀</LabelName>
+            <LunchInput
+              name="title"
+              value={lunch ? lunch.title : ""}
+              onChange={onChange}
+              placeholder="작성해주세요."
+            />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>설명</LabelName>
+            <LunchInputContent
+              name="content"
+              value={lunch ? lunch.content : ""}
+              onChange={onChange}
+              placeholder="점심약속에 대한 간단한 설명을 작성해주세요."
+            />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <LabelName>약속 날짜 및 시간</LabelName>
+          <Calendar setDate={setDate} />
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>진행시간</LabelName>
+            <MemberNum
+              onChange={onChange}
+              value={lunch ? lunch.duration : ""}
+              name="duration"
+            >
+              <Option>30분</Option>
+              <Option>1시간</Option>
+              <Option>1시간30분</Option>
+              <Option>2시간</Option>
+            </MemberNum>
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>만나는 장소</LabelName>
+            {place && <LabelName>{place.place_name}</LabelName>}
+            <LunchInput
+              name="title"
+              value={placeInput}
+              onChange={onSearchKeywordChange}
+              placeholder="검색해주세요."
+            />
+            <SearchBtn onClick={searchPlace}>검색</SearchBtn>
+            <MapContainer searchKeyword={searchKeyword} setPlace={setPlace} />
+          </label>
+        </InputWrap>
+        <InputWrap>
+          <label>
+            <LabelName>모집인원</LabelName>
+            <MemberNum
+              onChange={onChange}
+              value={lunch ? lunch.membernum : ""}
+              name="membernum"
+            >
+              <Option>1</Option>
+              <Option>2</Option>
+              <Option>3</Option>
+              <Option>4</Option>
+            </MemberNum>
+          </label>
+        </InputWrap>
         <HashtagList hashtags={hashtags} onRemove={onRemove} />
         <InputWrap>
           <label>
@@ -162,65 +201,9 @@ const LunchCreateUpdate = (props) => {
             />
           </label>
         </InputWrap>
-        <hr />
-        <InputWrap>
-          <label>
-            <LabelName>타이틀</LabelName>
-            <LunchInput
-              name="title"
-              value={title}
-              onChange={onChange}
-              placeholder="작성해주세요."
-            />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>설명</LabelName>
-            <LunchInputContent
-              name="content"
-              value={content}
-              onChange={onChange}
-              placeholder="점심약속에 대한 간단한 설명을 작성해주세요."
-            />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>약속시간</LabelName>
-            <Calendar
-              name="date"
-              value={date}
-              onChange={onChange}
-              setDate={setCreateDate}
-            />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>만나는 장소</LabelName>
-            <LunchInput
-              name="location"
-              value={location}
-              onChange={onChange}
-              placeholder="오늘은 누구랑 먹을까?"
-            />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>모집인원</LabelName>
-            <MemberNum onChange={onChange} value={membernum} name="membernum">
-              <Option>1</Option>
-              <Option>2</Option>
-              <Option>3</Option>
-              <Option>4</Option>
-            </MemberNum>
-          </label>
-        </InputWrap>
         <ButtonWrap>
           {is_edit ? (
-            <Button onClick={editLunch} type="submit">
+            <Button onClick={() => {}} type="submit">
               수정하기
             </Button>
           ) : (
@@ -302,6 +285,15 @@ const ButtonWrap = styled.div`
   margin: 30px;
 `;
 
+const SearchBtn = styled.button`
+  background-color: black;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  width: 30%;
+  height: 3rem;
+  border-radius: 10px;
+`;
 const Button = styled.button`
   background-color: #646464;
   color: white;

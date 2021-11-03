@@ -48,14 +48,14 @@ export const apis = {
 
   //점심 약속 등록
 
-  createLunch: post =>
-    instance.post(`/lunchregister`, post, {
+  createLunch: lunch =>
+    instance.post(`/lunchpost`, lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 수정
   updateLunch: _lunch =>
-    instance.patch(`/lunchregister/${_lunch.lunchid}`, _lunch, {
+    instance.patch(`/lunchpost`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
@@ -66,9 +66,13 @@ export const apis = {
     }),
 
   updateProfile: (profile, image) =>
-    instance.patch("/myprofile", (profile, image), {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
+    instance.patch(
+      "/myprofile",
+      { profile, image },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    ),
 
   // 댓글 조회
   getComment: lunchId =>

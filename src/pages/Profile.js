@@ -72,6 +72,7 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -97,6 +98,8 @@ const ProfileInfoWarpper = styled.div`
     box-shadow: 5px 5px 5px 5px #ebecf0;
     height: 400px;
     padding-top: 10px;
+    margin-right: 0;
+    margin-bottm: 1rem;
   }
 `;
 

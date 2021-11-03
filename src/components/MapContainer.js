@@ -2,18 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { selectPlaceMiddleware } from "../redux/modules/place";
 
 const { kakao } = window;
 
-const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
-  console.log(userInfo);
-  const selectPlace = place => {
-    // setPlaces(
-    //   places.map(p =>
-    //     p.id === place.id ? { ...p, selected: true } : { ...p, selected: false }
-    //   )
-    // );
-  };
+const MapContainer = ({ searchKeyword, setPlace }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -26,7 +21,6 @@ const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
     const map = new kakao.maps.Map(mapContainer, mapOption);
 
     var ps = new kakao.maps.services.Places();
-    // displayMarker(userInfo.location = placesSearchCB);
     ps.keywordSearch(searchKeyword, placesSearchCB);
 
     function placesSearchCB(data, status, pagination) {
@@ -62,39 +56,23 @@ const MapContainer = ({ searchKeyword, setPlace, userInfo, setUserInfo }) => {
             "</div>"
         );
         infowindow.open(map, marker);
-        // place.selected = false;
-        setUserInfo({
-          ...userInfo,
-          location: place,
-        });
+        setPlace(place);
+        // dispatch(selectPlaceMiddleware(place));
       });
     }
   }, [searchKeyword]);
 
   return (
     <>
-      <Wrap>
-        <FakeDiv />
-        <MapWrapper id="myMap"></MapWrapper>
-      </Wrap>
+      <MapWrapper id="myMap"></MapWrapper>
     </>
   );
 };
 
-const Wrap = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  /* justify-content: center; */
-`;
-
 const MapWrapper = styled.div`
-  width: 50vw;
-  height: 35vh;
+  width: 30vw;
+  height: 15vh;
   border-radius: 20px;
-`;
-const FakeDiv = styled.div`
-  width: 12%;
 `;
 
 export default MapContainer;
