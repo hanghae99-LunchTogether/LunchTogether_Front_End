@@ -24,10 +24,15 @@ import Notification from "../pages/Notification";
 
 function App() {
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  console.log(token);
 
   useEffect(() => {
     Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
-    dispatch(userActions.getUserAPI());
+    console.log("APPjs");
+    if (token) {
+      dispatch(userActions.getUserAPI());
+    }
   }, []);
 
   return (
