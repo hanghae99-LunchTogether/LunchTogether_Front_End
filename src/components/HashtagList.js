@@ -21,6 +21,7 @@ const HashtagOutterWrap = styled.div`
 
 const HashtagInnerWrap = styled.div`
   background-color: #f4f0e6;
+  margin: 0px 4px;
   padding: 0px 4px;
   border-radius: 10px;
   box-sizing: border-box;
