@@ -44,7 +44,7 @@ export const getOneLunchAPI = (id) => {
     apis
       .getOneLunch(id)
       .then((res) => {
-        console.log('게시글을 불러오는데 성공?', res)
+        console.log("게시글을 불러오는데 성공?", res);
       })
       .catch((error) => {
         console.log(error.response);
