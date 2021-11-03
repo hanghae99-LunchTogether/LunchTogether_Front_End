@@ -14,7 +14,7 @@ const Review = (props) => {
 
   const onClickSubmit = () => {
     const review = {
-      targetuserid: 18,
+      targetuserid: 1964619422,
       spoon: 0,
       comment: content,
     };
