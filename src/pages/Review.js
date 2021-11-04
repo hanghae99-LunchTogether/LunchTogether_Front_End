@@ -15,7 +15,7 @@ const Review = (props) => {
   const onClickSubmit = () => {
     const review = {
       targetuserid: 1964619422,
-      spoon: 0,
+      spoon: currentValue,
       comment: content,
     };
     dispatch(reviewAction.addReviewAPI(review));
@@ -42,57 +42,72 @@ const Review = (props) => {
     setHoverValue(undefined);
   };
 
+  //모달창
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalClose = () => {
+    setModalOpen(!modalOpen);
+  };
+
   return (
     <Wrapper>
-      <ReviewBox>
-        <h1>제목</h1>
-        <h3>날짜 및 시간</h3>
-        <ReviewWrap>
-          <ReviewCard>
-            <UserInfo>
-              <User>
-                <img src="img/profile.png" style={{ borderRadius: "50%" }} />
-                <span>닉네임</span>
-              </User>
-              <RatingBox>
-                <h2> 닉네임님과의 식사는 어떠셨나요? </h2>
-                <div style={styles.stars}>
-                  {stars.map((_, index) => {
-                    return (
-                      <FaStar
-                        key={index}
-                        size={24}
-                        onClick={() => handleClick(index + 1)}
-                        onMouseOver={() => handleMouseOver(index + 1)}
-                        onMouseLeave={handleMouseLeave}
-                        color={
-                          (hoverValue || currentValue) > index
-                            ? colors.orange
-                            : colors.gray
-                        }
-                        style={{
-                          marginRight: 10,
-                          cursor: "pointer",
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-              </RatingBox>
-            </UserInfo>
-            <Comment>
-              <input onChange={onChangeContent} placeholder="후기작성란" />
-            </Comment>
-          </ReviewCard>
-        </ReviewWrap>
-        <button
-          onClick={() => {
-            onClickSubmit();
-          }}
-        >
-          작성
-        </button>
-      </ReviewBox>
+      <button onClick={modalClose}>모달창 켜기</button>
+      <>
+        {modalOpen && (
+          <ReviewBox>
+            <h1>제목</h1>
+            <h3>날짜 및 시간</h3>
+            <button onClick={modalClose}>모달창 끄기</button>
+            <ReviewWrap>
+              <ReviewCard>
+                <UserInfo>
+                  <User>
+                    <img
+                      src="img/profile.png"
+                      style={{ borderRadius: "50%" }}
+                    />
+                    <span>닉네임</span>
+                  </User>
+                  <RatingBox>
+                    <h2> 닉네임님과의 식사는 어떠셨나요? </h2>
+                    <div style={styles.stars}>
+                      {stars.map((_, index) => {
+                        return (
+                          <FaStar
+                            key={index}
+                            size={24}
+                            onClick={() => handleClick(index + 1)}
+                            onMouseOver={() => handleMouseOver(index + 1)}
+                            onMouseLeave={handleMouseLeave}
+                            color={
+                              (hoverValue || currentValue) > index
+                                ? colors.orange
+                                : colors.gray
+                            }
+                            style={{
+                              marginRight: 10,
+                              cursor: "pointer",
+                            }}
+                          />
+                        );
+                      })}
+                    </div>
+                  </RatingBox>
+                </UserInfo>
+                <Comment>
+                  <input onChange={onChangeContent} placeholder="후기작성란" />
+                </Comment>
+              </ReviewCard>
+            </ReviewWrap>
+            <button
+              onClick={() => {
+                onClickSubmit();
+              }}
+            >
+              작성
+            </button>
+          </ReviewBox>
+        )}
+      </>
     </Wrapper>
   );
 };
