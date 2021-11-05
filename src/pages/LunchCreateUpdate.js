@@ -10,7 +10,7 @@ import Calendar from "../components/Calendar";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
-const LunchCreateUpdate = props => {
+const LunchCreateUpdate = (props) => {
   const [lunch, setLunch] = useState(null);
   const [date, setDate] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
@@ -29,11 +29,8 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  //params가져오기
 
-  //작성, 수정 페이지 구별
-
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -46,13 +43,14 @@ const LunchCreateUpdate = props => {
     });
   };
 
+
   useEffect(() => {
     if (lunchId) {
       getLunchData();
     }
   }, []);
 
-  const onSearchKeywordChange = e => {
+  const onSearchKeywordChange = (e) => {
     setPlaceInput(e.target.value);
   };
 
