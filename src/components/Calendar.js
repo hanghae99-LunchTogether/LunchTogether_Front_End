@@ -4,7 +4,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 
-const Calendar = ({ setDate }) => {
+const Calendar = ({ setLunch, lunch }) => {
   const [value, setValue] = React.useState(new Date());
 
   return (
@@ -13,7 +13,7 @@ const Calendar = ({ setDate }) => {
         renderInput={params => (
           <TextField
             style={{ fontSize: "1.6rem" }}
-            sx={{ width: 500 }}
+            sx={{ width: 500, fontSize: "1.6rem" }}
             {...params}
           />
         )}
@@ -30,8 +30,9 @@ const Calendar = ({ setDate }) => {
           const seconds = ("0" + newValue.getSeconds()).slice(-2);
           const time = hours + ":" + minutes + ":" + seconds;
           const newDate = date + " " + time;
+          console.log(newDate);
           setValue(newDate);
-          setDate(newDate);
+          setLunch({ ...lunch, date: newDate });
         }}
       />
     </LocalizationProvider>

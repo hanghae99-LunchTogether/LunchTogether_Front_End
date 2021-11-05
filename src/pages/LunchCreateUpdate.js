@@ -11,8 +11,13 @@ import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
 const LunchCreateUpdate = props => {
-  const [lunch, setLunch] = useState(null);
-  const [date, setDate] = useState(null);
+  const [lunch, setLunch] = useState({
+    title: "",
+    content: "",
+    location: "",
+    membernum: "",
+    date: "",
+  });
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [place, setPlace] = useState(null);
@@ -33,14 +38,9 @@ const LunchCreateUpdate = props => {
     const {
       target: { name, value },
     } = e;
-
-    console.log(e.target.value);
-
     setLunch({
       ...lunch,
       [name]: value,
-      location: place,
-      date: date,
     });
   };
 
@@ -72,49 +72,88 @@ const LunchCreateUpdate = props => {
       <Wrapper>
         <MenuTitleWrapper>
           <MenuTitle>점심약속 등록하기</MenuTitle>
-          <Text style={{ textAlign: "center", margin: "1em" }}>
+          <Text style={{ textAlign: "center", margin: "1rem" }}>
             맛있게 먹어봐
           </Text>
         </MenuTitleWrapper>
         <InputWrapper>
           <Text>타이틀</Text>
-          <Input onChange={onChange} />
+          <Input
+            name="title"
+            onChange={onChange}
+            // defaultValue={lunch.title}
+            value={lunch.title ? lunch.title : ""}
+            required
+          />
         </InputWrapper>
         <InputWrapper>
           <Text>소개</Text>
-          <InputTextArea onChange={onChange} />
+          <InputTextArea
+            name="content"
+            onChange={onChange}
+            value={lunch.content}
+            required
+          />
         </InputWrapper>
         <InputWrapper>
           <Text>날짜/시간</Text>
-          <Calendar />
+          <Calendar setLunch={setLunch} lunch={lunch} />
         </InputWrapper>
         <InputWrapper>
           <Text>장소</Text>
-          <Input onChange={onChange} style={{ marginRight: "1.6rem" }} />
-          <SearchButton>검색</SearchButton>
+          <Input
+            onChange={onSearchKeywordChange}
+            style={{ marginRight: "1.6rem", minWidth: "200px" }}
+            required
+          />
+          <SearchButton onClick={searchPlace}>검색</SearchButton>
         </InputWrapper>
+        {lunch.location && (
+          <InputWrapper>
+            <FakeDiv />
+            <SelectedPlace style={{ lineHeight: "1.5rem" }}>
+              <Text style={{ fontSize: "1.4rem" }}>
+                장소명: {lunch.location.place_name}
+              </Text>
+              <Text style={{ fontSize: "1.4rem" }}>
+                주소: {lunch.location.road_address_name}
+              </Text>
+              <a
+                href={lunch.location.place_url}
+                target="_blank"
+                style={{
+                  cursor: "pointer",
+                  fontSize: "1.4rem",
+                  color: "blue",
+                }}
+              >
+                카카오 지도 링크
+              </a>
+            </SelectedPlace>
+          </InputWrapper>
+        )}
         <InputWrapper>
           <FakeDiv />
-          <SelectedPlace>
-            <Text>상호명</Text>
-            <Text>주소</Text>
-            <Text>링크</Text>
-          </SelectedPlace>
-        </InputWrapper>
-        <InputWrapper>
-          <FakeDiv />
-          <MapContainer />
+          <MapContainer
+            setLunch={setLunch}
+            lunch={lunch}
+            searchKeyword={searchKeyword}
+          />
         </InputWrapper>
         <InputWrapper>
           <Text>정원</Text>
-          <Select name="cars" onChange={onChange}>
-            <option value="1">1</option>
+          <Select
+            name="membernum"
+            onChange={onChange}
+            defalutValue="2"
+            value={lunch.membernum}
+          >
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
           </Select>
         </InputWrapper>
-        <Button>등록하기</Button>
+        <Button onClick={addLunch}>등록하기</Button>
       </Wrapper>
     </>
   );
@@ -126,8 +165,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 5rem;
+  margin: 5rem auto;
 `;
 
 const MenuTitleWrapper = styled.div`
@@ -135,7 +173,7 @@ const MenuTitleWrapper = styled.div`
 `;
 
 const MenuTitle = styled.h1`
-  font-size: 1.6rem;
+  font-size: 2.5rem;
   font-weight: bold;
 `;
 
@@ -188,7 +226,7 @@ const InputTextArea = styled.textarea`
   height: 8em;
   min-width: 270px;
   color: black;
-  font-size: 1em;
+  font-size: 1.6rem;
   padding: 12px 16px;
   border-radius: 6px;
   border: 1px solid #dfdfdf;
@@ -200,6 +238,7 @@ const SearchButton = styled.button`
   min-width: 5rem;
   height: 48px;
   color: white;
+  font-size: 1.6rem;
   background-color: #ff9841;
   border-radius: 6px;
   border: none;
@@ -215,7 +254,7 @@ const SelectedPlace = styled.div`
 const Button = styled.button`
   min-width: 350px;
   max-width: 500px;
-  width: 41%;
+  width: 50%;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
