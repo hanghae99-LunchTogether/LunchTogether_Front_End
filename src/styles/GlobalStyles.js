@@ -5,12 +5,19 @@ const GlobalStyle = createGlobalStyle`
     ${reset};
     * {
         box-sizing:border-box;
+        
+        
     }
+
     body{
         padding: 0;
         margin: 0;
-        font-size: 10px;
-        font-family:-apple-system, NotoSansKR, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: NotoSansKR, Roboto, sans-serif, "Noto Sans";
+
+        @media only screen and (max-width: 768px) {
+            font-size: 14px;
+  }
+
     };
     button{
         cursor: pointer;

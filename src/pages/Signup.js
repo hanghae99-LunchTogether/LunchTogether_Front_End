@@ -2,125 +2,174 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
 
 const Signup = props => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [pwdCheck, setPwdCheck] = useState("");
+  const [account, setAccount] = useState({
+    email: "",
+    nickname: "",
+    password: "",
+    passwordCheck: "",
+  });
 
   const onChange = e => {
     const {
       target: { name, value },
     } = e;
-    if (name === "email") {
-      setEmail(value);
-    } else if (name === "username") {
-      setUsername(value);
-    } else if (name === "nickname") {
-      setNickname(value);
-    } else if (name === "password") {
-      setPwd(value);
-    } else if (name === "password") {
-      setPwd(value);
-    } else if (name === "passwordCheck") {
-      setPwdCheck(value);
-    }
+
+    setAccount({
+      ...account,
+      [name]: value,
+    });
   };
 
   const dispatch = useDispatch();
+  const error = useSelector(state => state.user.error);
+  console.log(error);
 
   const signUp = () => {
-    const user = {
-      email,
-      username,
-      nickname,
-      password: pwd,
-    };
-    dispatch(userActions.signUpAPI(user));
+    console.log(account);
+    dispatch(userActions.signUpAPI(account));
   };
 
   return (
     <>
-      <Wrap>
-        <Wrap>
-          <Title>회원가입</Title>
-          <InputWrapper>
-            <p>이메일 </p>
-            <input onChange={onChange} value={email} name="email" type="text" />
-          </InputWrapper>
-          <InputWrapper>
-            <p>이름 </p>
-            <input
-              onChange={onChange}
-              value={username}
-              name="username"
-              type="text"
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <p>닉네임 </p>
-            <input
-              onChange={onChange}
-              value={nickname}
-              name="nickname"
-              type="text"
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <p>비밀번호</p>
-            <input
-              onChange={onChange}
-              value={pwd}
-              name="password"
-              type="password"
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <p>비밀번호 확인</p>
-            <input
-              onChange={onChange}
-              value={pwdCheck}
-              name="passwordCheck"
-              type="password"
-            />
-          </InputWrapper>
-          <button onClick={signUp}>회원가입</button>
-        </Wrap>
-      </Wrap>
+      <Wrapper>
+        <Logo />
+
+        <InputWrapper>
+          <Text> 이메일</Text>
+
+          <Input
+            name="email"
+            placeholder="이메일"
+            type="text"
+            onChange={onChange}
+            value={account.email}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Text> 닉네임</Text>
+
+          <Input
+            name="nickname"
+            placeholder="닉네임"
+            type="text"
+            onChange={onChange}
+            value={account.nickname}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Text> 비밀번호</Text>
+
+          <Input
+            name="password"
+            placeholder="비밀번호"
+            type="password"
+            onChange={onChange}
+            value={account.paasword}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Text> 비밀번호 확인 </Text>
+
+          <Input
+            name="passwordCheck"
+            placeholder="비밀번호 확인"
+            type="password"
+            onChange={onChange}
+            value={account.passwordCheck}
+            required
+          />
+        </InputWrapper>
+        {error && (
+          <Text
+            style={{
+              width: "100%",
+              color: "red",
+              textAlign: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            {error}
+          </Text>
+        )}
+        <Button onClick={signUp}>회원가입</Button>
+      </Wrapper>
     </>
   );
 };
 
 export default Signup;
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 500px;
-  margin: 30px auto;
-  box-sizing: border-box;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 15%;
 `;
 
-const Title = styled.p`
-  color: black;
-  font-size: 24px;
-  margin: 0 auto;
-  font-weight: 900;
-  margin-bottom: 50px;
+const Logo = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: #ff9841;
+  margin-bottom: 7.4%;
 `;
 
 const InputWrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 640px;
-  height: 44px;
-  padding: 10px 0px;
+  margin-bottom: 3%;
+`;
+
+const Text = styled.p`
+  font-size: 1em;
+  color: gray;
+  min-width: 100px;
+`;
+
+const Input = styled.input`
+  width: 50%;
+  min-width: 310px;
+  max-width: 400px;
+  height: 48px;
+  color: black;
+  font-size: 1em;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+
+const Button = styled.button`
+  width: 50%;
+  min-width: 410px;
+  max-width: 490px;
+  height: 48px;
+  font-family: NotoSansKR;
+  font-weight: bold;
+  font-size: 1em;
+  border: 1px solid #ff9841;
+  border-radius: 6px;
+  background-color: white;
+  color: #ff9841;
+  margin-bottom: 3%;
+
+  &:hover {
+    background-color: #ff9841;
+    color: white;
+  }
+  ${props =>
+    props.src
+      ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
+      : ""}
 `;

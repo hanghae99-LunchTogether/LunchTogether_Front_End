@@ -17,29 +17,51 @@ const setError = createAction(SET_ERROR, error => ({ error }));
 const initialState = {
   user: null,
   isLoggedIn: false,
-  emailValidation: false,
-  error: "",
+  error: [],
 };
 
-export const signUpAPI = user => {
+export const signUpAPI = _account => {
   return function (dispatch, getState, { history }) {
-    console.log(user);
+    const account = {
+      email: _account.email,
+      nickname: _account.nickname,
+      password: _account.password,
+    };
+    console.log(account);
     apis
-      .registerUser(user)
+      .checkEmail(account.email)
       .then(res => {
         console.log(res);
-        history.push("/login");
+        apis
+          .checkNickname(account.nickname)
+          .then(res => {
+            console.log(res);
+            apis
+              .registerUser(account)
+              .then(res => {
+                console.log(res);
+                history.push("/login");
+              })
+              .catch(err => {
+                dispatch(setError(err.response.data.msg));
+              });
+          })
+          .catch(err => {
+            console.log(err.response);
+            dispatch(setError(err.response.data.msg));
+          });
       })
       .catch(err => {
         console.log(err.response);
+        dispatch(setError(err.response.data.msg));
       });
   };
 };
 
-export const logInAPI = user => {
+export const logInAPI = account => {
   return function (dispatch, getState, { history }) {
     apis
-      .logIn(user)
+      .logIn(account)
       .then(res => {
         const token = res.data.token;
         const user = res.data.data.user;
@@ -89,7 +111,7 @@ export default handleActions(
       }),
     [SET_ERROR]: (state, action) =>
       produce(state, draft => {
-        draft.error = action.payload.error;
+        draft.error.push(action.payload.error);
       }),
   },
   initialState
