@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css"; // css import
@@ -7,7 +9,6 @@ import { apis } from "../shared/axios";
 import Calendar from "../components/Calendar";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
-// import Calendar from "../components/DatePicker";
 
 const LunchCreateUpdate = (props) => {
   const [lunch, setLunch] = useState(null);
@@ -16,6 +17,7 @@ const LunchCreateUpdate = (props) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [place, setPlace] = useState(null);
   const lunchId = props.match.params.id;
+  const is_edit = lunchId ? true : false;
 
   const getLunchData = async () => {
     try {
@@ -27,16 +29,6 @@ const LunchCreateUpdate = (props) => {
     }
   };
 
-  const post_list = useSelector((state) => state.lunch.lunchList);
-
-  //params가져오기
-  const post_id = props.match.params.lunchid;
-  const is_edit = post_id ? true : false;
-
-  //작성, 수정 페이지 구별
-  const _post = is_edit
-    ? post_list.find((p) => p.lunchid === Number(post_id))
-    : null;
 
   const onChange = (e) => {
     const {
@@ -51,34 +43,6 @@ const LunchCreateUpdate = (props) => {
     });
   };
 
-  //해시태그
-  const [hashtagInput, setHashtagInput] = useState("");
-  const [hashtags, setHashtags] = useState([]);
-
-  const nextId = useRef(1);
-
-  const onChangeHash = (e) => {
-    setHashtagInput(e.target.value);
-  };
-
-  //해시태그 엔터키 작동
-  const onKeyPress = (e) => {
-    if (e.key === "Enter") {
-      const hashtag = [
-        {
-          id: nextId.current,
-          text: hashtagInput,
-        },
-      ];
-      setHashtags([...hashtags, hashtag]);
-      setHashtagInput("");
-      nextId.current += 1;
-    }
-  };
-
-  const onRemove = (id) => {
-    setHashtags(hashtags.filter((hashtag) => hashtag[0].id !== id));
-  };
 
   useEffect(() => {
     if (lunchId) {
@@ -105,204 +69,109 @@ const LunchCreateUpdate = (props) => {
 
   return (
     <>
-      <CreateLunchBox>
-        {is_edit ? (
-          <LunchPageName>점심약속 수정하기</LunchPageName>
-        ) : (
-          <LunchPageName>점심약속 등록하기</LunchPageName>
-        )}
-        <LunchPageDescWrap>
-          <LunchPageDesc>새로운 사람과의 즐거운 점심을 위해</LunchPageDesc>
-          <LunchPageDesc>점심약속을 작성해보세요</LunchPageDesc>
-        </LunchPageDescWrap>
-
-        <hr />
-        <InputWrap>
-          <label>
-            <LabelName>타이틀</LabelName>
-            <LunchInput
-              name="title"
-              value={lunch ? lunch.title : ""}
-              onChange={onChange}
-              placeholder="작성해주세요."
-            />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>설명</LabelName>
-            <LunchInputContent
-              name="content"
-              value={lunch ? lunch.content : ""}
-              onChange={onChange}
-              placeholder="점심약속에 대한 간단한 설명을 작성해주세요."
-            />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <LabelName>약속 날짜 및 시간</LabelName>
-          <Calendar setDate={setDate} style={{ width: "100%" }} />
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>진행시간</LabelName>
-            <MemberNum
-              onChange={onChange}
-              value={lunch ? lunch.duration : ""}
-              name="duration"
-            >
-              <Option>30분</Option>
-              <Option>1시간</Option>
-              <Option>1시간30분</Option>
-              <Option>2시간</Option>
-            </MemberNum>
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>만나는 장소</LabelName>
-            {place && <LabelName>{place.place_name}</LabelName>}
-            <LunchInput
-              name="title"
-              value={placeInput}
-              onChange={onSearchKeywordChange}
-              placeholder="검색해주세요."
-            />
-            <SearchBtn onClick={searchPlace}>검색</SearchBtn>
-            <MapContainer searchKeyword={searchKeyword} setPlace={setPlace} />
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>모집인원</LabelName>
-            <MemberNum
-              onChange={onChange}
-              value={lunch ? lunch.membernum : ""}
-              name="membernum"
-            >
-              <Option>1</Option>
-              <Option>2</Option>
-              <Option>3</Option>
-              <Option>4</Option>
-            </MemberNum>
-          </label>
-        </InputWrap>
-        <InputWrap>
-          <label>
-            <LabelName>해시태그</LabelName>
-            <HashtagList hashtags={hashtags} onRemove={onRemove} />
-            <LunchInput
-              name="hashtagInput"
-              value={hashtagInput}
-              onChange={onChangeHash}
-              onKeyPress={onKeyPress}
-              placeholder="해시태그를 입력해주세요"
-            />
-          </label>
-        </InputWrap>
-        <ButtonWrap>
-          {is_edit ? (
-            <Button onClick={() => {}} type="submit">
-              수정하기
-            </Button>
-          ) : (
-            <Button onClick={addLunch} type="submit">
-              등록하기
-            </Button>
-          )}
-        </ButtonWrap>
-      </CreateLunchBox>
+      <Wrapper>
+        <MenuTitleWrapper>
+          <MenuTitle>점심약속 등록하기</MenuTitle>
+          <Text style={{ textAlign: "center", margin: "1em" }}>
+            맛있게 먹어봐
+          </Text>
+        </MenuTitleWrapper>
+        <InputWrapper>
+          <Text>타이틀</Text>
+          <Input />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>소개</Text>
+          <InputTextArea />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>날짜/시간</Text>
+          <Calendar />
+        </InputWrapper>
+      </Wrapper>
     </>
   );
 };
 
-const CreateLunchBox = styled.div`
+const Wrapper = styled.div`
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 33.33vw;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 8rem;
+`;
+
+const MenuTitleWrapper = styled.div`
+  margin: 20px;
+`;
+
+const MenuTitle = styled.h1`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+
+const Text = styled.p`
+  font-size: 1rem;
+  color: gray;
+  min-width: 5rem;
+`;
+
+const InputWrapper = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  max-width: 500px;
   min-width: 350px;
-  max-width: 1024px;
-  margin: 30px auto;
-  box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
-const LunchPageName = styled.h1`
-  font-weight: bold;
-  font-size: 20px;
-  margin: 30px;
-`;
-
-const LunchPageDescWrap = styled.div`
-  text-align: center;
-  font-weight: 400;
-  font-size: 14px;
-  margin-bottom: 30px;
-`;
-
-const LunchPageDesc = styled.p``;
-
-const InputWrap = styled.div`
-  flex: 1;
-  padding: 10px;
+const Input = styled.input`
   width: 100%;
+  height: 48px;
+  min-width: 270px;
+  color: black;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
 `;
-
-const LabelName = styled.p`
-  font-size: 12px;
-  font-weight: bold;
-  padding-bottom: 10px;
-`;
-
-const LunchInput = styled.input`
+const InputTextArea = styled.textarea`
   width: 100%;
-  padding: 12px;
-  border: 2px solid #dadada;
-  border-radius: 5px;
+  height: 8em;
+  min-width: 270px;
+  color: black;
+  font-size: 1em;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
 `;
 
-const LunchInputContent = styled.textarea`
-  height: 129px;
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #dadada;
-  border-radius: 5px;
-`;
-
-const MemberNum = styled.select`
-  width: 100%;
-  padding: 11px;
-  border: 2px solid #dadada;
-  border-radius: 5px;
-`;
-
-const Option = styled.option``;
-
-const ButtonWrap = styled.div`
-  width: 40%;
-  margin: 30px;
-`;
-
-const SearchBtn = styled.button`
-  background-color: black;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  width: 30%;
-  height: 3rem;
-  border-radius: 10px;
-`;
 const Button = styled.button`
-  background-color: #646464;
-  color: white;
-  height: 40px;
-  width: 100%;
-  border-radius: 20px;
-  border: none;
+  min-width: 350px;
+  width: 41%;
+  height: 48px;
+  font-family: NotoSansKR;
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 1px solid #ff9841;
+  border-radius: 6px;
+  background-color: white;
+  color: #ff9841;
+  margin-bottom: 1em;
+
   &:hover {
-    background-color: #204969;
+    background-color: #ff9841;
+    color: white;
   }
+  ${props =>
+    props.src
+      ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
+      : ""}
 `;
 
 export default LunchCreateUpdate;
