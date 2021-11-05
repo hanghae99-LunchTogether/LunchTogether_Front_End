@@ -10,7 +10,13 @@ const Calendar = ({ setDate }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
-        renderInput={params => <TextField sx={{ width: 500 }} {...params} />}
+        renderInput={params => (
+          <TextField
+            style={{ fontSize: "1.6rem" }}
+            sx={{ width: 500 }}
+            {...params}
+          />
+        )}
         value={value}
         inputFormat="yyyy-MM-dd hh:mm a"
         onChange={newValue => {
