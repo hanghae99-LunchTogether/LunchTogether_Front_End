@@ -16,6 +16,7 @@ import Profile from "../pages/Profile";
 import LunchCreateUpdate from "../pages/LunchCreateUpdate";
 import ProfileUpdate from "../pages/ProfileUpdate";
 import LunchDetail from "../pages/LunchDetail";
+import Review from "../pages/Review";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -68,6 +69,7 @@ function App() {
           ></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
+          <Route path="/review" exact component={Review}></Route>
         </Switch>
         {/* <Footer /> */}
       </ConnectedRouter>

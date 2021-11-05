@@ -6,6 +6,7 @@ import User from "./modules/user";
 import Lunch from "./modules/lunch";
 import Profile from "./modules/profile";
 import Comment from "./modules/comment";
+import Review from "./modules/review";
 import Place from "./modules/place";
 
 export const history = createBrowserHistory();
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   profile: Profile,
   place: Place,
   comment: Comment,
+  review: Review,
   router: connectRouter(history),
 });
 
@@ -35,6 +37,6 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-let store = initialStore => createStore(rootReducer, enhancer);
+let store = (initialStore) => createStore(rootReducer, enhancer);
 
 export default store();

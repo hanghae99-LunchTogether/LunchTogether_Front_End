@@ -26,8 +26,8 @@ export const apis = {
       },
     }),
 
-  // 카카오 로그인
-  kakaologin: user =>
+
+  kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -134,6 +134,18 @@ export const apis = {
   // 점약 전체 리스트 조회
   getLunchListMain: () =>
     instance.get("/lunchpost", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //리뷰 등록
+  addReview: (review) =>
+    instance.post("/spoon", review, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //리뷰 조회
+  getReview: (userid) =>
+    instance.get(`/spoon/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };
