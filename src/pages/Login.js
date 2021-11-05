@@ -137,43 +137,44 @@ const Login = props => {
 export default Login;
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 15%;
+  margin-top: 8rem;
 `;
 
 const Logo = styled.div`
   width: 100px;
   height: 100px;
   background-color: #ff9841;
-  margin-bottom: 7.4%;
+  margin-bottom: 8rem;
 `;
 
 const InputWrapper = styled.div`
-  width: 100%;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3%;
+  margin-bottom: 1rem;
+  max-width: 500px;
+  min-width: 350px;
 `;
 
 const Text = styled.p`
-  font-size: 1em;
+  font-size: 1rem;
   color: gray;
   min-width: 80px;
 `;
 
 const Input = styled.input`
-  width: 50%;
-  min-width: 320px;
-  max-width: 400px;
+  width: 100%;
   height: 48px;
+  min-width: 270px;
   color: black;
-  font-size: 1em;
+  font-size: 1rem;
   padding: 12px 16px;
   border-radius: 6px;
   border: 1px solid #dfdfdf;
@@ -181,18 +182,17 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 50%;
-  min-width: 400px;
-  max-width: 480px;
+  min-width: 350px;
+  width: 41%;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.2rem;
   border: 1px solid #ff9841;
   border-radius: 6px;
   background-color: white;
   color: #ff9841;
-  margin-bottom: 3%;
+  margin-bottom: 1em;
 
   &:hover {
     background-color: #ff9841;

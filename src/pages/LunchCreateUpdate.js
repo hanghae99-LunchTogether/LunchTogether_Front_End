@@ -72,20 +72,35 @@ const LunchCreateUpdate = (props) => {
       <Wrapper>
         <MenuTitleWrapper>
           <MenuTitle>점심약속 등록하기</MenuTitle>
+          <Text style={{ textAlign: "center", margin: "1em" }}>
+            맛있게 먹어봐
+          </Text>
         </MenuTitleWrapper>
+        <InputWrapper>
+          <Text>타이틀</Text>
+          <Input />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>소개</Text>
+          <InputTextArea />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>날짜/시간</Text>
+          <Calendar />
+        </InputWrapper>
       </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 15%;
+  margin-top: 8rem;
 `;
 
 const MenuTitleWrapper = styled.div`
@@ -93,8 +108,70 @@ const MenuTitleWrapper = styled.div`
 `;
 
 const MenuTitle = styled.h1`
-  font-size: 2em;
+  font-size: 1rem;
   font-weight: bold;
+`;
+
+const Text = styled.p`
+  font-size: 1rem;
+  color: gray;
+  min-width: 5rem;
+`;
+
+const InputWrapper = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  max-width: 500px;
+  min-width: 350px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 48px;
+  min-width: 270px;
+  color: black;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+const InputTextArea = styled.textarea`
+  width: 100%;
+  height: 8em;
+  min-width: 270px;
+  color: black;
+  font-size: 1em;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+
+const Button = styled.button`
+  min-width: 350px;
+  width: 41%;
+  height: 48px;
+  font-family: NotoSansKR;
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 1px solid #ff9841;
+  border-radius: 6px;
+  background-color: white;
+  color: #ff9841;
+  margin-bottom: 1em;
+
+  &:hover {
+    background-color: #ff9841;
+    color: white;
+  }
+  ${props =>
+    props.src
+      ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
+      : ""}
 `;
 
 export default LunchCreateUpdate;

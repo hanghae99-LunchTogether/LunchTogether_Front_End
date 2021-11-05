@@ -5,17 +5,18 @@ const GlobalStyle = createGlobalStyle`
     ${reset};
     * {
         box-sizing:border-box;
-        
-        
+    
+    }
+    html {
+        @media only screen and (max-width: 768px) {
+            font-size: 12px;
     }
 
-    body{
+    body {
         padding: 0;
         margin: 0;
         font-family: NotoSansKR, Roboto, sans-serif, "Noto Sans";
-
-        @media only screen and (max-width: 768px) {
-            font-size: 14px;
+        
   }
 
     };

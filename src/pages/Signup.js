@@ -107,40 +107,39 @@ const Signup = props => {
 export default Signup;
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 15%;
+  margin-top: 8em;
 `;
 
 const Logo = styled.div`
   width: 100px;
   height: 100px;
   background-color: #ff9841;
-  margin-bottom: 7.4%;
+  margin-bottom: 8em;
 `;
 
 const InputWrapper = styled.div`
-  width: 100%;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3%;
+  margin-bottom: 1em;
 `;
 
 const Text = styled.p`
   font-size: 1em;
   color: gray;
-  min-width: 100px;
+  min-width: 90px;
 `;
 
 const Input = styled.input`
-  width: 50%;
-  min-width: 310px;
-  max-width: 400px;
+  width: 100%;
+  min-width: 260px;
   height: 48px;
   color: black;
   font-size: 1em;
@@ -151,9 +150,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 50%;
-  min-width: 410px;
-  max-width: 490px;
+  width: 41%;
+  min-width: 350px;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
@@ -162,7 +160,6 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: white;
   color: #ff9841;
-  margin-bottom: 3%;
 
   &:hover {
     background-color: #ff9841;
