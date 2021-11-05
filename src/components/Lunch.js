@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { history } from "../redux/configureStore";
 
-const Lunch = props => {
+const Lunch = (props) => {
   const { title, content, lunchid } = props;
   return (
     <Card sx={{ maxWidth: 345 }}>

@@ -19,6 +19,7 @@ const Home = (props) => {
     <>
       <Wrapper>
         <BannerImage src="https://i.pinimg.com/originals/0c/cc/3b/0ccc3bd079e58b94c1a7b0ee4ac985f2.jpg" />
+
         <CurationTitle>큐레이션 타이틀</CurationTitle>
         <LunchList>
           {lunchList.map((l, idx) => {
@@ -47,7 +48,7 @@ const BannerImage = styled.div`
   background-image: url("${(props) => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top;
+  background-position: center;
 `;
 
 const CurationTitle = styled.p`
@@ -57,8 +58,9 @@ const CurationTitle = styled.p`
 `;
 
 const LunchList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 250px 250px 250px 250px;
+  gap: 10px;
 `;
 
 export default Home;
