@@ -7,16 +7,18 @@ import { apis } from "../../shared/axios";
 const SIGN_UP = "SIGN_UP";
 const SET_USER = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
+const SET_ERROR = "SET_ERROR";
 
 const signUp = createAction(SIGN_UP);
 const setUser = createAction(SET_USER, user => ({ user }));
 const logOut = createAction(LOG_OUT);
+const setError = createAction(SET_ERROR, error => ({ error }));
 
 const initialState = {
   user: null,
   isLoggedIn: false,
   emailValidation: false,
-  Error: "",
+  error: "",
 };
 
 export const signUpAPI = user => {
@@ -47,6 +49,7 @@ export const logInAPI = user => {
       })
       .catch(err => {
         console.log(err.response);
+        dispatch(setError(err.response.data.msg));
       });
   };
 };
@@ -83,6 +86,10 @@ export default handleActions(
       produce(state, draft => {
         draft.user = null;
         draft.isLoggedIn = false;
+      }),
+    [SET_ERROR]: (state, action) =>
+      produce(state, draft => {
+        draft.error = action.payload.error;
       }),
   },
   initialState

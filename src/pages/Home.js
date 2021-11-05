@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { apis } from "../shared/axios";
 import Lunch from "../components/Lunch";
 
-const Home = (props) => {
+const Home = props => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
@@ -33,7 +33,6 @@ const Home = (props) => {
 const Wrapper = styled.div`
   display: flex;
   max-width: 1024px;
-  height: 100vh;
   flex-direction: column;
   margin: 0 auto;
 `;
@@ -42,12 +41,15 @@ const BannerImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vh;
-  background-color: green;
-  background-image: url("${(props) => props.src}");
+  width: 100%;
+  padding-top: 57.3%;
+  background-image: url("${props => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top;
+
+  @media only screen and (max-width: 768px) {
+    height: 300px;
+  }
 `;
 
 const CurationTitle = styled.p`

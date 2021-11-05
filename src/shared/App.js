@@ -23,6 +23,7 @@ import { userActions } from "../redux/modules/user";
 import CommentWrite from "../components/CommentWrite";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const dispatch = useDispatch();
