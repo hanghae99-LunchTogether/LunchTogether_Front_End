@@ -26,6 +26,7 @@ export const apis = {
       },
     }),
 
+
   kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
       headers: {
@@ -33,6 +34,32 @@ export const apis = {
         accept: "application/json",
       },
     }),
+
+  // 이메일 중복확인
+  checkEmail: email =>
+    instance.post(
+      "/checkemail",
+      { email },
+      {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      }
+    ),
+
+  // 닉네임 중복확인
+  checkNickname: nickname =>
+    instance.post(
+      "/checknickname",
+      { nickname },
+      {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      }
+    ),
 
   //회원정보 요청
   getUser: () =>

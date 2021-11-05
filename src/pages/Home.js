@@ -34,7 +34,6 @@ const Home = (props) => {
 const Wrapper = styled.div`
   display: flex;
   max-width: 1024px;
-  height: 100vh;
   flex-direction: column;
   margin: 0 auto;
 `;
@@ -43,12 +42,15 @@ const BannerImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vh;
-  background-color: green;
+  width: 100%;
+  padding-top: 57.3%;
   background-image: url("${(props) => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+
+  @media only screen and (max-width: 768px) {
+    height: 300px;
+  }
 `;
 
 const CurationTitle = styled.p`
