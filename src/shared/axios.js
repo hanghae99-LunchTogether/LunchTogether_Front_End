@@ -26,13 +26,40 @@ export const apis = {
       },
     }),
 
-  kakaologin: user =>
+
+  kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",
       },
     }),
+
+  // 이메일 중복확인
+  checkEmail: email =>
+    instance.post(
+      "/checkemail",
+      { email },
+      {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      }
+    ),
+
+  // 닉네임 중복확인
+  checkNickname: nickname =>
+    instance.post(
+      "/checknickname",
+      { nickname },
+      {
+        headers: {
+          "content-type": "application/json;charset=UTF-8",
+          accept: "application/json",
+        },
+      }
+    ),
 
   //회원정보 요청
   getUser: () =>
@@ -107,6 +134,18 @@ export const apis = {
   // 점약 전체 리스트 조회
   getLunchListMain: () =>
     instance.get("/lunchpost", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //리뷰 등록
+  addReview: (review) =>
+    instance.post("/spoon", review, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //리뷰 조회
+  getReview: (userid) =>
+    instance.get(`/spoon/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };

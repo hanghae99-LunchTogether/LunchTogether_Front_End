@@ -45,7 +45,7 @@ const ProfileUpdate = props => {
   const getProfileData = async () => {
     try {
       const data = await apis.getProfile(userId);
-      const user = data.data.data.user[0];
+      const user = data.data.data.user;
       setUserInfo(user);
       setUploadImage(user.image);
     } catch (error) {
