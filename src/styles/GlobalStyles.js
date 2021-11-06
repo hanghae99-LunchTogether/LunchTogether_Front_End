@@ -2,15 +2,17 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
-    ${reset};
+  ${reset};
     * {
         box-sizing:border-box;
-    
     }
+    
     html {
-        font-size: 62.5%;
+        font-size:62.5%;
+        
         @media only screen and (max-width: 768px) {
             font-size: 46.875%;
+
     }
 
     body {
