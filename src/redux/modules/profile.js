@@ -16,9 +16,7 @@ const initialState = {
 const getProfileAPI = userId => {
   return function (dispatch, getState, { history }) {
     apis.getProfile(userId).then(res => {
-      console.log(res);
       const user = res.data.data.user;
-      console.log(user);
       dispatch(getProfile(user));
     });
   };

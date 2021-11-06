@@ -18,9 +18,9 @@ const LunchCreateUpdate = props => {
     membernum: "",
     date: "",
   });
+
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [place, setPlace] = useState(null);
   const lunchId = props.match.params.id;
   const is_edit = lunchId ? true : false;
 
