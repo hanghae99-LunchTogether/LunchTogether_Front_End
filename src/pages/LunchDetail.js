@@ -12,18 +12,18 @@ import MapContainer from "../components/MapContainer";
 import { RiMapPin2Fill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
 
-const LunchDetail = props => {
+const LunchDetail = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector(state => state.user.user);
+  const user_info = useSelector((state) => state.user.user);
   console.log(user_info);
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const lunchId = props.match.params.lunchid;
 
   const [lunch, setLunch] = useState("null");
-
+  console.log(lunch);
   const getLunch = async () => {
     const data = await apis.getOneLunch(lunchId);
     const lunchData = data.data.data.lunch;
@@ -45,26 +45,18 @@ const LunchDetail = props => {
           <SubTitle>{lunch.content}</SubTitle>
         </Head>
         <LunchInfoWrap>
-          <LunchInfoBoth>
-            <LunchInfoTitle>
-              <p>날짜시간</p>
-              <p>신청현황</p>
-            </LunchInfoTitle>
-            <LunchInfo>
-              <p>{lunch.time}</p>
-              <p>{lunch.membernum}/4 명</p>
-            </LunchInfo>
-          </LunchInfoBoth>
-          <LunchInfoBoth>
-            <LunchInfoTitle>
-              <div>약속장소</div>
-              <div>진행시간</div>
-            </LunchInfoTitle>
-            <LunchInfo>
-              <p>위치가 왜 새로고침하면 오류나지?</p>
-              <p>{lunch.duration}</p>
-            </LunchInfo>
-          </LunchInfoBoth>
+          <LunchInfoLeft>
+            <p>신청현황</p>
+            <p>약속장소</p>
+            <p>날짜시간</p>
+            <p>진행시간</p>
+          </LunchInfoLeft>
+          <LunchInfoRight>
+            <p>{lunch.membernum}/4</p>
+            <p>영안식당</p>
+            <p>{lunch.time}</p>
+            <p>{lunch.duration}</p>
+          </LunchInfoRight>
         </LunchInfoWrap>
         <UserInfoWrap>
           <Image
@@ -93,8 +85,29 @@ const LunchDetail = props => {
               <UserDesc>💸티빙과 넷플릭스 시리즈를 광적으로 좋아해요</UserDesc>
             </UserDescWrap>
             <HostMenu>호스트의 메뉴 취향</HostMenu>
+            <HostFoodBox>
+              <HostFood>한식</HostFood>
+              <HostFood>양식</HostFood>
+              <HostFood>콩</HostFood>
+            </HostFoodBox>
           </UserInfo>
         </UserInfoWrap>
+        <MapPosition>하이디라오 강남점</MapPosition>
+        <MapAddress>서울특별시 서초구 서초1동</MapAddress>
+        <MapWarp>
+          <MapContainer />
+        </MapWarp>
+        <WishMember>이런 분들과 함께 점심을 먹고 싶어요</WishMember>
+        <MemberOption>
+          🐱고양이를 키우시는 분과 같이 먹고싶어요 (나만 고양이 없어… 고양이
+          사진 보고싶어요…)
+        </MemberOption>
+        <MemberOption>
+          👻마이네임 재밌게 보신 분! 먹으면서 이야기해요
+        </MemberOption>
+        <MemberOption>
+          👀디자인 회사 이직 고민중인데 저와 같은 상황이신 분 있으실까요?
+        </MemberOption>
         <DetailButton
           onClick={() => {
             if (!isLoggedIn) {
@@ -103,7 +116,7 @@ const LunchDetail = props => {
             }
           }}
         >
-          신청하기
+          점심약속 신청하기
         </DetailButton>
         <CommentWrite></CommentWrite>
       </LunchDetailBox>
@@ -167,37 +180,34 @@ const LunchInfoWrap = styled.div`
   margin: 3.2rem 0;
 `;
 
-const LunchInfoBoth = styled.div`
-  display: flex;
-  width: 50%;
-  padding: 1.2rem;
-`;
-
-const LunchInfoTitle = styled.div`
-  margin-right: 0.8rem;
-  color: #64656a;
-  width: 8.3rem;
-  @media only screen and (max-width: 1780px) {
-    width: 9rem;
-    .user_image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+const LunchInfoLeft = styled.div`
+  margin-left: 5rem;
+  padding-right: 1rem;
+  line-height: 3.2rem;
+  width: 100px;
+  text-align: end;
+  background-color: #fff8f2;
+  border-radius: 30px 0 0 30px;
+  @media only screen and (max-width: 1100px) {
+    margin-left: 3rem;
+    text-align: start;
+    width: 70px;
   }
 `;
 
-const LunchInfo = styled.div`
-  margin-left: 0.8rem;
+const LunchInfoRight = styled.div`
+  line-height: 3.2rem;
+  margin-left: 3rem;
 `;
 
 const UserInfoWrap = styled.div`
   display: flex;
-  margin: 2.2rem 0;
+  margin: 2.2rem 0 8rem 0;
   padding: 3.2rem;
   border: solid 1px #efefef;
   @media only screen and (max-width: 1470px) {
     flex-direction: column;
+    width: 100%;
     margin: 2.2rem auto;
     align-items: center;
   }
@@ -216,6 +226,7 @@ const WriterName = styled.p`
   padding: 0.8rem 0;
   font-size: 1.6rem;
   margin-right: 0.9rem;
+  color: #64656a;
 `;
 
 const WriterJob = styled.span`
@@ -258,17 +269,69 @@ const HostMenu = styled.p`
   color: #64656a;
 `;
 
-const DetailButton = styled.button`
+const HostFoodBox = styled.div`
+  display: flex;
+`;
+
+const HostFood = styled.div`
+  display: flex;
+  height: 3rem;
+  width: 8rem;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  border-radius: 16px;
+  background-color: #e7dbd0;
+  font-size: 1.4rem;
+`;
+
+const MapPosition = styled.h2`
+  font-size: 18px;
+  color: #64656a;
+  padding: 0.6rem 0;
+  margin-bottom: 0.8rem;
+`;
+
+const MapAddress = styled.p`
+  color: #64656a;
+  font-size: 1.4rem;
+  padding: 0.3rem;
+`;
+
+const MapWarp = styled.div`
+  display: flex;
   flex: 1;
-  margin: 10px 0px 10px 0px;
-  padding: 10px;
-  border: 2px solid #dadada;
-  border-radius: 5px 5px 30px 5px;
-  transition: 0.1s;
+  min-width: 350px;
+  justify-content: center;
+  margin: 3.3rem 0 8rem 0;
+`;
+
+const WishMember = styled.h2`
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #3c3c3c;
+  padding: 0.4rem 0;
+  margin-bottom: 1.2rem;
+`;
+
+const MemberOption = styled.p`
+  font-size: 1.6rem;
+  margin-left: 3.1rem;
+  padding: 0.4rem 0;
+`;
+
+const DetailButton = styled.button`
+  width: 30.8rem;
+  height: 5.6rem;
+  font-size: 16px;
+  color: white;
+  background-color: #ff9841;
+  border: none;
+  border-radius: 4px;
+  margin: 10rem auto;
+  transition: 0.8s;
   &:hover {
-    border-radius: 5px;
-    color: white;
-    background-color: #204969;
+    border-radius: 20px;
   }
 `;
 
