@@ -19,8 +19,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         font-family: NotoSansKR, Roboto, sans-serif, "Noto Sans";
-        
-}
+          }
 
     };
     button{
