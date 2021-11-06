@@ -21,7 +21,7 @@ const Review = (props) => {
     dispatch(reviewAction.addReviewAPI(review));
   };
 
-  //평점
+  // 평점;
   const colors = {
     orange: "#FFBA5A",
     gray: "#a9a9a9",
@@ -42,7 +42,7 @@ const Review = (props) => {
     setHoverValue(undefined);
   };
 
-  //모달창
+  // 모달창;
   const [modalOpen, setModalOpen] = useState(false);
   const modalClose = () => {
     setModalOpen(!modalOpen);
@@ -267,4 +267,5 @@ const styles = {
     flexDirection: "row",
   },
 };
+
 export default Review;
