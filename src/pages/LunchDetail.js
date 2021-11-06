@@ -165,7 +165,6 @@ const LunchInfoWrap = styled.div`
   color: #64656a;
   padding: 0.4rem;
   margin: 3.2rem 0;
-  }
 `;
 
 const LunchInfoBoth = styled.div`
