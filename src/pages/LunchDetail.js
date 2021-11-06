@@ -7,18 +7,19 @@ import { useSelector } from "react-redux";
 import { lunchActions } from "../redux/modules/lunch";
 import CommentWrite from "../components/CommentWrite";
 import { Image } from "../elements";
-import Avatar from "@mui/material/Avatar";
-import AvatarGroup from "@mui/material/AvatarGroup";
 import { apis } from "../shared/axios";
+import MapContainer from "../components/MapContainer";
+import { RiMapPin2Fill } from "react-icons/ri";
+import { GiKnifeFork } from "react-icons/gi";
 
 const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector(state => state);
-  const post_info = useSelector(state => state);
+  const user_info = useSelector(state => state.user.user);
+  console.log(user_info);
   const isLoggedIn = useSelector(state => state.user.isLoggedIn);
-  console.log(post_info);
+
   const lunchId = props.match.params.lunchid;
 
   const [lunch, setLunch] = useState("null");
@@ -32,103 +33,78 @@ const LunchDetail = props => {
   useEffect(() => {
     getLunch();
   }, []);
+
   return (
     <>
       <LunchDetailBox>
-        <Title>하이디라오 강남점에서 점심 같이 먹어요👀</Title>
-        <p style={{ fontWeight: "bold" }}>작성자</p>
-        <UserInfoBox>
+        <Head>
+          <New>
+            <p>NEW</p>
+          </New>
+          <Title>{lunch.title}</Title>
+          <SubTitle>{lunch.content}</SubTitle>
+        </Head>
+        <LunchInfoWrap>
+          <LunchInfoBoth>
+            <LunchInfoTitle>
+              <p>날짜시간</p>
+              <p>신청현황</p>
+            </LunchInfoTitle>
+            <LunchInfo>
+              <p>{lunch.time}</p>
+              <p>{lunch.membernum}/4 명</p>
+            </LunchInfo>
+          </LunchInfoBoth>
+          <LunchInfoBoth>
+            <LunchInfoTitle>
+              <div>약속장소</div>
+              <div>진행시간</div>
+            </LunchInfoTitle>
+            <LunchInfo>
+              <p>위치가 왜 새로고침하면 오류나지?</p>
+              <p>{lunch.duration}</p>
+            </LunchInfo>
+          </LunchInfoBoth>
+        </LunchInfoWrap>
+        <UserInfoWrap>
           <Image
+            className="user_image"
             shape="circle"
             size="100"
             src={"https://t1.daumcdn.net/cfile/blog/134665344D7625B635"}
             /*src={user_info.image}*/
           />
           <UserInfo>
-            <p>
-              화정
-              <span
-                style={{
-                  fontSize: "12px",
-                  color: "#a2a9af",
-                  marginLeft: "5px",
-                }}
-              >
-                | 디자이너
-              </span>
-            </p>
-            <p>매너온도 60도</p>
-            <p>ISFJ</p>
+            <WriterInfo>
+              <WriterName>화정</WriterName>
+              <WriterJob>디자이너</WriterJob>
+              <Manner>
+                <GiKnifeFork />
+                4.85점
+              </Manner>
+            </WriterInfo>
+            <UserAddress>
+              <RiMapPin2Fill style={{ marginRight: "0.4rem", color: "red" }} />
+              서울 강남구 개포1동
+            </UserAddress>
+            <UserDescWrap>
+              <UserDesc>👩🏻‍💻고민많은 주니어 프로덕트 디자이너</UserDesc>
+              <UserDesc>🧑🏻‍🍳먹는 걸 좋아해서 자주 만들어 먹어요</UserDesc>
+              <UserDesc>💸티빙과 넷플릭스 시리즈를 광적으로 좋아해요</UserDesc>
+            </UserDescWrap>
+            <HostMenu>호스트의 메뉴 취향</HostMenu>
           </UserInfo>
-        </UserInfoBox>
-
-        <InfoWrap>
-          <label>
-            <LabelName>설명</LabelName>
-            <DetailDesc>
-              마라탕 같이 드실 분 구해요. 저희 회사 분들은 매운걸 못 드시네요
-              같이 점심 드실분?
-            </DetailDesc>
-          </label>
-        </InfoWrap>
-        <InfoWrap>
-          <label>
-            <LabelName>약속 날짜/시간</LabelName>
-            <DetailInfo>
-              2021년 12월31일 (수) 12시 30분~13시 30분(1시간)
-            </DetailInfo>
-          </label>
-        </InfoWrap>
-        <InfoWrap>
-          <label>
-            <LabelName>음식점 위치</LabelName>
-            <DetailInfo>서울특별시 서초구 서초동 서초대로77길 54</DetailInfo>
-          </label>
-        </InfoWrap>
-        <MemberAndButtonWrap>
-          <MemberNum>
-            <MemberNumLeft>
-              <p
-                style={{
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  margin: "5px 0px",
-                }}
-              >
-                모집인원
-              </p>
-              <span style={{ fontSize: "12px", color: "#a2a9af" }}>2/4 명</span>
-            </MemberNumLeft>
-            <AvatarGroup max={4}>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://t1.daumcdn.net/cfile/blog/134665344D7625B635"
-              />
-              <Avatar
-                alt="Travis Howard"
-                src="https://news.nateimg.co.kr/orgImg/iz/2021/04/29/6bbc25b9-e735-4d0b-a59d-fb7a99e0723d.jpg"
-              />
-              <Avatar
-                alt="Cindy Baker"
-                src="https://img2.sbs.co.kr/img/sbs_cms/CH/2020/01/02/CH44395109_w300_h300.jpg"
-              />
-              <Avatar
-                alt="Agnes Walker"
-                src="https://cdnweb01.wikitree.co.kr/webdata/editor/202110/06/img_20211006122415_d52bb366.webp"
-              />
-            </AvatarGroup>
-          </MemberNum>
-          <DetailButton
-            onClick={() => {
-              if (!isLoggedIn) {
-                window.alert("로그인을 해주세요!");
-                history.replace("/login");
-              }
-            }}
-          >
-            신청하기
-          </DetailButton>
-        </MemberAndButtonWrap>
+        </UserInfoWrap>
+        <DetailButton
+          onClick={() => {
+            if (!isLoggedIn) {
+              window.alert("로그인을 해주세요!");
+              history.replace("/login");
+            }
+          }}
+        >
+          신청하기
+        </DetailButton>
         <CommentWrite></CommentWrite>
       </LunchDetailBox>
     </>
@@ -141,76 +117,145 @@ const LunchDetailBox = styled.div`
   justify-content: center;
   width: 33.33vw;
   min-width: 350px;
-  max-width: 768px;
-  padding: 10px;
-  margin: 30px auto;
+  max-width: 600px;
+  margin: 1.56rem auto;
   box-shadow: 5px 5px 5px 5px #ebecf0;
+`;
+
+const Head = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 1px solid #efefef;
+`;
+
+const New = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1.4rem;
+  background-color: #ff9841;
+  border-radius: 15px;
+  margin-top: 12.9rem;
+  margin-bottom: 1.6rem;
+  p {
+    font-size: 1.4rem;
+    color: white;
+    padding: 0.3rem 0px;
+  }
 `;
 
 const Title = styled.h1`
   font-weight: bold;
-  font-size: 20px;
-  margin: 30px 0px;
+  font-size: 2.4rem;
+  margin: 1.6rem 0px 0.8rem 0;
+  color: #3c3c3c;
 `;
 
-const UserInfoBox = styled.div`
+const SubTitle = styled.h2`
+  font-size: 1.8rem;
+  margin-bottom: 3.2rem;
+  color: #64656a;
+`;
+
+const LunchInfoWrap = styled.div`
   display: flex;
-  padding: 15px;
-  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  font-size: 1.6rem;
+  color: #64656a;
+  padding: 0.4rem;
+  margin: 3.2rem 0;
+`;
+
+const LunchInfoBoth = styled.div`
+  display: flex;
+  width: 50%;
+  padding: 1.2rem;
+`;
+
+const LunchInfoTitle = styled.div`
+  margin-right: 0.8rem;
+  color: #64656a;
+  width: 8.3rem;
+  @media only screen and (max-width: 1780px) {
+    width: 9rem;
+    .user_image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+`;
+
+const LunchInfo = styled.div`
+  margin-left: 0.8rem;
+`;
+
+const UserInfoWrap = styled.div`
+  display: flex;
+  margin: 2.2rem 0;
+  padding: 3.2rem;
+  border: solid 1px #efefef;
+  @media only screen and (max-width: 1470px) {
+    flex-direction: column;
+    margin: 2.2rem auto;
+    align-items: center;
+  }
 `;
 
 const UserInfo = styled.div`
+  margin-left: 2.9rem;
+`;
+
+const WriterInfo = styled.div`
+  display: flex;
+`;
+
+const WriterName = styled.p`
+  font-weight: bold;
+  padding: 0.8rem 0;
+  font-size: 1.6rem;
+  margin-right: 0.9rem;
+`;
+
+const WriterJob = styled.span`
+  font-size: 1.6rem;
+  padding: 0.8rem 0;
+  margin-right: 0.9rem;
+  color: #64656a;
+`;
+
+const Manner = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px;
-  flex-direction: column;
-`;
-
-const InfoWrap = styled.div`
-  padding: 10px 0px;
-  width: 100%;
-`;
-
-const LabelName = styled.p`
-  font-size: 12px;
-  font-weight: bold;
-  padding-bottom: 10px;
-`;
-
-const DetailDesc = styled.div`
-  height: 129px;
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #dadada;
-  border-radius: 5px;
-`;
-
-const DetailInfo = styled.div`
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #dadada;
-  border-radius: 5px;
-`;
-
-const MemberAndButtonWrap = styled.div`
-  display: flex;
-`;
-
-const MemberNum = styled.div`
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 68%;
-  padding: 12px;
-  margin: 10px 10px 10px 0px;
-  border: 2px solid #dadada;
-  border-radius: 5px;
+  width: 6.2rem;
+  height: 2.1rem;
+  padding: 0.8rem 0;
+  background-color: #ff9841;
+  border-radius: 11px;
+  margin-top: 0.6rem;
+  color: white;
 `;
 
-const MemberNumLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const UserAddress = styled.p`
+  margin-bottom: 0.75rem;
+`;
+
+const UserDescWrap = styled.div`
+  font-size: 1.4rem;
+  margin: 0.75rem 0 0.3rem 0;
+  color: #64656a;
+`;
+
+const UserDesc = styled.p`
+  padding: 0.5rem;
+`;
+
+const HostMenu = styled.p`
+  margin: 1.3rem 0;
+  font-size: 1.4rem;
+  color: #64656a;
 `;
 
 const DetailButton = styled.button`

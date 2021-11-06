@@ -7,7 +7,7 @@ import { selectPlaceMiddleware } from "../redux/modules/place";
 
 const { kakao } = window;
 
-const MapContainer = ({ searchKeyword, setPlace }) => {
+const MapContainer = ({ searchKeyword, setLunch, lunch }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const MapContainer = ({ searchKeyword, setPlace }) => {
             "</div>"
         );
         infowindow.open(map, marker);
-        setPlace(place);
+        setLunch({ ...lunch, location: place });
         // dispatch(selectPlaceMiddleware(place));
       });
     }
@@ -70,8 +70,8 @@ const MapContainer = ({ searchKeyword, setPlace }) => {
 };
 
 const MapWrapper = styled.div`
-  width: 30vw;
-  height: 15vh;
+  width: 40vw;
+  height: 30vh;
   border-radius: 20px;
 `;
 

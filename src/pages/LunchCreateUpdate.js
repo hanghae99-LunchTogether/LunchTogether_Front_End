@@ -10,12 +10,17 @@ import Calendar from "../components/Calendar";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
-const LunchCreateUpdate = (props) => {
-  const [lunch, setLunch] = useState(null);
-  const [date, setDate] = useState(null);
+const LunchCreateUpdate = props => {
+  const [lunch, setLunch] = useState({
+    title: "",
+    content: "",
+    location: "",
+    membernum: "",
+    date: "",
+  });
+
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [place, setPlace] = useState(null);
   const lunchId = props.match.params.id;
   const is_edit = lunchId ? true : false;
 
@@ -29,20 +34,15 @@ const LunchCreateUpdate = (props) => {
     }
   };
 
-
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
-
     setLunch({
       ...lunch,
       [name]: value,
-      location: place,
-      date: date,
     });
   };
-
 
   useEffect(() => {
     if (lunchId) {
@@ -50,7 +50,7 @@ const LunchCreateUpdate = (props) => {
     }
   }, []);
 
-  const onSearchKeywordChange = (e) => {
+  const onSearchKeywordChange = e => {
     setPlaceInput(e.target.value);
   };
 
@@ -72,20 +72,100 @@ const LunchCreateUpdate = (props) => {
       <Wrapper>
         <MenuTitleWrapper>
           <MenuTitle>점심약속 등록하기</MenuTitle>
+          <Text style={{ textAlign: "center", margin: "1rem" }}>
+            맛있게 먹어봐
+          </Text>
         </MenuTitleWrapper>
+        <InputWrapper>
+          <Text>타이틀</Text>
+          <Input
+            name="title"
+            onChange={onChange}
+            // defaultValue={lunch.title}
+            value={lunch.title ? lunch.title : ""}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>소개</Text>
+          <InputTextArea
+            name="content"
+            onChange={onChange}
+            value={lunch.content}
+            required
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>날짜/시간</Text>
+          <Calendar setLunch={setLunch} lunch={lunch} />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>장소</Text>
+          <Input
+            onChange={onSearchKeywordChange}
+            style={{ marginRight: "1.6rem", minWidth: "200px" }}
+            required
+          />
+          <SearchButton onClick={searchPlace}>검색</SearchButton>
+        </InputWrapper>
+        {lunch.location && (
+          <InputWrapper>
+            <FakeDiv />
+            <SelectedPlace style={{ lineHeight: "1.5rem" }}>
+              <Text style={{ fontSize: "1.4rem" }}>
+                장소명: {lunch.location.place_name}
+              </Text>
+              <Text style={{ fontSize: "1.4rem" }}>
+                주소: {lunch.location.road_address_name}
+              </Text>
+              <a
+                href={lunch.location.place_url}
+                target="_blank"
+                style={{
+                  cursor: "pointer",
+                  fontSize: "1.4rem",
+                  color: "blue",
+                }}
+              >
+                카카오 지도 링크
+              </a>
+            </SelectedPlace>
+          </InputWrapper>
+        )}
+        <InputWrapper>
+          <FakeDiv />
+          <MapContainer
+            setLunch={setLunch}
+            lunch={lunch}
+            searchKeyword={searchKeyword}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <Text>정원</Text>
+          <Select
+            name="membernum"
+            onChange={onChange}
+            defalutValue="2"
+            value={lunch.membernum}
+          >
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </Select>
+        </InputWrapper>
+        <Button onClick={addLunch}>등록하기</Button>
       </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 15%;
+  margin: 5rem auto;
 `;
 
 const MenuTitleWrapper = styled.div`
@@ -93,8 +173,106 @@ const MenuTitleWrapper = styled.div`
 `;
 
 const MenuTitle = styled.h1`
-  font-size: 2em;
+  font-size: 2.5rem;
   font-weight: bold;
+`;
+
+const Text = styled.p`
+  font-size: 1.6rem;
+  color: gray;
+  min-width: 8rem;
+`;
+
+const InputWrapper = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.6rem;
+  max-width: 500px;
+  min-width: 350px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 48px;
+  min-width: 270px;
+  color: black;
+  font-size: 1.6rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+
+const Select = styled.select`
+  width: 100%;
+  height: 48px;
+  min-width: 270px;
+  color: black;
+  font-size: 1.6rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+
+const FakeDiv = styled.div`
+  min-width: 8rem;
+`;
+
+const InputTextArea = styled.textarea`
+  width: 100%;
+  height: 8em;
+  min-width: 270px;
+  color: black;
+  font-size: 1.6rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+
+const SearchButton = styled.button`
+  width: 7rem;
+  min-width: 5rem;
+  height: 48px;
+  color: white;
+  font-size: 1.6rem;
+  background-color: #ff9841;
+  border-radius: 6px;
+  border: none;
+`;
+
+const SelectedPlace = styled.div`
+  width: 100%;
+  height: 48px;
+  border-radius: 6px;
+  background-color: #fff;
+`;
+
+const Button = styled.button`
+  min-width: 350px;
+  max-width: 500px;
+  width: 50%;
+  height: 48px;
+  font-family: NotoSansKR;
+  font-weight: bold;
+  font-size: 1.6rem;
+  border: 1px solid #ff9841;
+  border-radius: 6px;
+  background-color: white;
+  color: #ff9841;
+  margin-bottom: 1em;
+
+  &:hover {
+    background-color: #ff9841;
+    color: white;
+  }
+  ${props =>
+    props.src
+      ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
+      : ""}
 `;
 
 export default LunchCreateUpdate;
