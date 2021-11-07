@@ -11,6 +11,7 @@ import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
 import { RiMapPin2Fill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
+import { Avatar } from "@mui/material";
 
 const LunchDetail = (props) => {
   const { history } = props;
@@ -189,9 +190,10 @@ const LunchInfoLeft = styled.div`
   background-color: #fff8f2;
   border-radius: 30px 0 0 30px;
   @media only screen and (max-width: 1100px) {
-    margin-left: 3rem;
-    text-align: start;
-    width: 70px;
+    padding-left: 1rem;
+    margin-left: 2rem;
+    text-align: center;
+    width: 90px;
   }
 `;
 
