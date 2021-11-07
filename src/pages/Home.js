@@ -48,15 +48,23 @@ const Home = (props) => {
 };
 
 const Wrapper = styled.div`
-  max-width: 192rem;
+  max-width: 1920px;
   padding: 0 32rem 0 32rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   background-color: #fafafa;
+
+  @media only screen and (max-width: 768px) {
+    min-width: 375px;
+    padding: 0 3.2rem 0 3.2rem;
+  }
 `;
 
 const BannerImage = styled.div`
   width: 100%;
+  min-width: 952px;
   height: 40rem;
   display: flex;
   justify-content: center;
@@ -69,11 +77,14 @@ const BannerImage = styled.div`
   }
 
   @media only screen and (max-width: 768px) {
-    height: 300px;
+    min-width: 350px;
+    height: 30rem;
   }
 `;
 
 const CurationTitle = styled.p`
+  width: 100%;
+  min-width: 952px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,8 +105,8 @@ const CurationTitle = styled.p`
   }
 
   button {
-    width: 30.8rem;
-    height: 5.6rem;
+    width: 308px;
+    height: 56px;
     padding: 1.6rem 0 1.6rem 0;
     border-radius: 0.4rem;
     background-color: #ff9841;
@@ -104,14 +115,31 @@ const CurationTitle = styled.p`
     line-height: 2.6rem;
     color: #ffffff;
   }
+
+  @media only screen and (max-width: 768px) {
+    min-width: 350px;
+    flex-direction: column;
+    text-align: center;
+
+    button {
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
 `;
 
 const LunchList = styled.div`
+  width: 100%;
+  min-width: 952px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
   gap: 3.2rem 2.8rem;
+
+  @media only screen and (max-width: 768px) {
+    min-width: 350px;
+  }
 `;
 
 export default Home;
