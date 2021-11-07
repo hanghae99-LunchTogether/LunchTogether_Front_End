@@ -10,7 +10,7 @@ const CommentList = (props) => {
       {commentList && (
         <React.Fragment>
           {commentList.map((item, index) => {
-            return <CommentItem {...item} index={index} />;
+            return <CommentItem {...item} index={index} key={index} />;
           })}
         </React.Fragment>
       )}

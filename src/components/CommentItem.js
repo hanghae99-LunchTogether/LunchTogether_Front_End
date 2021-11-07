@@ -4,14 +4,15 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
+import { MdDelete } from "react-icons/md";
 
-const CommentItem = props => {
+const CommentItem = (props) => {
   const dispatch = useDispatch();
-  const commentList = useSelector(state => state.comment.commentList.comment);
+  const commentList = useSelector((state) => state.comment.commentList.comment);
   const { index } = props;
   const commentIndex = commentList[index];
   const commentId = commentIndex.commentid;
-  const url = useSelector(state => state.router);
+  const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
   // const loginUser = useSelector((state) => state);
   // const loginUser = useSelector((state) => state.user.user.nickname);
@@ -37,7 +38,9 @@ const CommentItem = props => {
             </div>
           </UserInfo>
           <Edit>
-            <span onClick={onClickDelete}>삭제</span>
+            <span onClick={onClickDelete}>
+              <MdDelete />
+            </span>
           </Edit>
         </User>
         <Content>{commentIndex.comment}</Content>
@@ -47,7 +50,6 @@ const CommentItem = props => {
 };
 
 const Container = styled.div`
-  margin: 2.5rem;
   box-sizing: border-box;
   width: 100%;
   margin: auto;
@@ -98,9 +100,9 @@ const Content = styled.div`
 const Edit = styled.div`
   span {
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 2rem;
     color: rgb(134, 142, 150);
-    margin-left: 0.5rem;
+    margin: 2rem;
     :hover {
       text-decoration: underline;
       color: #b0b5c3;

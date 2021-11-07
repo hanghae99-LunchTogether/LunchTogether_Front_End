@@ -7,12 +7,12 @@ import { history } from "../redux/configureStore";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import CommentList from "./CommentList";
 
-const CommentWrite = props => {
+const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const commentList = useSelector(state => state.comment.commentList.comment);
-  const url = useSelector(state => state.router);
+  const commentList = useSelector((state) => state.comment.commentList.comment);
+  const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const isLoggedIn = user.isLoggedIn;
   const [content, setContent] = useState("");
 
@@ -20,7 +20,7 @@ const CommentWrite = props => {
     dispatch(commentAction.getCommentAPI(lunchId));
   }, []);
 
-  const onChangeContent = e => {
+  const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
@@ -46,18 +46,20 @@ const CommentWrite = props => {
     <React.Fragment>
       <Container>
         <Count>{commentList?.length}개의 댓글</Count>
-        <Input
-          placeholder="댓글을 작성하세요"
-          onChange={onChangeContent}
-          value={content}
-        />
-        <Button
-          onClick={() => {
-            onClickWrite();
-          }}
-        >
-          댓글 작성
-        </Button>
+        <InputBtn>
+          <Input
+            placeholder="댓글을 작성하세요"
+            onChange={onChangeContent}
+            value={content}
+          />
+          <Button
+            onClick={() => {
+              onClickWrite();
+            }}
+          >
+            댓글 작성
+          </Button>
+        </InputBtn>
       </Container>
       <CommentList></CommentList>
     </React.Fragment>
@@ -67,11 +69,9 @@ const CommentWrite = props => {
 const Container = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 200px;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: end;
 `;
 
 const Count = styled.h4`
@@ -88,16 +88,24 @@ const Count = styled.h4`
   margin: 0 auto 1rem auto;
 `;
 
-const Input = styled.input`
-  padding: 1rem 1rem 1.5rem;
-  outline: none;
-  border: 1px solid rgb(233, 236, 239);
-  margin-bottom: 1.5rem;
+const InputBtn = styled.div`
+  display: flex;
   width: 100%;
+  margin-bottom: 0.5rem;
+`;
+
+const Input = styled.input`
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  border: none;
+  background-color: #fafafa;
+  margin-bottom: 1.5rem;
+  margin-right: 1.6rem;
+  width: 87.5%;
   box-sizing: inherit;
   border-radius: 4px;
-  min-height: 6.125rem;
-  font-size: 1rem;
+  min-height: 4rem;
+  font-size: 1.4rem;
   color: rgb(33, 37, 41);
   line-height: 1.75;
   word-break: break-all;
@@ -112,18 +120,21 @@ const Button = styled.button`
   font-weight: bold;
   cursor: pointer;
   border: none;
-  background: rgb(18, 184, 134);
+  background: #c1c1c1;
   color: white;
   border-radius: 4px;
   padding: 0.625rem 1.25rem;
   height: 2rem;
+  min-height: 4rem;
   font-size: 1rem;
   font-family: inherit;
   box-sizing: inherit;
   outline: none;
-  width: 110px;
+  width: 92px;
+  transition: 0.6s;
   &:hover {
-    background-color: #45d1a7;
+    background-color: #ff9841;
+    font-size: 1.2rem;
   }
 `;
 
