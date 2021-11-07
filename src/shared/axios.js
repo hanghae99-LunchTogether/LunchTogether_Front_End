@@ -26,8 +26,7 @@ export const apis = {
       },
     }),
 
-
-  kakaologin: (user) =>
+  kakaologin: user =>
     instance.post(`/kakaologin`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -125,6 +124,11 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  getProfileLunch: userid =>
+    instance.get(`/applicant/user/${userid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
   // 내 프로필 조회
   editMyProfile: () =>
     instance.get("/myProfile", {
@@ -138,13 +142,13 @@ export const apis = {
     }),
 
   //리뷰 등록
-  addReview: (review) =>
+  addReview: review =>
     instance.post("/spoon", review, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //리뷰 조회
-  getReview: (userid) =>
+  getReview: userid =>
     instance.get(`/spoon/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),

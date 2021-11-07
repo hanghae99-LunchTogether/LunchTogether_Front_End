@@ -15,7 +15,7 @@ const ProfileUpdate = props => {
   const [uploadImage, setUploadImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [place, setPlace] = useState(null);
+  const [location, setLocation] = useState("");
   const userId = props.match.params.id;
 
   const onChange = e => {
@@ -25,6 +25,7 @@ const ProfileUpdate = props => {
     setUserInfo({
       ...userInfo,
       [name]: value,
+      location: location,
     });
   };
 
@@ -63,16 +64,10 @@ const ProfileUpdate = props => {
 
   console.log(userInfo);
 
-  // const place = useSelector(state => state.place.place);
-
   const onUpdateProfile = async () => {
-    setUserInfo({
-      ...userInfo,
-      location: place,
-    });
     try {
-      console.log(userInfo, "호출 직전");
       const data = await apis.updateProfile(userInfo, uploadImage);
+      console.log(data);
       history.push(`/profile/${userId}`);
     } catch (error) {
       console.log(error.response);
@@ -87,92 +82,103 @@ const ProfileUpdate = props => {
     <>
       {userInfo && (
         <Wrapper>
-          <MenuTitle>프로필 수정</MenuTitle>
+          <MenuTitleWrapper>
+            <MenuTitle>프로필 수정</MenuTitle>
+          </MenuTitleWrapper>
           <ImageWrapper>
             <Image
               shape="circle"
-              size="200"
-              src={
-                preview ? preview : userInfo.image
-                // : userInfo.imageUrl
-              }
+              size="100"
+              src={preview ? preview : userInfo.image}
             />
-            <InputWrapper>
-              <input
-                ref={profileImage}
-                onChange={selectFile}
-                type="file"
-                accept="image/jpeg/png"
-              />
-            </InputWrapper>
+            <input type="file" onChange={selectFile} ref={profileImage} />
           </ImageWrapper>
           <InputWrapper>
-            <Text> 닉네임</Text>
+            <Text>닉네임</Text>
             <Input
               name="nickname"
               onChange={onChange}
               value={userInfo.nickname}
-            ></Input>
+              required
+            />
           </InputWrapper>
-          <TextAreaWrapper>
-            <Text> Intro</Text>
-            <TextArea
-              style={{}}
+          <InputWrapper>
+            <Text>소개</Text>
+            <InputTextArea
               name="introduction"
               onChange={onChange}
               value={userInfo.introduction}
-            ></TextArea>
-          </TextAreaWrapper>
+              required
+            />
+          </InputWrapper>
           <InputWrapper>
-            <Text> MBTI</Text>
+            <Text>MBTI</Text>
             <Input
               name="mbti"
               onChange={onChange}
               value={userInfo.mbti}
-            ></Input>
+              required
+            />
           </InputWrapper>
           <InputWrapper>
-            <Text> 직무</Text>
-            <Input
-              name="company"
-              onChange={onChange}
-              value={userInfo.company}
-            ></Input>
-          </InputWrapper>
-          <InputWrapper>
-            <Text> 메뉴</Text>
+            <Text>선호메뉴</Text>
             <Input
               name="menu"
               onChange={onChange}
               value={userInfo.menu}
-            ></Input>
+              required
+            />
           </InputWrapper>
           <InputWrapper>
-            <Text> 약속 장소</Text>
+            <Text>비선호메뉴</Text>
             <Input
-              name="location"
+              name="likemenu"
               onChange={onChange}
-              defaultValue={userInfo.location && userInfo.location}
-              value={place && place.place_name}
-            ></Input>
+              value={userInfo.menu}
+              required
+            />
           </InputWrapper>
-
           <InputWrapper>
-            <Text> </Text>
-            <PlaceWrapper>
-              <Text> 장소변경</Text>
-              <Input
-                name="location"
-                onChange={onSearchKeywordChange}
-                value={placeInput}
-                style={{ width: "70%", margin: "0 5%" }}
-              ></Input>
-              <SearchBtn onClick={searchPlace}>검색</SearchBtn>
-            </PlaceWrapper>
+            <Text>장소</Text>
+            <Input
+              onChange={onSearchKeywordChange}
+              style={{ marginRight: "1.6rem", minWidth: "200px" }}
+              required
+            />
+            <SearchButton onClick={searchPlace}>검색</SearchButton>
           </InputWrapper>
-
-          <MapContainer searchKeyword={searchKeyword} setPlace={setPlace} />
-          <UpdateBtn onClick={onUpdateProfile}>수정하기</UpdateBtn>
+          {location && (
+            <InputWrapper>
+              <FakeDiv />
+              <SelectedPlace style={{ lineHeight: "1.5rem" }}>
+                <Text style={{ fontSize: "1.4rem" }}>
+                  장소명: {location.place_name}
+                </Text>
+                <Text style={{ fontSize: "1.4rem" }}>
+                  주소: {location.road_address_name}
+                </Text>
+                <a
+                  href={location.place_url}
+                  target="_blank"
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "1.4rem",
+                    color: "blue",
+                  }}
+                >
+                  카카오 지도 링크
+                </a>
+              </SelectedPlace>
+            </InputWrapper>
+          )}
+          <InputWrapper>
+            <FakeDiv />
+            <MapContainer
+              setLocation={setLocation}
+              searchKeyword={searchKeyword}
+            />
+          </InputWrapper>
+          <Button onClick={onUpdateProfile}>수정하기</Button>
         </Wrapper>
       )}
     </>
@@ -180,19 +186,20 @@ const ProfileUpdate = props => {
 };
 
 const Wrapper = styled.div`
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  margin: 0 auto;
+  flex-direction: column;
+  margin: 5rem auto;
 `;
 
-const MenuTitle = styled.div`
-  font-size: 2rem;
+const MenuTitleWrapper = styled.div`
+  margin: 20px;
+`;
+const MenuTitle = styled.h1`
+  font-size: 2.5rem;
   font-weight: bold;
-  line-height: 5;
-  margin-top: 5rem;
 `;
 
 const ImageWrapper = styled.div`
@@ -205,86 +212,98 @@ const ImageWrapper = styled.div`
 `;
 
 const InputWrapper = styled.div`
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 44px;
-  margin-bottom: 1rem;
-`;
-
-const PlaceWrapper = styled.div`
-  width: 50%;
-  display: flex;
-  align-items: center;
-  padding: 15px 10px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 5px;
-  color: black;
+  margin-bottom: 1.6rem;
+  max-width: 500px;
+  min-width: 350px;
 `;
 
 const Text = styled.p`
-  display: block;
-  white-space: nowrap;
-  color: #333333;
-  font-size: 1rem;
-  width: 12%;
+  font-size: 1.6rem;
+  color: gray;
+  min-width: 8rem;
 `;
 
 const Input = styled.input`
-  width: 50%;
-  height: 3rem;
-  padding: 15px 10px;
-  border: 1px solid #bebebe;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 5px;
-  color: black;
-`;
-
-const TextAreaWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-
-  height: 110px;
-`;
-
-const TextArea = styled.textarea`
-  width: 50%;
-  height: 6rem;
-  padding: 15px 10px;
-  border: 1px solid #bebebe;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 5px;
+  height: 48px;
+  min-width: 270px;
   color: black;
-`;
-const SearchBtn = styled.button`
-  background-color: black;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  width: 30%;
-  height: 3rem;
-  border-radius: 10px;
+  font-size: 1.6rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
 `;
 
-const UpdateBtn = styled.button`
-  width: 60%;
-  background-color: black;
+const Select = styled.select`
+  width: 100%;
+  height: 48px;
+  min-width: 270px;
+  color: black;
+  font-size: 1.6rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+`;
+
+const FakeDiv = styled.div`
+  min-width: 8rem;
+`;
+
+const InputTextArea = styled.textarea`
+  width: 100%;
+  height: 8em;
+  min-width: 270px;
+  color: black;
+  font-size: 1.6rem;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+  line-height: 2.5rem;
+`;
+
+const SearchButton = styled.button`
+  width: 7rem;
+  min-width: 5rem;
+  height: 48px;
   color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
-  height: 3rem;
-  border-radius: 10px;
-  margin-top: 2rem;
-  margin-bottom: 20rem;
+  font-size: 1.6rem;
+  background-color: #ff9841;
+  border-radius: 6px;
+  border: none;
+`;
+
+const SelectedPlace = styled.div`
+  width: 100%;
+  height: 48px;
+  border-radius: 6px;
+  background-color: #fff;
+`;
+
+const Button = styled.button`
+  min-width: 350px;
+  max-width: 500px;
+  width: 50%;
+  height: 48px;
+  font-family: NotoSansKR;
+  font-weight: bold;
+  font-size: 1.6rem;
+  border: 1px solid #ff9841;
+  border-radius: 6px;
+  background-color: white;
+  color: #ff9841;
+  margin-bottom: 1em;
+
+  &:hover {
+    background-color: #ff9841;
+    color: white;
+  }
 `;
 
 export default ProfileUpdate;

@@ -7,7 +7,7 @@ import { selectPlaceMiddleware } from "../redux/modules/place";
 
 const { kakao } = window;
 
-const MapContainer = ({ searchKeyword, setLunch, lunch }) => {
+const MapContainer = ({ searchKeyword, setLocation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,8 +56,7 @@ const MapContainer = ({ searchKeyword, setLunch, lunch }) => {
             "</div>"
         );
         infowindow.open(map, marker);
-        setLunch({ ...lunch, location: place });
-        // dispatch(selectPlaceMiddleware(place));
+        setLocation(place);
       });
     }
   }, [searchKeyword]);

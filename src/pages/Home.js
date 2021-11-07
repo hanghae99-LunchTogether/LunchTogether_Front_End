@@ -6,10 +6,11 @@ import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
 import Lunch from "../components/Lunch";
 
-const Home = (props) => {
+const Home = props => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
+    console.log(data);
     const lunchList = data.data.lunch;
     setLunchList(lunchList);
   };
@@ -48,7 +49,7 @@ const Home = (props) => {
 };
 
 const Wrapper = styled.div`
-  max-width: 192rem;
+  max-width: 100%;
   padding: 0 32rem 0 32rem;
   display: flex;
   flex-direction: column;
@@ -57,7 +58,6 @@ const Wrapper = styled.div`
 
 const BannerImage = styled.div`
   width: 100%;
-  height: 40rem;
   display: flex;
   justify-content: center;
   align-items: center;
