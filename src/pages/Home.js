@@ -49,7 +49,7 @@ const Home = (props) => {
 
 const Wrapper = styled.div`
   max-width: 1920px;
-  padding: 0 32rem 0 32rem;
+  padding: 0 320px;
   display: flex;
   justify-content: center;
   align-items: center;
