@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
+import { MdDelete } from "react-icons/md";
 
 const CommentItem = (props) => {
   const dispatch = useDispatch();
@@ -37,7 +38,9 @@ const CommentItem = (props) => {
             </div>
           </UserInfo>
           <Edit>
-            <span onClick={onClickDelete}>삭제</span>
+            <span onClick={onClickDelete}>
+              <MdDelete />
+            </span>
           </Edit>
         </User>
         <Content>{commentIndex.comment}</Content>
@@ -97,9 +100,9 @@ const Content = styled.div`
 const Edit = styled.div`
   span {
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: 2rem;
     color: rgb(134, 142, 150);
-    margin-left: 0.5rem;
+    margin: 2rem;
     :hover {
       text-decoration: underline;
       color: #b0b5c3;

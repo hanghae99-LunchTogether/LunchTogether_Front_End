@@ -69,8 +69,7 @@ const CommentWrite = (props) => {
 const Container = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 200px;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 `;
@@ -92,7 +91,7 @@ const Count = styled.h4`
 const InputBtn = styled.div`
   display: flex;
   width: 100%;
-  margin-bottom: 10rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Input = styled.input`
@@ -132,8 +131,10 @@ const Button = styled.button`
   box-sizing: inherit;
   outline: none;
   width: 92px;
+  transition: 0.6s;
   &:hover {
     background-color: #ff9841;
+    font-size: 1.2rem;
   }
 `;
 
