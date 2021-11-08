@@ -66,7 +66,7 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     min-width: 375px;
-    padding: 0 3.2rem 0 3.2rem;
+    padding: 0 3.2rem;
   }
 `;
 
@@ -144,6 +144,7 @@ const LunchList = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 3.2rem 2.8rem;
+  margin-bottom: 3.2rem;
 
   @media only screen and (max-width: 768px) {
     min-width: 350px;

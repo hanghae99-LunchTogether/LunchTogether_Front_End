@@ -52,7 +52,9 @@ const Header = props => {
                   >
                     내정보
                   </button>
-                  <button>🔔</button>
+                  <button>
+                    <img src="img/alarm.svg" />
+                  </button>
                 </div>
               </Right>
             </HeaderWrap>
@@ -96,8 +98,6 @@ const Header = props => {
     </>
   );
 };
-
-export default Header;
 
 const Container = styled.div`
   max-width: 1920px;
@@ -146,6 +146,19 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
+  button {
+    display: flex;
+    justify-content: center;
+  }
+
+  div {
+    display: flex;
+  }
+
+  img {
+    width: 1.6rem;
+    height: 1.95rem;
+  }
 
   @media only screen and (max-width: 768px) {
     div {
@@ -169,3 +182,5 @@ const Logo = styled.div`
     height: 50px;
   }
 `;
+
+export default Header;
