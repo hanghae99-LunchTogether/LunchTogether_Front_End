@@ -12,30 +12,15 @@ import ProfileHistorySection from "../components/ProfileHistorySection";
 
 const Profile = props => {
   const [user, setUser] = useState(null);
-  const dispatch = useDispatch();
   const userId = props.match.params.id;
 
-  // const getLunchList = async () => {
-  //   const data = await apis.getLunchListMain();
-  // };
-
-  const getProfileLunch = async () => {
-    const data = await apis.getProfileLunch(1975496895);
-    console.log(data);
-  };
-
-  const getUser = async () => {
+  const getProfile = async () => {
     const data = await apis.getProfile(userId);
-
     setUser(data.data.data.user);
-    console.log(user);
   };
 
   useEffect(() => {
-    // getLunchList();
-    getUser();
-    getProfileLunch();
-    // dispatch(profileActions.getProfileAPI(userId));
+    getProfile();
   }, []);
 
   return (
@@ -50,7 +35,7 @@ const Profile = props => {
                 <ElementWrapper
                   style={{
                     height: "3rem",
-                    marginLeft: "-20px",
+                    marginLeft: "-3rem",
                     marginTop: "70px",
                     lineHeight: "2.5rem",
                     position: "relative",
@@ -62,7 +47,7 @@ const Profile = props => {
                 </ElementWrapper>
               </ImageWrapper>
               <Text style={{ margin: "3rem 0" }} bold size="1.8" color="black">
-                {user.nickname}
+                Deokhyun Kim
               </Text>
               <Text size="1.4">프론트엔드 개발자</Text>
               <Text size="1.4">
@@ -84,13 +69,13 @@ const Profile = props => {
                   textAlign: "left",
                 }}
               >
-                {user.introduction.split("\n").map(l => {
-                  return (
-                    <span>
-                      {l} <br />
-                    </span>
-                  );
-                })}
+                {/* {user.introduction.split("\n").map(l => {
+                return (
+                  <span>
+                    {l} <br />
+                  </span>
+                );
+              })} */}
               </Text>
               <InfoWrapper>
                 <Text
@@ -105,13 +90,14 @@ const Profile = props => {
                   bold
                   size="1.2"
                   style={{
-                    backgroundColor: "yellow",
-                    width: "50px",
-                    height: "30px",
+                    backgroundColor: "#ff9841",
+                    width: "40px",
+                    lineHeight: "2.5rem",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: "10px",
+                    color: "white",
                   }}
                 >
                   고기
@@ -125,18 +111,32 @@ const Profile = props => {
                 >
                   비선호메뉴
                 </Text>
-                <ElementWrapper>
-                  <Text bold size="1.2">
-                    고기
-                  </Text>
-                </ElementWrapper>
+                <Text
+                  bold
+                  size="1.2"
+                  style={{
+                    backgroundColor: "#ff9841",
+                    width: "40px",
+                    lineHeight: "2.5rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  고기
+                </Text>
               </InfoWrapper>
               <Button>점심 제안하기</Button>
               <Button onClick={() => history.push(`/profileupdate/${userId}`)}>
                 프로필 업데이트
               </Button>
             </ProfileInfoWarpper>
-            <ProfileHistorySection></ProfileHistorySection>
+            <ProfileHistorySection
+              lunchs={user.lunchs}
+              reviews={user.userreview}
+            ></ProfileHistorySection>
           </PorfileSectionWrapper>
         </Wrapper>
       )}
@@ -167,6 +167,7 @@ const ImageWrapper = styled.div`
 
 const PorfileSectionWrapper = styled.div`
   display: flex;
+  height: 100%;
   justify-content: center;
 
   @media only screen and (max-width: 768px) {
@@ -176,7 +177,7 @@ const PorfileSectionWrapper = styled.div`
 `;
 
 const ProfileInfoWarpper = styled.div`
-  max-width: 350px;
+  max-width: 400px;
   width: 100%;
   max-height: 700px;
   display: flex;
@@ -187,24 +188,12 @@ const ProfileInfoWarpper = styled.div`
   border: solid 1px #efefef;
   background: white;
   z-index: 1000;
-  margin-right: 1rem;
-
-  margin-top: -3rem;
+  margin-top: -4rem;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
     height: 500px;
     margin-right: 0;
-  }
-`;
-
-const LunchHistoryWrapper = styled.div`
-  max-width: 700px;
-  width: 100%;
-  height: 100vh;
-
-  @media only screen and (max-width: 768px) {
-    max-width: 350px;
   }
 `;
 
@@ -222,7 +211,6 @@ const InfoWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1rem;
 `;
 
 const ElementWrapper = styled.div`

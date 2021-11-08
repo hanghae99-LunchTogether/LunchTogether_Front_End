@@ -70,6 +70,7 @@ function App() {
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review" exact component={Review}></Route>
+          <Route path="/memberlist" exact component={MemberList}></Route>
         </Switch>
         {/* <Footer /> */}
       </ConnectedRouter>

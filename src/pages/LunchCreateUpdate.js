@@ -21,6 +21,7 @@ const LunchCreateUpdate = props => {
 
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [location, setLocation] = useState(null);
   const lunchId = props.match.params.id;
   const is_edit = lunchId ? true : false;
 
@@ -136,8 +137,7 @@ const LunchCreateUpdate = props => {
         <InputWrapper>
           <FakeDiv />
           <MapContainer
-            setLunch={setLunch}
-            lunch={lunch}
+            setLocation={setLocation}
             searchKeyword={searchKeyword}
           />
         </InputWrapper>
