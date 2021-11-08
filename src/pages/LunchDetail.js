@@ -65,7 +65,7 @@ const LunchDetail = (props) => {
             </LunchInfoLeft>
             <LunchInfoRight>
               <p>{lunch.membernum}/4</p>
-              <p>영안식당</p>
+              <p>{lunch.locations.place_name}</p>
               <p>{lunch.time}</p>
               <p>{lunch.duration}</p>
             </LunchInfoRight>
@@ -168,7 +168,7 @@ const LunchDetailBox = styled.div`
   width: 33.33vw;
   min-width: 350px;
   max-width: 600px;
-  margin: 1.56rem auto;
+  margin: 1.56rem auto 90px auto;
   box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
