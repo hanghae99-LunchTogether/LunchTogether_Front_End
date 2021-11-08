@@ -10,7 +10,7 @@ const Calendar = ({ setLunch, lunch }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
-        renderInput={params => (
+        renderInput={(params) => (
           <TextField
             style={{ fontSize: "1.6rem" }}
             sx={{ width: 500, fontSize: "1.6rem" }}
@@ -19,7 +19,7 @@ const Calendar = ({ setLunch, lunch }) => {
         )}
         value={value}
         inputFormat="yyyy-MM-dd hh:mm a"
-        onChange={newValue => {
+        onChange={(newValue) => {
           const year = newValue.getFullYear();
           const month = ("0" + (newValue.getMonth() + 1)).slice(-2);
           const day = ("0" + newValue.getDate()).slice(-2);
