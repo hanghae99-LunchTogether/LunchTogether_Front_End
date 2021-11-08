@@ -7,13 +7,13 @@ import { userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 
-const Login = (props) => {
+const Login = props => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
@@ -35,7 +35,7 @@ const Login = (props) => {
   const loginWithKakao = () => {
     // 카카오 로그인
     Kakao.Auth.login({
-      success: (authObj) => {
+      success: authObj => {
         console.log(authObj);
 
         // 유저정보 요청코드
@@ -68,7 +68,7 @@ const Login = (props) => {
     });
   };
 
-  const error = useSelector((state) => state.user.error);
+  const error = useSelector(state => state.user.error);
 
   return (
     <>
@@ -183,7 +183,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   min-width: 350px;
-  width: 41%;
+  width: 50%;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
@@ -193,12 +193,13 @@ const Button = styled.button`
   background-color: white;
   color: #ff9841;
   margin-bottom: 1em;
+  min-width: 350px;
 
   &:hover {
     background-color: #ff9841;
     color: white;
   }
-  ${(props) =>
+  ${props =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}

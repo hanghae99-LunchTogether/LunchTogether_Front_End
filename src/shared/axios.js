@@ -152,4 +152,9 @@ export const apis = {
     instance.get(`/spoon/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+
+  applyLunch: lunchid =>
+    instance.post(`/applicant/${lunchid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 };

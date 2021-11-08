@@ -98,6 +98,7 @@ const Profile = props => {
                     alignItems: "center",
                     borderRadius: "10px",
                     color: "white",
+                    marginRight: "0",
                   }}
                 >
                   고기
@@ -123,6 +124,7 @@ const Profile = props => {
                     alignItems: "center",
                     borderRadius: "10px",
                     color: "white",
+                    marginRight: "0",
                   }}
                 >
                   고기
@@ -211,6 +213,7 @@ const InfoWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 330px;
 `;
 
 const ElementWrapper = styled.div`
@@ -226,9 +229,9 @@ const Button = styled.button`
   min-width: 330px;
   max-width: 500px;
   width: 50%;
-  height: 5rem;
+  height: 4rem;
   font-weight: bold;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   border-radius: 6px;
   border: none;
   background-color: #ff9841;

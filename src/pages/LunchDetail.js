@@ -13,13 +13,13 @@ import { RiMapPin2Fill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
 import { Avatar } from "@mui/material";
 
-const LunchDetail = (props) => {
+const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector(state => state.user.user);
   console.log(user_info);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   const lunchId = props.match.params.lunchid;
 
@@ -34,6 +34,12 @@ const LunchDetail = (props) => {
   useEffect(() => {
     getLunch();
   }, []);
+
+  const applyLunch = async () => {
+    console.log(lunchId);
+    const data = await apis.applyLunch(lunchId);
+    console.log(data);
+  };
 
   return (
     <>
@@ -115,6 +121,7 @@ const LunchDetail = (props) => {
               window.alert("로그인을 해주세요!");
               history.replace("/login");
             }
+            applyLunch();
           }}
         >
           점심약속 신청하기

@@ -54,6 +54,7 @@ const LunchListWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   border: none;
+  min-width: 400px;
 `;
 
 const LunchWrapper = styled.div`

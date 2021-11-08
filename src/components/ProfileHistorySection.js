@@ -61,7 +61,6 @@ const ProfileHistorySection = props => {
             </>
           ) : (
             <>
-              <Text> 후기들</Text>
               <ProfileReview />
             </>
           )}
