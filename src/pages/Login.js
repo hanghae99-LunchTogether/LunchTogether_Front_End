@@ -7,13 +7,13 @@ import { userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 
-const Login = (props) => {
+const Login = props => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
@@ -35,7 +35,7 @@ const Login = (props) => {
   const loginWithKakao = () => {
     // 카카오 로그인
     Kakao.Auth.login({
-      success: (authObj) => {
+      success: authObj => {
         console.log(authObj);
 
         // 유저정보 요청코드
@@ -68,7 +68,7 @@ const Login = (props) => {
     });
   };
 
-  const error = useSelector((state) => state.user.error);
+  const error = useSelector(state => state.user.error);
 
   return (
     <>
@@ -137,13 +137,13 @@ const Login = (props) => {
 export default Login;
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
+  min-width: 350px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 8rem;
+  margin: 8rem auto;
 `;
 
 const Logo = styled.div`
@@ -154,13 +154,13 @@ const Logo = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
   max-width: 500px;
-  min-width: 350px;
+  margin: 1rem 3rem;
 `;
 
 const Text = styled.p`
@@ -172,7 +172,6 @@ const Text = styled.p`
 const Input = styled.input`
   width: 100%;
   height: 48px;
-  min-width: 270px;
   color: black;
   font-size: 1rem;
   padding: 12px 16px;
@@ -182,8 +181,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  min-width: 350px;
-  width: 41%;
+  max-width: 500px;
+  width: 100%;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
@@ -192,13 +191,15 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: white;
   color: #ff9841;
-  margin-bottom: 1em;
+  margin: 1rem 3rem;
+
+  min-width: 350px;
 
   &:hover {
     background-color: #ff9841;
     color: white;
   }
-  ${(props) =>
+  ${props =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}

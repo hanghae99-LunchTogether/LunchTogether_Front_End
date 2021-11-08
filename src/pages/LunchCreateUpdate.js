@@ -21,6 +21,7 @@ const LunchCreateUpdate = props => {
 
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [location, setLocation] = useState(null);
   const lunchId = props.match.params.id;
   const is_edit = lunchId ? true : false;
 
@@ -41,6 +42,7 @@ const LunchCreateUpdate = props => {
     setLunch({
       ...lunch,
       [name]: value,
+      location: location,
     });
   };
 
@@ -135,8 +137,7 @@ const LunchCreateUpdate = props => {
         <InputWrapper>
           <FakeDiv />
           <MapContainer
-            setLunch={setLunch}
-            lunch={lunch}
+            setLocation={setLocation}
             searchKeyword={searchKeyword}
           />
         </InputWrapper>
@@ -256,7 +257,6 @@ const Button = styled.button`
   max-width: 500px;
   width: 50%;
   height: 48px;
-  font-family: NotoSansKR;
   font-weight: bold;
   font-size: 1.6rem;
   border: 1px solid #ff9841;
@@ -269,10 +269,6 @@ const Button = styled.button`
     background-color: #ff9841;
     color: white;
   }
-  ${props =>
-    props.src
-      ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
-      : ""}
 `;
 
 export default LunchCreateUpdate;

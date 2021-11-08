@@ -17,7 +17,6 @@ const MemberListCard = () => {
         <MemberDesc>
           typesetting industry. Lorem Ipsum has been the industry's standard
           dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book.
         </MemberDesc>
       </MemberCard>
       {/* map 돌리기전 임시더미데이터 */}
@@ -32,7 +31,6 @@ const MemberListCard = () => {
         <MemberDesc>
           typesetting industry. Lorem Ipsum has been the industry's standard
           dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book.
         </MemberDesc>
       </MemberCard>
       {/* map 돌리기전 임시더미데이터 */}
@@ -47,7 +45,6 @@ const MemberListCard = () => {
         <MemberDesc>
           typesetting industry. Lorem Ipsum has been the industry's standard
           dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book.
         </MemberDesc>
       </MemberCard>
     </>

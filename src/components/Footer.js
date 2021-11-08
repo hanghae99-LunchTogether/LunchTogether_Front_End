@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
-const Footer = (props) => {
+const Footer = props => {
   return (
     <Container>
       <FooterWrap>

@@ -5,58 +5,143 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../redux/modules/profile";
 import { Image } from "../elements";
+import { MdOutlineLocationOn } from "react-icons/md";
 import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
+import ProfileHistorySection from "../components/ProfileHistorySection";
 
 const Profile = props => {
-  const user = useSelector(state => state.profile.user);
+  const [user, setUser] = useState(null);
   console.log(user);
-  const dispatch = useDispatch();
   const userId = props.match.params.id;
 
+  const getProfile = async () => {
+    const data = await apis.getProfile(userId);
+    setUser(data.data.data.user);
+  };
+
   useEffect(() => {
-    dispatch(profileActions.getProfileAPI(userId));
+    getProfile();
   }, []);
 
   return (
     <>
       {user && (
         <Wrapper>
-          <ProfileInfoWarpper>
-            <ImageCircle src={user.image} />
-            <NickName>{user.nickname}</NickName>
-            <p style={{ color: "#696969", lineHeight: "2", marginTop: "10px" }}>
-              Frontend Developer
-            </p>
-            <p style={{ color: "#696969", lineHeight: "1", marginTop: "5px" }}>
-              📍&nbsp;Gangnam-gu, Seoul
-            </p>
-            <Intro>{user.introduction}</Intro>
-            <LunchIndex>
-              <div>점심지수</div>
-              <div style={{ fontWeight: "600" }}>100</div>
-            </LunchIndex>
-            <LunchIndex>
-              <div>매너지수</div>
-              <div style={{ fontWeight: "600" }}>4.5</div>
-            </LunchIndex>
-            <LunchIndex>
-              <div>메뉴</div>
-              <div style={{ fontWeight: "600" }}>{user.menu}</div>
-            </LunchIndex>
-            <LunchIndex>
-              <div>MBTI</div>
-              <div style={{ fontWeight: "600" }}>{user.mbti}</div>
-            </LunchIndex>
-            <LunchBtn>Get Lunch</LunchBtn>
-            <UpdateBtn onClick={() => history.push(`/profileupdate/${userId}`)}>
-              Update Profile
-            </UpdateBtn>
-          </ProfileInfoWarpper>
-          <ProfileHistoryWrapper>
-            <TabBtn>점심약속</TabBtn>
-            <TabBtn>후기</TabBtn>
-          </ProfileHistoryWrapper>
+          <Header />
+          <PorfileSectionWrapper>
+            <ProfileInfoWarpper>
+              <ImageWrapper>
+                <Image shape="circle" size="100" src={user.image} />
+                <ElementWrapper
+                  style={{
+                    height: "3rem",
+                    marginLeft: "-3rem",
+                    marginTop: "70px",
+                    lineHeight: "2.5rem",
+                    position: "relative",
+                  }}
+                >
+                  <Text bold size="1.2">
+                    ESTJ
+                  </Text>
+                </ElementWrapper>
+              </ImageWrapper>
+              <Text style={{ margin: "3rem 0" }} bold size="1.8" color="black">
+                Deokhyun Kim
+              </Text>
+              <Text size="1.4">프론트엔드 개발자</Text>
+              <Text size="1.4">
+                <MdOutlineLocationOn />
+                서울시 강남구 삼성동
+              </Text>
+              <a
+                href="instagram.com/hwajeong"
+                target="_blank"
+                style={{ textDecoration: "underline", fontSize: "1.2rem" }}
+              >
+                instagram.com/hwajeong
+              </a>
+              <Text
+                size="1.4"
+                style={{
+                  margin: "3rem 0",
+                  lineHeight: "1.5",
+                  textAlign: "left",
+                }}
+              >
+                {user.introduction &&
+                  user.introduction.split("\n").map(l => {
+                    return (
+                      <span>
+                        {l} <br />
+                      </span>
+                    );
+                  })}
+              </Text>
+              <InfoWrapper>
+                <Text
+                  style={{ textAlign: "left", margin: "0" }}
+                  bold
+                  size="1.2"
+                >
+                  선호메뉴
+                </Text>
+
+                <Text
+                  bold
+                  size="1.2"
+                  style={{
+                    backgroundColor: "#ff9841",
+                    width: "40px",
+                    lineHeight: "2.5rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    color: "white",
+                    marginRight: "0",
+                  }}
+                >
+                  {user.likemenu}
+                </Text>
+              </InfoWrapper>
+              <InfoWrapper style={{ justifyContent: "space-between" }}>
+                <Text
+                  style={{ textAlign: "left", margin: "0" }}
+                  size="1.2"
+                  bold
+                >
+                  비선호메뉴
+                </Text>
+                <Text
+                  bold
+                  size="1.2"
+                  style={{
+                    backgroundColor: "#ff9841",
+                    width: "40px",
+                    lineHeight: "2.5rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    color: "white",
+                    marginRight: "0",
+                  }}
+                >
+                  {user.dislikemenu}
+                </Text>
+              </InfoWrapper>
+              <Button>점심 제안하기</Button>
+              <Button onClick={() => history.push(`/profileupdate/${userId}`)}>
+                프로필 업데이트
+              </Button>
+            </ProfileInfoWarpper>
+            <ProfileHistorySection
+              lunchs={user.lunchs}
+              reviews={user.userreview}
+            ></ProfileHistorySection>
+          </PorfileSectionWrapper>
         </Wrapper>
       )}
     </>
@@ -65,10 +150,29 @@ const Profile = props => {
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 1024px;
+  width: 100%;
+  height: 100%;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
-  margin-top: 50px;
+`;
+
+const Header = styled.div`
+  width: 100%;
+  background-color: #fff0e4;
+  height: 10rem;
+`;
+const ImageWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const PorfileSectionWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -77,124 +181,69 @@ const Wrapper = styled.div`
 `;
 
 const ProfileInfoWarpper = styled.div`
-  max-width: 374px;
+  max-width: 380px;
+  width: 100%;
+  max-height: 700px;
   display: flex;
+  padding: 2rem;
+  padding-top: 5rem;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px #ebecf0;
-  height: 50vh;
-  padding-top: 50px;
-  margin-right: 2rem;
+  border: solid 1px #efefef;
+  background: white;
+  z-index: 1000;
+  margin-top: -4rem;
 
   @media only screen and (max-width: 768px) {
-    min-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    margin-bottom: 10px;
-    box-shadow: 5px 5px 5px 5px #ebecf0;
-    height: 400px;
-    padding-top: 10px;
+    width: 100%;
+    height: 500px;
     margin-right: 0;
-    margin-bottm: 1rem;
   }
 `;
 
-const ImageCircle = styled.image`
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
-
-  background-image: url("${props => props.src}");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top; ;
-`;
-
-const NickName = styled.p`
-  font-size: 24px;
-  font-weight: 600;
-  margin-top: 1rem;
-`;
-
-const Intro = styled.p`
-  color: #696969;
-  line-height: 1.5;
-  margin: 20px 0px;
-  min-width: 350px;
-  padding: 20px;
-  height: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  @media only screen and (max-width: 768px) {
-    height: 50px;
-    overflow: hidden;
-    margin: 0px;
-    text-overflow: ellipsis;
-  }
-`;
-
-const LunchBtn = styled.button`
-  cursor: pointer;
-  border-radius: 20px;
-  border: none;
-  padding: 10px 0px;
-  font-size: 14px;
+const Text = styled.p`
   text-align: center;
-  margin-top: 20px;
-  max-width: 650px;
-  color: white;
-  font-weight: bold;
-  background: blue;
-  cursor: pointer;
-  width: 90%;
+  font-size: ${props => props.size}rem;
+  line-height: ${props => props.size}rem;
+  ${props => (props.color ? `font-color: ${props.color}` : "font-color: gray")};
+  ${props => props.bold && `font-weight: bold`};
+  margin: 1rem;
 `;
 
-const UpdateBtn = styled.button`
-  cursor: pointer;
-  border-radius: 20px;
-  border: none;
-  padding: 10px 0px;
-  font-size: 14px;
-  text-align: center;
-  margin-top: 10px;
-  max-width: 650px;
-  color: white;
-  font-weight: bold;
-  background: blue;
-  cursor: pointer;
-  width: 90%;
-`;
-
-const LunchIndex = styled.div`
+const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 20px;
-
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
+  max-width: 330px;
 `;
 
-const ProfileHistoryWrapper = styled.div`
-  width: 70%;
-  height: 500px;
-  min-width: 400px;
-  height: 70vh;
-  border-radius: 10px;
+const ElementWrapper = styled.div`
+  background-color: #ff9841;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  min-width: 5rem;
 `;
 
-const TabBtn = styled.button`
-  background: none;
-  font-size: 1rem;
-  font-weight: 600;
+const Button = styled.button`
+  min-width: 330px;
+  max-width: 500px;
+  width: 50%;
+  height: 4rem;
+  font-weight: bold;
+  font-size: 1.4rem;
+  border-radius: 6px;
   border: none;
+  background-color: #ff9841;
+  color: white;
+  margin: 1rem;
+
+  &:hover {
+    background-color: #ff9841;
+    color: white;
+  }
 `;
 
 export default Profile;
