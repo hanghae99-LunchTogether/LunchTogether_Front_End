@@ -72,7 +72,7 @@ function App() {
           <Route path="/review" exact component={Review}></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </ConnectedRouter>
     </React.Fragment>
   );
