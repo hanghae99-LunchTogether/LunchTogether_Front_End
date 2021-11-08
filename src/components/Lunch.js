@@ -7,16 +7,16 @@ const Lunch = (props) => {
   const { title, user, lunchid, date, locations } = props;
 
   //약속시간
-  const schedule = date.split(" ");
-  const meetDate = schedule[0].split("-");
-  const year = meetDate[0];
-  const month = meetDate[1];
-  const day = meetDate[2];
-  const time = schedule[1].split(":");
-  const hour = time[0];
-  const minute = time[1];
-  const writtenDate =
-    year + "년" + month + "월" + day + "일" + " " + hour + "시" + minute + "분";
+  // const schedule = date.split(" ");
+  // const meetDate = schedule[0].split("-");
+  // const year = meetDate[0];
+  // const month = meetDate[1];
+  // const day = meetDate[2];
+  // const time = schedule[1].split(":");
+  // const hour = time[0];
+  // const minute = time[1];
+  // const writtenDate =
+  //   year + "년" + month + "월" + day + "일" + " " + hour + "시" + minute + "분";
 
   return (
     <>
@@ -34,7 +34,7 @@ const Lunch = (props) => {
         </User>
         <Date>
           <img src="/img/calender.svg" />
-          <span>{writtenDate}</span>
+          <span>{date}</span>
         </Date>
         <Place>
           <img src="/img/location.svg" />
