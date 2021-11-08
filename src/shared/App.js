@@ -71,7 +71,7 @@ function App() {
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review" exact component={Review}></Route>
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </ConnectedRouter>
     </React.Fragment>
   );

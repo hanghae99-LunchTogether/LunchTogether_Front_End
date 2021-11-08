@@ -23,8 +23,9 @@ const Header = (props) => {
     <>
       {user ? (
         <>
-          <Wrap>
-            <HeaderWrap>
+          {/* <MobileHeader> 반가워요, {user.nickname}님!</MobileHeader> */}
+          <HeaderWrap>
+            <Left>
               <Logo
                 onClick={() => {
                   history.push("/");
@@ -32,35 +33,34 @@ const Header = (props) => {
               >
                 <img src="img/logo.svg" />
               </Logo>
-              <MenuWrapper>
-                <p style={{ marginRight: "20px" }}>
-                  반가워요, {user.nickname}님!
-                </p>
-                <button
-                  style={{ padding: "10px" }}
-                  onClick={() => history.push(`/lunchregister`)}
-                >
-                  점약만들기
+              <button
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                홈
+              </button>
+              <button onClick={() => history.push(`/lunchregister`)}>
+                점심약속 등록하기
+              </button>
+            </Left>
+            <Right>
+              <button onClick={logOut}>로그아웃</button>
+              <div>
+                <button onClick={() => history.push(`/profile/${user.userid}`)}>
+                  내정보
                 </button>
-                <button
-                  style={{ padding: "10px" }}
-                  onClick={() => history.push(`/profile/${user.userid}`)}
-                >
-                  프로필
-                </button>
-
-                <button onClick={logOut} style={{ padding: "10px" }}>
-                  로그아웃
-                </button>
-              </MenuWrapper>
-            </HeaderWrap>
-          </Wrap>
+                <button>🔔</button>
+              </div>
+            </Right>
+          </HeaderWrap>
           <MobaileNav />
         </>
       ) : (
         <>
-          <Wrap>
-            <HeaderWrap>
+          <MobileHeader>로그인 후 이용해주세요!</MobileHeader>
+          <HeaderWrap>
+            <Left>
               <Logo
                 onClick={() => {
                   history.push("/");
@@ -68,17 +68,22 @@ const Header = (props) => {
               >
                 <img src="img/logo.svg" />
               </Logo>
-              <MenuWrapper>
-                <button
-                  style={{ padding: "10px" }}
-                  onClick={() => history.push("/login")}
-                >
-                  로그인
-                </button>
-              </MenuWrapper>
-              <CreateLunch>점약만들기</CreateLunch>
-            </HeaderWrap>
-          </Wrap>
+              <button
+                onClick={() => {
+                  history.push("/");
+                }}
+              >
+                홈
+              </button>
+              <button onClick={() => history.push(`/lunchregister`)}>
+                점심약속 등록하기
+              </button>
+            </Left>
+            <Right>
+              <button onClick={() => history.push("/login")}>로그인</button>
+              <button onClick={() => history.push("/signup")}>회원가입</button>
+            </Right>
+          </HeaderWrap>
           <MobaileNav />
         </>
       )}
@@ -88,34 +93,61 @@ const Header = (props) => {
 
 export default Header;
 
-const Wrap = styled.div`
-  max-width: 1920px;
-  min-height: 100px;
-  padding: 0 320px;
-`;
-
-const HeaderWrap = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const MenuWrapper = styled.div`
-  display: flex;
-  max-width: 500px;
-  align-items: center;
-  box-sizing: border-box;
-  justify-content: flex-end;
+const MobileHeader = styled.div`
+  display: none;
   @media only screen and (max-width: 768px) {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 20px;
   }
 `;
 
-const CreateLunch = styled.button`
-  display: none;
+const HeaderWrap = styled.div`
+  max-width: 1920px;
+  min-width: 1280px;
+  min-height: 100px;
+  padding: 0 320px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    border: none;
+    background-color: #ffffff;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    color: #3c3c3c;
+    padding: 0;
+    margin-left: 1.6rem;
+  }
+
   @media only screen and (max-width: 768px) {
-    display: block;
+    min-width: 375px;
+    min-height: 50px;
+    padding: 0;
+  } ;
+`;
+
+const Left = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 768px) {
+    button {
+      display: none;
+    }
+  }
+`;
+
+const Right = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 768px) {
+    div {
+      display: none;
+    }
   }
 `;
 
@@ -123,9 +155,14 @@ const Logo = styled.div`
   width: 140px;
   height: 100px;
   cursor: pointer;
-  padding: 4px 0 4px 0;
+  padding: 4px 0;
   img {
     width: 100%;
     height: 100%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 700px;
+    height: 50px;
   }
 `;
