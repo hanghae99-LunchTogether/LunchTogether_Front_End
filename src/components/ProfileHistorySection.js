@@ -51,11 +51,6 @@ const ProfileHistorySection = props => {
           {currentItem.tab === "점심약속" ? (
             <>
               <HistoryWrapper>
-                <Select name="lunchfilter" onChange={onChange} defalutValue="2">
-                  <option value="1">신청한 점심약속</option>
-                  <option value="2">만든 점심약속</option>
-                </Select>
-
                 <ProfileLunch lunchs={lunchs} />
               </HistoryWrapper>
             </>

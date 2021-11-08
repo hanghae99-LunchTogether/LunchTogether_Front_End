@@ -12,7 +12,7 @@ import ProfileHistorySection from "../components/ProfileHistorySection";
 
 const Profile = props => {
   const [user, setUser] = useState(null);
-  console.log(user);
+
   const userId = props.match.params.id;
 
   const getProfile = async () => {
@@ -22,7 +22,7 @@ const Profile = props => {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [userId]);
 
   return (
     <>
@@ -43,24 +43,24 @@ const Profile = props => {
                   }}
                 >
                   <Text bold size="1.2">
-                    ESTJ
+                    {user.mbti}
                   </Text>
                 </ElementWrapper>
               </ImageWrapper>
               <Text style={{ margin: "3rem 0" }} bold size="1.8" color="black">
-                Deokhyun Kim
+                {user.nickname}
               </Text>
-              <Text size="1.4">프론트엔드 개발자</Text>
+              <Text size="1.4">{user.job}</Text>
               <Text size="1.4">
                 <MdOutlineLocationOn />
-                서울시 강남구 삼성동
+                {user.locations.address_name.split(" ").slice(0, 3)}
               </Text>
               <a
                 href="instagram.com/hwajeong"
                 target="_blank"
                 style={{ textDecoration: "underline", fontSize: "1.2rem" }}
               >
-                instagram.com/hwajeong
+                {user.snsurl}
               </a>
               <Text
                 size="1.4"
