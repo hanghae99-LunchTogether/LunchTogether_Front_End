@@ -7,9 +7,9 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import MobaileNav from "./MobileNav";
 
-const Header = props => {
+const Header = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -31,7 +31,7 @@ const Header = props => {
                     history.push("/");
                   }}
                 >
-                  <img src="img/logo.svg" />
+                  <img src="/img/logo.svg" />
                 </Logo>
                 <button
                   onClick={() => {
@@ -53,7 +53,7 @@ const Header = props => {
                     내정보
                   </button>
                   <button>
-                    <img src="img/alarm.svg" />
+                    <img src="/img/alarm.svg" />
                   </button>
                 </div>
               </Right>
@@ -71,7 +71,7 @@ const Header = props => {
                     history.push("/");
                   }}
                 >
-                  <img src="img/logo.svg" />
+                  <img src="/img/logo.svg" />
                 </Logo>
                 <button
                   onClick={() => {
