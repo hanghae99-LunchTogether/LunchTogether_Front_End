@@ -29,8 +29,8 @@ const Lunch = (props) => {
         <Title>{title}</Title>
         <User>
           <img src="/img/profile.png" />
-          <span className="nickname">{user.nickname}</span>
-          <span className="job">{user.job}</span>
+          <span className="nickname">닉네임</span>
+          <span className="job">직업</span>
         </User>
         <Date>
           <img src="/img/calender.svg" />

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/review";
-
-// import { ReactComponent as ForkImg } from "../../public/img/fork.svg";
+import { ReactComponent as ForkImg } from "./fork.svg";
 
 const Review = (props) => {
   const dispatch = useDispatch();
@@ -39,10 +38,6 @@ const Review = (props) => {
   };
 
   // 평점;
-  const colors = {
-    orange: "#ff9841",
-    gray: "#efefef",
-  };
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
@@ -88,16 +83,21 @@ const Review = (props) => {
                     <Rating>
                       {forks.map((_, index) => {
                         return (
-                          <Fork
-                            src="/img/fork.svg"
+                          <ForkImg
+                            style={{
+                              cursor: "pointer",
+                              marginRight: "4px",
+                              width: "15.1px",
+                              height: "14px",
+                            }}
                             key={index}
                             onClick={() => handleClick(index + 1)}
                             onMouseOver={() => handleMouseOver(index + 1)}
                             onMouseLeave={handleMouseLeave}
-                            color={
+                            fill={
                               (hoverValue || currentValue) > index
-                                ? colors.orange
-                                : colors.gray
+                                ? "#ff9841"
+                                : "#efefef"
                             }
                           />
                         );
@@ -311,13 +311,6 @@ const SubmitMsg = styled.span`
   font-size: 1.4rem;
   line-height: normal;
   color: #ff9841;
-`;
-
-const Fork = styled.img`
-  cursor: pointer;
-  margin-right: 4px;
-  width: 15.1px;
-  height: 14px;
 `;
 
 export default Review;
