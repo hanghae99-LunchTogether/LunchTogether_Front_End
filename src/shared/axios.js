@@ -86,8 +86,8 @@ export const apis = {
     }),
 
   //점심 약속 삭제
-  deleteLunch: post =>
-    instance.delete(`/lunchregister/${lunchId}`, post, {
+  deleteLunch: lunchid =>
+    instance.delete(`/lunchpost/${lunchid}`, null, {
       header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
@@ -154,7 +154,7 @@ export const apis = {
     }),
 
   applyLunch: lunchid =>
-    instance.post(`/applicant/${lunchid}`, {
+    instance.post(`/applicant/${lunchid}`, null, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };

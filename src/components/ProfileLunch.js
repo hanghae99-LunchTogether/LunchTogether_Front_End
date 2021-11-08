@@ -44,7 +44,7 @@ const ProfileLunch = props => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 820px;
+  max-width: 800px;
 `;
 
 const LunchListWrapper = styled.div`
@@ -54,16 +54,26 @@ const LunchListWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   border: none;
-  min-width: 400px;
+  min-width: 380px;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+    margin-right: 0;
+  }
 `;
 
 const LunchWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 380px;
   padding: 2rem;
   border: 1px solid #eaeaea;
   border-radius: 10px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  @media only screen and (max-width: 768px) {
+    margin-right: 0;
+  }
 `;
 
 const Text = styled.p`

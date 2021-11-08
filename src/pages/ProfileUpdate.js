@@ -11,6 +11,7 @@ import { history } from "../redux/configureStore";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
+  console.log(userInfo);
   const [preview, setPreview] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
@@ -112,6 +113,15 @@ const ProfileUpdate = props => {
             />
           </InputWrapper>
           <InputWrapper>
+            <Text>직무</Text>
+            <Input
+              name="job"
+              onChange={onChange}
+              value={userInfo.job}
+              required
+            />
+          </InputWrapper>
+          <InputWrapper>
             <Text>MBTI</Text>
             <Input
               name="mbti"
@@ -123,18 +133,18 @@ const ProfileUpdate = props => {
           <InputWrapper>
             <Text>선호메뉴</Text>
             <Input
-              name="menu"
+              name="likemenu"
               onChange={onChange}
-              value={userInfo.menu}
+              value={userInfo.likemenu}
               required
             />
           </InputWrapper>
           <InputWrapper>
             <Text>비선호메뉴</Text>
             <Input
-              name="likemenu"
+              name="dislikemenu"
               onChange={onChange}
-              value={userInfo.menu}
+              value={userInfo.dislikemenu}
               required
             />
           </InputWrapper>

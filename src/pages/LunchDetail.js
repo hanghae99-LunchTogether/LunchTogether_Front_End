@@ -41,6 +41,11 @@ const LunchDetail = props => {
     console.log(data);
   };
 
+  const deleteLunch = async () => {
+    const data = await apis.deleteLunch(lunchId);
+    console.log(data);
+  };
+
   return (
     <>
       <LunchDetailBox>
@@ -126,6 +131,25 @@ const LunchDetail = props => {
         >
           점심약속 신청하기
         </DetailButton>
+        {user_info.userid === lunch.userid && (
+          <>
+            <DetailButton
+              onClick={() => {
+                history.push(`/lunchpost/${lunchId}`);
+              }}
+            >
+              수정하기
+            </DetailButton>
+            <DetailButton
+              onClick={() => {
+                deleteLunch();
+                history.push("/");
+              }}
+            >
+              삭제하기
+            </DetailButton>
+          </>
+        )}
         <CommentWrite></CommentWrite>
       </LunchDetailBox>
     </>
@@ -337,7 +361,7 @@ const DetailButton = styled.button`
   background-color: #ff9841;
   border: none;
   border-radius: 4px;
-  margin: 10rem auto;
+  margin: 1rem auto;
   transition: 0.8s;
   &:hover {
     border-radius: 20px;

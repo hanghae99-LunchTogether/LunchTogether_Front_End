@@ -137,13 +137,13 @@ const Login = props => {
 export default Login;
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
+  min-width: 350px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 8rem;
+  margin: 8rem auto;
 `;
 
 const Logo = styled.div`
@@ -154,13 +154,13 @@ const Logo = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
   max-width: 500px;
-  min-width: 350px;
+  margin: 1rem 3rem;
 `;
 
 const Text = styled.p`
@@ -172,7 +172,6 @@ const Text = styled.p`
 const Input = styled.input`
   width: 100%;
   height: 48px;
-  min-width: 270px;
   color: black;
   font-size: 1rem;
   padding: 12px 16px;
@@ -182,8 +181,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  min-width: 350px;
-  width: 50%;
+  max-width: 500px;
+  width: 100%;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
@@ -192,7 +191,8 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: white;
   color: #ff9841;
-  margin-bottom: 1em;
+  margin: 1rem 3rem;
+
   min-width: 350px;
 
   &:hover {

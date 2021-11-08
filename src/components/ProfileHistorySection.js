@@ -20,6 +20,7 @@ const content = [
 
 const ProfileHistorySection = props => {
   const { lunchs, reviews } = props;
+  console.log(reviews);
   const appliedLunch = lunchs.filter(l => l.status === "applied");
   const madeLunch = lunchs.filter(l => l.status === "made");
   const [lunch, setLunch] = useState(appliedLunch);
@@ -61,7 +62,9 @@ const ProfileHistorySection = props => {
             </>
           ) : (
             <>
-              <ProfileReview />
+              <HistoryWrapper>
+                <ProfileReview reviews={reviews} />
+              </HistoryWrapper>
             </>
           )}
         </HistorySection>
@@ -78,18 +81,24 @@ const Wrapper = styled.div`
   margin-top: 5rem;
   @media only screen and (max-width: 768px) {
     margin-left: 0;
+    align-items: center;
   }
 `;
 
 const TabWrapper = styled.div`
   display: flex;
   margin-bottom: 5rem;
+  padding: 1rem;
 `;
 
 const HistoryWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 const Text = styled.p`
@@ -115,6 +124,10 @@ const Button = styled.button`
   padding: 1rem;
   border: none;
   margin-right: 2rem;
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 0;
+  }
 `;
 
 const HistorySection = styled.div`
@@ -131,6 +144,8 @@ const Select = styled.select`
   border: 1px solid #dfdfdf;
   background-color: #fff;
   margin-bottom: 3rem;
+  min-width: 380px;
+  max-width: 500px;
 `;
 
 export default ProfileHistorySection;

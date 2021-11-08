@@ -179,7 +179,7 @@ const PorfileSectionWrapper = styled.div`
 `;
 
 const ProfileInfoWarpper = styled.div`
-  max-width: 400px;
+  max-width: 380px;
   width: 100%;
   max-height: 700px;
   display: flex;
