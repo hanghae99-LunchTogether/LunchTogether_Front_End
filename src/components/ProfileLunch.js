@@ -14,34 +14,34 @@ const ProfileLunch = props => {
     <>
       <Wrapper>
         <LunchListWrapper>
-          {/* {lunchs.map((l, idx) => {
-            return (
-              <LunchWrapper>
-                <Text
-                  size="2"
-                  bold
-                  color="black"
-                  style={{ marginBottom: "1rem" }}
-                >
-                  {l.title}
-                </Text>
-                <UserWrapper>
-                  <Image shape="circle" size="30" src={l.user.image} />
-                  <Text style={{ marginLeft: "1rem" }} bold>
-                    {l.nickname} {l.job}
-                  </Text>
-                </UserWrapper>
-                <Text>{l.time.split(" ")[0]}</Text>
-                <Text>{l.locations.place_name}</Text>
-                <Text>{l.membernum}</Text>
-                <UserWrapper>
-                  <Image shape="circle" size="30" src={l.user.image} />
-                  <Text style={{ marginLeft: "1rem" }} bold>
-                    {l.nickname} {l.job}
-                  </Text>
-                </UserWrapper>
-              </LunchWrapper>
-            );
+          {/* {appliedLunch.map((l, idx) => {
+            // return (
+            //   <LunchWrapper>
+            //     <Text
+            //       size="2"
+            //       bold
+            //       color="black"
+            //       style={{ marginBottom: "1rem" }}
+            //     >
+            //       {l.title}
+            //     </Text>
+            //     <UserWrapper>
+            //       <Image shape="circle" size="30" src={l.user.image} />
+            //       <Text style={{ marginLeft: "1rem" }} bold>
+            //         {l.nickname} {l.job}
+            //       </Text>
+            //     </UserWrapper>
+            //     <Text>{l.time.split(" ")[0]}</Text>
+            //     <Text>{l.locations.place_name}</Text>
+            //     <Text>{l.membernum}</Text>
+            //     <UserWrapper>
+            //       <Image shape="circle" size="30" src={l.user.image} />
+            //       <Text style={{ marginLeft: "1rem" }} bold>
+            //         {l.nickname} {l.job}
+            //       </Text>
+            //     </UserWrapper>
+            //   </LunchWrapper>
+            // );
           })} */}
         </LunchListWrapper>
       </Wrapper>
