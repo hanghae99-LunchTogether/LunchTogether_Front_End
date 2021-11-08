@@ -3,22 +3,32 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/review";
 
-// import { ReactComponent as Rating } from "../../public/img/fork.svg";
+// import { ReactComponent as ForkImg } from "../../public/img/fork.svg";
 
 const Review = (props) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const [checkError, setCheckError] = useState("");
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
-  const onClickSubmit = () => {
+  const onClickSubmit = (e) => {
     const review = {
-      targetuserid: 1964619422,
+      targetuserid: 1964619424,
       spoon: currentValue,
       comment: content,
     };
+
+    if (content === "") {
+      setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
+      // e.preventDefault();
+    }
+    if (currentValue === 0) {
+      setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
+    }
+
     dispatch(reviewAction.addReviewAPI(review));
   };
 
@@ -115,7 +125,7 @@ const Review = (props) => {
             >
               리뷰 작성 완료
             </SubmitBtn>
-            <SubmitMsg>작성되지 않은 리뷰가 남아있어요 :(</SubmitMsg>
+            <SubmitMsg>{checkError}</SubmitMsg>
           </ReviewContainar>
         </Wrapper>
       )}
@@ -308,8 +318,6 @@ const Fork = styled.img`
   margin-right: 4px;
   width: 15.1px;
   height: 14px;
-  fill: blue;
-  color: blue;
 `;
 
 export default Review;
