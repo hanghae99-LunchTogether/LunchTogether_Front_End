@@ -13,13 +13,13 @@ import { RiMapPin2Fill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
 import { Avatar } from "@mui/material";
 
-const LunchDetail = (props) => {
+const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector(state => state.user.user);
   console.log(user_info);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   const lunchId = props.match.params.lunchid;
 
@@ -64,9 +64,9 @@ const LunchDetail = (props) => {
               <p>진행시간</p>
             </LunchInfoLeft>
             <LunchInfoRight>
-              <p>{lunch.membernum}/4</p>
-              <p>{lunch.locations.place_name}</p>
-              <p>{lunch.time}</p>
+              <p>{lunch.membernum}</p>
+              <p>{lunch.locations && lunch.locations.place_name}</p>
+              <p>{lunch.date}</p>
               <p>{lunch.duration}</p>
             </LunchInfoRight>
           </LunchInfoWrap>
@@ -135,7 +135,7 @@ const LunchDetail = (props) => {
           >
             점심약속 신청하기
           </DetailButton>
-          {user_info.userid === lunch.userid && (
+          {/* {user_info.userid === lunch.userid && (
             <>
               <DetailButton
                 onClick={() => {
@@ -153,7 +153,7 @@ const LunchDetail = (props) => {
                 삭제하기
               </DetailButton>
             </>
-          )}
+          )} */}
           <CommentWrite></CommentWrite>
         </LunchDetailBox>
       )}
