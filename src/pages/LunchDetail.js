@@ -13,13 +13,13 @@ import { RiMapPin2Fill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
 import { Avatar } from "@mui/material";
 
-const LunchDetail = props => {
+const LunchDetail = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector(state => state.user.user);
+  const user_info = useSelector((state) => state.user.user);
   console.log(user_info);
-  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const lunchId = props.match.params.lunchid;
 
@@ -58,58 +58,64 @@ const LunchDetail = props => {
           </Head>
           <LunchInfoWrap>
             <LunchInfoLeft>
-              <p>신청현황</p>
-              <p>약속장소</p>
-              <p>날짜시간</p>
-              <p>진행시간</p>
+              <div>신청현황</div>
+              <div>날짜시간</div>
+              <div>진행시간</div>
+              <div>약속장소</div>
             </LunchInfoLeft>
             <LunchInfoRight>
-              <p>{lunch.membernum}</p>
-              <p>{lunch.locations && lunch.locations.place_name}</p>
-              <p>{lunch.date}</p>
-              <p>{lunch.duration}</p>
+              <div>{lunch.applicants && lunch.applicants.length + 1}/4</div>
+              <div>{lunch.date && lunch.date.substring(0, 16)}</div>
+              <div>{lunch.duration}</div>
+              <div>{lunch.locations && lunch.locations.place_name}</div>
+              &nbsp;
+              <a
+                style={{ color: "#9d9d9d", textDecoration: "underline" }}
+                href={lunch.locations && lunch.locations.place_url}
+              >
+                <RiMapPin2Fill style={{ color: "#2d8df4" }} />
+                카카오맵으로자세히보기
+              </a>
             </LunchInfoRight>
           </LunchInfoWrap>
           <UserInfoWrap>
-            <Image
-              className="user_image"
-              shape="circle"
-              size="100"
-              src={"https://t1.daumcdn.net/cfile/blog/134665344D7625B635"}
-              /*src={user_info.image}*/
+            <Avatar
+              sx={{ width: 100, height: 100 }}
+              src={`${lunch.host && lunch.host.image}`}
             />
             <UserInfo>
               <WriterInfo>
-                <WriterName>화정</WriterName>
-                <WriterJob>디자이너</WriterJob>
+                <WriterName>{lunch.host && lunch.host.nickname}</WriterName>
+                <WriterJob>{lunch.host && lunch.host.job}</WriterJob>
                 <Manner>
                   <GiKnifeFork />
-                  4.85점
+                  {lunch.host && lunch.host.mannerStatus}
                 </Manner>
               </WriterInfo>
               <UserAddress>
                 <RiMapPin2Fill
                   style={{ marginRight: "0.4rem", color: "red" }}
                 />
-                서울 강남구 개포1동
+                {lunch.host && lunch.host.location}
               </UserAddress>
               <UserDescWrap>
-                <UserDesc>👩🏻‍💻고민많은 주니어 프로덕트 디자이너</UserDesc>
-                <UserDesc>🧑🏻‍🍳먹는 걸 좋아해서 자주 만들어 먹어요</UserDesc>
-                <UserDesc>
-                  💸티빙과 넷플릭스 시리즈를 광적으로 좋아해요
-                </UserDesc>
+                <UserDesc>{lunch.host && lunch.host.introduction}</UserDesc>
               </UserDescWrap>
               <HostMenu>호스트의 메뉴 취향</HostMenu>
               <HostFoodBox>
-                <HostFood>한식</HostFood>
-                <HostFood>양식</HostFood>
-                <HostFood>콩</HostFood>
+                <LikeFood>{lunch.host && lunch.host.likemenu}</LikeFood>
+                <DisLikeFood>
+                  {lunch.host && lunch.host.dislikemenu}
+                </DisLikeFood>
               </HostFoodBox>
             </UserInfo>
           </UserInfoWrap>
-          <MapPosition>하이디라오 강남점</MapPosition>
-          <MapAddress>서울특별시 서초구 서초1동</MapAddress>
+          <MapPosition>
+            {lunch.locations && lunch.locations.place_name}
+          </MapPosition>
+          <MapAddress>
+            {lunch.locations && lunch.locations.address_name}
+          </MapAddress>
           <MapWarp>
             <MapContainer />
           </MapWarp>
@@ -124,36 +130,38 @@ const LunchDetail = props => {
           <MemberOption>
             👀디자인 회사 이직 고민중인데 저와 같은 상황이신 분 있으실까요?
           </MemberOption>
-          <DetailButton
-            onClick={() => {
-              if (!isLoggedIn) {
-                window.alert("로그인을 해주세요!");
-                history.replace("/login");
-              }
-              applyLunch();
-            }}
-          >
-            점심약속 신청하기
-          </DetailButton>
-          {/* {user_info.userid === lunch.userid && (
-            <>
-              <DetailButton
-                onClick={() => {
-                  history.push(`/lunchpost/${lunchId}`);
-                }}
-              >
-                수정하기
-              </DetailButton>
-              <DetailButton
-                onClick={() => {
-                  deleteLunch();
-                  history.push("/");
-                }}
-              >
-                삭제하기
-              </DetailButton>
-            </>
-          )} */}
+          <ButtonWrap>
+            <DetailButton
+              onClick={() => {
+                if (!isLoggedIn) {
+                  window.alert("로그인을 해주세요!");
+                  history.replace("/login");
+                }
+                applyLunch();
+              }}
+            >
+              점심약속 신청하기
+            </DetailButton>
+            {user_info.userid === lunch.userid && (
+              <>
+                <DetailButton
+                  onClick={() => {
+                    history.push(`/lunchpost/${lunchId}`);
+                  }}
+                >
+                  수정하기
+                </DetailButton>
+                <DetailButton
+                  onClick={() => {
+                    deleteLunch();
+                    history.push("/");
+                  }}
+                >
+                  삭제하기
+                </DetailButton>
+              </>
+            )}
+          </ButtonWrap>
           <CommentWrite></CommentWrite>
         </LunchDetailBox>
       )}
@@ -225,7 +233,7 @@ const LunchInfoLeft = styled.div`
   text-align: end;
   background-color: #fff8f2;
   border-radius: 30px 0 0 30px;
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1140px) {
     padding-left: 1rem;
     margin-left: 2rem;
     text-align: center;
@@ -236,6 +244,10 @@ const LunchInfoLeft = styled.div`
 const LunchInfoRight = styled.div`
   line-height: 3.2rem;
   margin-left: 3rem;
+  @media only screen and (max-width: 1260px) {
+    margin-left: 2rem;
+    font-size: 1.4rem;
+  }
 `;
 
 const UserInfoWrap = styled.div`
@@ -301,6 +313,7 @@ const UserDescWrap = styled.div`
 `;
 
 const UserDesc = styled.p`
+  line-height: 2.2rem;
   padding: 0.5rem;
 `;
 
@@ -314,7 +327,19 @@ const HostFoodBox = styled.div`
   display: flex;
 `;
 
-const HostFood = styled.div`
+const LikeFood = styled.div`
+  display: flex;
+  height: 3rem;
+  width: 8rem;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  border-radius: 16px;
+  background-color: #ff9841;
+  font-size: 1.4rem;
+`;
+
+const DisLikeFood = styled.div`
   display: flex;
   height: 3rem;
   width: 8rem;
@@ -356,9 +381,16 @@ const WishMember = styled.h2`
 `;
 
 const MemberOption = styled.p`
+  line-height: 2.2rem;
   font-size: 1.6rem;
   margin-left: 3.1rem;
   padding: 0.4rem 0;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 6rem 0;
 `;
 
 const DetailButton = styled.button`
