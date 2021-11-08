@@ -54,7 +54,7 @@ const LunchDetail = (props) => {
           </LunchInfoLeft>
           <LunchInfoRight>
             <p>{lunch.membernum}/4</p>
-            <p>영안식당</p>
+            <p>탐라궁</p>
             <p>{lunch.time}</p>
             <p>{lunch.duration}</p>
           </LunchInfoRight>
@@ -69,7 +69,7 @@ const LunchDetail = (props) => {
           />
           <UserInfo>
             <WriterInfo>
-              <WriterName>화정</WriterName>
+              <WriterName>{lunch.nickname}</WriterName>
               <WriterJob>디자이너</WriterJob>
               <Manner>
                 <GiKnifeFork />
