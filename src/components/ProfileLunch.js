@@ -4,26 +4,98 @@ import React from "react";
 import styled from "styled-components";
 import { Image } from "../elements";
 import { history } from "../redux/configureStore";
+import { apis } from "../shared/axios";
 
 const ProfileLunch = props => {
   const { lunchs } = props;
   const appliedLunch = lunchs.applied;
-  const ownedLunch = lunchs.applied;
-  console.log(ownedLunch);
+  const ownedLunch = lunchs.owned;
+
+  const approveMember = async (lunchid, id, bool, comment) => {
+    const approval = { userid: id, statusdesc: bool, comment: "꺼지셈" };
+    console.log(approval);
+    console.log(lunchid);
+    const data = await apis.approveMember(lunchid, approval);
+    console.log(data);
+  };
 
   return (
     <>
       <Wrapper>
         {ownedLunch && (
           <>
-            <Text bold size="2">
-              {" "}
-              만든 점심약속{" "}
-            </Text>
             <LunchListWrapper>
-              {ownedLunch.map((l, idx) => {
-                console.log(l);
-              })}
+              <ColumnWrapper>
+                <Text bold size="2">
+                  {" "}
+                  만든 점심약속{" "}
+                </Text>
+                {ownedLunch.map((l, idx) => {
+                  console.log(l);
+                  return (
+                    <LunchWrapper
+                    // onClick={() => history.push(`/lunchpost/${l.lunchid}`)}
+                    >
+                      <Text
+                        size="2"
+                        bold
+                        color="black"
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        {l.title}
+                      </Text>
+                      <UserWrapper>
+                        <Image shape="circle" size="40" src={l.host.image} />
+                        <Text style={{ marginLeft: "1rem" }} bold>
+                          {l.host.nickname} {l.host.job}
+                        </Text>
+                      </UserWrapper>
+                      <Text>{l.time.split(" ")[0]}</Text>
+                      <Text>{l.locations.place_name}</Text>
+                      <Text>{l.membernum}</Text>
+                      {l.applicants.map((u, idx) => {
+                        return (
+                          <UserWrapper
+                            onClick={() => {
+                              // history.push(`/profile/${u.user.userid}`);
+                            }}
+                            style={{ justifyContent: "space-between" }}
+                          >
+                            <GeneralWrapper>
+                              <Image
+                                shape="circle"
+                                size="40"
+                                src={u.user.image}
+                              />
+                              <UserInfoWrapper style={{ marginLeft: "1rem" }}>
+                                <Text bold>{u.user.nickname}</Text>
+                                <Text>{u.user.job}</Text>
+                              </UserInfoWrapper>
+                            </GeneralWrapper>
+                            <GeneralWrapper style={{ marginLeft: "10rem" }}>
+                              <Button
+                                onClick={() =>
+                                  approveMember(l.lunchid, u.user.userid, true)
+                                }
+                              >
+                                승인
+                              </Button>
+                              <Button
+                                style={{ backgroundColor: "red" }}
+                                onClick={() =>
+                                  approveMember(l.lunchid, u.user.userid, false)
+                                }
+                              >
+                                거절
+                              </Button>
+                            </GeneralWrapper>
+                          </UserWrapper>
+                        );
+                      })}
+                    </LunchWrapper>
+                  );
+                })}
+              </ColumnWrapper>
             </LunchListWrapper>
           </>
         )}
@@ -87,6 +159,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 800px;
+  margin: 0 auto;
 `;
 
 const LunchListWrapper = styled.div`
@@ -101,6 +174,7 @@ const LunchListWrapper = styled.div`
   @media only screen and (max-width: 768px) {
     justify-content: center;
     margin-right: 0;
+    flex-direction: column;
   }
 `;
 
@@ -120,6 +194,7 @@ const LunchWrapper = styled.div`
 `;
 
 const Text = styled.p`
+  max-width: 380px;
   font-size: ${props => (props.size ? props.size : "1.6")}rem;
   line-height: 3rem;
   ${props => (props.color ? `font-color: ${props.color}` : "font-color: gray")};
@@ -130,13 +205,30 @@ const UserWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  margin-right: 2rem;
   cursor: pointer;
 `;
 
 const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const GeneralWrapper = styled.div`
+  display: flex;
+`;
+
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Button = styled.button`
+  width: 5rem;
+  line-height: 5rem;
+  border: none;
+  margin-right: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
 `;
 
 export default ProfileLunch;

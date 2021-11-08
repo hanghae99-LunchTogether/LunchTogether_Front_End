@@ -38,6 +38,10 @@ const ProfileUpdate = props => {
     const formData = new FormData();
     formData.append("image", file);
     setUploadImage(formData);
+    setUserInfo({
+      ...userInfo,
+      image: formData,
+    });
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreview(reader.result);
@@ -68,6 +72,7 @@ const ProfileUpdate = props => {
   const onUpdateProfile = async () => {
     try {
       console.log(userInfo, "요청직전");
+      console.log(uploadImage);
       const data = await apis.updateProfile(userInfo, uploadImage);
       console.log(data);
       history.push(`/profile/${userId}`);
