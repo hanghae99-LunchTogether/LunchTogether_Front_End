@@ -4,7 +4,20 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
 const Lunch = (props) => {
-  const { title, nickname, lunchid, date } = props;
+  const { title, user, lunchid, date, locations } = props;
+
+  //약속시간
+  // const schedule = date.split(" ");
+  // const meetDate = schedule[0].split("-");
+  // const year = meetDate[0];
+  // const month = meetDate[1];
+  // const day = meetDate[2];
+  // const time = schedule[1].split(":");
+  // const hour = time[0];
+  // const minute = time[1];
+  // const writtenDate =
+  //   year + "년" + month + "월" + day + "일" + " " + hour + "시" + minute + "분";
+
   return (
     <>
       <Wrapper
@@ -16,8 +29,8 @@ const Lunch = (props) => {
         <Title>{title}</Title>
         <User>
           <img src="/img/profile.png" />
-          <span className="nickname">{nickname}</span>
-          <span className="job">직업</span>
+          <span className="nickname">{user.nickname}</span>
+          <span className="job">{user.job}</span>
         </User>
         <Date>
           <img src="/img/calender.svg" />
@@ -25,7 +38,7 @@ const Lunch = (props) => {
         </Date>
         <Place>
           <img src="/img/location.svg" />
-          <span>장소</span>
+          <span>{locations.place_name}</span>
         </Place>
         <Bottom>
           <Member>

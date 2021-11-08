@@ -2,33 +2,50 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/review";
-import { FaStar } from "react-icons/fa";
+
+// import { ReactComponent as ForkImg } from "../../public/img/fork.svg";
 
 const Review = (props) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const [checkError, setCheckError] = useState("");
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
-  const onClickSubmit = () => {
+  const onClickSubmit = (e) => {
     const review = {
-      targetuserid: 1964619422,
+      targetuserid: 1964619424,
       spoon: currentValue,
       comment: content,
     };
+
+    if (content === "") {
+      setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
+      // e.preventDefault();
+    }
+    if (currentValue === 0) {
+      setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
+    }
+
     dispatch(reviewAction.addReviewAPI(review));
+  };
+
+  // 모달창;
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalClose = () => {
+    setModalOpen(!modalOpen);
   };
 
   // 평점;
   const colors = {
-    orange: "#FFBA5A",
-    gray: "#a9a9a9",
+    orange: "#ff9841",
+    gray: "#efefef",
   };
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
-  const stars = Array(5).fill(0);
+  const forks = Array(5).fill(0);
 
   const handleClick = (value) => {
     setCurrentValue(value);
@@ -42,20 +59,14 @@ const Review = (props) => {
     setHoverValue(undefined);
   };
 
-  // 모달창;
-  const [modalOpen, setModalOpen] = useState(false);
-  const modalClose = () => {
-    setModalOpen(!modalOpen);
-  };
-
   return (
     <>
       <button onClick={modalClose}>모달창 켜기</button>
 
       {modalOpen && (
-        <Wrapper>
-          <ReviewBox>
-            <Exit onClick={modalClose}>X</Exit>
+        <Wrapper onClick={modalClose}>
+          <ReviewContainar onClick={(e) => e.stopPropagation()}>
+            <Exit onClick={modalClose} src="/img/cross.svg"></Exit>
             <h1>점심식사 리뷰 남기기</h1>
             <h2>
               즐거운 점심식사 보내셨나요? 함께 즐긴 멤버에 대한 평가를
@@ -75,38 +86,35 @@ const Review = (props) => {
                   <RatingBox>
                     <h2>닉넴님과의 식사는 어떠셨나요?</h2>
                     <Rating>
-                      <div style={styles.stars}>
-                        {stars.map((_, index) => {
-                          return (
-                            <FaStar
-                              key={index}
-                              size={14}
-                              onClick={() => handleClick(index + 1)}
-                              onMouseOver={() => handleMouseOver(index + 1)}
-                              onMouseLeave={handleMouseLeave}
-                              color={
-                                (hoverValue || currentValue) > index
-                                  ? colors.orange
-                                  : colors.gray
-                              }
-                              style={{
-                                marginRight: 5.2,
-                                cursor: "pointer",
-                              }}
-                            />
-                          );
-                        })}
-                      </div>
-                      <span>별점</span>
+                      {forks.map((_, index) => {
+                        return (
+                          <Fork
+                            src="/img/fork.svg"
+                            key={index}
+                            onClick={() => handleClick(index + 1)}
+                            onMouseOver={() => handleMouseOver(index + 1)}
+                            onMouseLeave={handleMouseLeave}
+                            color={
+                              (hoverValue || currentValue) > index
+                                ? colors.orange
+                                : colors.gray
+                            }
+                          />
+                        );
+                      })}
+                      <span>{currentValue}점</span>
                     </Rating>
                   </RatingBox>
                 </UserInfo>
                 <Comment>
                   <span>리뷰 작성하기</span>
-                  <input
-                    onChange={onChangeContent}
-                    placeholder="140자 미만 작성해주세요"
-                  />
+                  <div>
+                    <textarea
+                      maxlength="140"
+                      onChange={onChangeContent}
+                      placeholder="140자 미만 작성해주세요"
+                    />
+                  </div>
                 </Comment>
               </ReviewCard>
             </ReviewWrap>
@@ -117,7 +125,8 @@ const Review = (props) => {
             >
               리뷰 작성 완료
             </SubmitBtn>
-          </ReviewBox>
+            <SubmitMsg>{checkError}</SubmitMsg>
+          </ReviewContainar>
         </Wrapper>
       )}
     </>
@@ -125,24 +134,30 @@ const Review = (props) => {
 };
 
 const Wrapper = styled.div`
-  max-width: 192rem;
-  height: 100vh;
+  max-width: 1920px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: #bbbbbd;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(120, 121, 125, 0.5);
 `;
 
-const ReviewBox = styled.div`
-  width: 107.1rem;
-  height: 92.3rem;
+const ReviewContainar = styled.div`
+  width: 1071px;
+  max-height: 923px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 0.4rem;
+  border-radius: 4px;
   border: solid 1px #dfdfdf;
   background-color: #ffffff;
+  padding: 3.2rem 3.18rem;
   position: relative;
 
   h1 {
@@ -150,51 +165,65 @@ const ReviewBox = styled.div`
     color: #3c3c3c;
     line-height: 2.6rem;
     font-weight: 500;
+    margin: 2.6rem 0 0.6rem 0;
   }
 
   h2 {
     font-size: 1.6rem;
     color: #64656a;
     line-height: 3.2rem;
-    margin: 0.6rem 0 4.6rem 0;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 350px;
   }
 `;
 
-const Exit = styled.button`
+const Exit = styled.img`
+  width: 1.4rem;
+  height: 1.4rem;
+
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 3.18rem;
+  top: 3.2rem;
 `;
 
 const ReviewWrap = styled.div`
-  width: 63.5rem;
-  height: 62rem;
+  width: 635px;
+  max-height: 620px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 4.6rem 0 1.6rem 0;
+
+  @media only screen and (max-width: 768px) {
+    width: 308px;
+  }
 `;
 
 const ReviewCard = styled.div`
-  width: 52.7rem;
-  height: 12.9rem;
+  width: 527px;
+  height: 129px;
+
+  @media only screen and (max-width: 768px) {
+    width: 308px;
+  }
 `;
 
 const UserInfo = styled.div`
   width: 100%;
-  height: 5.8rem;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 5px;
 `;
 
 const User = styled.div`
-  width: 10.6rem;
   display: flex;
   align-items: center;
 
   img {
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
   }
 
@@ -206,66 +235,89 @@ const User = styled.div`
       font-size: 1.4rem;
       color: #64656a;
       line-height: 2.2rem;
-      margin-top: 0.5px;
       margin-bottom: 0.3rem;
     }
     .job {
       font-size: 1.2rem;
       color: #bebfc1;
       line-height: 2rem;
-      margin-bottom: 0.3rem;
     }
   }
 `;
 
 const RatingBox = styled.div`
-  width: 20.6rem;
-  height: 5.2rem;
-
   h2 {
     font-size: 1.6rem;
     color: #64656a;
     line-height: 2.6rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
 const Rating = styled.div`
   display: flex;
+
+  span {
+    font-size: 1.4rem;
+    color: #64656a;
+    margin-left: 10px;
+  }
 `;
 
 const Comment = styled.div`
-  width: 52.7rem;
-  height: 7.1rem;
+  width: 527px;
   display: flex;
   flex-direction: column;
+  margin-top: 0.8rem;
 
-  input {
-    height: 4.8rem;
+  div {
+    height: 48px;
     margin-top: 0.6rem;
     padding: 0.6rem 0.8rem 0.5rem 0.8rem;
-    border-radius: 0.4rem;
+    border-radius: 4px;
     background-color: #f8f8f8;
     border: none;
+  }
+
+  textarea {
+    font-size: 1.3rem;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: #f8f8f8;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 308px;
   }
 `;
 
 const SubmitBtn = styled.button`
-  width: 30.8rem;
-  height: 5.6rem;
+  width: 308px;
+  height: 56px;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: 4px;
   background-color: #ff9841;
   color: #ffffff;
   font-size: 1.6rem;
   line-height: 2.6rem;
   font-weight: 500;
+  margin-bottom: 1.6rem;
 `;
 
-const styles = {
-  stars: {
-    display: "flex",
-    flexDirection: "row",
-  },
-};
+const SubmitMsg = styled.span`
+  font-size: 1.4rem;
+  line-height: normal;
+  color: #ff9841;
+`;
+
+const Fork = styled.img`
+  cursor: pointer;
+  margin-right: 4px;
+  width: 15.1px;
+  height: 14px;
+`;
 
 export default Review;

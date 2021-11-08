@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
-const MobaileNav = props => {
+const MobaileNav = (props) => {
   return (
     <>
       <Wrapper>
@@ -35,18 +35,18 @@ const MobaileNav = props => {
 };
 
 const Wrapper = styled.div`
-  display: flex;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  justify-content: space-around;
-  align-items: center;
-  border-top: 1px solid gray;
-  height: 90px;
+  display: none;
 
-  @media only screen and (min-width: 768px) {
-    display: none;
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    justify-content: space-around;
+    align-items: center;
+    height: 90px;
+    background-color: #ff9841;
+    z-index: 10;
   }
 `;
 

@@ -18,38 +18,45 @@ const Home = (props) => {
   }, []);
   return (
     <>
-      <Wrapper>
-        <BannerImage>
-          <img src="https://i.pinimg.com/originals/0c/cc/3b/0ccc3bd079e58b94c1a7b0ee4ac985f2.jpg" />
-        </BannerImage>
-        <CurationTitle>
-          <div>
-            <h1>오늘의 점심약속을 만나보세요🍱</h1>
-            <h2>
-              원하시는 점심약속을 찾아보고 새로운 사람과 교류를 늘려보세요
-            </h2>
-          </div>
-          <button
-            onClick={() => {
-              history.push("/lunchregister");
-            }}
-          >
-            점심약속 등록하기
-          </button>
-        </CurationTitle>
-        <LunchList>
-          {lunchList.map((l, idx) => {
-            return <Lunch {...l} key={idx} />;
-          })}
-        </LunchList>
-      </Wrapper>
+      <Container>
+        <Wrapper>
+          <BannerImage>
+            <img src="https://i.pinimg.com/originals/0c/cc/3b/0ccc3bd079e58b94c1a7b0ee4ac985f2.jpg" />
+          </BannerImage>
+          <CurationTitle>
+            <div>
+              <h1>오늘의 점심약속을 만나보세요🍱</h1>
+              <h2>
+                원하시는 점심약속을 찾아보고 새로운 사람과 교류를 늘려보세요
+              </h2>
+            </div>
+            <button
+              onClick={() => {
+                history.push("/lunchregister");
+              }}
+            >
+              점심약속 등록하기
+            </button>
+          </CurationTitle>
+          <LunchList>
+            {lunchList.map((l, idx) => {
+              return <Lunch {...l} key={idx} />;
+            })}
+          </LunchList>
+        </Wrapper>
+      </Container>
     </>
   );
 };
 
-const Wrapper = styled.div`
+const Container = styled.div`
   max-width: 1920px;
-  padding: 0 32rem 0 32rem;
+  background-color: #fafafa;
+`;
+
+const Wrapper = styled.div`
+  max-width: 1280px;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +65,7 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     min-width: 375px;
-    padding: 0 3.2rem 0 3.2rem;
+    padding: 0 3.2rem;
   }
 `;
 
@@ -136,6 +143,7 @@ const LunchList = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 3.2rem 2.8rem;
+  margin-bottom: 3.2rem;
 
   @media only screen and (max-width: 768px) {
     min-width: 350px;
