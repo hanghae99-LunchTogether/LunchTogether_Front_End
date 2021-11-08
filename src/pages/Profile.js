@@ -12,6 +12,7 @@ import ProfileHistorySection from "../components/ProfileHistorySection";
 
 const Profile = props => {
   const [user, setUser] = useState(null);
+  console.log(user);
   const userId = props.match.params.id;
 
   const getProfile = async () => {
@@ -69,13 +70,14 @@ const Profile = props => {
                   textAlign: "left",
                 }}
               >
-                {/* {user.introduction.split("\n").map(l => {
-                return (
-                  <span>
-                    {l} <br />
-                  </span>
-                );
-              })} */}
+                {user.introduction &&
+                  user.introduction.split("\n").map(l => {
+                    return (
+                      <span>
+                        {l} <br />
+                      </span>
+                    );
+                  })}
               </Text>
               <InfoWrapper>
                 <Text
@@ -101,7 +103,7 @@ const Profile = props => {
                     marginRight: "0",
                   }}
                 >
-                  고기
+                  {user.likemenu}
                 </Text>
               </InfoWrapper>
               <InfoWrapper style={{ justifyContent: "space-between" }}>
@@ -127,7 +129,7 @@ const Profile = props => {
                     marginRight: "0",
                   }}
                 >
-                  고기
+                  {user.dislikemenu}
                 </Text>
               </InfoWrapper>
               <Button>점심 제안하기</Button>

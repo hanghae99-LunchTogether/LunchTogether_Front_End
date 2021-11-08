@@ -5,13 +5,16 @@ import styled from "styled-components";
 import { Image } from "../elements";
 
 const ProfileLunch = props => {
-  const { lunch } = props;
-  console.log(lunch);
+  const { lunchs } = props;
+  console.log(lunchs);
+  const appliedLunch = lunchs.applied;
+  const ownedLunch = lunchs.applied;
+  console.log(appliedLunch);
   return (
     <>
       <Wrapper>
         <LunchListWrapper>
-          {lunch.map((l, idx) => {
+          {/* {lunchs.map((l, idx) => {
             return (
               <LunchWrapper>
                 <Text
@@ -22,19 +25,24 @@ const ProfileLunch = props => {
                 >
                   {l.title}
                 </Text>
-                <OwnerWrapper>
+                <UserWrapper>
                   <Image shape="circle" size="30" src={l.user.image} />
                   <Text style={{ marginLeft: "1rem" }} bold>
                     {l.nickname} {l.job}
                   </Text>
-                </OwnerWrapper>
+                </UserWrapper>
                 <Text>{l.time.split(" ")[0]}</Text>
                 <Text>{l.locations.place_name}</Text>
                 <Text>{l.membernum}</Text>
-                <Text>참여인원이미지, 닉네임, 직무</Text>
+                <UserWrapper>
+                  <Image shape="circle" size="30" src={l.user.image} />
+                  <Text style={{ marginLeft: "1rem" }} bold>
+                    {l.nickname} {l.job}
+                  </Text>
+                </UserWrapper>
               </LunchWrapper>
             );
-          })}
+          })} */}
         </LunchListWrapper>
       </Wrapper>
     </>
@@ -83,7 +91,7 @@ const Text = styled.p`
   ${props => props.bold && `font-weight: bold`};
 `;
 
-const OwnerWrapper = styled.div`
+const UserWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;

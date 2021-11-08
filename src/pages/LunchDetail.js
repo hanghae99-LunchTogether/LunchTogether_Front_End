@@ -36,7 +36,6 @@ const LunchDetail = props => {
   }, []);
 
   const applyLunch = async () => {
-    console.log(lunchId);
     const data = await apis.applyLunch(lunchId);
     console.log(data);
   };
@@ -48,110 +47,116 @@ const LunchDetail = props => {
 
   return (
     <>
-      <LunchDetailBox>
-        <Head>
-          <New>
-            <p>NEW</p>
-          </New>
-          <Title>{lunch.title}</Title>
-          <SubTitle>{lunch.content}</SubTitle>
-        </Head>
-        <LunchInfoWrap>
-          <LunchInfoLeft>
-            <p>신청현황</p>
-            <p>약속장소</p>
-            <p>날짜시간</p>
-            <p>진행시간</p>
-          </LunchInfoLeft>
-          <LunchInfoRight>
-            <p>{lunch.membernum}/4</p>
-            <p>영안식당</p>
-            <p>{lunch.time}</p>
-            <p>{lunch.duration}</p>
-          </LunchInfoRight>
-        </LunchInfoWrap>
-        <UserInfoWrap>
-          <Image
-            className="user_image"
-            shape="circle"
-            size="100"
-            src={"https://t1.daumcdn.net/cfile/blog/134665344D7625B635"}
-            /*src={user_info.image}*/
-          />
-          <UserInfo>
-            <WriterInfo>
-              <WriterName>화정</WriterName>
-              <WriterJob>디자이너</WriterJob>
-              <Manner>
-                <GiKnifeFork />
-                4.85점
-              </Manner>
-            </WriterInfo>
-            <UserAddress>
-              <RiMapPin2Fill style={{ marginRight: "0.4rem", color: "red" }} />
-              서울 강남구 개포1동
-            </UserAddress>
-            <UserDescWrap>
-              <UserDesc>👩🏻‍💻고민많은 주니어 프로덕트 디자이너</UserDesc>
-              <UserDesc>🧑🏻‍🍳먹는 걸 좋아해서 자주 만들어 먹어요</UserDesc>
-              <UserDesc>💸티빙과 넷플릭스 시리즈를 광적으로 좋아해요</UserDesc>
-            </UserDescWrap>
-            <HostMenu>호스트의 메뉴 취향</HostMenu>
-            <HostFoodBox>
-              <HostFood>한식</HostFood>
-              <HostFood>양식</HostFood>
-              <HostFood>콩</HostFood>
-            </HostFoodBox>
-          </UserInfo>
-        </UserInfoWrap>
-        <MapPosition>하이디라오 강남점</MapPosition>
-        <MapAddress>서울특별시 서초구 서초1동</MapAddress>
-        <MapWarp>
-          <MapContainer />
-        </MapWarp>
-        <WishMember>이런 분들과 함께 점심을 먹고 싶어요</WishMember>
-        <MemberOption>
-          🐱고양이를 키우시는 분과 같이 먹고싶어요 (나만 고양이 없어… 고양이
-          사진 보고싶어요…)
-        </MemberOption>
-        <MemberOption>
-          👻마이네임 재밌게 보신 분! 먹으면서 이야기해요
-        </MemberOption>
-        <MemberOption>
-          👀디자인 회사 이직 고민중인데 저와 같은 상황이신 분 있으실까요?
-        </MemberOption>
-        <DetailButton
-          onClick={() => {
-            if (!isLoggedIn) {
-              window.alert("로그인을 해주세요!");
-              history.replace("/login");
-            }
-            applyLunch();
-          }}
-        >
-          점심약속 신청하기
-        </DetailButton>
-        {user_info.userid === lunch.userid && (
-          <>
-            <DetailButton
-              onClick={() => {
-                history.push(`/lunchpost/${lunchId}`);
-              }}
-            >
-              수정하기
-            </DetailButton>
-            <DetailButton
-              onClick={() => {
-                deleteLunch();
-                history.push("/");
-              }}
-            >
-              삭제하기
-            </DetailButton>
-          </>
-        )}
-        <CommentWrite></CommentWrite>
-      </LunchDetailBox>
+      {lunch && (
+        <LunchDetailBox>
+          <Head>
+            <New>
+              <p>NEW</p>
+            </New>
+            <Title>{lunch.title}</Title>
+            <SubTitle>{lunch.content}</SubTitle>
+          </Head>
+          <LunchInfoWrap>
+            <LunchInfoLeft>
+              <p>신청현황</p>
+              <p>약속장소</p>
+              <p>날짜시간</p>
+              <p>진행시간</p>
+            </LunchInfoLeft>
+            <LunchInfoRight>
+              <p>{lunch.membernum}/4</p>
+              <p>영안식당</p>
+              <p>{lunch.time}</p>
+              <p>{lunch.duration}</p>
+            </LunchInfoRight>
+          </LunchInfoWrap>
+          <UserInfoWrap>
+            <Image
+              className="user_image"
+              shape="circle"
+              size="100"
+              src={"https://t1.daumcdn.net/cfile/blog/134665344D7625B635"}
+              /*src={user_info.image}*/
+            />
+            <UserInfo>
+              <WriterInfo>
+                <WriterName>화정</WriterName>
+                <WriterJob>디자이너</WriterJob>
+                <Manner>
+                  <GiKnifeFork />
+                  4.85점
+                </Manner>
+              </WriterInfo>
+              <UserAddress>
+                <RiMapPin2Fill
+                  style={{ marginRight: "0.4rem", color: "red" }}
+                />
+                서울 강남구 개포1동
+              </UserAddress>
+              <UserDescWrap>
+                <UserDesc>👩🏻‍💻고민많은 주니어 프로덕트 디자이너</UserDesc>
+                <UserDesc>🧑🏻‍🍳먹는 걸 좋아해서 자주 만들어 먹어요</UserDesc>
+                <UserDesc>
+                  💸티빙과 넷플릭스 시리즈를 광적으로 좋아해요
+                </UserDesc>
+              </UserDescWrap>
+              <HostMenu>호스트의 메뉴 취향</HostMenu>
+              <HostFoodBox>
+                <HostFood>한식</HostFood>
+                <HostFood>양식</HostFood>
+                <HostFood>콩</HostFood>
+              </HostFoodBox>
+            </UserInfo>
+          </UserInfoWrap>
+          <MapPosition>하이디라오 강남점</MapPosition>
+          <MapAddress>서울특별시 서초구 서초1동</MapAddress>
+          <MapWarp>
+            <MapContainer />
+          </MapWarp>
+          <WishMember>이런 분들과 함께 점심을 먹고 싶어요</WishMember>
+          <MemberOption>
+            🐱고양이를 키우시는 분과 같이 먹고싶어요 (나만 고양이 없어… 고양이
+            사진 보고싶어요…)
+          </MemberOption>
+          <MemberOption>
+            👻마이네임 재밌게 보신 분! 먹으면서 이야기해요
+          </MemberOption>
+          <MemberOption>
+            👀디자인 회사 이직 고민중인데 저와 같은 상황이신 분 있으실까요?
+          </MemberOption>
+          <DetailButton
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert("로그인을 해주세요!");
+                history.replace("/login");
+              }
+              applyLunch();
+            }}
+          >
+            점심약속 신청하기
+          </DetailButton>
+          {user_info.userid === lunch.userid && (
+            <>
+              <DetailButton
+                onClick={() => {
+                  history.push(`/lunchpost/${lunchId}`);
+                }}
+              >
+                수정하기
+              </DetailButton>
+              <DetailButton
+                onClick={() => {
+                  deleteLunch();
+                  history.push("/");
+                }}
+              >
+                삭제하기
+              </DetailButton>
+            </>
+          )}
+          <CommentWrite></CommentWrite>
+        </LunchDetailBox>
+      )}
     </>
   );
 };

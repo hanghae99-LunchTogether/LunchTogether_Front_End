@@ -20,10 +20,9 @@ const content = [
 
 const ProfileHistorySection = props => {
   const { lunchs, reviews } = props;
-  console.log(reviews);
-  const appliedLunch = lunchs.filter(l => l.status === "applied");
-  const madeLunch = lunchs.filter(l => l.status === "made");
-  const [lunch, setLunch] = useState(appliedLunch);
+  // const appliedLunch = lunchs.filter(l => l.status === "applied");
+  // const madeLunch = lunchs.filter(l => l.status === "made");
+  // const [lunch, setLunch] = useState(appliedLunch);
   const { currentItem, changeItem } = useTabs(0, content);
 
   const onChange = e => {
@@ -31,7 +30,7 @@ const ProfileHistorySection = props => {
       target: { name, value },
     } = e;
     console.log(typeof value);
-    value === "1" ? setLunch(appliedLunch) : setLunch(madeLunch);
+    // value === "1" ? setLunch(appliedLunch) : setLunch(madeLunch);
   };
 
   return (
@@ -57,7 +56,7 @@ const ProfileHistorySection = props => {
                   <option value="2">만든 점심약속</option>
                 </Select>
 
-                <ProfileLunch lunch={lunch} />
+                <ProfileLunch lunchs={lunchs} />
               </HistoryWrapper>
             </>
           ) : (

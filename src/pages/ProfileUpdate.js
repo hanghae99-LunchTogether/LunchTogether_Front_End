@@ -26,7 +26,7 @@ const ProfileUpdate = props => {
     setUserInfo({
       ...userInfo,
       [name]: value,
-      location: location,
+      locations: location,
     });
   };
 
@@ -67,6 +67,7 @@ const ProfileUpdate = props => {
 
   const onUpdateProfile = async () => {
     try {
+      console.log(userInfo, "요청직전");
       const data = await apis.updateProfile(userInfo, uploadImage);
       console.log(data);
       history.push(`/profile/${userId}`);
