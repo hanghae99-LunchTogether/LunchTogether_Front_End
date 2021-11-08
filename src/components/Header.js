@@ -23,67 +23,73 @@ const Header = (props) => {
     <>
       {user ? (
         <>
-          {/* <MobileHeader> 반가워요, {user.nickname}님!</MobileHeader> */}
-          <HeaderWrap>
-            <Left>
-              <Logo
-                onClick={() => {
-                  history.push("/");
-                }}
-              >
-                <img src="img/logo.svg" />
-              </Logo>
-              <button
-                onClick={() => {
-                  history.push("/");
-                }}
-              >
-                홈
-              </button>
-              <button onClick={() => history.push(`/lunchregister`)}>
-                점심약속 등록하기
-              </button>
-            </Left>
-            <Right>
-              <button onClick={logOut}>로그아웃</button>
-              <div>
-                <button onClick={() => history.push(`/profile/${user.userid}`)}>
-                  내정보
+          <Container>
+            <HeaderWrap>
+              <Left>
+                <Logo
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  <img src="img/logo.svg" />
+                </Logo>
+                <button
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  홈
                 </button>
-                <button>🔔</button>
-              </div>
-            </Right>
-          </HeaderWrap>
+                <button onClick={() => history.push(`/lunchregister`)}>
+                  점심약속 등록하기
+                </button>
+              </Left>
+              <Right>
+                <button onClick={logOut}>로그아웃</button>
+                <div>
+                  <button
+                    onClick={() => history.push(`/profile/${user.userid}`)}
+                  >
+                    내정보
+                  </button>
+                  <button>🔔</button>
+                </div>
+              </Right>
+            </HeaderWrap>
+          </Container>
           <MobaileNav />
         </>
       ) : (
         <>
-          <MobileHeader>로그인 후 이용해주세요!</MobileHeader>
-          <HeaderWrap>
-            <Left>
-              <Logo
-                onClick={() => {
-                  history.push("/");
-                }}
-              >
-                <img src="img/logo.svg" />
-              </Logo>
-              <button
-                onClick={() => {
-                  history.push("/");
-                }}
-              >
-                홈
-              </button>
-              <button onClick={() => history.push(`/lunchregister`)}>
-                점심약속 등록하기
-              </button>
-            </Left>
-            <Right>
-              <button onClick={() => history.push("/login")}>로그인</button>
-              <button onClick={() => history.push("/signup")}>회원가입</button>
-            </Right>
-          </HeaderWrap>
+          <Container>
+            <HeaderWrap>
+              <Left>
+                <Logo
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  <img src="img/logo.svg" />
+                </Logo>
+                <button
+                  onClick={() => {
+                    history.push("/");
+                  }}
+                >
+                  홈
+                </button>
+                <button onClick={() => history.push(`/login`)}>
+                  점심약속 등록하기
+                </button>
+              </Left>
+              <Right>
+                <button onClick={() => history.push("/login")}>로그인</button>
+                <button onClick={() => history.push("/signup")}>
+                  회원가입
+                </button>
+              </Right>
+            </HeaderWrap>
+          </Container>
           <MobaileNav />
         </>
       )}
@@ -93,23 +99,20 @@ const Header = (props) => {
 
 export default Header;
 
-const MobileHeader = styled.div`
-  display: none;
-  @media only screen and (max-width: 768px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.6rem;
-    font-weight: 600;
-    padding: 20px;
-  }
+const Container = styled.div`
+  max-width: 1920px;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 const HeaderWrap = styled.div`
-  max-width: 1920px;
-  min-width: 1280px;
+  background-color: #ffffff;
+  max-width: 1280px;
+  margin: auto;
+  box-sizing: border-box;
   min-height: 100px;
-  padding: 0 320px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -126,8 +129,8 @@ const HeaderWrap = styled.div`
 
   @media only screen and (max-width: 768px) {
     min-width: 375px;
+    padding: 0 3.2rem 0 3.2rem;
     min-height: 50px;
-    padding: 0;
   } ;
 `;
 
@@ -155,14 +158,14 @@ const Logo = styled.div`
   width: 140px;
   height: 100px;
   cursor: pointer;
-  padding: 4px 0;
+  padding: 10px 0;
   img {
     width: 100%;
     height: 100%;
   }
 
   @media only screen and (max-width: 768px) {
-    width: 700px;
+    width: 70px;
     height: 50px;
   }
 `;
