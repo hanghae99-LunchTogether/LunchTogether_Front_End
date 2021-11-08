@@ -65,7 +65,6 @@ const LunchDetail = (props) => {
             shape="circle"
             size="100"
             src={"https://t1.daumcdn.net/cfile/blog/134665344D7625B635"}
-            /*src={user_info.image}*/
           />
           <UserInfo>
             <WriterInfo>
@@ -236,6 +235,9 @@ const WriterJob = styled.span`
   padding: 0.8rem 0;
   margin-right: 0.9rem;
   color: #64656a;
+  @media only screen and (max-width: 1135px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const Manner = styled.div`

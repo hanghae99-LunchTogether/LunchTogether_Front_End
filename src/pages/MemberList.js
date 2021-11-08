@@ -4,7 +4,7 @@ import { ImSearch } from "react-icons/im";
 import MemberListCard from "../components/MemberListCard";
 const MemberList = (props) => {
   return (
-    <Body>
+    <MemberListBody>
       <InputBox>
         <ImSearch />
         <SearchInput placeholder="멤버 검색" type="text" />
@@ -12,11 +12,11 @@ const MemberList = (props) => {
       <MemberListWrap>
         <MemberListCard />
       </MemberListWrap>
-    </Body>
+    </MemberListBody>
   );
 };
 
-const Body = styled.div`
+const MemberListBody = styled.div`
   height: 100vh;
   background-color: #dbdbdb;
 `;
