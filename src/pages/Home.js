@@ -6,10 +6,11 @@ import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
 import Lunch from "../components/Lunch";
 
-const Home = (props) => {
+const Home = props => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
+    console.log(data);
     const lunchList = data.data.lunch;
     setLunchList(lunchList);
   };

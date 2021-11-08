@@ -7,9 +7,9 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import MobaileNav from "./MobileNav";
 
-const Header = (props) => {
+const Header = props => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(state => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {

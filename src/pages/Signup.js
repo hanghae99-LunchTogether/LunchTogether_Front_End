@@ -150,12 +150,12 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 41%;
+  width: 50%;
   min-width: 350px;
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1.4rem;
   border: 1px solid #ff9841;
   border-radius: 6px;
   background-color: white;
