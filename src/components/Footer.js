@@ -81,7 +81,8 @@ const Container = styled.div`
 
 const FooterWrap = styled.div`
   max-width: 1280px;
-  height: 180px;
+  min-height: 180px;
+  box-sizing: border-box;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -90,11 +91,11 @@ const FooterWrap = styled.div`
 `;
 
 const Info = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 
   hr {
-    width: 1280px;
     border: 0.5px solid #333;
     margin: 1rem 0;
   }
@@ -102,7 +103,6 @@ const Info = styled.div`
 
 const Nav = styled.div`
   padding-top: 2rem;
-  /* padding-bottom: 2rem; */
   span {
     font-size: 1.4rem;
     font-weight: 600;
@@ -116,6 +116,10 @@ const Bottom = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 2rem;
+
+  @media only screen and (max-width: 950px) {
+    flex-direction: column;
+  }
 `;
 
 const Member = styled.div`
@@ -197,14 +201,17 @@ const C = styled.div`
   align-items: center;
 
   img {
-    width: 80px;
-    height: 80px;
+    width: 8rem;
+    height: 8rem;
   }
   span {
     margin-top: 1rem;
     font-size: 1.4rem;
     line-height: 2.2rem;
     color: #64656a;
+  }
+  @media only screen and (max-width: 950px) {
+    flex-direction: row;
   }
 `;
 
