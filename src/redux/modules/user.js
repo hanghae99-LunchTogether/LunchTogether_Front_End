@@ -59,9 +59,11 @@ export const signUpAPI = _account => {
 
 export const logInAPI = account => {
   return function (dispatch, getState, { history }) {
+    console.log(account);
     apis
       .logIn(account)
       .then(res => {
+        console.log(res);
         const token = res.data.token;
         const user = res.data.data.user;
         localStorage.setItem("token", token);
@@ -70,6 +72,7 @@ export const logInAPI = account => {
       })
       .catch(err => {
         console.log(err.response);
+        console.log(err);
         dispatch(setError(err.response.data.msg));
       });
   };

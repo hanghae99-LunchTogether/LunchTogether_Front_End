@@ -11,11 +11,11 @@ const content = [
     tab: "점심약속",
     active: false,
   },
-  {
-    id: 1,
-    tab: "후기",
-    active: false,
-  },
+  // {
+  //   id: 1,
+  //   tab: "후기",
+  //   active: false,
+  // },
 ];
 
 const ProfileHistorySection = props => {

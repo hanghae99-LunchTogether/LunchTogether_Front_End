@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { profileActions } from "../redux/modules/profile";
 import { Image } from "../elements";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { apis } from "../shared/axios";

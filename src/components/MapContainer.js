@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { selectPlaceMiddleware } from "../redux/modules/place";
 
 const { kakao } = window;
 

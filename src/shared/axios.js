@@ -1,12 +1,12 @@
 /* eslint-disable */
 
 import axios from "axios";
-import { previousThursday } from "date-fns/fp";
 
 const instance = axios.create({
   baseURL: "http://3.35.54.135",
 });
 
+// "proxy": "http://3.35.54.135:3000"
 export const apis = {
   //회원가입
   registerUser: user =>
