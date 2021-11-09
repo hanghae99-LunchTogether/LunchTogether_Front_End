@@ -5,6 +5,11 @@ import { history } from "../redux/configureStore";
 import moment from "moment";
 import "moment/locale/ko";
 
+import Calender from "../assets/calender.svg";
+import Location from "../assets/location.svg";
+import BookmarkImg from "../assets/bookmark.svg";
+import ProfileImg from "../assets/profile.png";
+
 const Lunch = (props) => {
   const { title, host, lunchid, date, locations, membernum } = props;
   const strDate = String(date);
@@ -20,26 +25,26 @@ const Lunch = (props) => {
         <Notice>New</Notice>
         <Title>{title}</Title>
         <User>
-          <img src={host.image != null ? host.image : "/img/profile.png"} />
+          <img src={host.image != null ? host.image : ProfileImg} />
           <span className="nickname">{host.nickname}</span>
           <span className="job">{host.job}</span>
         </User>
         <Date>
-          <img src="/img/calender.svg" />
+          <img src={Calender} />
           <span>{schedule}</span>
         </Date>
         <Place>
-          <img src="/img/location.svg" />
+          <img src={Location} />
           <span>{locations.place_name}</span>
         </Place>
         <Bottom>
           <Member>
-            <img src="/img/profile.png" />
-            <img className="second" src="/img/profile.png" />
+            <img src={ProfileImg} />
+            <img className="second" src={ProfileImg} />
             <span>2/{membernum} 명</span>
           </Member>
           <Bookmark>
-            <img src="/img/bookmark.svg" />
+            <img src={BookmarkImg} />
             <span>3</span>
           </Bookmark>
         </Bottom>

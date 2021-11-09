@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
+import LogoImg from "../assets/logo.svg";
+
 const Footer = (props) => {
   const user = useSelector((state) => state.user.user);
 
@@ -58,7 +60,7 @@ const Footer = (props) => {
               </Git>
             </Member>
             <C>
-              <img src="/img/logo.svg" />
+              <img src={LogoImg} />
               <span>© 2021 Project Fork. All rights reserved.</span>
             </C>
           </Bottom>

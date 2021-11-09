@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/review";
+
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
+import Cross from "../assets/cross.svg";
 
 const Review = (props) => {
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ const Review = (props) => {
       {modalOpen && (
         <Wrapper onClick={modalClose}>
           <ReviewContainar onClick={(e) => e.stopPropagation()}>
-            <Exit onClick={modalClose} src="/img/cross.svg"></Exit>
+            <Exit onClick={modalClose} src={Cross}></Exit>
             <h1>점심식사 리뷰 남기기</h1>
             <h2>
               즐거운 점심식사 보내셨나요? 함께 즐긴 멤버에 대한 평가를
