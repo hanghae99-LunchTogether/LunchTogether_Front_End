@@ -107,7 +107,7 @@ const Container = styled.div`
   background-color: #ffffff;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 2000;
 `;
 
 const HeaderWrap = styled.div`
