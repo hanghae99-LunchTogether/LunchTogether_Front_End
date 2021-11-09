@@ -4,16 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/review";
 import { ReactComponent as ForkImg } from "./fork.svg";
 
-const Review = (props) => {
+const Review = props => {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [checkError, setCheckError] = useState("");
 
-  const onChangeContent = (e) => {
+  const onChangeContent = e => {
     setContent(e.target.value);
   };
 
-  const onClickSubmit = (e) => {
+  const onClickSubmit = e => {
     const review = {
       targetuserid: 1964619424,
       spoon: currentValue,
@@ -42,11 +42,11 @@ const Review = (props) => {
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
-  const handleClick = (value) => {
+  const handleClick = value => {
     setCurrentValue(value);
   };
 
-  const handleMouseOver = (newHoverValue) => {
+  const handleMouseOver = newHoverValue => {
     setHoverValue(newHoverValue);
   };
 
@@ -60,7 +60,7 @@ const Review = (props) => {
 
       {modalOpen && (
         <Wrapper onClick={modalClose}>
-          <ReviewContainar onClick={(e) => e.stopPropagation()}>
+          <ReviewContainar onClick={e => e.stopPropagation()}>
             <Exit onClick={modalClose} src="/img/cross.svg"></Exit>
             <h1>점심식사 리뷰 남기기</h1>
             <h2>

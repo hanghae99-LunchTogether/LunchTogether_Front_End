@@ -13,8 +13,6 @@ const ProfileLunch = props => {
 
   const approveMember = async (lunchid, id, bool, comment) => {
     const approval = { userid: id, statusdesc: bool, comment: "꺼지셈" };
-    console.log(approval);
-    console.log(lunchid);
     const data = await apis.approveMember(lunchid, approval);
     console.log(data);
   };
@@ -26,21 +24,20 @@ const ProfileLunch = props => {
           <>
             <LunchListWrapper>
               <ColumnWrapper>
-                <Text bold size="2">
+                <Text bold size="2" style={{ marginBottom: "2rem" }}>
                   {" "}
                   만든 점심약속{" "}
                 </Text>
                 {ownedLunch.map((l, idx) => {
                   console.log(l);
                   return (
-                    <LunchWrapper
-                    // onClick={() => history.push(`/lunchpost/${l.lunchid}`)}
-                    >
+                    <LunchWrapper>
                       <Text
                         size="2"
                         bold
                         color="black"
                         style={{ marginBottom: "1rem" }}
+                        onClick={() => history.push(`/lunchpost/${l.lunchid}`)}
                       >
                         {l.title}
                       </Text>
@@ -56,12 +53,14 @@ const ProfileLunch = props => {
                       {l.applicants.map((u, idx) => {
                         return (
                           <UserWrapper
-                            onClick={() => {
-                              // history.push(`/profile/${u.user.userid}`);
-                            }}
+                            onClick={() => {}}
                             style={{ justifyContent: "space-between" }}
                           >
-                            <GeneralWrapper>
+                            <GeneralWrapper
+                              onClick={() => {
+                                history.push(`/profile/${u.user.userid}`);
+                              }}
+                            >
                               <Image
                                 shape="circle"
                                 size="40"
@@ -100,7 +99,7 @@ const ProfileLunch = props => {
           </>
         )}
 
-        <Text bold size="2">
+        <Text bold size="2" style={{ marginBottom: "2rem" }}>
           {" "}
           신청한 점심약속{" "}
         </Text>
@@ -168,6 +167,7 @@ const LunchListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 5rem;
   border: none;
   min-width: 380px;
 

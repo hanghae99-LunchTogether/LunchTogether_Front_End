@@ -20,18 +20,7 @@ const content = [
 
 const ProfileHistorySection = props => {
   const { lunchs, reviews } = props;
-  // const appliedLunch = lunchs.filter(l => l.status === "applied");
-  // const madeLunch = lunchs.filter(l => l.status === "made");
-  // const [lunch, setLunch] = useState(appliedLunch);
   const { currentItem, changeItem } = useTabs(0, content);
-
-  const onChange = e => {
-    const {
-      target: { name, value },
-    } = e;
-    console.log(typeof value);
-    // value === "1" ? setLunch(appliedLunch) : setLunch(madeLunch);
-  };
 
   return (
     <>
@@ -127,19 +116,6 @@ const Button = styled.button`
 const HistorySection = styled.div`
   width: 100%;
   display: flex;
-`;
-
-const Select = styled.select`
-  height: 48px;
-  color: black;
-  font-size: 1.6rem;
-  padding: 12px 16px;
-  border-radius: 6px;
-  border: 1px solid #dfdfdf;
-  background-color: #fff;
-  margin-bottom: 3rem;
-  min-width: 380px;
-  max-width: 500px;
 `;
 
 export default ProfileHistorySection;

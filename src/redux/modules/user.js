@@ -27,7 +27,6 @@ export const signUpAPI = _account => {
       nickname: _account.nickname,
       password: _account.password,
     };
-    console.log(account);
     apis
       .checkEmail(account.email)
       .then(res => {

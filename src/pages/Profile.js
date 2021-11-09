@@ -53,7 +53,8 @@ const Profile = props => {
               <Text size="1.4">{user.job}</Text>
               <Text size="1.4">
                 <MdOutlineLocationOn />
-                {user.locations.address_name.split(" ").slice(0, 3)}
+                {user.locations &&
+                  user.locations.address_name.split(" ").slice(0, 3)}
               </Text>
               <a
                 href="instagram.com/hwajeong"
