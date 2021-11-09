@@ -1,15 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
-const Footer = props => {
+const Footer = (props) => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <Container>
       <FooterWrap>
         <Info>
           <Nav>
-            <span>홈</span>
-            <span>점심약속 등록하기</span>
+            <span
+              onClick={() => {
+                history.push("/");
+              }}
+            >
+              홈
+            </span>
+            <span
+              onClick={() => {
+                user ? history.push("/lunchregister") : history.push("/login");
+              }}
+            >
+              점심약속 등록하기
+            </span>
           </Nav>
           <hr />
           <Bottom>
@@ -90,6 +105,7 @@ const Nav = styled.div`
     font-size: 1.4rem;
     font-weight: 600;
     margin-right: 2rem;
+    cursor: pointer;
   }
 `;
 

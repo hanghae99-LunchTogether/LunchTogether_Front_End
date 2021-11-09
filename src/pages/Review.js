@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/review";
-import { ReactComponent as ForkImg } from "./fork.svg";
+import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
 const Review = props => {
   const dispatch = useDispatch();

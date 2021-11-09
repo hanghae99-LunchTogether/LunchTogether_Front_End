@@ -2,21 +2,13 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
+import moment from "moment";
+import "moment/locale/ko";
 
 const Lunch = (props) => {
-  const { title, user, lunchid, date, locations } = props;
-
-  //약속시간
-  // const schedule = date.split(" ");
-  // const meetDate = schedule[0].split("-");
-  // const year = meetDate[0];
-  // const month = meetDate[1];
-  // const day = meetDate[2];
-  // const time = schedule[1].split(":");
-  // const hour = time[0];
-  // const minute = time[1];
-  // const writtenDate =
-  //   year + "년" + month + "월" + day + "일" + " " + hour + "시" + minute + "분";
+  const { title, host, lunchid, date, locations, membernum } = props;
+  const strDate = String(date);
+  const schedule = moment(strDate).format("YYYY-MM-DD(ddd) A hh:mm");
 
   return (
     <>
@@ -28,13 +20,13 @@ const Lunch = (props) => {
         <Notice>New</Notice>
         <Title>{title}</Title>
         <User>
-          <img src="/img/profile.png" />
-          <span className="nickname">닉네임</span>
-          <span className="job">직업</span>
+          <img src={host.image != null ? host.image : "/img/profile.png"} />
+          <span className="nickname">{host.nickname}</span>
+          <span className="job">{host.job}</span>
         </User>
         <Date>
           <img src="/img/calender.svg" />
-          <span>{date}</span>
+          <span>{schedule}</span>
         </Date>
         <Place>
           <img src="/img/location.svg" />
@@ -44,7 +36,7 @@ const Lunch = (props) => {
           <Member>
             <img src="/img/profile.png" />
             <img className="second" src="/img/profile.png" />
-            <span>2/4 명</span>
+            <span>2/{membernum} 명</span>
           </Member>
           <Bookmark>
             <img src="/img/bookmark.svg" />
