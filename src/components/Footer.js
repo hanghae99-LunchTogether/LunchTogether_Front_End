@@ -117,7 +117,7 @@ const Bottom = styled.div`
   align-items: center;
   padding-bottom: 2rem;
 
-  @media only screen and (max-width: 950px) {
+  @media all and (min-width: 768px) and (max-width: 1023px) {
     flex-direction: column;
   }
 `;
@@ -210,7 +210,8 @@ const C = styled.div`
     line-height: 2.2rem;
     color: #64656a;
   }
-  @media only screen and (max-width: 950px) {
+
+  @media all and (min-width: 768px) and (max-width: 1023px) {
     flex-direction: row;
   }
 `;
