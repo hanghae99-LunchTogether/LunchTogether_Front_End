@@ -7,6 +7,9 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import MobaileNav from "./MobileNav";
 
+import LogoImg from "../assets/logo.svg";
+import Alarm from "../assets/alarm.svg";
+
 const Header = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -31,7 +34,7 @@ const Header = (props) => {
                     history.push("/");
                   }}
                 >
-                  <img src="/img/logo.svg" />
+                  <img src={LogoImg} />
                 </Logo>
                 <button
                   onClick={() => {
@@ -53,7 +56,7 @@ const Header = (props) => {
                     내정보
                   </button>
                   <button>
-                    <img src="/img/alarm.svg" />
+                    <img src={Alarm} />
                   </button>
                 </div>
               </Right>
@@ -71,7 +74,7 @@ const Header = (props) => {
                     history.push("/");
                   }}
                 >
-                  <img src="/img/logo.svg" />
+                  <img src={LogoImg} />
                 </Logo>
                 <button
                   onClick={() => {
