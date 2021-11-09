@@ -9,7 +9,7 @@ import CommentWrite from "../components/CommentWrite";
 import { Image } from "../elements";
 import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
-import { RiMapPin2Fill } from "react-icons/ri";
+import { RiMapPin2Fill, RiHeartFill, RiDislikeFill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
 import { Avatar } from "@mui/material";
 
@@ -66,7 +66,7 @@ const LunchDetail = (props) => {
             <LunchInfoRight>
               <div>{lunch.applicants && lunch.applicants.length + 1}/4</div>
               <div>{lunch.date && lunch.date.substring(0, 16)}</div>
-              <div>{lunch.duration}</div>
+              <div>{lunch.duration * 60}분</div>
               <div>{lunch.locations && lunch.locations.place_name}</div>
               &nbsp;
               <a
@@ -103,8 +103,12 @@ const LunchDetail = (props) => {
               </UserDescWrap>
               <HostMenu>호스트의 메뉴 취향</HostMenu>
               <HostFoodBox>
-                <LikeFood>{lunch.host && lunch.host.likemenu}</LikeFood>
+                <LikeFood>
+                  <RiHeartFill style={{ color: "#ff9841" }} />
+                  {lunch.host && lunch.host.likemenu}
+                </LikeFood>
                 <DisLikeFood>
+                  <RiDislikeFill />
                   {lunch.host && lunch.host.dislikemenu}
                 </DisLikeFood>
               </HostFoodBox>
@@ -112,6 +116,18 @@ const LunchDetail = (props) => {
           </UserInfoWrap>
           <MapPosition>
             {lunch.locations && lunch.locations.place_name}
+            &nbsp;
+            <a
+              style={{
+                color: "#9d9d9d",
+                textDecoration: "underline",
+                fontSize: "1.2rem",
+              }}
+              href={lunch.locations && lunch.locations.place_url}
+            >
+              <RiMapPin2Fill style={{ color: "#2d8df4" }} />
+              카카오맵으로자세히보기
+            </a>
           </MapPosition>
           <MapAddress>
             {lunch.locations && lunch.locations.address_name}
@@ -123,12 +139,6 @@ const LunchDetail = (props) => {
           <MemberOption>
             🐱고양이를 키우시는 분과 같이 먹고싶어요 (나만 고양이 없어… 고양이
             사진 보고싶어요…)
-          </MemberOption>
-          <MemberOption>
-            👻마이네임 재밌게 보신 분! 먹으면서 이야기해요
-          </MemberOption>
-          <MemberOption>
-            👀디자인 회사 이직 고민중인데 저와 같은 상황이신 분 있으실까요?
           </MemberOption>
           <ButtonWrap>
             <DetailButton
@@ -176,7 +186,7 @@ const LunchDetailBox = styled.div`
   width: 33.33vw;
   min-width: 350px;
   max-width: 600px;
-  margin: 1.56rem auto 90px auto;
+  margin: 1.56rem auto 100px auto;
   box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
@@ -335,7 +345,7 @@ const LikeFood = styled.div`
   align-items: center;
   margin-right: 0.5rem;
   border-radius: 16px;
-  background-color: #ff9841;
+  background-color: #fff3e8;
   font-size: 1.4rem;
 `;
 
@@ -347,7 +357,7 @@ const DisLikeFood = styled.div`
   align-items: center;
   margin-right: 0.5rem;
   border-radius: 16px;
-  background-color: #e7dbd0;
+  background-color: #efefef;
   font-size: 1.4rem;
 `;
 
