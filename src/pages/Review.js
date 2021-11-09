@@ -5,6 +5,7 @@ import { actionCreators as reviewAction } from "../redux/modules/review";
 
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 import Cross from "../assets/cross.svg";
+import ProfileImg from "../assets/profile.png";
 
 const Review = (props) => {
   const dispatch = useDispatch();
@@ -74,7 +75,7 @@ const Review = (props) => {
               <ReviewCard>
                 <UserInfo>
                   <User>
-                    <img src="img/profile.png" />
+                    <img src={ProfileImg} />
                     <div>
                       <span className="nickname">닉네임</span>
                       <span className="job">직업</span>

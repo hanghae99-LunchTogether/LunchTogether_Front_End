@@ -25,6 +25,7 @@ import CommentWrite from "../components/CommentWrite";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ProfileLunchNew from "../components/ProfileLunchNew";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review" exact component={Review}></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
+          <Route path="/component" exact component={ProfileLunchNew}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>

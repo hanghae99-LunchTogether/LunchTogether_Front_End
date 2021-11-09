@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
+import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 
 const Home = (props) => {
@@ -22,7 +23,7 @@ const Home = (props) => {
       <Container>
         <Wrapper>
           <BannerImage>
-            <img src="https://i.pinimg.com/originals/0c/cc/3b/0ccc3bd079e58b94c1a7b0ee4ac985f2.jpg" />
+            <CarouselSlide />
           </BannerImage>
           <CurationTitle>
             <div>
@@ -79,8 +80,9 @@ const BannerImage = styled.div`
 
   img {
     width: 100%;
-    height: 100%;
+    height: 30rem;
     background-color: #f0f0f0;
+    background-size: cover;
   }
 
   @media only screen and (max-width: 768px) {

@@ -26,10 +26,8 @@ const Signup = props => {
 
   const dispatch = useDispatch();
   const error = useSelector(state => state.user.error);
-  console.log(error);
 
   const signUp = () => {
-    console.log(account);
     dispatch(userActions.signUpAPI(account));
   };
 

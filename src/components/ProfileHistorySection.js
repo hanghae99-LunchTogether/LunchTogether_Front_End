@@ -11,27 +11,16 @@ const content = [
     tab: "점심약속",
     active: false,
   },
-  {
-    id: 1,
-    tab: "후기",
-    active: false,
-  },
+  // {
+  //   id: 1,
+  //   tab: "후기",
+  //   active: false,
+  // },
 ];
 
 const ProfileHistorySection = props => {
   const { lunchs, reviews } = props;
-  // const appliedLunch = lunchs.filter(l => l.status === "applied");
-  // const madeLunch = lunchs.filter(l => l.status === "made");
-  // const [lunch, setLunch] = useState(appliedLunch);
   const { currentItem, changeItem } = useTabs(0, content);
-
-  const onChange = e => {
-    const {
-      target: { name, value },
-    } = e;
-    console.log(typeof value);
-    // value === "1" ? setLunch(appliedLunch) : setLunch(madeLunch);
-  };
 
   return (
     <>
@@ -51,11 +40,6 @@ const ProfileHistorySection = props => {
           {currentItem.tab === "점심약속" ? (
             <>
               <HistoryWrapper>
-                <Select name="lunchfilter" onChange={onChange} defalutValue="2">
-                  <option value="1">신청한 점심약속</option>
-                  <option value="2">만든 점심약속</option>
-                </Select>
-
                 <ProfileLunch lunchs={lunchs} />
               </HistoryWrapper>
             </>
@@ -132,19 +116,6 @@ const Button = styled.button`
 const HistorySection = styled.div`
   width: 100%;
   display: flex;
-`;
-
-const Select = styled.select`
-  height: 48px;
-  color: black;
-  font-size: 1.6rem;
-  padding: 12px 16px;
-  border-radius: 6px;
-  border: 1px solid #dfdfdf;
-  background-color: #fff;
-  margin-bottom: 3rem;
-  min-width: 380px;
-  max-width: 500px;
 `;
 
 export default ProfileHistorySection;
