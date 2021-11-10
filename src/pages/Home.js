@@ -78,7 +78,6 @@ const Banner = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
-  margin-right: 1rem;
 `;
 
 const CurationTitle = styled.p`
