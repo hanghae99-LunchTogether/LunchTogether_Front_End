@@ -181,7 +181,7 @@ const LunchDetailNew = props => {
             {user?.userid === lunch?.host.userid ? (
               <Button onClick={updateLunch}>수정하기</Button>
             ) : (
-              <Button onClick={applyLunch()}>점심약속 신청하기</Button>
+              <Button onClick={applyLunch}>점심약속 신청하기</Button>
             )}
           </ELWrapper>
           <ELWrapper></ELWrapper>
