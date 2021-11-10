@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = props => {
+const Header = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -55,7 +55,7 @@ const Header = props => {
                   >
                     내정보
                   </button>
-                  <button>
+                  <button onClick={() => history.push(`/notification`)}>
                     <img src={Alarm} />
                   </button>
                 </div>

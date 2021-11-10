@@ -20,7 +20,7 @@ const ProfileReviewItem = (props) => {
           <Writer>
             <img src={ProfileImg} />
             <div>
-              <span className="nicname">닉네임</span>
+              <span className="nickname">닉네임</span>
               <span className="job">직업</span>
             </div>
           </Writer>
@@ -99,7 +99,7 @@ const Writer = styled.div`
     letter-spacing: -1.1px;
     line-height: 2.2rem;
 
-    .nicname {
+    .nickname {
       font-size: 1.4rem;
       font-weight: 600;
       color: black;
