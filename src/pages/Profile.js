@@ -43,27 +43,11 @@ const Wrapper = styled.div`
   max-width: 1920px;
   height: 100%;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  padding: 5rem 0 5rem 0;
   margin: 0 auto;
-`;
 
-const Button = styled.button`
-  min-width: 330px;
-  max-width: 500px;
-  width: 50%;
-  height: 4rem;
-  font-weight: bold;
-  font-size: 1.4rem;
-  border-radius: 6px;
-  border: none;
-  background-color: #ff9841;
-  color: white;
-  margin: 1rem;
-
-  &:hover {
-    background-color: #ff9841;
-    color: white;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
   }
 `;
 

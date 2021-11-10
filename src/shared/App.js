@@ -27,6 +27,7 @@ import Notification from "../pages/Notification";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProfileLunchNew from "../components/ProfileLunchNew";
 import ProfileReviewItem from "../components/ProfileReviewItem";
+import LunchDetailNew from "../pages/LunchDetailNew";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ function App() {
           <Route
             path="/lunchpost/:lunchid"
             exact
-            component={LunchDetail}
+            component={LunchDetailNew}
           ></Route>
           <Route
             path="/lunchregister"
