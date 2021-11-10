@@ -6,8 +6,9 @@ import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
 import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
+import LunchNew from "../components/LunchNew";
 
-const Home = (props) => {
+const Home = props => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
@@ -22,9 +23,7 @@ const Home = (props) => {
     <>
       <Container>
         <Wrapper>
-          <BannerImage>
-            <CarouselSlide />
-          </BannerImage>
+          <Banner />
           <CurationTitle>
             <div>
               <h1>오늘의 점심약속을 만나보세요🍱</h1>
@@ -42,8 +41,11 @@ const Home = (props) => {
           </CurationTitle>
           <LunchList>
             {lunchList.map((l, idx) => {
-              return <Lunch {...l} key={idx} />;
+              return <LunchNew {...l} key={idx} />;
             })}
+            <FakeDiv />
+            <FakeDiv />
+            <FakeDiv />
           </LunchList>
         </Wrapper>
       </Container>
@@ -53,17 +55,15 @@ const Home = (props) => {
 
 const Container = styled.div`
   max-width: 1920px;
-  background-color: #fafafa;
 `;
 
 const Wrapper = styled.div`
-  max-width: 1280px;
-  margin: auto;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #fafafa;
 
   @media only screen and (max-width: 768px) {
     min-width: 375px;
@@ -71,24 +71,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const BannerImage = styled.div`
+const Banner = styled.div`
   width: 100%;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    width: 100%;
-    height: 30rem;
-    background-color: #f0f0f0;
-    background-size: cover;
-  }
-
-  @media only screen and (max-width: 768px) {
-    min-width: 350px;
-    height: 30rem;
-  }
+  height: 30vh;
+  background-image: url("https://images.squarespace-cdn.com/content/v1/5c2d560c5cfd7902be87d759/1551228568578-1R8DDL4VITBS3TNQKBYK/Jeannie-Phan-Illustration-Editorial-Airbnb-Design-Blog-6.jpg?format=1500w");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
 `;
 
 const CurationTitle = styled.p`
@@ -96,20 +85,20 @@ const CurationTitle = styled.p`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4rem 0 3rem 0;
+  margin: 5rem 0 2rem 0;
 
   h1 {
     font-size: 2.4rem;
-    line-height: 3.7rem;
-    color: #3c3c3c;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
+    line-height: 2rem;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
   }
 
   h2 {
     font-size: 1.8rem;
     line-height: 3rem;
-    color: #64656a;
+    color: white;
   }
 
   button {
@@ -120,7 +109,7 @@ const CurationTitle = styled.p`
     background-color: #ff9841;
     border: none;
     font-size: 1.6rem;
-    line-height: 2.6rem;
+    font-weight: 700;
     color: #ffffff;
   }
 
@@ -140,14 +129,18 @@ const LunchList = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 3.2rem 2.8rem;
   margin-bottom: 3.2rem;
+  gap: 2rem 2rem;
 
   @media only screen and (max-width: 768px) {
     min-width: 350px;
   }
+`;
+
+const FakeDiv = styled.div`
+  width: 280px;
 `;
 
 export default Home;
