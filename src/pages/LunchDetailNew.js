@@ -2,16 +2,31 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import DetailMapContainer from "../components/DetailMapContainer";
+import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
 const LunchDetailNew = props => {
+  const user = useSelector(state => state.user.user);
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
-  console.log(lunch);
 
   const getLunch = async () => {
     const data = await apis.getOneLunch(lunchId);
     const lunch = data.data.data.lunch;
     setLunch(lunch);
+  };
+
+  const applyLunch = async () => {
+    // if (true) {
+    //   window.alert("로그인을 해주세요!");
+    //   history.replace("/login");
+    // }
+    const data = await apis.applyLunch(lunchId);
+    console.log(data);
+  };
+
+  const updateLunch = async () => {
+    history.push(`/lunchregister/${lunchId}`);
   };
 
   useEffect(() => {
@@ -110,15 +125,24 @@ const LunchDetailNew = props => {
           >
             신청자
           </Text>
-          <hr style={{ margin: "4rem" }} />
-          <Text
-            color="black"
-            size="2"
-            weight="800"
-            style={{ margin: "0 0 2rem 5rem" }}
-          >
-            약속장소 상세정보
-          </Text>
+          <ELWrapper flex>
+            <ELWrapper
+              flex
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                margin: "0 0 1rem 0",
+              }}
+            >
+              <CircleImage size="10" style={{ marginBottom: "1rem" }} />
+              <Text color="black" size="1.6" weight="600" lineheight="3">
+                닉네임
+              </Text>
+              <Text color="black" size="1.6">
+                직무
+              </Text>
+            </ELWrapper>
+          </ELWrapper>
           <hr style={{ margin: "4rem" }} />
           <Text
             color="black"
@@ -153,6 +177,14 @@ const LunchDetailNew = props => {
 
             <DetailMapContainer location={lunch.locations} />
           </ELWrapper>
+          <ELWrapper>
+            {user?.userid === lunch?.host.userid ? (
+              <Button onClick={updateLunch}>수정하기</Button>
+            ) : (
+              <Button onClick={applyLunch()}>점심약속 신청하기</Button>
+            )}
+          </ELWrapper>
+          <ELWrapper></ELWrapper>
         </Wrapper>
       )}
     </>
@@ -169,6 +201,7 @@ const Wrapper = styled.div`
   padding: 5rem 2rem 5rem 2rem;
   margin: 0rem auto;
   background-color: white;
+  margin-bottom: 5rem;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -182,10 +215,9 @@ const ELWrapper = styled.div`
   ${props => (props.margin ? `margin: ${props.margin};` : "")};
   background-color: ${props => (props.bg ? props.bg : "white")};
   ${props => (props.flex ? `display: flex; align-items: center;` : "")};
-  ${props => (props.center ? `text-align: center` : "")};
+
   ${props =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
-  align-items: center;
   margin: 1rem 0 0.5rem 5rem;
 `;
 
@@ -215,9 +247,16 @@ const CircleImage = styled.div`
   background-position: top;
 `;
 
-const Button = styled.div`
-  width: 100%;
-  color: ;
+const Button = styled.button`
+  width: 95%;
+  height: 4rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #ff9841;
+  color: white;
+  margin-bottom: 2rem;
 `;
 
 export default LunchDetailNew;
