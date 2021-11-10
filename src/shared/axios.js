@@ -3,13 +3,13 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://3.35.54.135",
+  baseURL: "https://lebania.shop",
 });
 
 // "proxy": "http://3.35.54.135:3000"
 export const apis = {
   //회원가입
-  registerUser: user =>
+  registerUser: (user) =>
     instance.post(`/signup`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -18,7 +18,7 @@ export const apis = {
     }),
 
   //로그인
-  logIn: user =>
+  logIn: (user) =>
     instance.post(`/login`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -26,7 +26,7 @@ export const apis = {
       },
     }),
 
-  kakaologin: user =>
+  kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -35,7 +35,7 @@ export const apis = {
     }),
 
   // 이메일 중복확인
-  checkEmail: email =>
+  checkEmail: (email) =>
     instance.post(
       "/checkemail",
       { email },
@@ -44,11 +44,11 @@ export const apis = {
           "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
         },
-      }
+      },
     ),
 
   // 닉네임 중복확인
-  checkNickname: nickname =>
+  checkNickname: (nickname) =>
     instance.post(
       "/checknickname",
       { nickname },
@@ -57,7 +57,7 @@ export const apis = {
           "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
         },
-      }
+      },
     ),
 
   //회원정보 요청
@@ -67,26 +67,26 @@ export const apis = {
     }),
 
   //점심 약속 상세보기 정보요청
-  getOneLunch: lunchId =>
+  getOneLunch: (lunchId) =>
     instance.get(`/lunchpost/${lunchId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 등록
 
-  createLunch: lunch =>
+  createLunch: (lunch) =>
     instance.post(`/lunchpost`, lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 수정
-  updateLunch: _lunch =>
+  updateLunch: (_lunch) =>
     instance.patch(`/lunchpost`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 삭제
-  deleteLunch: lunchid =>
+  deleteLunch: (lunchid) =>
     instance.delete(`/lunchpost/${lunchid}`, null, {
       header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
@@ -97,34 +97,34 @@ export const apis = {
       { profile, image },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      }
+      },
     ),
 
   // 댓글 조회
-  getComment: lunchId =>
+  getComment: (lunchId) =>
     instance.get(`/comment/${lunchId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //댓글 추가
-  addComment: comment =>
+  addComment: (comment) =>
     instance.post(`/comment/${comment.lunchId}`, comment, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   // 댓글 삭제
-  deleteComment: commentId =>
+  deleteComment: (commentId) =>
     instance.delete(`/comment/${commentId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   // 내 프로필 조회
-  getProfile: userid =>
+  getProfile: (userid) =>
     instance.get(`/myprofile/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  getProfileLunch: userid =>
+  getProfileLunch: (userid) =>
     instance.get(`/applicant/user/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
@@ -142,18 +142,18 @@ export const apis = {
     }),
 
   //리뷰 등록
-  addReview: review =>
+  addReview: (review) =>
     instance.post("/spoon", review, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //리뷰 조회
-  getReview: userid =>
+  getReview: (userid) =>
     instance.get(`/spoon/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  applyLunch: lunchid =>
+  applyLunch: (lunchid) =>
     instance.post(`/applicant/${lunchid}`, null, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),

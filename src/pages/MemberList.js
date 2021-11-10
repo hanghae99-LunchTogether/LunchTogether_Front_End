@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ImSearch } from "react-icons/im";
 import MemberListCard from "../components/MemberListCard";
 const MemberList = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <MemberListBody>
       <InputBox>
         <ImSearch />
-        <SearchInput placeholder="멤버 검색" type="text" />
+        <SearchInput
+          placeholder="멤버 검색"
+          type="text"
+          onClick={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
       </InputBox>
       <MemberListWrap>
         <MemberListCard />
