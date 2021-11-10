@@ -52,9 +52,6 @@ const LunchDetail = (props) => {
       {lunch && (
         <LunchDetailBox>
           <Head>
-            <New>
-              <p>NEW</p>
-            </New>
             <Title>{lunch.title}</Title>
             <SubTitle>{lunch.content}</SubTitle>
           </Head>
@@ -164,7 +161,7 @@ const LunchDetail = (props) => {
             >
               점심약속 신청하기
             </DetailButton>
-            {user_info.userid === lunch.userid && (
+            {user_info?.userid === lunch.userid && (
               <>
                 <DetailButton
                   onClick={() => {
@@ -199,7 +196,7 @@ const LunchDetailBox = styled.div`
   min-width: 350px;
   max-width: 600px;
   margin: 1.56rem auto 100px auto;
-  box-shadow: 5px 5px 5px 5px #ebecf0;
+  // box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
 const Head = styled.div`
@@ -207,29 +204,14 @@ const Head = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 5rem;
   border-bottom: 1px solid #efefef;
-`;
-
-const New = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 1.4rem;
-  background-color: #ff9841;
-  border-radius: 15px;
-  margin-top: 12.9rem;
-  margin-bottom: 1.6rem;
-  p {
-    font-size: 1.4rem;
-    color: white;
-    padding: 0.3rem 0px;
-  }
 `;
 
 const Title = styled.h1`
   font-weight: bold;
   font-size: 2.4rem;
-  margin: 1.6rem 0px 0.8rem 0;
+  margin: 1.6rem 0px 1.6rem 0;
   color: #3c3c3c;
 `;
 
@@ -245,6 +227,8 @@ const LunchInfoWrap = styled.div`
   color: #64656a;
   padding: 0.4rem;
   margin: 3.2rem 0;
+  background-color: white;
+  border-radius: 2rem;
 `;
 
 const LunchInfoLeft = styled.div`
@@ -273,9 +257,11 @@ const LunchInfoRight = styled.div`
 
 const UserInfoWrap = styled.div`
   display: flex;
+  background-color: white;
   margin: 2.2rem 0 8rem 0;
   padding: 3.2rem;
   border: solid 1px #efefef;
+  border-radius: 2rem;
   @media only screen and (max-width: 1470px) {
     flex-direction: column;
     width: 100%;
