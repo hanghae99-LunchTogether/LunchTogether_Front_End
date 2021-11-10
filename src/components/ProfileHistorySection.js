@@ -11,14 +11,14 @@ const content = [
     tab: "점심약속",
     active: false,
   },
-  // {
-  //   id: 1,
-  //   tab: "후기",
-  //   active: false,
-  // },
+  {
+    id: 1,
+    tab: "후기",
+    active: false,
+  },
 ];
 
-const ProfileHistorySection = props => {
+const ProfileHistorySection = (props) => {
   const { lunchs, reviews } = props;
   const { currentItem, changeItem } = useTabs(0, content);
 
@@ -86,10 +86,11 @@ const HistoryWrapper = styled.div`
 
 const Text = styled.p`
   text-align: center;
-  font-size: ${props => props.size}rem;
-  line-height: ${props => props.size}rem;
-  ${props => (props.color ? `font-color: ${props.color}` : "font-color: gray")};
-  ${props => props.bold && `font-weight: bold`};
+  font-size: ${(props) => props.size}rem;
+  line-height: ${(props) => props.size}rem;
+  ${(props) =>
+    props.color ? `font-color: ${props.color}` : "font-color: gray"};
+  ${(props) => props.bold && `font-weight: bold`};
   margin: 1rem;
 `;
 
@@ -98,9 +99,9 @@ const Button = styled.button`
   line-height: 3rem;
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.active ? "#ff9841" : "gray")};
+  background-color: ${(props) => (props.active ? "#ff9841" : "gray")};
   color: white;
-  font-weight: ${props => props.active && "bold"};
+  font-weight: ${(props) => props.active && "bold"};
   font-size: 1.6rem;
   text-align: center;
   border-radius: 10px;

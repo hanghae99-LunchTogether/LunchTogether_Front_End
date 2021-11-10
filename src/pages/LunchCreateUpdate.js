@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HashtagList from "../components/HashtagList";
 import { apis } from "../shared/axios";
 import Calendar from "../components/Calendar";
+import DetailMapContainer from "../components/DetailMapContainer";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
@@ -14,21 +15,22 @@ const LunchCreateUpdate = props => {
   const [lunch, setLunch] = useState({
     title: "",
     content: "",
-    location: "",
+    locations: "",
     membernum: "",
     date: "",
   });
+  console.log(lunch);
 
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [location, setLocation] = useState(null);
-  const lunchId = props.match.params.id;
+  const lunchId = props.match.params.lunchid;
   const is_edit = lunchId ? true : false;
 
   const getLunchData = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
-      const lunch = data.data.lunch;
+      const lunch = data.data.data.lunch;
       setLunch(lunch);
     } catch (error) {
       console.log(error);
@@ -61,7 +63,6 @@ const LunchCreateUpdate = props => {
   };
 
   const addLunch = async () => {
-    console.log(lunch);
     const data = await apis.createLunch(lunch);
     console.log(data);
     const newLunchId = data.data.data.lunch.lunchid;
@@ -69,93 +70,121 @@ const LunchCreateUpdate = props => {
     history.push(`/lunchpost/${newLunchId}`);
   };
 
+  const updateLunch = async () => {
+    const data = await apis.deleteLunch(lunchId);
+    console.log(data);
+  };
+
+  const deleteLunch = async () => {
+    console.log("클릭");
+    const data = await apis.deleteLunch(lunchId);
+    console.log(data);
+  };
+
   return (
     <>
-      <Wrapper>
-        <MenuTitleWrapper>
-          <MenuTitle>점심약속 등록하기</MenuTitle>
-          <Text style={{ textAlign: "center", margin: "1rem" }}>
-            맛있게 먹어봐
-          </Text>
-        </MenuTitleWrapper>
-        <InputWrapper>
-          <Text>타이틀</Text>
-          <Input
-            name="title"
-            onChange={onChange}
-            // defaultValue={lunch.title}
-            value={lunch.title ? lunch.title : ""}
-            required
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Text>소개</Text>
-          <InputTextArea
-            name="content"
-            onChange={onChange}
-            value={lunch.content}
-            required
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Text>날짜/시간</Text>
-          <Calendar setLunch={setLunch} lunch={lunch} />
-        </InputWrapper>
-        <InputWrapper>
-          <Text>장소</Text>
-          <Input
-            onChange={onSearchKeywordChange}
-            style={{ marginRight: "1.6rem", minWidth: "200px" }}
-            required
-          />
-          <SearchButton onClick={searchPlace}>검색</SearchButton>
-        </InputWrapper>
-        {lunch.location && (
+      {lunch && (
+        <Wrapper>
+          <MenuTitleWrapper>
+            <MenuTitle>점심약속 등록하기</MenuTitle>
+            <Text style={{ textAlign: "center", margin: "1rem" }}>
+              맛있게 먹어봐
+            </Text>
+          </MenuTitleWrapper>
           <InputWrapper>
-            <FakeDiv />
-            <SelectedPlace style={{ lineHeight: "1.5rem" }}>
-              <Text style={{ fontSize: "1.4rem" }}>
-                장소명: {lunch.location.place_name}
-              </Text>
-              <Text style={{ fontSize: "1.4rem" }}>
-                주소: {lunch.location.road_address_name}
-              </Text>
-              <a
-                href={lunch.location.place_url}
-                target="_blank"
-                style={{
-                  cursor: "pointer",
-                  fontSize: "1.4rem",
-                  color: "blue",
-                }}
-              >
-                카카오 지도 링크
-              </a>
-            </SelectedPlace>
+            <Text>타이틀</Text>
+            <Input
+              name="title"
+              onChange={onChange}
+              value={lunch.title ? lunch.title : ""}
+              required
+            />
           </InputWrapper>
-        )}
-        <InputWrapper>
-          <FakeDiv />
-          <MapContainer
-            setLocation={setLocation}
-            searchKeyword={searchKeyword}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <Text>정원</Text>
-          <Select
-            name="membernum"
-            onChange={onChange}
-            defalutValue="2"
-            value={lunch.membernum}
-          >
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </Select>
-        </InputWrapper>
-        <Button onClick={addLunch}>등록하기</Button>
-      </Wrapper>
+          <InputWrapper>
+            <Text>소개</Text>
+            <InputTextArea
+              name="content"
+              onChange={onChange}
+              value={lunch.content ? lunch.content : ""}
+              required
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Text>날짜/시간</Text>
+            <Calendar setLunch={setLunch} lunch={lunch} />
+          </InputWrapper>
+          <InputWrapper>
+            <Text>장소</Text>
+            <Input
+              onChange={onSearchKeywordChange}
+              style={{ marginRight: "1.6rem", minWidth: "200px" }}
+              required
+            />
+            <SearchButton onClick={searchPlace}>검색</SearchButton>
+          </InputWrapper>
+          {is_edit ? (
+            <InputWrapper>
+              <FakeDiv />
+
+              <DetailMapContainer location={lunch?.locations} />
+            </InputWrapper>
+          ) : (
+            <>
+              <InputWrapper>
+                <FakeDiv />
+                <SelectedPlace style={{ lineHeight: "1.5rem" }}>
+                  <Text style={{ fontSize: "1.4rem" }}>
+                    장소명: {lunch.location.place_name}
+                  </Text>
+                  <Text style={{ fontSize: "1.4rem" }}>
+                    주소: {lunch.location.road_address_name}
+                  </Text>
+                  <a
+                    href={lunch.location.place_url}
+                    target="_blank"
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "1.4rem",
+                      color: "blue",
+                    }}
+                  >
+                    카카오 지도 링크
+                  </a>
+                </SelectedPlace>
+              </InputWrapper>
+              <InputWrapper>
+                <FakeDiv />
+                <MapContainer
+                  setLocation={setLocation}
+                  searchKeyword={searchKeyword}
+                />
+              </InputWrapper>
+            </>
+          )}
+
+          <InputWrapper>
+            <Text>정원</Text>
+            <Select
+              name="membernum"
+              onChange={onChange}
+              value={lunch.membernum ? lunch.membernum : "2"}
+            >
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </Select>
+          </InputWrapper>
+
+          {is_edit ? (
+            <>
+              <Button onClick={updateLunch}>수정하기</Button>{" "}
+              <Button onClick={deleteLunch}>삭제하기</Button>{" "}
+            </>
+          ) : (
+            <Button onClick={addLunch}>등록하기</Button>
+          )}
+        </Wrapper>
+      )}
     </>
   );
 };
@@ -176,12 +205,15 @@ const MenuTitleWrapper = styled.div`
 const MenuTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
+  color: white;
 `;
 
 const Text = styled.p`
   font-size: 1.6rem;
   color: gray;
   min-width: 8rem;
+  color: white;
+  font-weight: 700;
 `;
 
 const InputWrapper = styled.div`

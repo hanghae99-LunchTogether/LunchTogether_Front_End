@@ -144,7 +144,7 @@ const Wrapper = styled.div`
   right: 0;
   bottom: 0;
   z-index: 3000;
-  background-color: #bbbbbd;
+  background-color: #ffc428;
   display: flex;
   justify-content: center;
   align-items: center;

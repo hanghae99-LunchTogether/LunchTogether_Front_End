@@ -4,13 +4,13 @@ import React from "react";
 import styled from "styled-components";
 import { Image } from "../elements";
 
-const ProfileReview = props => {
-  const { reviews } = props;
-  console.log(reviews);
+const ProfileReview = (props) => {
+  // const { reviews } = props;
+
   return (
     <>
       <Wrapper>
-        {reviews.map((review, idx) => (
+        {/* {reviews.map((review, idx) => (
           <ReviewWrapper>
             <ReviewOwner>
               <Image shape="circle" size="30" />
@@ -22,7 +22,7 @@ const ProfileReview = props => {
               {review.content}
             </Text>
           </ReviewWrapper>
-        ))}
+        ))} */}
       </Wrapper>
     </>
   );
@@ -46,10 +46,11 @@ const ReviewWrapper = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: ${props => (props.size ? props.size : "1.6")}rem;
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
   line-height: 3rem;
-  ${props => (props.color ? `font-color: ${props.color}` : "font-color: gray")};
-  ${props => props.bold && `font-weight: bold`};
+  ${(props) =>
+    props.color ? `font-color: ${props.color}` : "font-color: gray"};
+  ${(props) => props.bold && `font-weight: bold`};
 `;
 
 const ReviewOwner = styled.div`

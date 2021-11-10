@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = (props) => {
+const Header = props => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(state => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -103,19 +103,19 @@ const Header = (props) => {
 };
 
 const Container = styled.div`
-  max-width: 1920px;
+  width: 100%;
   background-color: #ffffff;
   position: sticky;
   top: 0;
   z-index: 2000;
+  margin: 0 auto;
 `;
 
 const HeaderWrap = styled.div`
   background-color: #ffffff;
-  max-width: 1280px;
-  margin: auto;
-  box-sizing: border-box;
-  min-height: 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -123,11 +123,12 @@ const HeaderWrap = styled.div`
   button {
     border: none;
     background-color: #ffffff;
-    font-size: 1.4rem;
+    font-size: 1rem;
     line-height: 2.2rem;
     color: #3c3c3c;
     padding: 0;
     margin-left: 1.6rem;
+    font-weight: 700;
   }
 
   @media only screen and (max-width: 768px) {
@@ -149,6 +150,8 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
+  margin-right: 3rem;
+
   button {
     display: flex;
     justify-content: center;
@@ -172,7 +175,7 @@ const Right = styled.div`
 
 const Logo = styled.div`
   width: 140px;
-  height: 100px;
+  height: 70px;
   cursor: pointer;
   padding: 10px 0;
   img {

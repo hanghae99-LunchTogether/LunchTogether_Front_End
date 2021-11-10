@@ -68,8 +68,8 @@ const MapContainer = ({ searchKeyword, setLocation }) => {
 };
 
 const MapWrapper = styled.div`
-  width: 40vw;
-  height: 30vh;
+  width: 95%;
+  min-height: 300px;
   border-radius: 20px;
 `;
 
