@@ -22,9 +22,9 @@ const Home = props => {
     <>
       <Container>
         <Wrapper>
-          <BannerImage>
-            <CarouselSlide />
-          </BannerImage>
+          {/* <BannerImage> */}
+          <CarouselSlide style={{ width: "100%" }} />
+          {/* </BannerImage> */}
           <CurationTitle>
             <div>
               <h1>오늘의 점심약속을 만나보세요🍱</h1>
@@ -74,17 +74,16 @@ const Wrapper = styled.div`
 const BannerImage = styled.div`
   width: 100%;
   min-width: 952px;
+  height: 40rem;
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-
   img {
     width: 100%;
-    height: 30rem;
+    height: 100%;
     background-color: #f0f0f0;
-    background-size: cover;
   }
-
   @media only screen and (max-width: 768px) {
     min-width: 350px;
     height: 30rem;
