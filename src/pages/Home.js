@@ -133,6 +133,7 @@ const LunchList = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3.2rem;
+  gap: 2rem 2rem;
 
   @media only screen and (max-width: 768px) {
     min-width: 350px;
@@ -140,7 +141,7 @@ const LunchList = styled.div`
 `;
 
 const FakeDiv = styled.div`
-  width: 259px;
+  width: 280px;
 `;
 
 export default Home;

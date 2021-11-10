@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = (props) => {
+const Header = props => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(state => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -112,7 +112,7 @@ const Container = styled.div`
 
 const HeaderWrap = styled.div`
   background-color: #ffffff;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: auto;
   box-sizing: border-box;
   min-height: 100px;

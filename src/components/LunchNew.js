@@ -5,7 +5,7 @@ import { Grid } from "../elements";
 const LunchNew = props => {
   return (
     <>
-      <Wrapper padding="2rem" margin="0 0 2rem 0" shadow>
+      <Wrapper padding="2rem" margin="0 0 rem 0" shadow>
         <ELWrapper
           margin="0 0 1rem 0"
           flex
@@ -64,7 +64,7 @@ const Wrapper = styled.div`
   ${props =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   border-radius: 10px;
-  max-width: 260px;
+  max-width: 280px;
   max-height: 270px;
 `;
 
