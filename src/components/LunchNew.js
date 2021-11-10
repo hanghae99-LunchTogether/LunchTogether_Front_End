@@ -11,7 +11,7 @@ const LunchNew = props => {
           flex
           style={{ justifyContent: "space-between" }}
         >
-          <Text weight="800" color="black" size="1.4" color="#FFC428">
+          <Text weight="600" color="black" size="1.4" color="#FFC428">
             삼성동&nbsp;&nbsp;|&nbsp;&nbsp; 12시
           </Text>
           <Text weight="800" size="1.4">
@@ -26,10 +26,10 @@ const LunchNew = props => {
         <ELWrapper flex margin="0 0 2rem 0">
           <CircleImage size="5" />
           <ELWrapper>
-            <Text weight="700" color="black">
+            <Text weight="700" color="black" size="1.2">
               gizmo7duck
             </Text>
-            <Text>프론트엔드 개발자</Text>
+            <Text size="1">프론트엔드 개발자</Text>
           </ELWrapper>
         </ELWrapper>
         <ELWrapper margin="0 0 2rem 0">
@@ -83,7 +83,7 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  letter-spacing: -1.2px;
+  letter-spacing: -1.1px;
   line-height: 2.2rem;
 `;
 
