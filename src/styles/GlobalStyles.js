@@ -3,25 +3,25 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset};
-    * {
+    /* * {
         box-sizing:border-box;
-    }
+    }; */
     
     html {
         font-size:62.5%;
-        
         @media only screen and (max-width: 768px) {
             font-size: 46.875%;
 
-    }
+         }
+    };
 
     body {
         padding: 0;
         margin: 0;
-        font-family: NotoSansKR, Roboto, sans-serif, "Noto Sans";
-          }
-
+        font-family: 'Noto Sans KR', sans-serif;   
+        background-color: #FFC428;       
     };
+
     button{
         cursor: pointer;
         outline: none;

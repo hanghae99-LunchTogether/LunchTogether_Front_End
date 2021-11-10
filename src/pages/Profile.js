@@ -16,6 +16,7 @@ const Profile = (props) => {
 
   const getProfile = async () => {
     const data = await apis.getProfile(userId);
+    console.log(data);
     setUser(data.data.data.user);
   };
 

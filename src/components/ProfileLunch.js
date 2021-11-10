@@ -14,7 +14,6 @@ const ProfileLunch = props => {
   const approveMember = async (lunchid, id, bool, comment) => {
     const approval = { userid: id, statusdesc: bool, comment: "꺼지셈" };
     const data = await apis.approveMember(lunchid, approval);
-    console.log(data);
   };
 
   return (
