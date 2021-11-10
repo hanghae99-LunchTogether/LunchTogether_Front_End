@@ -5,6 +5,7 @@ import { history } from "../redux/configureStore";
 import moment from "moment";
 import "moment/locale/ko";
 
+import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
 const LunchNew = (props) => {
@@ -42,11 +43,7 @@ const LunchNew = (props) => {
         <ELWrapper flex margin="0 0 2rem 0">
           <CircleImage
             size="5"
-            src={
-              host.image != null
-                ? host.image
-                : "https://accessit.net.au/wp-content/uploads/2015/02/user-512.png"
-            }
+            src={host.image != null ? host.image : { ProfileImg }}
           />
           <ELWrapper>
             <Text weight="600" color="black" size="1.4">

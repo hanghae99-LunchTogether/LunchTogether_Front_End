@@ -65,13 +65,15 @@ const ProfileReviewItem = (props) => {
 };
 
 const Wrapper = styled.div`
-  width: 450px;
-  height: 250px;
-  border-radius: 4px;
-  border: solid 1px #eaeaea;
+  width: 45rem;
+  height: 25rem;
+  border-radius: 1rem;
+  border: solid 0.1rem #eaeaea;
   display: flex;
   flex-direction: column;
-  padding: 1.6rem;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0.5rem 0.5rem 0.5rem 0.2rem rgba(55, 50, 40, 0.16);
 `;
 
 const Info = styled.div`
@@ -94,18 +96,18 @@ const Writer = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 1.4rem;
+    letter-spacing: -1.1px;
+    line-height: 2.2rem;
 
     .nicname {
       font-size: 1.4rem;
-      font-weight: 500;
-      color: #3c3c3c;
-      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: black;
     }
 
     .job {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: #b2b1b2;
+      font-size: 1.4rem;
+      color: #909090;
     }
   }
 `;
@@ -113,13 +115,10 @@ const Writer = styled.div`
 const Record = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 1.2rem;
-  line-height: 2rem;
+  font-size: 1.4rem;
   color: #c4c4c7;
-
-  div {
-    margin-bottom: 0.8rem;
-  }
+  letter-spacing: -1.1px;
+  line-height: 2.2rem;
 
   .title {
     margin-right: 1.6rem;
@@ -134,7 +133,7 @@ const Rating = styled.div`
 `;
 
 const ReviewComment = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 2.2rem;
   color: #64656a;
 `;
