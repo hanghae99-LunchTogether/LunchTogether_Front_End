@@ -8,8 +8,9 @@ import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
 import ProfileHistorySection from "../components/ProfileHistorySection";
 
-const Profile = props => {
+const Profile = (props) => {
   const [user, setUser] = useState(null);
+  console.log("이게뭔데", user);
 
   const userId = props.match.params.id;
 
@@ -70,7 +71,7 @@ const Profile = props => {
                 }}
               >
                 {user.introduction &&
-                  user.introduction.split("\n").map(l => {
+                  user.introduction.split("\n").map((l) => {
                     return (
                       <span>
                         {l} <br />
@@ -149,7 +150,8 @@ const Profile = props => {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
+  /* width: 100%; */
+  max-width: 1920px;
   height: 100%;
   justify-content: center;
   flex-direction: column;
@@ -202,10 +204,11 @@ const ProfileInfoWarpper = styled.div`
 
 const Text = styled.p`
   text-align: center;
-  font-size: ${props => props.size}rem;
-  line-height: ${props => props.size}rem;
-  ${props => (props.color ? `font-color: ${props.color}` : "font-color: gray")};
-  ${props => props.bold && `font-weight: bold`};
+  font-size: ${(props) => props.size}rem;
+  line-height: ${(props) => props.size}rem;
+  ${(props) =>
+    props.color ? `font-color: ${props.color}` : "font-color: gray"};
+  ${(props) => props.bold && `font-weight: bold`};
   margin: 1rem;
 `;
 
