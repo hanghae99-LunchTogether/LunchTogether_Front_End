@@ -5,27 +5,27 @@ import { Avatar } from "@mui/material";
 
 import { history } from "../redux/configureStore";
 
-const MemberListCard = () => {
+const MemberListCard = ({ userid, nickname, image, introduction, job }) => {
+  console.log(userid, nickname, image, introduction, job);
   return (
     <>
       <MemberCard
         onClick={() => {
-          history.push(`profile/1975496891`);
+          history.push(`profile/${userid}`);
         }}
       >
         <CardTop>
-          <Avatar sx={{ width: "60px", height: "60px" }} />
+          <Avatar
+            src={`${image && image}`}
+            sx={{ width: "60px", height: "60px" }}
+          />
           <MemberInfo>
-            <MemberName>화정</MemberName>
-            <Memberjob>디자이너</Memberjob>
+            <MemberName>{nickname}</MemberName>
+            <Memberjob>{job}</Memberjob>
           </MemberInfo>
         </CardTop>
         <CardBottom>
-          <MemberDesc>
-            typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text ever since the 1500s, when an unknown printer took a
-            galley
-          </MemberDesc>
+          <MemberDesc>{introduction}</MemberDesc>
           <MemberButton>신청하기</MemberButton>
         </CardBottom>
       </MemberCard>
@@ -99,6 +99,9 @@ const MemberButton = styled.button`
   font-size: 14px;
   background-color: #ffedee;
   box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  &:hover {
+    border: 1px solid #ed6653;
+  }
 `;
 
 export default MemberListCard;
