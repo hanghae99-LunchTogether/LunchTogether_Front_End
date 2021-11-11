@@ -82,7 +82,8 @@ const Text = styled.div`
   }
 `;
 const Time = styled.div`
-  width: 5rem;
+  width: 8rem;
+  justify-content: end;
   font-size: 1.4rem;
   color: #909090;
   display: flex;
