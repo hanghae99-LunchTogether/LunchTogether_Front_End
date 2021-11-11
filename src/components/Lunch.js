@@ -15,6 +15,8 @@ const Lunch = (props) => {
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd) A hh:mm");
 
+  console.log("왜안보여", props);
+
   return (
     <>
       <Wrapper

@@ -5,11 +5,13 @@ import styled from "styled-components";
 import { Image } from "../elements";
 
 const ProfileReview = (props) => {
+  console.log("받아와", props);
   // const { reviews } = props;
 
   return (
     <>
       <Wrapper>
+        프로필리뷰페이지
         {/* {reviews.map((review, idx) => (
           <ReviewWrapper>
             <ReviewOwner>

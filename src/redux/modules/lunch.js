@@ -36,7 +36,7 @@ export const getOneLunchAPI = (id) => {
     apis
       .getOneLunch(id)
       .then((res) => {
-        dispatch(getOneLunch(res.data.data.lunch));
+        distpatch(getOneLunch(res.data.data.lunch));
       })
       .catch((error) => {
         console.log(error.response);
@@ -122,7 +122,7 @@ export default handleActions(
       produce(state, (draft) => {
         console.log(action.payload);
         let idx = draft.lunchList.findIndex(
-          (p) => p.lunchid === action.payload.post_id,
+          (p) => p.lunchid === action.payload.post_id
         );
         draft.lunchList[idx] = {
           ...draft.lunchList[idx],
@@ -134,7 +134,7 @@ export default handleActions(
       produce(state, (draft) => {
         console.log(action.payload);
         draft.lunchList = draft.lunchList.filter(
-          (p) => p.lunchid !== action.payload.lunchid,
+          (p) => p.lunchid !== action.payload.lunchid
         );
         draft.lunchList.indexOf;
       }),
@@ -143,7 +143,7 @@ export default handleActions(
         draft.lunchListMain = action.payload.lunchList;
       }),
   },
-  initialState,
+  initialState
 );
 
 //action creator export
