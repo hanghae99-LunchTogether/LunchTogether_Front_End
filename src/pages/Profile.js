@@ -10,7 +10,6 @@ import ProfileHistorySection from "../components/ProfileHistorySection";
 
 const Profile = (props) => {
   const [user, setUser] = useState(null);
-  console.log("이게뭔데", user);
 
   const userId = props.match.params.id;
 

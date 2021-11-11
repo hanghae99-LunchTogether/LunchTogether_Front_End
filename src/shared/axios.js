@@ -162,4 +162,22 @@ export const apis = {
     instance.patch(`/applicant/approved/${lunchid}`, approval, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+
+  //북마크 가져오기
+  getBookmark: (lunchid) =>
+    instance.get(`/book/${lunchid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //북마크 추가
+  addBookmark: (lunchid) =>
+    instance.post(`/book/${lunchid}`, null, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  //북마크 삭제
+  deleteBookmark: (bookmarkid) =>
+    instance.delete(`/book/${bookmarkid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 };

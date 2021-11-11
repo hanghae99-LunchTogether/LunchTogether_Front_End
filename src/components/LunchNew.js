@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import moment from "moment";
 import "moment/locale/ko";
+
+import { apis } from "../shared/axios";
 
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
@@ -15,13 +17,42 @@ const LunchNew = (props) => {
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
   const adressDong = locations.address_name.split(" ")[2];
+  console.log("프롭스", props);
+  //북마크
+  const [bookmark, setBookmark] = useState(0);
+
+  const getBookmarkData = async () => {
+    try {
+      const data = await apis.getBookmark(lunchid);
+      console.log("데이터", data);
+      // const lunch = data.data.lunch;
+      // setBookmark(lunch);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  useEffect(() => {
+    if (lunchid) {
+      getBookmarkData();
+    }
+  }, []);
+
+  const addBookmarkData = async () => {
+    try {
+      const data = await apis.addBookmark(bookmark);
+      console.log("ssssss", data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <>
       <Wrapper
-        onClick={() => {
-          history.push(`/lunchpost/${lunchid}`);
-        }}
+      // onClick={() => {
+      //   history.push(`/lunchpost/${lunchid}`);
+      // }}
       >
         <ELWrapper
           margin="0 0 1rem 0"
@@ -60,7 +91,9 @@ const LunchNew = (props) => {
             <Text size="1.4">📍&nbsp;&nbsp; {locations.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
-          <Bookmark>
+
+          <Bookmark onClick={addBookmarkData}>
+            {/* <Bookmark onClick={(e) => e.stopPropagation({ addBookmark })}> */}
             <img src={BookmarkImg} />
             <span>3</span>
           </Bookmark>

@@ -1,37 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as reviewAction } from "../redux/modules/review";
+import { apis } from "../shared/axios";
 
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 import Cross from "../assets/cross.svg";
 import ProfileImg from "../assets/profile.png";
 
 const Review = (props) => {
-  const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [checkError, setCheckError] = useState("");
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
-  };
-
-  const onClickSubmit = (e) => {
-    const review = {
-      targetuserid: 1964619424,
-      spoon: currentValue,
-      comment: content,
-    };
-
-    if (content === "") {
-      setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
-      // e.preventDefault();
-    }
-    if (currentValue === 0) {
-      setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
-    }
-
-    dispatch(reviewAction.addReviewAPI(review));
   };
 
   // 모달창;
@@ -55,6 +35,31 @@ const Review = (props) => {
 
   const handleMouseLeave = () => {
     setHoverValue(undefined);
+  };
+
+  //api 요청
+  const review = {
+    targetuserid: 1964619421,
+    spoon: currentValue,
+    comment: content,
+    lunchid: 13,
+  };
+
+  const addReviewData = async (e) => {
+    try {
+      if (content === "") {
+        setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
+        e.preventDefault();
+      }
+      if (currentValue === 0) {
+        setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
+        e.preventDefault();
+      }
+      const data = await apis.addReview(review);
+      console.log(data);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
@@ -123,7 +128,7 @@ const Review = (props) => {
             </ReviewWrap>
             <SubmitBtn
               onClick={() => {
-                onClickSubmit();
+                addReviewData();
               }}
             >
               리뷰 작성 완료
