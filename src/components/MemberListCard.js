@@ -38,7 +38,7 @@ const MemberCard = styled.div`
   padding: 20px 10px 10px 10px;
   background-color: white;
   border-radius: 10px;
-  width: 290px;
+  width: 365px;
   margin: 5px;
   cursor: pointer;
   box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
