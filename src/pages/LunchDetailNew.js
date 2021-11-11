@@ -5,18 +5,21 @@ import DetailMapContainer from "../components/DetailMapContainer";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
-
 const LunchDetailNew = props => {
   const user = useSelector(state => state.user);
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
   let isApplied = false;
+
   const getLunch = async () => {
-    const data = await apis.getOneLunch(lunchId);
-    console.log(data);
-    const lunch = data.data.data.lunch;
-    setLunch(lunch);
+    try {
+      const data = await apis.getOneLunch(lunchId);
+      const lunch = data.data.data.lunch;
+      setLunch(lunch);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const confirmApplied = () => {
@@ -30,7 +33,7 @@ const LunchDetailNew = props => {
   confirmApplied();
 
   const applyLunch = async () => {
-    console.log();
+    console.log(user);
     if (!user.isLoggedIn) {
       window.alert("로그인을 해주세요!");
       history.replace("/login");
@@ -203,7 +206,7 @@ const LunchDetailNew = props => {
             <DetailMapContainer location={lunch.locations} />
           </ELWrapper>
           <ELWrapper>
-            {user?.userid === lunch?.host.userid ? (
+            {user?.user?.userid === lunch?.host.userid ? (
               <Button onClick={() => history.push(`/lunchregister/${lunchId}`)}>
                 수정하기
               </Button>
@@ -241,35 +244,35 @@ const Wrapper = styled.div`
 
 const ELWrapper = styled.div`
   height: 100%;
-  ${(props) => props.center && `justify-content: center`};
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${(props) => (props.bg ? props.bg : "white")};
-  ${(props) => (props.flex ? `display: flex; align-items: center;` : "")};
+  ${props => props.center && `justify-content: center`};
+  ${props => (props.padding ? `padding: ${props.padding};` : "")};
+  ${props => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${props => (props.bg ? props.bg : "white")};
+  ${props => (props.flex ? `display: flex; align-items: center;` : "")};
 
-  ${(props) =>
+  ${props =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   margin: 1rem 0 0.5rem 5rem;
 `;
 
 const Text = styled.p`
-  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${(props) => (props.weight ? props.weight : "400")};
-  color: ${(props) => (props.color ? props.color : "#909090")};
+  font-size: ${props => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${props => (props.weight ? props.weight : "400")};
+  color: ${props => (props.color ? props.color : "#909090")};
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
   letter-spacing: -1.1px;
-  width: ${(props) => props.width && props.width}rem;
-  line-height: ${(props) => props.lineheight && props.lineheight}rem;
+  width: ${props => props.width && props.width}rem;
+  line-height: ${props => props.lineheight && props.lineheight}rem;
 `;
 
 const CircleImage = styled.div`
-  width: ${(props) => props.size}rem;
-  height: ${(props) => props.size}rem;
-  border-radius: ${(props) => props.size}rem;
+  width: ${props => props.size}rem;
+  height: ${props => props.size}rem;
+  border-radius: ${props => props.size}rem;
 
-  background-image: url("${(props) =>
+  background-image: url("${props =>
     props.src
       ? props.src
       : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
