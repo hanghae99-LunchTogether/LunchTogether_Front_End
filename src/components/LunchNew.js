@@ -8,7 +8,6 @@ import "moment/locale/ko";
 import BookmarkImg from "../assets/bookmark.svg";
 
 const LunchNew = props => {
-  console.log(props);
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
   const strDate = String(date);

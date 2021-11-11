@@ -6,27 +6,39 @@ import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 const LunchDetailNew = props => {
-  const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user);
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
-
+  let isApplied = false;
   const getLunch = async () => {
     const data = await apis.getOneLunch(lunchId);
     const lunch = data.data.data.lunch;
     setLunch(lunch);
   };
 
-  const applyLunch = async () => {
-    // if (true) {
-    //   window.alert("로그인을 해주세요!");
-    //   history.replace("/login");
-    // }
-    const data = await apis.applyLunch(lunchId);
-    console.log(data);
+  const confirmApplied = () => {
+    const index = lunch?.applicants?.findIndex(
+      u => u.user.userid === user?.user?.userid
+    );
+    index !== -1 ? (isApplied = true) : (isApplied = false);
+    console.log(isApplied);
   };
 
-  const updateLunch = async () => {
-    history.push(`/lunchregister/${lunchId}`);
+  confirmApplied();
+
+  const applyLunch = async () => {
+    console.log();
+    if (!user.isLoggedIn) {
+      window.alert("로그인을 해주세요!");
+      history.replace("/login");
+    }
+    try {
+      const data = await apis.applyLunch(lunchId);
+      console.log(data);
+      history.go(0);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   useEffect(() => {
@@ -126,22 +138,32 @@ const LunchDetailNew = props => {
             신청자
           </Text>
           <ELWrapper flex>
-            <ELWrapper
-              flex
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                margin: "0 0 1rem 0",
-              }}
-            >
-              <CircleImage size="10" style={{ marginBottom: "1rem" }} />
-              <Text color="black" size="1.6" weight="600" lineheight="3">
-                닉네임
-              </Text>
-              <Text color="black" size="1.6">
-                직무
-              </Text>
-            </ELWrapper>
+            {lunch.applicants.map((u, idx) => {
+              return (
+                <ELWrapper
+                  key={idx}
+                  flex
+                  style={{
+                    flexDirection: "column",
+                    alignItems: "center",
+                    margin: "0 2rem 1rem 0",
+                  }}
+                >
+                  <CircleImage
+                    size="10"
+                    style={{ marginBottom: "1rem" }}
+                    src={u.user.image}
+                    onClick={() => history.push(`/profile/${u.user.userid}`)}
+                  />
+                  <Text color="black" size="1.6" weight="600" lineheight="3">
+                    {u.user.nickname}
+                  </Text>
+                  <Text color="black" size="1.6">
+                    {u.user.job ? u.user.job : <div> &nbsp;</div>}
+                  </Text>
+                </ELWrapper>
+              );
+            })}
           </ELWrapper>
           <hr style={{ margin: "4rem" }} />
           <Text
@@ -179,7 +201,13 @@ const LunchDetailNew = props => {
           </ELWrapper>
           <ELWrapper>
             {user?.userid === lunch?.host.userid ? (
-              <Button onClick={updateLunch}>수정하기</Button>
+              <Button onClick={() => history.push(`/lunchregister/${lunchId}`)}>
+                수정하기
+              </Button>
+            ) : isApplied ? (
+              <Button bg="gray" onClick={applyLunch}>
+                점심약속 신청완료
+              </Button>
             ) : (
               <Button onClick={applyLunch}>점심약속 신청하기</Button>
             )}
@@ -254,7 +282,7 @@ const Button = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: #ff9841;
+  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
   color: white;
   margin-bottom: 2rem;
 `;

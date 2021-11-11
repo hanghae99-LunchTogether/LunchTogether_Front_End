@@ -12,6 +12,9 @@ import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
 const LunchCreateUpdate = props => {
+  const [placeInput, setPlaceInput] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
   const [lunch, setLunch] = useState({
     title: "",
     content: "",
@@ -19,11 +22,14 @@ const LunchCreateUpdate = props => {
     membernum: "",
     date: "",
   });
-  console.log(lunch);
 
-  const [placeInput, setPlaceInput] = useState("");
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [location, setLocation] = useState(null);
+  const setLocation = place => {
+    setLunch({
+      ...lunch,
+      locations: place,
+    });
+  };
+
   const lunchId = props.match.params.lunchid;
   const is_edit = lunchId ? true : false;
 
@@ -44,7 +50,6 @@ const LunchCreateUpdate = props => {
     setLunch({
       ...lunch,
       [name]: value,
-      location: location,
     });
   };
 
@@ -63,22 +68,38 @@ const LunchCreateUpdate = props => {
   };
 
   const addLunch = async () => {
-    const data = await apis.createLunch(lunch);
-    console.log(data);
-    const newLunchId = data.data.data.lunch.lunchid;
-    console.log(newLunchId);
-    history.push(`/lunchpost/${newLunchId}`);
+    try {
+      const data = await apis.createLunch(lunch);
+      console.log(data);
+      const newLunchId = data.data.data.lunch.lunchid;
+      console.log(newLunchId);
+      history.push(`/lunchpost/${newLunchId}`);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const updateLunch = async () => {
-    const data = await apis.deleteLunch(lunchId);
-    console.log(data);
+    console.log(lunch);
+
+    try {
+      const data = await apis.updateLunch(lunchId, lunch);
+      console.log(data);
+      history.push(`/lunchpost/${lunchId}`);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   const deleteLunch = async () => {
     console.log("클릭");
-    const data = await apis.deleteLunch(lunchId);
-    console.log(data);
+    try {
+      const data = await apis.deleteLunch(lunchId);
+      console.log(data);
+      history.push("/");
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
@@ -122,45 +143,49 @@ const LunchCreateUpdate = props => {
             />
             <SearchButton onClick={searchPlace}>검색</SearchButton>
           </InputWrapper>
-          {is_edit ? (
-            <InputWrapper>
-              <FakeDiv />
 
-              <DetailMapContainer location={lunch?.locations} />
-            </InputWrapper>
-          ) : (
-            <>
+          <>
+            {lunch.locations && (
               <InputWrapper>
                 <FakeDiv />
-                <SelectedPlace style={{ lineHeight: "1.5rem" }}>
-                  <Text style={{ fontSize: "1.4rem" }}>
-                    장소명: {lunch.location.place_name}
+                <SelectedPlace>
+                  <Text style={{ color: "black", lineHeight: "3rem" }}>
+                    장소명: {lunch.locations.place_name}
                   </Text>
-                  <Text style={{ fontSize: "1.4rem" }}>
-                    주소: {lunch.location.road_address_name}
+                  <Text
+                    style={{
+                      color: "black",
+                      lineHeight: "3rem",
+                    }}
+                  >
+                    주소: {lunch.locations.road_address_name}
                   </Text>
                   <a
-                    href={lunch.location.place_url}
+                    href={lunch.locations.place_url}
                     target="_blank"
                     style={{
                       cursor: "pointer",
-                      fontSize: "1.4rem",
+                      fontSize: "1.6rem",
                       color: "blue",
+                      lineHeight: "3rem",
+                      fontWeight: "600z",
                     }}
                   >
                     카카오 지도 링크
                   </a>
                 </SelectedPlace>
               </InputWrapper>
-              <InputWrapper>
-                <FakeDiv />
-                <MapContainer
-                  setLocation={setLocation}
-                  searchKeyword={searchKeyword}
-                />
-              </InputWrapper>
-            </>
-          )}
+            )}
+
+            <InputWrapper>
+              <FakeDiv />
+              <MapContainer
+                setLocation={setLocation}
+                location={lunch.locations}
+                searchKeyword={searchKeyword}
+              />
+            </InputWrapper>
+          </>
 
           <InputWrapper>
             <Text>정원</Text>
@@ -213,7 +238,7 @@ const Text = styled.p`
   color: gray;
   min-width: 8rem;
   color: white;
-  font-weight: 700;
+  font-weight: 600;
 `;
 
 const InputWrapper = styled.div`
@@ -224,6 +249,14 @@ const InputWrapper = styled.div`
   margin-bottom: 1.6rem;
   max-width: 500px;
   min-width: 350px;
+`;
+
+const SelectedPlace = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: #fff;
+  padding: 1rem;
 `;
 
 const Input = styled.input`
@@ -275,13 +308,6 @@ const SearchButton = styled.button`
   background-color: #ff9841;
   border-radius: 6px;
   border: none;
-`;
-
-const SelectedPlace = styled.div`
-  width: 100%;
-  height: 48px;
-  border-radius: 6px;
-  background-color: #fff;
 `;
 
 const Button = styled.button`
