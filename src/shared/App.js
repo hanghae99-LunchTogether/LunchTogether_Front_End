@@ -70,6 +70,11 @@ function App() {
             exact
             component={LunchCreateUpdate}
           ></Route>
+          <Route
+            path="/private/:userid"
+            exact
+            component={LunchCreateUpdate}
+          ></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review/:lunchid" exact component={Review}></Route>

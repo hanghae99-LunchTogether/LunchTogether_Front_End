@@ -4,6 +4,8 @@ import { apis } from "../shared/axios";
 import DetailMapContainer from "../components/DetailMapContainer";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
+import moment from "moment";
+import "moment/locale/ko";
 
 const LunchDetailNew = props => {
   const user = useSelector(state => state.user);
@@ -27,7 +29,6 @@ const LunchDetailNew = props => {
       u => u.user.userid === user?.user?.userid
     );
     index !== -1 ? (isApplied = true) : (isApplied = false);
-    console.log(isApplied);
   };
 
   confirmApplied();
@@ -40,6 +41,16 @@ const LunchDetailNew = props => {
     }
     try {
       const data = await apis.applyLunch(lunchId);
+      console.log(data);
+      history.go(0);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const cancelLunch = async () => {
+    try {
+      const data = await apis.cancelLunch(lunchId);
       console.log(data);
       history.go(0);
     } catch (error) {
@@ -82,7 +93,8 @@ const LunchDetailNew = props => {
               진행일자
             </Text>
             <Text color="black" size="1.6">
-              {lunch.date}
+              {moment(lunch.date).format("YYYY-MM-DD(ddd)")}
+              {moment(lunch.date).format("A hh시 mm분")}
             </Text>
           </ELWrapper>
           <ELWrapper flex>
@@ -124,10 +136,13 @@ const LunchDetailNew = props => {
               <Text size="1.6" lineheight="3">
                 호스트
               </Text>
-              <Text color="black" size="1.6" weight="600">
-                {lunch.host.nickname}{" "}
-                {lunch.host.job &&
-                  `&nbsp; &nbsp; | &nbsp; &nbsp;${lunch.host.job}`}
+              <Text
+                color="black"
+                size="1.6"
+                weight="600"
+                style={{ marginBottom: "1rem" }}
+              >
+                {lunch.host.nickname} {lunch.host.job && ` | ${lunch.host.job}`}
               </Text>
               <Text color="black" size="1.6">
                 {lunch.host.introduction}
@@ -161,10 +176,20 @@ const LunchDetailNew = props => {
                     src={u.user.image}
                     onClick={() => history.push(`/profile/${u.user.userid}`)}
                   />
-                  <Text color="black" size="1.6" weight="600" lineheight="3">
+                  <Text
+                    color="black"
+                    size="1.6"
+                    weight="600"
+                    lineheight="3"
+                    style={{ textAlign: "center" }}
+                  >
                     {u.user.nickname}
                   </Text>
-                  <Text color="black" size="1.6">
+                  <Text
+                    color="black"
+                    size="1.6"
+                    style={{ textAlign: "center" }}
+                  >
                     {u.user.job ? u.user.job : <div> &nbsp;</div>}
                   </Text>
                 </ELWrapper>
@@ -211,8 +236,8 @@ const LunchDetailNew = props => {
                 수정하기
               </Button>
             ) : isApplied ? (
-              <Button bg="gray" onClick={applyLunch}>
-                점심약속 신청완료
+              <Button bg="gray" onClick={cancelLunch}>
+                신청취소
               </Button>
             ) : (
               <Button onClick={applyLunch}>점심약속 신청하기</Button>
@@ -256,6 +281,7 @@ const ELWrapper = styled.div`
 `;
 
 const Text = styled.p`
+  width: 100%;
   font-size: ${props => (props.size ? props.size : "1.6")}rem;
   font-weight: ${props => (props.weight ? props.weight : "400")};
   color: ${props => (props.color ? props.color : "#909090")};
