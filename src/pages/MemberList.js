@@ -81,6 +81,9 @@ const MemberListWrap = styled.div`
   max-width: 750px;
   margin: auto;
   box-sizing: border-box;
+  @media only screen and (max-width: 768px) {
+    margin: 0 auto 80px 0;
+  }
 `;
 
 const UpScroll = styled.div`
