@@ -75,7 +75,9 @@ const ProfileLeft = props => {
             {dislikemenu}
           </Text>
         </ELWrapper>
-        <Button>점심 제안하기</Button>
+        <Button onClick={() => history.push(`/private/${userid}`)}>
+          점심 제안하기
+        </Button>
         <Button onClick={() => history.push(`/profileupdate/${userid}`)}>
           프로필 업데이트
         </Button>

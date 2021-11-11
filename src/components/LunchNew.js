@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
 
@@ -11,34 +12,50 @@ import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
 const LunchNew = props => {
-  console.log(props);
+  const user = useSelector(state => state.user.user);
+  let participant = props.applicants?.findIndex(
+    u => u.user.userid === user?.userid
+  );
+  // console.log(participant);
+  let owner = props.host?.userid === user?.userid ? true : false;
+  // console.log(owner);
+  let lunchend = props.date < new Date();
+  console.log(lunchend);
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
+
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
   const adressDong = locations?.address_name.split(" ")[2];
-  const [modalOpen, setModalOpen] = useState(false);
+
+  //참여여부 및 과거날짜 확인
+
+  const validateReview = () => {
+    applicants?.findIndex(u => (u.user.userid === user?.userid ? true : false));
+  };
+
+  validateReview();
 
   //북마크
   const [bookmark, setBookmark] = useState(0);
 
-  const getBookmarkData = async () => {
-    try {
-      const data = await apis.getBookmark(lunchid);
-      console.log("데이터", data);
-      // const lunch = data.data.lunch;
-      // setBookmark(lunch);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+  // const getBookmarkData = async () => {
+  //   try {
+  //     const data = await apis.getBookmark(lunchid);
+  //     console.log("데이터", data);
+  //     // const lunch = data.data.lunch;
+  //     // setBookmark(lunch);
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (lunchid) {
-      getBookmarkData();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (lunchid) {
+  //     getBookmarkData();
+  //   }
+  // }, []);
 
   const addBookmarkData = async () => {
     try {
@@ -66,6 +83,7 @@ const LunchNew = props => {
         </ELWrapper>
         <ELWrapper
           margin="0 0 2rem 0"
+          style={{ cursor: "pointer" }}
           onClick={() => history.push(`/lunchpost/${lunchid}`)}
         >
           <Text weight="700" size="2" color="black">

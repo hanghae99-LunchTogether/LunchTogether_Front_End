@@ -1,5 +1,7 @@
+import { tooltipClasses } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
+import { history } from "../redux/configureStore";
 import LunchNew from "./LunchNew";
 
 const allTabs = [
@@ -27,16 +29,20 @@ const ProflieRight = props => {
         나의 점심약속
       </Text>
       <LunchListWrapper>
-        {lunchs &&
+        {totalLunch.length === 0 ? (
+          <>
+            <Text style={{ marginTop: "5rem" }}> 잡힌 약속이 없어요 🥲 </Text>
+            <Button onClick={() => history.push("/")}>점심약속 보러가기</Button>
+          </>
+        ) : (
           totalLunch.map((l, idx) => {
-            // console.log(l);
             return (
               <>
                 <LunchNew {...l} />
               </>
             );
-          })}
-        <LunchNew />
+          })
+        )}
       </LunchListWrapper>
     </Wrapper>
   );
@@ -82,6 +88,18 @@ const LunchListWrapper = styled.div`
   @media only screen and (max-width: 768px) {
     justify-content: center;
   }
+`;
+
+const Button = styled.button`
+  width: 90%;
+  height: 4rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  color: white;
+  z-index: 1000;
 `;
 
 export default ProflieRight;
