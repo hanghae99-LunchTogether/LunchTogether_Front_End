@@ -2,8 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import LunchNew from "./LunchNew";
 
+const allTabs = [
+  {
+    id: 1,
+    title: "점심약속",
+    active: true,
+  },
+  {
+    id: 2,
+    title: "후기",
+    active: false,
+  },
+];
+
 const ProflieRight = props => {
-  const { lunchs } = props;
+  const { lunchs, usersReviews } = props;
+  console.log(usersReviews);
 
   const totalLunch = lunchs?.applied.concat(lunchs.owned);
 
@@ -15,8 +29,12 @@ const ProflieRight = props => {
       <LunchListWrapper>
         {lunchs &&
           totalLunch.map((l, idx) => {
-            console.log(l);
-            return <LunchNew {...l} />;
+            // console.log(l);
+            return (
+              <>
+                <LunchNew {...l} />
+              </>
+            );
           })}
         <LunchNew />
       </LunchListWrapper>
@@ -63,20 +81,6 @@ const LunchListWrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
-  }
-`;
-
-const LunchList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3.2rem;
-  gap: 1rem 1rem;
-
-  @media only screen and (max-width: 768px) {
-    min-width: 350px;
   }
 `;
 

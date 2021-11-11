@@ -62,6 +62,7 @@ const Wrapper = styled.div`
     height: 10rem;
     background-color: #ff9841;
     z-index: 10;
+    padding-bottom: 1rem;
   }
 `;
 

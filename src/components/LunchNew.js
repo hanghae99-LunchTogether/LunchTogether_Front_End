@@ -10,14 +10,16 @@ import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
-const LunchNew = (props) => {
+const LunchNew = props => {
+  console.log(props);
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
-  const adressDong = locations.address_name.split(" ")[2];
-  console.log("프롭스", props);
+  const adressDong = locations?.address_name.split(" ")[2];
+  const [modalOpen, setModalOpen] = useState(false);
+
   //북마크
   const [bookmark, setBookmark] = useState(0);
 
@@ -49,11 +51,7 @@ const LunchNew = (props) => {
 
   return (
     <>
-      <Wrapper
-      // onClick={() => {
-      //   history.push(`/lunchpost/${lunchid}`);
-      // }}
-      >
+      <Wrapper>
         <ELWrapper
           margin="0 0 1rem 0"
           flex
@@ -66,15 +64,18 @@ const LunchNew = (props) => {
             {applicants?.length}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
           </Text>
         </ELWrapper>
-        <ELWrapper margin="0 0 2rem 0" style={{ overflowY: "hidden" }}>
+        <ELWrapper
+          margin="0 0 2rem 0"
+          onClick={() => history.push(`/lunchpost/${lunchid}`)}
+        >
           <Text weight="700" size="2" color="black">
             {title}
           </Text>
         </ELWrapper>
-        <ELWrapper flex margin="0 0 2rem 0">
+        <ELWrapper flex margin="0 0 1rem 0">
           <CircleImage
             size="5"
-            src={host.image != null ? host.image : { ProfileImg }}
+            src={host?.image ? host.image : { ProfileImg }}
           />
           <ELWrapper>
             <Text weight="600" color="black" size="1.4">
@@ -83,10 +84,14 @@ const LunchNew = (props) => {
             <Text size="1.4">{host?.job}</Text>
           </ELWrapper>
         </ELWrapper>
-        <ELWrapper margin="0 0 2rem 0">
-          <hr />
-        </ELWrapper>
-        <ELWrapper flex style={{ justifyContent: "space-between" }}>
+
+        <hr style={{ zIndex: "1000" }} />
+
+        <ELWrapper
+          margin="0 0 1rem 0"
+          flex
+          style={{ justifyContent: "space-between" }}
+        >
           <ELWrapper>
             <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
@@ -98,6 +103,9 @@ const LunchNew = (props) => {
             <span>3</span>
           </Bookmark>
         </ELWrapper>
+        <Button onClick={() => history.push(`/review/${lunchid}`)}>
+          리뷰 남기기
+        </Button>
       </Wrapper>
     </>
   );
@@ -112,36 +120,41 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+
+  @media only screen and (max-width: 768px) {
+    width: 250px;
+    height: 200px;
+  }
 `;
 
 const ELWrapper = styled.div`
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${(props) => (props.bg ? props.bg : "white")};
-  ${(props) => (props.flex ? `display: flex; align-items: center; ` : "")};
-  ${(props) => (props.center ? `text-align: center` : "")};
-  ${(props) =>
+  ${props => (props.padding ? `padding: ${props.padding};` : "")};
+  ${props => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${props => (props.bg ? props.bg : "white")};
+  ${props => (props.flex ? `display: flex; align-items: center; ` : "")};
+  ${props => (props.center ? `text-align: center` : "")};
+  ${props =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
 `;
 
 const Text = styled.p`
-  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${(props) => (props.weight ? props.weight : "400")};
-  color: ${(props) => (props.color ? props.color : "#909090")};
+  font-size: ${props => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${props => (props.weight ? props.weight : "400")};
+  color: ${props => (props.color ? props.color : "#909090")};
   overflow: hidden;
-  text-overflow: ellipsis;
-  /* white-space: nowrap; */
+  /* text-overflow: ellipsis; */
+  white-space: nowrap;
   letter-spacing: -1.1px;
   line-height: 2.2rem;
 `;
 
 const CircleImage = styled.div`
-  width: ${(props) => props.size}rem;
-  height: ${(props) => props.size}rem;
-  border-radius: ${(props) => props.size}rem;
+  width: ${props => props.size}rem;
+  height: ${props => props.size}rem;
+  border-radius: ${props => props.size}rem;
 
-  background-image: url("${(props) =>
+  background-image: url("${props =>
     props.src
       ? props.src
       : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
@@ -165,6 +178,18 @@ const Bookmark = styled.div`
     opacity: 0.3;
     margin-left: 0.6rem;
   }
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 2rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  color: white;
+  z-index: 1000;
 `;
 
 export default LunchNew;
