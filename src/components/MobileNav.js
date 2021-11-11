@@ -9,7 +9,24 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiProfileLine } from "react-icons/ri";
 
 const MobaileNav = props => {
-  const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user);
+  console.log(user);
+
+  const moveToProfile = () => {
+    if (!user?.isLoggedIn) {
+      window.alert("로그인이 필요한 서비스입니다!");
+      history.push("/login");
+    }
+    history.push(`/profile/${user.userid}`);
+  };
+
+  const moveToMakeLunch = () => {
+    if (!user?.isLoggedIn) {
+      window.alert("로그인이 필요한 서비스입니다!");
+      history.replace("/login");
+    }
+    history.push(`/lunchregister`);
+  };
 
   return (
     <>
@@ -26,7 +43,7 @@ const MobaileNav = props => {
           </MenuIcon>
           <MenuText>멤버</MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={() => history.push("/")}>
+        <MenuWrapper onClick={moveToMakeLunch}>
           <MenuIcon>
             <VscRepoForked color="white" />
           </MenuIcon>
@@ -38,7 +55,7 @@ const MobaileNav = props => {
           </MenuIcon>
           <MenuText>알림</MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={() => history.push(`/profile/${user.userid}`)}>
+        <MenuWrapper onClick={moveToProfile}>
           <MenuIcon>
             <RiProfileLine color="white" />
           </MenuIcon>
@@ -51,6 +68,7 @@ const MobaileNav = props => {
 
 const Wrapper = styled.div`
   display: none;
+  z-index: 2000;
 
   @media only screen and (max-width: 768px) {
     display: flex;
