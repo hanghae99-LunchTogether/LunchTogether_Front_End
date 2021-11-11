@@ -8,7 +8,7 @@ import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
 
-const Home = (props) => {
+const Home = props => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
@@ -54,16 +54,16 @@ const Home = (props) => {
 };
 
 const Container = styled.div`
-  max-width: 1920px;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const Wrapper = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   @media only screen and (max-width: 768px) {
     min-width: 375px;

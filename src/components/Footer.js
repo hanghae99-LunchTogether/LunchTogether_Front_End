@@ -5,8 +5,8 @@ import { history } from "../redux/configureStore";
 
 import LogoImg from "../assets/logo.svg";
 
-const Footer = (props) => {
-  const user = useSelector((state) => state.user.user);
+const Footer = props => {
+  const user = useSelector(state => state.user.user);
 
   return (
     <Container>
@@ -71,7 +71,8 @@ const Footer = (props) => {
 };
 
 const Container = styled.div`
-  max-width: 1920px;
+  max-width: 100%;
+  margin: 0 auto;
   background-color: #e7dbd0;
 
   @media only screen and (max-width: 768px) {

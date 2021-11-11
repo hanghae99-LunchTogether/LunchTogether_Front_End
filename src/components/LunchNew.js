@@ -82,7 +82,7 @@ const LunchNew = props => {
           </Text>
         </ELWrapper>
         <ELWrapper
-          margin="0 0 2rem 0"
+          margin="0 0 3rem 0"
           style={{ cursor: "pointer" }}
           onClick={() => history.push(`/lunchpost/${lunchid}`)}
         >
@@ -90,7 +90,7 @@ const LunchNew = props => {
             {title}
           </Text>
         </ELWrapper>
-        <ELWrapper flex margin="0 0 1rem 0">
+        <ELWrapper flex margin="0 0 2rem 0">
           <CircleImage
             size="5"
             src={host?.image ? host.image : { ProfileImg }}
@@ -121,9 +121,9 @@ const LunchNew = props => {
             <span>3</span>
           </Bookmark>
         </ELWrapper>
-        <Button onClick={() => history.push(`/review/${lunchid}`)}>
+        {/* <Button onClick={() => history.push(`/review/${lunchid}`)}>
           리뷰 남기기
-        </Button>
+        </Button> */}
       </Wrapper>
     </>
   );
