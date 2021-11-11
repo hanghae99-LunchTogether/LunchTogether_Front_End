@@ -1,25 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ImSearch } from "react-icons/im";
+import { RiArrowUpSLine } from "react-icons/ri";
+
 import MemberListCard from "../components/MemberListCard";
+
 const MemberList = (props) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
-    <MemberListBody>
+    <>
       <InputBox>
         <ImSearch />
-        <SearchInput placeholder="멤버 검색" type="text" />
+        <SearchInput
+          placeholder="멤버 검색"
+          type="text"
+          onClick={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
       </InputBox>
       <MemberListWrap>
         <MemberListCard />
+        <MemberListCard />
+        <MemberListCard />
+        <MemberListCard />
+        <MemberListCard />
+        <MemberListCard />
+        <MemberListCard />
+        <MemberListCard />
       </MemberListWrap>
-    </MemberListBody>
+      <UpScroll
+        onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        }}
+      >
+        <RiArrowUpSLine />
+      </UpScroll>
+    </>
   );
 };
-
-const MemberListBody = styled.div`
-  height: 100vh;
-  background-color: #dbdbdb;
-`;
 
 const InputBox = styled.div`
   display: flex;
@@ -48,7 +68,25 @@ const MemberListWrap = styled.div`
   max-width: 600px;
   margin: auto;
   box-sizing: border-box;
-  background-color: #c2c2c2; //임시 색깔
+`;
+
+const UpScroll = styled.div`
+  display: flex;
+  position: fixed;
+  right: 10vw;
+  bottom: 20vh;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  font-size: 35px;
+  border-radius: 20px;
+  background-color: #f5f4e8;
+  cursor: pointer;
+  color: #f29c2b;
+  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  &:hover {
+    align-items: start;
   }
 `;
 

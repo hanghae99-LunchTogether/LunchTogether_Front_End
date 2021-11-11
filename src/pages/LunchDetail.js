@@ -12,6 +12,7 @@ import MapContainer from "../components/MapContainer";
 import { RiMapPin2Fill, RiHeartFill, RiDislikeFill } from "react-icons/ri";
 import { GiKnifeFork } from "react-icons/gi";
 import { Avatar } from "@mui/material";
+import LunchMemberCard from "../components/LunchMemberCard";
 
 const LunchDetail = (props) => {
   const { history } = props;
@@ -23,12 +24,13 @@ const LunchDetail = (props) => {
 
   const lunchId = props.match.params.lunchid;
 
-  const [lunch, setLunch] = useState("null");
+  const [lunch, setLunch] = useState(null);
   console.log(lunch);
   const getLunch = async () => {
     const data = await apis.getOneLunch(lunchId);
     const lunchData = data.data.data.lunch;
     setLunch(lunchData);
+    console.log(lunchData);
   };
 
   useEffect(() => {
@@ -50,9 +52,6 @@ const LunchDetail = (props) => {
       {lunch && (
         <LunchDetailBox>
           <Head>
-            <New>
-              <p>NEW</p>
-            </New>
             <Title>{lunch.title}</Title>
             <SubTitle>{lunch.content}</SubTitle>
           </Head>
@@ -64,14 +63,14 @@ const LunchDetail = (props) => {
               <div>약속장소</div>
             </LunchInfoLeft>
             <LunchInfoRight>
-              <div>{lunch.applicants && lunch.applicants.length + 1}/4</div>
+              <div>{lunch.applicants.length + 1}/4</div>
               <div>{lunch.date && lunch.date.substring(0, 16)}</div>
               <div>{lunch.duration * 60}분</div>
-              <div>{lunch.locations && lunch.locations.place_name}</div>
+              <div>{lunch.locations.place_name}</div>
               &nbsp;
               <a
                 style={{ color: "#9d9d9d", textDecoration: "underline" }}
-                href={lunch.locations && lunch.locations.place_url}
+                href={lunch.locations.place_url}
               >
                 <RiMapPin2Fill style={{ color: "#2d8df4" }} />
                 카카오맵으로자세히보기
@@ -79,43 +78,54 @@ const LunchDetail = (props) => {
             </LunchInfoRight>
           </LunchInfoWrap>
           <UserInfoWrap>
-            <Avatar
-              sx={{ width: 100, height: 100 }}
-              src={`${lunch.host && lunch.host.image}`}
-            />
+            <div>
+              <Avatar
+                sx={{ width: 100, height: 100 }}
+                src={`${lunch.host && lunch.host.image}`}
+              />
+              {lunch.host.mbti && (
+                <NbtiBox>
+                  <p>{lunch.host.mbti}</p>
+                </NbtiBox>
+              )}
+            </div>
             <UserInfo>
               <WriterInfo>
-                <WriterName>{lunch.host && lunch.host.nickname}</WriterName>
-                <WriterJob>{lunch.host && lunch.host.job}</WriterJob>
+                <WriterName>{lunch.host.nickname}</WriterName>
+                <WriterJob>{lunch.host.job}</WriterJob>
                 <Manner>
                   <GiKnifeFork />
-                  {lunch.host && lunch.host.mannerStatus}
+                  {lunch.host.mannerStatus}
                 </Manner>
               </WriterInfo>
               <UserAddress>
                 <RiMapPin2Fill
                   style={{ marginRight: "0.4rem", color: "red" }}
                 />
-                {lunch.host && lunch.host.location}
+                {lunch.host.location}
               </UserAddress>
               <UserDescWrap>
-                <UserDesc>{lunch.host && lunch.host.introduction}</UserDesc>
+                <UserDesc>{lunch.host.introduction}</UserDesc>
               </UserDescWrap>
               <HostMenu>호스트의 메뉴 취향</HostMenu>
               <HostFoodBox>
-                <LikeFood>
-                  <RiHeartFill style={{ color: "#ff9841" }} />
-                  {lunch.host && lunch.host.likemenu}
-                </LikeFood>
-                <DisLikeFood>
-                  <RiDislikeFill />
-                  {lunch.host && lunch.host.dislikemenu}
-                </DisLikeFood>
+                {lunch.host.likemenu && (
+                  <LikeFood>
+                    <RiHeartFill style={{ color: "#ff9841" }} />
+                    {lunch.host.likemenu}
+                  </LikeFood>
+                )}
+                {lunch.host.dislikemenu && (
+                  <DisLikeFood>
+                    <RiDislikeFill />
+                    {lunch.host.dislikemenu}
+                  </DisLikeFood>
+                )}
               </HostFoodBox>
             </UserInfo>
           </UserInfoWrap>
           <MapPosition>
-            {lunch.locations && lunch.locations.place_name}
+            {lunch.locations.place_name}
             &nbsp;
             <a
               style={{
@@ -123,18 +133,17 @@ const LunchDetail = (props) => {
                 textDecoration: "underline",
                 fontSize: "1.2rem",
               }}
-              href={lunch.locations && lunch.locations.place_url}
+              href={lunch.locations.place_url}
             >
               <RiMapPin2Fill style={{ color: "#2d8df4" }} />
               카카오맵으로자세히보기
             </a>
           </MapPosition>
-          <MapAddress>
-            {lunch.locations && lunch.locations.address_name}
-          </MapAddress>
+          <MapAddress>{lunch.locations.address_name}</MapAddress>
           <MapWarp>
             <MapContainer />
           </MapWarp>
+          <LunchMemberCard />
           <WishMember>이런 분들과 함께 점심을 먹고 싶어요</WishMember>
           <MemberOption>
             🐱고양이를 키우시는 분과 같이 먹고싶어요 (나만 고양이 없어… 고양이
@@ -152,7 +161,7 @@ const LunchDetail = (props) => {
             >
               점심약속 신청하기
             </DetailButton>
-            {user_info.userid === lunch.userid && (
+            {user_info?.userid === lunch.userid && (
               <>
                 <DetailButton
                   onClick={() => {
@@ -187,7 +196,7 @@ const LunchDetailBox = styled.div`
   min-width: 350px;
   max-width: 600px;
   margin: 1.56rem auto 100px auto;
-  box-shadow: 5px 5px 5px 5px #ebecf0;
+  // box-shadow: 5px 5px 5px 5px #ebecf0;
 `;
 
 const Head = styled.div`
@@ -195,29 +204,14 @@ const Head = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 5rem;
   border-bottom: 1px solid #efefef;
-`;
-
-const New = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 1.4rem;
-  background-color: #ff9841;
-  border-radius: 15px;
-  margin-top: 12.9rem;
-  margin-bottom: 1.6rem;
-  p {
-    font-size: 1.4rem;
-    color: white;
-    padding: 0.3rem 0px;
-  }
 `;
 
 const Title = styled.h1`
   font-weight: bold;
   font-size: 2.4rem;
-  margin: 1.6rem 0px 0.8rem 0;
+  margin: 1.6rem 0px 1.6rem 0;
   color: #3c3c3c;
 `;
 
@@ -233,6 +227,8 @@ const LunchInfoWrap = styled.div`
   color: #64656a;
   padding: 0.4rem;
   margin: 3.2rem 0;
+  background-color: white;
+  border-radius: 2rem;
 `;
 
 const LunchInfoLeft = styled.div`
@@ -241,7 +237,6 @@ const LunchInfoLeft = styled.div`
   line-height: 3.2rem;
   width: 100px;
   text-align: end;
-  background-color: #fff8f2;
   border-radius: 30px 0 0 30px;
   @media only screen and (max-width: 1140px) {
     padding-left: 1rem;
@@ -262,14 +257,36 @@ const LunchInfoRight = styled.div`
 
 const UserInfoWrap = styled.div`
   display: flex;
+  background-color: white;
   margin: 2.2rem 0 8rem 0;
   padding: 3.2rem;
   border: solid 1px #efefef;
+  border-radius: 2rem;
   @media only screen and (max-width: 1470px) {
     flex-direction: column;
     width: 100%;
     margin: 2.2rem auto;
     align-items: center;
+  }
+`;
+
+const NbtiBox = styled.div`
+  position: relative;
+  bottom: 2.7rem;
+  left: 5rem;
+  background-color: #ff9841;
+  display: flex;
+  justify-content: center;
+  padding: 0.7rem 0;
+  border-radius: 1rem;
+  height: 2.7rem;
+  width: 5rem;
+  font-size: 1.3rem;
+  p {
+    color: white;
+  }
+  @media only screen and (max-width: 768px) {
+    left: 8rem;
   }
 `;
 
@@ -391,7 +408,7 @@ const WishMember = styled.h2`
 `;
 
 const MemberOption = styled.p`
-  line-height: 2.2rem;
+  line-height: 3.2rem;
   font-size: 1.6rem;
   margin-left: 3.1rem;
   padding: 0.4rem 0;

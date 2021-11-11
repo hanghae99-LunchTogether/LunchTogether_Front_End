@@ -44,7 +44,7 @@ export const apis = {
           "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
         },
-      }
+      },
     ),
 
   // 닉네임 중복확인
@@ -57,7 +57,7 @@ export const apis = {
           "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
         },
-      }
+      },
     ),
 
   //회원정보 요청
@@ -97,7 +97,7 @@ export const apis = {
       { profile, image },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      }
+      },
     ),
 
   // 댓글 조회
