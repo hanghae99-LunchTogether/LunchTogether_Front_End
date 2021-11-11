@@ -63,7 +63,7 @@ const LunchNew = (props) => {
             {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
           </Text>
           <Text weight="800" size="1.4">
-            {applicants.length}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            {applicants?.length}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
           </Text>
         </ELWrapper>
         <ELWrapper margin="0 0 2rem 0" style={{ overflowY: "hidden" }}>
@@ -78,9 +78,9 @@ const LunchNew = (props) => {
           />
           <ELWrapper>
             <Text weight="600" color="black" size="1.4">
-              {host.nickname}
+              {host?.nickname}
             </Text>
-            <Text size="1.4">{host.job}</Text>
+            <Text size="1.4">{host?.job}</Text>
           </ELWrapper>
         </ELWrapper>
         <ELWrapper margin="0 0 2rem 0">
@@ -88,7 +88,7 @@ const LunchNew = (props) => {
         </ELWrapper>
         <ELWrapper flex style={{ justifyContent: "space-between" }}>
           <ELWrapper>
-            <Text size="1.4">📍&nbsp;&nbsp; {locations.place_name}</Text>
+            <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
 

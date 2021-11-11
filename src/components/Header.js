@@ -109,6 +109,7 @@ const Container = styled.div`
   top: 0;
   z-index: 2000;
   margin: 0 auto;
+  box-shadow: 0px 5px 8px -9px rgba(0, 0, 0, 75);
 `;
 
 const HeaderWrap = styled.div`

@@ -80,15 +80,15 @@ export const apis = {
     }),
 
   //점심 약속 수정
-  updateLunch: (_lunch) =>
-    instance.patch(`/lunchpost`, _lunch, {
+  updateLunch: (lunchid, _lunch) =>
+    instance.patch(`/lunchpost/${lunchid}`, _lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   //점심 약속 삭제
   deleteLunch: (lunchid) =>
-    instance.delete(`/lunchpost/${lunchid}`, null, {
-      header: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    instance.delete(`/lunchpost/${lunchid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
   updateProfile: (profile, image) =>
@@ -178,6 +178,12 @@ export const apis = {
   //북마크 삭제
   deleteBookmark: (bookmarkid) =>
     instance.delete(`/book/${bookmarkid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 멤버리스트 조회
+  getMemberList: () =>
+    instance.get("/alluser", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };
