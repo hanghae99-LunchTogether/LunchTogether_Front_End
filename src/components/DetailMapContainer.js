@@ -4,7 +4,6 @@ const { kakao } = window;
 
 const DetailMapContainer = props => {
   const location = props.location;
-  console.log(location);
   useEffect(() => {
     var mapContainer = document.getElementById("myMap"), // 지도를 표시할 div
       mapOption = {

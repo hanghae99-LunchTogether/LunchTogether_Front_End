@@ -6,8 +6,11 @@ import { useDispatch } from "react-redux";
 
 const { kakao } = window;
 
-const MapContainer = ({ searchKeyword, setLocation }) => {
+const MapContainer = ({ searchKeyword, setLocation, location }) => {
   const dispatch = useDispatch();
+
+  const x = location ? location.x : 127.02800140627488;
+  const y = location ? location.y : 37.49808633653005;
 
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -29,7 +32,6 @@ const MapContainer = ({ searchKeyword, setLocation }) => {
           p = { ...p, selected: false };
           temp_place.push(p);
         });
-        // setPlaces(temp_place);
         var bounds = new kakao.maps.LatLngBounds();
 
         for (var i = 0; i < data.length; i++) {
@@ -42,7 +44,6 @@ const MapContainer = ({ searchKeyword, setLocation }) => {
     }
 
     function displayMarker(place) {
-      console.log(place);
       var marker = new kakao.maps.Marker({
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x),

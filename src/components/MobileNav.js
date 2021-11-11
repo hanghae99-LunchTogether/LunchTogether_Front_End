@@ -38,7 +38,7 @@ const MobaileNav = props => {
           </MenuIcon>
           <MenuText>알림</MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={() => history.push("/profile")}>
+        <MenuWrapper onClick={() => history.push(`/profile/${user.userid}`)}>
           <MenuIcon>
             <RiProfileLine color="white" />
           </MenuIcon>
