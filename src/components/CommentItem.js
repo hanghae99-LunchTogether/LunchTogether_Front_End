@@ -1,51 +1,66 @@
-/* eslint-disable */
-
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import { MdDelete } from "react-icons/md";
 
+import ProfileImg from "../assets/profile.png";
+
 const CommentItem = (props) => {
   const dispatch = useDispatch();
-  const commentList = useSelector((state) => state.comment.commentList.comment);
-  const { index } = props;
-  const commentIndex = commentList[index];
-  const commentId = commentIndex.commentid;
+
+  const { comment, user, time, commentid } = props;
+  const myId = useSelector((state) => state.user.user.userid);
   const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
-  // const loginUser = useSelector((state) => state);
-  // const loginUser = useSelector((state) => state.user.user.nickname);
-  // console.log("찾아보자", loginUser);
 
   const onClickDelete = () => {
     const result = window.confirm("댓글을 정말로 삭제하시겠습니까?");
 
     if (result) {
-      dispatch(commentAction.deleteCommentAPI(commentId, lunchId));
+      dispatch(commentAction.deleteCommentAPI(commentid, lunchId));
     }
   };
 
   return (
-    <React.Fragment>
-      <Container>
-        <User>
-          <UserInfo>
-            <img src={"/img/profile.png"} />
-            <div style={{ margin: "auto" }}>
-              <UserName>{commentIndex.user.nickname}</UserName>
-              <Time>{commentIndex.time}</Time>
-            </div>
-          </UserInfo>
-          <Edit>
-            <span onClick={onClickDelete}>
-              <MdDelete />
-            </span>
-          </Edit>
-        </User>
-        <Content>{commentIndex.comment}</Content>
-      </Container>
-    </React.Fragment>
+    <>
+      {user.userid === myId ? (
+        <React.Fragment>
+          <Container>
+            <User>
+              <UserInfo>
+                <img src={user.image != null ? user.image : ProfileImg} />
+                <div style={{ margin: "auto" }}>
+                  <UserName>{user.nickname}</UserName>
+                  <Time>{time}</Time>
+                </div>
+              </UserInfo>
+              <Edit>
+                <span onClick={onClickDelete}>
+                  <MdDelete />
+                </span>
+              </Edit>
+            </User>
+            <Content>{comment}</Content>
+          </Container>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Container>
+            <User>
+              <UserInfo>
+                <img src={user.image != null ? user.image : ProfileImg} />
+                <div style={{ margin: "auto" }}>
+                  <UserName>{user.nickname}</UserName>
+                  <Time>{time}</Time>
+                </div>
+              </UserInfo>
+            </User>
+            <Content>{comment}</Content>
+          </Container>
+        </React.Fragment>
+      )}
+    </>
   );
 };
 
@@ -55,6 +70,7 @@ const Container = styled.div`
   margin: auto;
   border-bottom: 1px solid rgb(233, 236, 239);
   padding: 1.5rem 0 1.5rem 0;
+  background-color: #fff;
 `;
 
 const User = styled.div`
