@@ -48,6 +48,16 @@ const LunchDetailNew = props => {
     }
   };
 
+  const cancelLunch = async () => {
+    try {
+      const data = await apis.cancelLunch(lunchId);
+      console.log(data);
+      history.go(0);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   useEffect(() => {
     getLunch();
   }, []);
@@ -126,10 +136,13 @@ const LunchDetailNew = props => {
               <Text size="1.6" lineheight="3">
                 호스트
               </Text>
-              <Text color="black" size="1.6" weight="600">
-                {lunch.host.nickname}{" "}
-                {lunch.host.job &&
-                  `&nbsp; &nbsp; | &nbsp; &nbsp;${lunch.host.job}`}
+              <Text
+                color="black"
+                size="1.6"
+                weight="600"
+                style={{ marginBottom: "1rem" }}
+              >
+                {lunch.host.nickname} {lunch.host.job && ` | ${lunch.host.job}`}
               </Text>
               <Text color="black" size="1.6">
                 {lunch.host.introduction}
@@ -223,8 +236,8 @@ const LunchDetailNew = props => {
                 수정하기
               </Button>
             ) : isApplied ? (
-              <Button bg="gray" onClick={applyLunch}>
-                점심약속 신청완료
+              <Button bg="gray" onClick={cancelLunch}>
+                신청취소
               </Button>
             ) : (
               <Button onClick={applyLunch}>점심약속 신청하기</Button>

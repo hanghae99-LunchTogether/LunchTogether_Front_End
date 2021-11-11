@@ -19,9 +19,10 @@ const allTabs = [
 
 const ProflieRight = props => {
   const { lunchs, usersReviews } = props;
-  console.log(usersReviews);
+  console.log(lunchs);
 
   const totalLunch = lunchs?.applied.concat(lunchs.owned);
+  console.log(totalLunch);
 
   return (
     <Wrapper>
@@ -91,7 +92,7 @@ const LunchListWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  width: 90%;
+  width: 80%;
   height: 4rem;
   font-weight: bold;
   font-size: 1.2rem;

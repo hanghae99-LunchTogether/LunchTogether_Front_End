@@ -73,7 +73,6 @@ export const apis = {
     }),
 
   //점심 약속 등록
-
   createLunch: lunch =>
     instance.post(`/lunchpost`, lunch, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -187,8 +186,14 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  // 2인 점심약속 만들기
   createPrivatelunch: (targetUser, lunch) =>
     instance.post(`/offer/${targetUser}`, lunch, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  cancelLunch: lunchid =>
+    instance.delete(`/applicant/${lunchid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };

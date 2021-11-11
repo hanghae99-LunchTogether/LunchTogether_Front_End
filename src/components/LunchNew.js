@@ -12,6 +12,7 @@ import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
 const LunchNew = props => {
+  console.log(props);
   const user = useSelector(state => state.user.user);
   let participant = props.applicants?.findIndex(
     u => u.user.userid === user?.userid
@@ -38,7 +39,6 @@ const LunchNew = props => {
   validateReview();
 
   //북마크
-  const [bookmark, setBookmark] = useState(0);
 
   // const getBookmarkData = async () => {
   //   try {
@@ -59,8 +59,8 @@ const LunchNew = props => {
 
   const addBookmarkData = async () => {
     try {
-      const data = await apis.addBookmark(bookmark);
-      console.log("ssssss", data);
+      const data = await apis.addBookmark(lunchid);
+      console.log(data);
     } catch (error) {
       console.log(error.response);
     }
@@ -185,6 +185,7 @@ const CircleImage = styled.div`
 const Bookmark = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   img {
     width: 18px;

@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 
 const ProfileLeft = props => {
-  console.log(props);
+  const user = useSelector(state => state.user);
+  console.log(user);
   const {
     dislikemenu,
     image,
@@ -18,7 +20,6 @@ const ProfileLeft = props => {
     userid,
   } = props;
 
-  console.log(locations);
   return (
     <>
       <Wrapper>
@@ -75,12 +76,15 @@ const ProfileLeft = props => {
             {dislikemenu}
           </Text>
         </ELWrapper>
-        <Button onClick={() => history.push(`/private/${userid}`)}>
-          점심 제안하기
-        </Button>
-        <Button onClick={() => history.push(`/profileupdate/${userid}`)}>
-          프로필 업데이트
-        </Button>
+        {user?.user?.userid === userid ? (
+          <Button onClick={() => history.push(`/profileupdate/${userid}`)}>
+            프로필 업데이트
+          </Button>
+        ) : (
+          <Button onClick={() => history.push(`/private/${userid}`)}>
+            점심 제안하기
+          </Button>
+        )}
       </Wrapper>
     </>
   );
