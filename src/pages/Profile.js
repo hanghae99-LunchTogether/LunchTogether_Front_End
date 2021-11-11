@@ -9,6 +9,7 @@ import ProfileRight from "../components/ProflieRight";
 
 const Profile = props => {
   const [user, setUser] = useState(null);
+  console.log(user);
 
   const userId = props.match.params.id;
 
