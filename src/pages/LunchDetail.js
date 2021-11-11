@@ -28,6 +28,7 @@ const LunchDetail = (props) => {
   console.log(lunch);
   const getLunch = async () => {
     const data = await apis.getOneLunch(lunchId);
+    console.log(data);
     const lunchData = data.data.data.lunch;
     setLunch(lunchData);
     console.log(lunchData);

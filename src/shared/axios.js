@@ -162,4 +162,10 @@ export const apis = {
     instance.patch(`/applicant/approved/${lunchid}`, approval, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+
+  // 멤버리스트 조회
+  getMemberList: () =>
+    instance.get("/alluser", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
 };

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import { apis } from "../shared/axios";
+
 import { ImSearch } from "react-icons/im";
 import { RiArrowUpSLine } from "react-icons/ri";
 
@@ -7,6 +10,21 @@ import MemberListCard from "../components/MemberListCard";
 
 const MemberList = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [alluser, setAllUser] = useState([]);
+  console.log(alluser);
+  const getMemberDate = async () => {
+    try {
+      const data = await apis.getMemberList();
+      console.log(data);
+      setAllUser(data.data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getMemberDate();
+  }, []);
 
   return (
     <>
@@ -21,14 +39,9 @@ const MemberList = (props) => {
         />
       </InputBox>
       <MemberListWrap>
-        <MemberListCard />
-        <MemberListCard />
-        <MemberListCard />
-        <MemberListCard />
-        <MemberListCard />
-        <MemberListCard />
-        <MemberListCard />
-        <MemberListCard />
+        {alluser?.map((user, idx) => {
+          return <MemberListCard {...user} key={idx} />;
+        })}
       </MemberListWrap>
       <UpScroll
         onClick={() => {
