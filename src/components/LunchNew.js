@@ -138,10 +138,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  margin: 0 auto;
 
   @media only screen and (max-width: 768px) {
-    width: 250px;
-    height: 200px;
+    justify-content: center;
+    width: 300px;
+    height: 250px;
   }
 `;
 

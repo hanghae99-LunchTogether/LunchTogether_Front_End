@@ -66,25 +66,32 @@ const LunchDetailNew = props => {
     <>
       {lunch && (
         <Wrapper>
-          <img src="https://w.namu.la/s/05f1889f36069a0583e25ab2146c506e9175115142bdbe94e3691791eab9c7732cf672677d78710b3cf3cff89be1d6cb332984869290cc70648060d79e203b0b7b7af3c065dff21050b0db7e334a6595cc8ee70c596d0c8831febf54ec84ba73" />
+          {/* <img src="https://w.namu.la/s/05f1889f36069a0583e25ab2146c506e9175115142bdbe94e3691791eab9c7732cf672677d78710b3cf3cff89be1d6cb332984869290cc70648060d79e203b0b7b7af3c065dff21050b0db7e334a6595cc8ee70c596d0c8831febf54ec84ba73" /> */}
           <ELWrapper center margin="2rem 0 2rem 0">
             <Text
-              size="3"
+              size="4"
               weight="700"
               color="black"
-              style={{ textAlign: "center", lineHeight: "5rem" }}
+              style={{
+                textAlign: "center",
+                lineHeight: "5rem",
+                marginBottom: "2rem",
+              }}
             >
               {lunch.title}
             </Text>
-            <Text style={{ textAlign: "center" }}>{lunch.content}</Text>
+            <Text size="2" style={{ textAlign: "center" }}>
+              {lunch.content}
+            </Text>
           </ELWrapper>
 
-          <hr style={{ margin: "4rem" }} />
+          <hr style={{ margin: "4rem 0" }} />
           <Text
             color="black"
             size="2"
             weight="800"
-            style={{ margin: "0 0 2rem 5rem" }}
+            lineheight="3"
+            style={{ margin: "0 0 2rem 0" }}
           >
             요약정보
           </Text>
@@ -121,21 +128,20 @@ const LunchDetailNew = props => {
               {lunch.duration ? lunch.duration : "30분"}
             </Text>
           </ELWrapper>
-          <hr style={{ margin: "4rem" }} />
+          <hr style={{ margin: "4rem 0" }} />
           <Text
             color="black"
             size="2"
             weight="800"
-            style={{ margin: "0 0 2rem 5rem" }}
+            lineheight="3"
+            style={{ margin: "0 0 2rem 0" }}
           >
             호스트 소개
           </Text>
           <ELWrapper flex>
-            <CircleImage size="10" style={{ marginRight: "2rem" }} />
-            <ELWrapper>
-              <Text size="1.6" lineheight="3">
-                호스트
-              </Text>
+            <CircleImage size="10" />
+            <ELWrapper style={{ marginLeft: "2rem" }}>
+              <Text size="1.6">호스트</Text>
               <Text
                 color="black"
                 size="1.6"
@@ -145,17 +151,19 @@ const LunchDetailNew = props => {
                 {lunch.host.nickname} {lunch.host.job && ` | ${lunch.host.job}`}
               </Text>
               <Text color="black" size="1.6">
-                {lunch.host.introduction}
+                {lunch.host.introduction &&
+                  lunch.host.introduction.split("\n").map(l => {
+                    return (
+                      <span>
+                        {l} <br />
+                      </span>
+                    );
+                  })}
               </Text>
             </ELWrapper>
           </ELWrapper>
-          <hr style={{ margin: "4rem" }} />
-          <Text
-            color="black"
-            size="2"
-            weight="800"
-            style={{ margin: "0 0 2rem 5rem" }}
-          >
+          <hr style={{ margin: "4rem 0" }} />
+          <Text color="black" size="2" weight="800" lineheight="3">
             신청자
           </Text>
           <ELWrapper flex>
@@ -196,39 +204,38 @@ const LunchDetailNew = props => {
               );
             })}
           </ELWrapper>
-          <hr style={{ margin: "4rem" }} />
-          <Text
-            color="black"
-            size="2"
-            weight="800"
-            style={{ margin: "0 0 2rem 5rem" }}
-          >
+          <hr style={{ margin: "4rem 0" }} />
+          <Text color="black" size="2" weight="800" lineheight="3">
             약속장소 상세정보
           </Text>
           <ELWrapper>
             <Text size="1.6" lineheight="3">
               상호명: &nbsp;{lunch.locations.place_name}
             </Text>
-            <Text size="1.6" lineheight="3">
+            <Text size="1.6" lineheight="3" style={{ marginBottom: "2rem" }}>
               도로명주소: &nbsp;
               {lunch.locations.road_address_name
                 ? lunch.locations.road_address_name
                 : lunch.locations.address_name}
             </Text>
-            <a
+            {/* <a
               href={lunch.locations.place_url}
               target="_blank"
               style={{
                 cursor: "pointer",
-                lineHeight: "2",
+                lineHeight: "3",
                 fontSize: "1.6rem",
                 color: "#909090",
+                marginBottom: "5rem",
               }}
             >
               카카오맵 링크: &nbsp;{lunch.locations.place_url}
-            </a>
+            </a> */}
 
-            <DetailMapContainer location={lunch.locations} />
+            <DetailMapContainer
+              style={{ marginTop: "2rem" }}
+              location={lunch.locations}
+            />
           </ELWrapper>
           <ELWrapper>
             {user?.user?.userid === lunch?.host.userid ? (
@@ -257,10 +264,10 @@ const Wrapper = styled.div`
   width: 100%;
   flex-direction: column;
   justify-content: center;
-  padding: 5rem 2rem 5rem 2rem;
+  padding: 3rem;
   margin: 0rem auto;
   background-color: white;
-  margin-bottom: 5rem;
+  margin-bottom: 10rem;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -277,7 +284,7 @@ const ELWrapper = styled.div`
 
   ${props =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
-  margin: 1rem 0 0.5rem 5rem;
+  margin: 1rem 0 0.5rem 0;
 `;
 
 const Text = styled.p`
@@ -308,8 +315,8 @@ const CircleImage = styled.div`
 `;
 
 const Button = styled.button`
-  width: 95%;
-  height: 4rem;
+  width: 100%;
+  height: 5rem;
   font-weight: bold;
   font-size: 1.2rem;
   border-radius: 5px;
