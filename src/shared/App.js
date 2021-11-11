@@ -72,7 +72,7 @@ function App() {
           ></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
-          <Route path="/review" exact component={Review}></Route>
+          <Route path="/review/:lunchid" exact component={Review}></Route>
           <Route path="/component" exact component={ProfileLunchNew}></Route>
           <Route path="/pr" exact component={ProfileReviewItem}></Route>
         </Switch>

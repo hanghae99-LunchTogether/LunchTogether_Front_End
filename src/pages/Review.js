@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 import Cross from "../assets/cross.svg";
 import ProfileImg from "../assets/profile.png";
+import { history } from "../redux/configureStore";
 
-const Review = (props) => {
+const Review = props => {
+  const lunchId = props.match.params.lunchid;
+  const [lunch, setLunch] = useState(null);
+
+  const applicants = lunch?.applicants;
+  console.log(applicants);
+
+  const getLunch = async () => {
+    try {
+      const data = await apis.getOneLunch(lunchId);
+      const lunch = data.data.data.lunch;
+      setLunch(lunch);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const [content, setContent] = useState("");
   const [checkError, setCheckError] = useState("");
 
-  const onChangeContent = (e) => {
+  const onChangeContent = e => {
     setContent(e.target.value);
   };
 
@@ -25,11 +42,11 @@ const Review = (props) => {
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
-  const handleClick = (value) => {
+  const handleClick = value => {
     setCurrentValue(value);
   };
 
-  const handleMouseOver = (newHoverValue) => {
+  const handleMouseOver = newHoverValue => {
     setHoverValue(newHoverValue);
   };
 
@@ -45,7 +62,7 @@ const Review = (props) => {
     lunchid: 13,
   };
 
-  const addReviewData = async (e) => {
+  const addReviewData = async e => {
     try {
       if (content === "") {
         setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
@@ -62,81 +79,85 @@ const Review = (props) => {
     }
   };
 
+  useEffect(() => {
+    getLunch();
+  }, []);
+
   return (
     <>
-      <button onClick={modalClose}>모달창 켜기</button>
-
-      {modalOpen && (
-        <Wrapper onClick={modalClose}>
-          <ReviewContainar onClick={(e) => e.stopPropagation()}>
-            <Exit onClick={modalClose} src={Cross}></Exit>
-            <h1>점심식사 리뷰 남기기</h1>
-            <h2>
-              즐거운 점심식사 보내셨나요? 함께 즐긴 멤버에 대한 평가를
-              남겨주세요
-            </h2>
-
-            <ReviewWrap>
-              <ReviewCard>
-                <UserInfo>
-                  <User>
-                    <img src={ProfileImg} />
+      <Wrapper onClick={() => history.goBack()}>
+        <ReviewContainar onClick={e => e.stopPropagation()}>
+          <Exit onClick={() => history.goBack()} src={Cross}></Exit>
+          <h1>점심식사 리뷰 남기기</h1>
+          <h2>
+            즐거운 점심식사 보내셨나요? 함께 즐긴 멤버에 대한 평가를 남겨주세요
+          </h2>
+          {applicants?.map((u, idx) => {
+            console.log(u);
+            return (
+              <ReviewWrap>
+                <ReviewCard>
+                  <UserInfo>
+                    <User>
+                      <img src={ProfileImg} />
+                      <div>
+                        <span className="nickname">{u.user.nickname}</span>
+                        <span className="job">{u.user.job}</span>
+                      </div>
+                    </User>
+                    <RatingBox>
+                      <h2>{u.user.nickname}님과의 식사는 어떠셨나요?</h2>
+                      <Rating>
+                        {forks.map((_, index) => {
+                          return (
+                            <ForkImg
+                              style={{
+                                cursor: "pointer",
+                                marginRight: "4px",
+                                width: "15.1px",
+                                height: "14px",
+                              }}
+                              key={index}
+                              onClick={() => handleClick(index + 1)}
+                              onMouseOver={() => handleMouseOver(index + 1)}
+                              onMouseLeave={handleMouseLeave}
+                              fill={
+                                (hoverValue || currentValue) > index
+                                  ? "#ff9841"
+                                  : "#efefef"
+                              }
+                            />
+                          );
+                        })}
+                        <span>{currentValue}점</span>
+                      </Rating>
+                    </RatingBox>
+                  </UserInfo>
+                  <Comment>
+                    <span>리뷰 작성하기</span>
                     <div>
-                      <span className="nickname">닉네임</span>
-                      <span className="job">직업</span>
+                      <textarea
+                        maxlength="140"
+                        onChange={onChangeContent}
+                        placeholder="140자 미만 작성해주세요"
+                      />
                     </div>
-                  </User>
-                  <RatingBox>
-                    <h2>닉넴님과의 식사는 어떠셨나요?</h2>
-                    <Rating>
-                      {forks.map((_, index) => {
-                        return (
-                          <ForkImg
-                            style={{
-                              cursor: "pointer",
-                              marginRight: "4px",
-                              width: "15.1px",
-                              height: "14px",
-                            }}
-                            key={index}
-                            onClick={() => handleClick(index + 1)}
-                            onMouseOver={() => handleMouseOver(index + 1)}
-                            onMouseLeave={handleMouseLeave}
-                            fill={
-                              (hoverValue || currentValue) > index
-                                ? "#ff9841"
-                                : "#efefef"
-                            }
-                          />
-                        );
-                      })}
-                      <span>{currentValue}점</span>
-                    </Rating>
-                  </RatingBox>
-                </UserInfo>
-                <Comment>
-                  <span>리뷰 작성하기</span>
-                  <div>
-                    <textarea
-                      maxlength="140"
-                      onChange={onChangeContent}
-                      placeholder="140자 미만 작성해주세요"
-                    />
-                  </div>
-                </Comment>
-              </ReviewCard>
-            </ReviewWrap>
-            <SubmitBtn
-              onClick={() => {
-                addReviewData();
-              }}
-            >
-              리뷰 작성 완료
-            </SubmitBtn>
-            <SubmitMsg>{checkError}</SubmitMsg>
-          </ReviewContainar>
-        </Wrapper>
-      )}
+                  </Comment>
+                </ReviewCard>
+              </ReviewWrap>
+            );
+          })}
+
+          <SubmitBtn
+            onClick={() => {
+              addReviewData();
+            }}
+          >
+            리뷰 작성 완료
+          </SubmitBtn>
+          <SubmitMsg>{checkError}</SubmitMsg>
+        </ReviewContainar>
+      </Wrapper>
     </>
   );
 };
@@ -156,7 +177,7 @@ const Wrapper = styled.div`
 `;
 
 const ReviewContainar = styled.div`
-  width: 1071px;
+  width: 1200px;
   max-height: 923px;
   display: flex;
   flex-direction: column;
@@ -194,6 +215,7 @@ const Exit = styled.img`
   position: absolute;
   right: 3.18rem;
   top: 3.2rem;
+  cursor: pointer;
 `;
 
 const ReviewWrap = styled.div`
@@ -202,7 +224,7 @@ const ReviewWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 4.6rem 0 1.6rem 0;
+  margin: 2rem 0 1.6rem 0;
 
   @media only screen and (max-width: 768px) {
     width: 308px;
