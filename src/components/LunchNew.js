@@ -10,15 +10,8 @@ import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
-<<<<<<< HEAD
 const LunchNew = props => {
   const user = useSelector(state => state.user.user);
-=======
-
-const LunchNew = (props) => {
-  console.log(props);
-  const user = useSelector((state) => state.user.user);
->>>>>>> 09cd71a9e5354f772bd7de9883c1b2446b51f921
   let participant = props.applicants?.findIndex(
     u => u.user.userid === user?.userid
   );
@@ -47,7 +40,6 @@ const LunchNew = (props) => {
   const getBookmarkData = async () => {
     try {
       const data = await apis.getBookmark();
-      console.log("데이터", data);
     } catch (error) {
       console.log(error.response);
     }
