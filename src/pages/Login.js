@@ -127,7 +127,7 @@ const Login = props => {
             color: "white",
             cursor: "pointer",
             marginTop: "2rem",
-            marginBottm: "8rem",
+            marginBottom: "8rem",
           }}
           onClick={() => history.push("/signup")}
         >
@@ -148,7 +148,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 10rem auto;
+  margin: 4rem auto 3rem auto;
 `;
 
 const Logo = styled.div`

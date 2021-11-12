@@ -154,7 +154,7 @@ const LunchNew = props => {
 };
 
 const Wrapper = styled.div`
-  width: 280px;
+  width: 330px;
   height: 270px;
   padding: 2rem;
   background-color: white;
@@ -166,8 +166,8 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
-    width: 300px;
-    height: 250px;
+    width: 330px;
+    height: 200px;
   }
 `;
 

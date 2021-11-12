@@ -59,17 +59,9 @@ const ProflieRight = props => {
             key={idx}
             onClick={() => changeTab(idx)}
             active={tab.active}
+            // style={tab.active ? { borderBottom: "1px solid black" } : ""}
           >
             {tab.title}
-            {tab.active && (
-              <hr
-                style={{
-                  marginBottom: "1rem",
-                  height: "2px",
-                  background: "black",
-                }}
-              />
-            )}
           </TabWrapper>
         ))}
       </ElWrapper>
@@ -95,11 +87,11 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   max-width: 650px;
-  border: 1px solid white;
+  border: none;
   display: flex;
   flex-direction: column;
-  padding: 3rem 2rem 5rem 2rem;
-  background-color: white;
+  padding: 3rem 0 5rem 0;
+  background-color: #ffc428;
   border-radius: 10px;
 
   @media only screen and (max-width: 768px) {
@@ -120,8 +112,8 @@ const TabWrapper = styled.div`
   font-size: 2rem;
   ${props =>
     props.active
-      ? "color: black; font-weight: 700;"
-      : "color: gray; font-weight: 400;"};
+      ? "color: black; font-weight: 800;"
+      : "color: white; font-weight: 400;"};
 `;
 
 const Text = styled.p`
@@ -139,7 +131,7 @@ const LunchListWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 3.2rem;
+  margin-bottom: 5rem;
   gap: 2rem 2rem;
   margin-top: 2rem;
   justify-content: center;
