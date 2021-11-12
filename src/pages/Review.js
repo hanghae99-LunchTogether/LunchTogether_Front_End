@@ -7,7 +7,7 @@ import Cross from "../assets/cross.svg";
 import ProfileImg from "../assets/profile.png";
 import { history } from "../redux/configureStore";
 
-const Review = props => {
+const Review = (props) => {
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
 
@@ -27,7 +27,7 @@ const Review = props => {
   const [content, setContent] = useState("");
   const [checkError, setCheckError] = useState("");
 
-  const onChangeContent = e => {
+  const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
@@ -42,11 +42,11 @@ const Review = props => {
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
-  const handleClick = value => {
+  const handleClick = (value) => {
     setCurrentValue(value);
   };
 
-  const handleMouseOver = newHoverValue => {
+  const handleMouseOver = (newHoverValue) => {
     setHoverValue(newHoverValue);
   };
 
@@ -56,13 +56,13 @@ const Review = props => {
 
   //api 요청
   const review = {
-    targetuserid: 1964619421,
+    targetuserid: 0,
     spoon: currentValue,
     comment: content,
-    lunchid: 13,
+    lunchid: 0,
   };
 
-  const addReviewData = async e => {
+  const addReviewData = async (e) => {
     try {
       if (content === "") {
         setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
@@ -86,7 +86,7 @@ const Review = props => {
   return (
     <>
       <Wrapper onClick={() => history.goBack()}>
-        <ReviewContainar onClick={e => e.stopPropagation()}>
+        <ReviewContainar onClick={(e) => e.stopPropagation()}>
           <Exit onClick={() => history.goBack()} src={Cross}></Exit>
           <h1>점심식사 리뷰 남기기</h1>
           <h2>

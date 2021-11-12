@@ -5,7 +5,6 @@ import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
-
 import { apis } from "../shared/axios";
 
 import ProfileImg from "../assets/profile.png";
@@ -15,7 +14,7 @@ const LunchNew = (props) => {
   console.log(props);
   const user = useSelector((state) => state.user.user);
   let participant = props.applicants?.findIndex(
-    (u) => u.user.userid === user?.userid,
+    (u) => u.user.userid === user?.userid
   );
   // console.log(participant);
   let owner = props.host?.userid === user?.userid ? true : false;
@@ -34,7 +33,7 @@ const LunchNew = (props) => {
 
   const validateReview = () => {
     applicants?.findIndex((u) =>
-      u.user.userid === user?.userid ? true : false,
+      u.user.userid === user?.userid ? true : false
     );
   };
 
@@ -42,27 +41,32 @@ const LunchNew = (props) => {
 
   //북마크
 
-  // const getBookmarkData = async () => {
-  //   try {
-  //     const data = await apis.getBookmark(lunchid);
-  //     console.log("데이터", data);
-  //     // const lunch = data.data.lunch;
-  //     // setBookmark(lunch);
-  //   } catch (error) {
-  //     console.log(error.response);
-  //   }
-  // };
+  const getBookmarkData = async () => {
+    try {
+      const data = await apis.getBookmark();
+      console.log("데이터", data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
-  // useEffect(() => {
-  //   if (lunchid) {
-  //     getBookmarkData();
-  //   }
-  // }, []);
+  useEffect(() => {
+    getBookmarkData();
+  }, []);
 
   const addBookmarkData = async () => {
     try {
       const data = await apis.addBookmark(lunchid);
-      console.log(data);
+      console.log("추가", data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const deleteBookmarkData = async () => {
+    try {
+      const data = await apis.deleteBookmark();
+      console.log("삭제", data);
     } catch (error) {
       console.log(error.response);
     }
@@ -105,7 +109,7 @@ const LunchNew = (props) => {
           </ELWrapper>
         </ELWrapper>
 
-        <hr style={{ zIndex: "1000" }} />
+        <hr />
 
         <ELWrapper
           margin="0 0 1rem 0"
@@ -118,7 +122,6 @@ const LunchNew = (props) => {
           </ELWrapper>
 
           <Bookmark onClick={addBookmarkData}>
-            {/* <Bookmark onClick={(e) => e.stopPropagation({ addBookmark })}> */}
             <img src={BookmarkImg} />
             <span>3</span>
           </Bookmark>
