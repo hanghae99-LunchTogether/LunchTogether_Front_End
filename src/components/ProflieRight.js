@@ -75,7 +75,15 @@ const ProflieRight = props => {
       <LunchListWrapper>
         {console.log(tabs[index].content)}
         {tabs[index].content.map((l, idx) =>
-          index !== 2 ? <LunchNew {...l} /> : <ProfileReviewItem />
+          index !== 2 ? (
+            index === 0 ? (
+              <LunchNew {...l} />
+            ) : (
+              <LunchNew completed {...l} />
+            )
+          ) : (
+            <ProfileReviewItem reviews={usersReviews} />
+          )
         )}
         <FakeDiv />
       </LunchListWrapper>

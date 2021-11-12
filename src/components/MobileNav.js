@@ -17,7 +17,7 @@ const MobaileNav = (props) => {
       window.alert("로그인이 필요한 서비스입니다!");
       history.push("/login");
     }
-    history.push(`/profile/${user.userid}`);
+    history.push(`/profile/${user.user.userid}`);
   };
 
   const moveToMakeLunch = () => {
