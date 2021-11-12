@@ -12,16 +12,14 @@ import BookmarkImg from "../assets/bookmark.svg";
 import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
 
 const LunchNew = (props) => {
-  console.log(props);
   const user = useSelector((state) => state.user.user);
   let participant = props.applicants?.findIndex(
     (u) => u.user.userid === user?.userid
   );
-  // console.log(participant);
+
   let owner = props.host?.userid === user?.userid ? true : false;
-  // console.log(owner);
+
   let lunchend = props.date < new Date();
-  console.log(lunchend);
   const {
     title,
     host,
@@ -31,6 +29,7 @@ const LunchNew = (props) => {
     membernum,
     applicants,
     bk_num,
+    completed,
   } = props;
 
   const strDate = String(date);
@@ -104,9 +103,17 @@ const LunchNew = (props) => {
     setBookmarkFilled(!bookmarkFilled);
   };
 
+  const goToReview = () => {
+    if (applicants.length < 1) {
+      window.alert("참여자가 없어요!");
+      return;
+    }
+    history.push(`/review/${lunchid}`);
+  };
+
   return (
     <>
-      <Wrapper>
+      <Wrapper completed={completed}>
         <ELWrapper
           margin="0 0 1rem 0"
           flex
@@ -162,9 +169,7 @@ const LunchNew = (props) => {
             <span>{bk_num}</span>
           </Bookmark>
         </ELWrapper>
-        <Button onClick={() => history.push(`/review/${lunchid}`)}>
-          리뷰 남기기
-        </Button>
+        {completed && <Button onClick={goToReview}>리뷰 남기기</Button>}
       </Wrapper>
     </>
   );
@@ -172,17 +177,19 @@ const LunchNew = (props) => {
 
 const Wrapper = styled.div`
   width: 280px;
-  height: 270px;
+  height: ${(props) => (props.completed ? "320px" : "270px")};
   padding: 2rem;
   background-color: white;
   box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16);
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  margin: 0 auto;
 
   @media only screen and (max-width: 768px) {
-    margin: auto;
-    height: 200px;
+    justify-content: center;
+    width: 300px;
+    height: 250px;
   }
 `;
 
@@ -242,7 +249,7 @@ const Bookmark = styled.div`
 
 const Button = styled.button`
   width: 100%;
-  height: 2rem;
+  height: 3rem;
   font-weight: bold;
   font-size: 1.2rem;
   border-radius: 5px;
@@ -250,6 +257,7 @@ const Button = styled.button`
   background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
   color: white;
   z-index: 1000;
+  margin-top: 1rem;
 `;
 
 export default LunchNew;

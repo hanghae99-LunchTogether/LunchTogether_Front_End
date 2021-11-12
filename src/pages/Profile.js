@@ -7,15 +7,19 @@ import { history } from "../redux/configureStore";
 import ProfileLeft from "../components/ProfileLeft";
 import ProfileRight from "../components/ProflieRight";
 
-const Profile = (props) => {
+const Profile = props => {
   const [user, setUser] = useState(null);
   console.log(user);
 
   const userId = props.match.params.id;
 
   const getProfile = async () => {
-    const data = await apis.getProfile(userId);
-    setUser(data.data.data.user);
+    try {
+      const data = await apis.getProfile(userId);
+      setUser(data.data.data.user);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   useEffect(() => {

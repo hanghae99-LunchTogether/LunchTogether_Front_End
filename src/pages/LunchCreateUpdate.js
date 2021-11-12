@@ -67,8 +67,10 @@ const LunchCreateUpdate = (props) => {
     setLunch({
       ...lunch,
       [name]: value,
+      membernum: undefined && 2,
     });
   };
+  console.log(lunch.membernum);
 
   useEffect(() => {
     if (lunchId) {
@@ -218,9 +220,12 @@ const LunchCreateUpdate = (props) => {
             <Select
               name="membernum"
               onChange={onChange}
-              value={lunch.membernum ? lunch.membernum : "2"}
+              defaultValue="2"
+              value={lunch?.membernum ? lunch?.membernum : 2}
             >
-              <option value="2">2</option>
+              <option value="2" selected>
+                2
+              </option>
               <option value="3">3</option>
               <option value="4">4</option>
             </Select>
