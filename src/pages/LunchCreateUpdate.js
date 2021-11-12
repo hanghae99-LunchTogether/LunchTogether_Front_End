@@ -11,7 +11,7 @@ import DetailMapContainer from "../components/DetailMapContainer";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
-const LunchCreateUpdate = props => {
+const LunchCreateUpdate = (props) => {
   const targetUser = props.match.params.userid ? props.match.params.userid : "";
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -24,14 +24,14 @@ const LunchCreateUpdate = props => {
     date: "",
   });
 
-  const setLocation = place => {
+  const setLocation = (place) => {
     setLunch({
       ...lunch,
       locations: place,
     });
   };
 
-  const setDate = date => {
+  const setDate = (date) => {
     setLunch({
       ...lunch,
       date: date,
@@ -60,7 +60,7 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -80,7 +80,7 @@ const LunchCreateUpdate = props => {
     }
   }, []);
 
-  const onSearchKeywordChange = e => {
+  const onSearchKeywordChange = (e) => {
     setPlaceInput(e.target.value);
   };
 
@@ -252,6 +252,9 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 5rem auto;
+  @media only screen and (max-width: 768px) {
+    margin: 5rem auto 70px auto;
+  }
 `;
 
 const MenuTitleWrapper = styled.div`
