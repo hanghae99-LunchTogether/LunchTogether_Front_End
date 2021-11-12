@@ -10,8 +10,7 @@ import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
-const LunchNew = props => {
-  console.log(props);
+const LunchNew = (props) => {
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
   const strDate = String(date);
@@ -25,25 +24,34 @@ const LunchNew = props => {
 
   const getBookmarkData = async () => {
     try {
-      const data = await apis.getBookmark(lunchid);
+      const data = await apis.getBookmark();
       console.log("데이터", data);
-      // const lunch = data.data.lunch;
-      // setBookmark(lunch);
+      const bookmarkList = data.data.bookmarks;
     } catch (error) {
       console.log(error.response);
     }
   };
 
   useEffect(() => {
-    if (lunchid) {
-      getBookmarkData();
-    }
+    getBookmarkData();
   }, []);
 
   const addBookmarkData = async () => {
     try {
-      const data = await apis.addBookmark(bookmark);
-      console.log("ssssss", data);
+      const data = await apis.addBookmark(lunchid);
+      console.log("추가", data);
+      // const newLunchId = data.data.book.lunchid;
+      // console.log("런치아이디", newLunchId);
+      // history.push(`/book/${newLunchId}`);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const deleteBookmarkData = async () => {
+    try {
+      const data = await apis.deleteBookmark();
+      console.log("삭제", data);
     } catch (error) {
       console.log(error.response);
     }
@@ -85,7 +93,7 @@ const LunchNew = props => {
           </ELWrapper>
         </ELWrapper>
 
-        <hr style={{ zIndex: "1000" }} />
+        <hr />
 
         <ELWrapper
           margin="0 0 1rem 0"
@@ -98,14 +106,10 @@ const LunchNew = props => {
           </ELWrapper>
 
           <Bookmark onClick={addBookmarkData}>
-            {/* <Bookmark onClick={(e) => e.stopPropagation({ addBookmark })}> */}
             <img src={BookmarkImg} />
             <span>3</span>
           </Bookmark>
         </ELWrapper>
-        <Button onClick={() => history.push(`/review/${lunchid}`)}>
-          리뷰 남기기
-        </Button>
       </Wrapper>
     </>
   );
@@ -128,20 +132,20 @@ const Wrapper = styled.div`
 `;
 
 const ELWrapper = styled.div`
-  ${props => (props.padding ? `padding: ${props.padding};` : "")};
-  ${props => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${props => (props.bg ? props.bg : "white")};
-  ${props => (props.flex ? `display: flex; align-items: center; ` : "")};
-  ${props => (props.center ? `text-align: center` : "")};
-  ${props =>
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${(props) => (props.bg ? props.bg : "white")};
+  ${(props) => (props.flex ? `display: flex; align-items: center; ` : "")};
+  ${(props) => (props.center ? `text-align: center` : "")};
+  ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
 `;
 
 const Text = styled.p`
-  font-size: ${props => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${props => (props.weight ? props.weight : "400")};
-  color: ${props => (props.color ? props.color : "#909090")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "400")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
   overflow: hidden;
   /* text-overflow: ellipsis; */
   white-space: nowrap;
@@ -150,11 +154,11 @@ const Text = styled.p`
 `;
 
 const CircleImage = styled.div`
-  width: ${props => props.size}rem;
-  height: ${props => props.size}rem;
-  border-radius: ${props => props.size}rem;
+  width: ${(props) => props.size}rem;
+  height: ${(props) => props.size}rem;
+  border-radius: ${(props) => props.size}rem;
 
-  background-image: url("${props =>
+  background-image: url("${(props) =>
     props.src
       ? props.src
       : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
@@ -187,7 +191,7 @@ const Button = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
   color: white;
   z-index: 1000;
 `;

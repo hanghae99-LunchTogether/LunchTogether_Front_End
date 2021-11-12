@@ -17,6 +17,7 @@ import LunchCreateUpdate from "../pages/LunchCreateUpdate";
 import ProfileUpdate from "../pages/ProfileUpdate";
 import LunchDetail from "../pages/LunchDetail";
 import Review from "../pages/Review";
+import Bookmark from "../pages/Bookmark";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -74,6 +75,7 @@ function App() {
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review/:lunchid" exact component={Review}></Route>
           <Route path="/component" exact component={ProfileLunchNew}></Route>
+          <Route path="/bookmark" exact component={Bookmark}></Route>
           <Route path="/pr" exact component={ProfileReviewItem}></Route>
         </Switch>
         <Footer />

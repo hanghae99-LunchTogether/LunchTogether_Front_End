@@ -165,7 +165,7 @@ export const apis = {
 
   //북마크 가져오기
   getBookmark: (lunchid) =>
-    instance.get(`/book/${lunchid}`, {
+    instance.get(`/book`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
