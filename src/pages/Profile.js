@@ -9,7 +9,6 @@ import ProfileRight from "../components/ProflieRight";
 
 const Profile = props => {
   const [user, setUser] = useState(null);
-  console.log(user);
 
   const userId = props.match.params.id;
 
@@ -30,7 +29,7 @@ const Profile = props => {
     <>
       {user && (
         <Wrapper>
-          <ProfileLeft {...user} />
+          <ProfileLeft user={user} />
           <ProfileRight {...user} />
         </Wrapper>
       )}
@@ -40,7 +39,6 @@ const Profile = props => {
 
 const Wrapper = styled.div`
   display: flex;
-  /* width: 100%; */
   max-width: 1920px;
   height: 100%;
   justify-content: center;
