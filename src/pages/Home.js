@@ -8,7 +8,7 @@ import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
 
-const Home = props => {
+const Home = (props) => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
@@ -56,7 +56,7 @@ const Home = props => {
 
 const Container = styled.div`
   max-width: 1200px;
-  margin: 0 auto 15px auto;
+  margin: 0 auto 60px auto;
 `;
 
 const Wrapper = styled.div`
@@ -118,6 +118,7 @@ const CurationTitle = styled.p`
     font-size: 1.6rem;
     font-weight: 700;
     color: #ffffff;
+    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
 
   @media only screen and (max-width: 768px) {

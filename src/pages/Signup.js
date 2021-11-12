@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import LogoImg from "../assets/logofooter.svg";
+import SignUpText from "../components/SignUpText";
 
 const Signup = (props) => {
   const [account, setAccount] = useState({
@@ -76,7 +77,7 @@ const Signup = (props) => {
           />
         </InputWrapper>
         <InputWrapper>
-          <Text> 비밀번호 확인 </Text>
+          <Text>비밀번호 확인</Text>
 
           <Input
             name="passwordCheck"
@@ -101,6 +102,7 @@ const Signup = (props) => {
         )}
         <Button onClick={signUp}>회원가입</Button>
       </Wrapper>
+      <SignUpText />
     </>
   );
 };
@@ -136,9 +138,9 @@ const InputWrapper = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 1em;
-  color: gray;
-  min-width: 90px;
+  font-size: 1.6rem;
+  color: #333;
+  min-width: 95px;
 `;
 
 const Input = styled.input`
@@ -146,7 +148,7 @@ const Input = styled.input`
   min-width: 260px;
   height: 48px;
   color: black;
-  font-size: 1em;
+  font-size: 1.6rem;
   padding: 12px 16px;
   border-radius: 6px;
   border: 1px solid #dfdfdf;
@@ -160,15 +162,14 @@ const Button = styled.button`
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   border: 1px solid #ff9841;
   border-radius: 6px;
-  background-color: white;
-  color: #ff9841;
+  background-color: #ff9841;
+  color: white;
 
   &:hover {
-    background-color: #ff9841;
-    color: white;
+    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
   ${(props) =>
     props.src
