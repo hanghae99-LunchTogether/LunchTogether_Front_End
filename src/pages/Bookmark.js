@@ -5,18 +5,22 @@ import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
 
 const Bookmark = (props) => {
-  const userId = useSelector((state) => state.user.user.userid);
-
+  console.log("프롭", props);
   const [bookmarkList, setBookmarkList] = useState([]);
 
-  const getProfile = async () => {
-    const data = await apis.getProfile(userId);
-    const bookmarkList = data.data.data.user.lunchs.bookmarked;
-    setBookmarkList(bookmarkList);
+  const getBookmarkData = async () => {
+    try {
+      const data = await apis.getBookmark();
+      console.log("데이터", data);
+      const bookmarkList = data.data.bookmarks;
+      setBookmarkList(bookmarkList);
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   useEffect(() => {
-    getProfile();
+    getBookmarkData();
   }, []);
 
   return (
@@ -66,6 +70,7 @@ const BookmarkList = styled.div`
 
 const FakeDiv = styled.div`
   width: 280px;
+  margin: 0 auto;
 `;
 
 export default Bookmark;
