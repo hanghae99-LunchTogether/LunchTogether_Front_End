@@ -175,8 +175,8 @@ export const apis = {
     }),
 
   //북마크 삭제
-  deleteBookmark: (bookmarkid) =>
-    instance.delete(`/book/${bookmarkid}`, {
+  deleteBookmark: (lunchid) =>
+    instance.delete(`/book/${lunchid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
