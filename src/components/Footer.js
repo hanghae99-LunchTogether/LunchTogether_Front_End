@@ -52,7 +52,11 @@ const Footer = (props) => {
                 <div>깃주소</div>
               </Git>
             </Member>
-            <C>
+            <C
+              onClick={() => {
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }}
+            >
               <img src={LogoImg} />
               <span>© 2021 Project Fork. All rights reserved.</span>
             </C>
@@ -193,7 +197,7 @@ const C = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  cursor: pointer;
   img {
     width: 8rem;
     height: 8rem;
