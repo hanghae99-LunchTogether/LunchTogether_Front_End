@@ -242,7 +242,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 5rem auto;
+  margin: 5rem auto 80px auto;
 `;
 
 const MenuTitleWrapper = styled.div`

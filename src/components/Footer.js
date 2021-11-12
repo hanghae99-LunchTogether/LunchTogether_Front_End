@@ -61,7 +61,6 @@ const Container = styled.div`
   max-width: 100%;
   margin: 0 auto;
   background-color: #e7dbd0;
-
   @media only screen and (max-width: 768px) {
     display: none;
   }
