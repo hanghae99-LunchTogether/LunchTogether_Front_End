@@ -12,16 +12,14 @@ import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
 const LunchNew = props => {
-  console.log(props);
   const user = useSelector(state => state.user.user);
   let participant = props.applicants?.findIndex(
     u => u.user.userid === user?.userid
   );
-  // console.log(participant);
+
   let owner = props.host?.userid === user?.userid ? true : false;
-  // console.log(owner);
+
   let lunchend = props.date < new Date();
-  console.log(lunchend);
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
 
