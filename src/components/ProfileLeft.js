@@ -18,7 +18,7 @@ const ProfileLeft = props => {
     nickname,
     snsurl,
     userid,
-  } = props;
+  } = props.user;
 
   return (
     <>

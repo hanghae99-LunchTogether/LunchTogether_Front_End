@@ -184,7 +184,10 @@ const ProfileUpdate = props => {
                     color: "#909090",
                   }}
                 >
-                  장소명: {userInfo?.locations.place_name}
+                  장소명:{" "}
+                  {userInfo?.locations.place_name
+                    ? userInfo?.locations.place_name
+                    : ""}
                 </Text>
                 <Text
                   style={{
@@ -194,10 +197,17 @@ const ProfileUpdate = props => {
                     color: "#909090",
                   }}
                 >
-                  주소: {userInfo?.locations.road_address_name}
+                  주소:{" "}
+                  {userInfo?.locations.road_address_name
+                    ? userInfo?.locations.road_address_name
+                    : ""}
                 </Text>
                 <a
-                  href={userInfo?.locations.place_url}
+                  href={
+                    userInfo?.locations.place_url
+                      ? userInfo?.locations.place_url
+                      : ""
+                  }
                   target="_blank"
                   style={{
                     cursor: "pointer",
