@@ -26,7 +26,6 @@ import CommentWrite from "../components/CommentWrite";
 import MemberList from "../pages/MemberList";
 import Notification from "../pages/Notification";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ProfileLunchNew from "../components/ProfileLunchNew";
 import ProfileReviewItem from "../components/ProfileReviewItem";
 import LunchDetailNew from "../pages/LunchDetailNew";
 
@@ -79,7 +78,6 @@ function App() {
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review/:lunchid" exact component={Review}></Route>
-          <Route path="/component" exact component={ProfileLunchNew}></Route>
           <Route path="/bookmark" exact component={Bookmark}></Route>
           <Route path="/pr" exact component={ProfileReviewItem}></Route>
         </Switch>
