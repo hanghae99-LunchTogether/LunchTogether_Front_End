@@ -67,7 +67,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  max-width: 1200px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -134,7 +134,8 @@ const CurationTitle = styled.p`
 `;
 
 const LunchList = styled.div`
-  width: 100%;
+  max-width: 1200px;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

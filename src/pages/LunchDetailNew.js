@@ -12,7 +12,6 @@ import DetailMember from "../components/DetailMember";
 
 const LunchDetailNew = props => {
   const user = useSelector(state => state.user);
-  console.log(user);
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
@@ -45,7 +44,7 @@ const LunchDetailNew = props => {
     }
     try {
       const data = await apis.applyLunch(lunchId);
-      history.push(`/lunchpost/${lunchId}`);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -54,7 +53,7 @@ const LunchDetailNew = props => {
   const cancelLunch = async () => {
     try {
       const data = await apis.cancelLunch(lunchId);
-      history.push(`/lunchpost/${lunchId}`);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -68,7 +67,6 @@ const LunchDetailNew = props => {
     <>
       {lunch && (
         <Wrapper>
-          {/* <img src="https://w.namu.la/s/05f1889f36069a0583e25ab2146c506e9175115142bdbe94e3691791eab9c7732cf672677d78710b3cf3cff89be1d6cb332984869290cc70648060d79e203b0b7b7af3c065dff21050b0db7e334a6595cc8ee70c596d0c8831febf54ec84ba73" /> */}
           <ELWrapper center margin="2rem 0 2rem 0">
             <Text
               size="4"
@@ -158,9 +156,9 @@ const LunchDetailNew = props => {
               </Text>
               <Text color="black" size="1.6">
                 {lunch.host.introduction &&
-                  lunch.host.introduction.split("\n").map(l => {
+                  lunch.host.introduction.split("\n").map((l, idx) => {
                     return (
-                      <span>
+                      <span key={idx}>
                         {l} <br />
                       </span>
                     );
@@ -224,10 +222,9 @@ const Wrapper = styled.div`
   width: 100%;
   flex-direction: column;
   justify-content: center;
-  padding: 3rem;
-  margin: 0rem auto;
+  padding: 10rem 3rem;
+  margin: 0 auto;
   background-color: white;
-  margin-bottom: 10rem;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;

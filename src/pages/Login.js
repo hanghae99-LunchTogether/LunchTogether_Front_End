@@ -8,13 +8,13 @@ import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 import LogoImg from "../assets/logofooter.svg";
 
-const Login = (props) => {
+const Login = props => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
@@ -36,7 +36,7 @@ const Login = (props) => {
   const loginWithKakao = () => {
     // 카카오 로그인
     Kakao.Auth.login({
-      success: (authObj) => {
+      success: authObj => {
         console.log(authObj);
 
         // 유저정보 요청코드
@@ -69,7 +69,7 @@ const Login = (props) => {
     });
   };
 
-  const error = useSelector((state) => state.user.error);
+  const error = useSelector(state => state.user.error);
 
   return (
     <>
@@ -122,9 +122,12 @@ const Login = (props) => {
           style={{
             width: "400px",
             textAlign: "center",
-            fontSize: "1.4rem",
+            fontSize: "1.8rem",
+            fontWeight: "700",
             color: "white",
             cursor: "pointer",
+            marginTop: "2rem",
+            marginBottm: "8rem",
           }}
           onClick={() => history.push("/signup")}
         >
@@ -151,7 +154,7 @@ const Wrapper = styled.div`
 const Logo = styled.div`
   width: 100px;
   height: 100px;
-  margin-bottom: 8rem;
+  margin-bottom: 5rem;
 `;
 
 const InputWrapper = styled.div`
@@ -166,8 +169,9 @@ const InputWrapper = styled.div`
 
 const Text = styled.p`
   font-size: 1.6rem;
-  color: gray;
+  color: white;
   min-width: 80px;
+  font-weight: 700;
 `;
 
 const Input = styled.input`
@@ -198,7 +202,7 @@ const Button = styled.button`
   &:hover {
     box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
-  ${(props) =>
+  ${props =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}

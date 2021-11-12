@@ -91,7 +91,7 @@ const Review = props => {
       <Wrapper onClick={() => history.goBack()}>
         <ReviewContainar onClick={e => e.stopPropagation()}>
           {applicants?.map((u, idx) => {
-            <div> u.user.userid</div>;
+            <div key={idx}> u.user.userid</div>;
           })}
           <Exit onClick={() => history.goBack()} src={Cross}></Exit>
           <h1>점심식사 리뷰 남기기</h1>
@@ -100,7 +100,7 @@ const Review = props => {
           </h2>
           {applicants?.map((u, idx) => {
             return (
-              <ReviewWrap>
+              <ReviewWrap key={idx}>
                 <ReviewCard>
                   <UserInfo>
                     <User>

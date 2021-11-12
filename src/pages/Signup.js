@@ -7,7 +7,7 @@ import { userActions } from "../redux/modules/user";
 import LogoImg from "../assets/logofooter.svg";
 import SignUpText from "../components/SignUpText";
 
-const Signup = (props) => {
+const Signup = props => {
   const [account, setAccount] = useState({
     email: "",
     nickname: "",
@@ -15,7 +15,7 @@ const Signup = (props) => {
     passwordCheck: "",
   });
 
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
@@ -27,7 +27,7 @@ const Signup = (props) => {
   };
 
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.user.error);
+  const error = useSelector(state => state.user.error);
 
   const signUp = () => {
     dispatch(userActions.signUpAPI(account));
@@ -139,8 +139,9 @@ const InputWrapper = styled.div`
 
 const Text = styled.p`
   font-size: 1.6rem;
-  color: #333;
+  color: white;
   min-width: 95px;
+  font-weight: 700;
 `;
 
 const Input = styled.input`
@@ -171,7 +172,7 @@ const Button = styled.button`
   &:hover {
     box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
-  ${(props) =>
+  ${props =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
@@ -6,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const DetailMember = props => {
   const user = useSelector(state => state.user);
-  console.log(user);
   const { applicant, lunch } = props;
   const [active, setActive] = useState(user?.confirmed);
 
@@ -18,11 +19,9 @@ const DetailMember = props => {
       confirmed: bool,
       comment: "꺼지셈",
     };
-    console.log(userid);
     try {
       const data = await apis.approveMember(lunch?.lunchid, approval);
-      console.log(data);
-      history.go(0);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
