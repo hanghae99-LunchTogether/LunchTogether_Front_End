@@ -5,23 +5,13 @@ import { history } from "../redux/configureStore";
 
 import LogoImg from "../assets/logofooter.svg";
 
-const Footer = (props) => {
-  const user = useSelector((state) => state.user.user);
+const Footer = props => {
+  const user = useSelector(state => state.user.user);
 
   return (
     <Container>
       <FooterWrap>
         <Info>
-          <Nav>
-            <span
-              onClick={() => {
-                user ? history.push("/lunchregister") : history.push("/login");
-              }}
-            >
-              점심약속 등록하기
-            </span>
-          </Nav>
-          <hr />
           <Bottom>
             <Member>
               <Front>
