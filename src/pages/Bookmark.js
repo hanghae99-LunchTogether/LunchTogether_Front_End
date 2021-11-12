@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import LunchNew from "../components/LunchNew";
-
 import { useSelector } from "react-redux";
 
 const Bookmark = (props) => {
@@ -41,17 +40,6 @@ const Wrap = styled.div`
   align-items: center;
   padding: 5rem 0;
   min-height: 100vh;
-  /* max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  @media only screen and (max-width: 768px) {
-    min-width: 375px;
-    padding: 0 3.2rem;
-  } */
 `;
 
 const Title = styled.h1`

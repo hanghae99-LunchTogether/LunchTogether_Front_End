@@ -4,7 +4,7 @@ import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import moment from "moment";
 import "moment/locale/ko";
-
+import { useSelector } from "react-redux";
 import { apis } from "../shared/axios";
 
 import ProfileImg from "../assets/profile.png";
@@ -17,16 +17,11 @@ const LunchNew = (props) => {
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
   const adressDong = locations?.address_name.split(" ")[2];
-  const [modalOpen, setModalOpen] = useState(false);
-
-  //북마크
-  const [bookmark, setBookmark] = useState(0);
 
   const getBookmarkData = async () => {
     try {
       const data = await apis.getBookmark();
       console.log("데이터", data);
-      const bookmarkList = data.data.bookmarks;
     } catch (error) {
       console.log(error.response);
     }
@@ -40,9 +35,6 @@ const LunchNew = (props) => {
     try {
       const data = await apis.addBookmark(lunchid);
       console.log("추가", data);
-      // const newLunchId = data.data.book.lunchid;
-      // console.log("런치아이디", newLunchId);
-      // history.push(`/book/${newLunchId}`);
     } catch (error) {
       console.log(error.response);
     }
