@@ -82,7 +82,7 @@ const MemberListWrap = styled.div`
   margin: auto;
   box-sizing: border-box;
   @media only screen and (max-width: 768px) {
-    margin: 0 auto 80px 0;
+    margin: 0 auto 75px auto;
   }
 `;
 
