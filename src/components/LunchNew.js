@@ -10,9 +10,12 @@ import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
+import { useHistory } from "react-router";
 
 const LunchNew = (props) => {
+  console.log("이거??", props);
   const user = useSelector((state) => state.user.user);
+
   let participant = props.applicants?.findIndex(
     (u) => u.user.userid === user?.userid
   );
@@ -20,6 +23,7 @@ const LunchNew = (props) => {
   let owner = props.host?.userid === user?.userid ? true : false;
 
   let lunchend = props.date < new Date();
+
   const {
     title,
     host,
@@ -30,6 +34,7 @@ const LunchNew = (props) => {
     applicants,
     bk_num,
     completed,
+    isbook,
   } = props;
 
   const strDate = String(date);
@@ -48,35 +53,18 @@ const LunchNew = (props) => {
   validateReview();
 
   //북마크
-  const [bookmarkFilled, setBookmarkFilled] = useState(false);
 
-  const userId = user.userid;
-
-  const [bookmarkList, setBookmarkList] = useState([]);
-
-  const getProfile = async () => {
-    const data = await apis.getProfile(userId);
-    const bookmarkList = data.data.data.user.lunchs.bookmarked;
-    console.log("사용할것", bookmarkList);
-    setBookmarkList(bookmarkList);
+  const getBookmarkData = async () => {
+    try {
+      const data = await apis.getBookmark();
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   useEffect(() => {
-    getProfile();
+    getBookmarkData();
   }, []);
-
-  // const getBookmarkData = async () => {
-  //   try {
-  //     const data = await apis.getBookmark();
-  //     console.log("데이터", data);
-  //   } catch (error) {
-  //     console.log(error.response);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getBookmarkData();
-  // }, []);
 
   const addBookmarkData = async () => {
     try {
@@ -87,22 +75,13 @@ const LunchNew = (props) => {
     }
   };
 
-  const deleteBookmarkData = async () => {
-    try {
-      const data = await apis.deleteBookmark(lunchid);
-      console.log("삭제", data);
-      getProfile();
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+  const [active, setActive] = useState(false);
 
   const clickBookmark = () => {
-    // addBookmarkData();
-    deleteBookmarkData();
-    setBookmarkFilled(!bookmarkFilled);
+    addBookmarkData();
   };
 
+  //리뷰
   const goToReview = () => {
     if (applicants.length < 1) {
       window.alert("참여자가 없어요!");
@@ -165,7 +144,7 @@ const LunchNew = (props) => {
               clickBookmark();
             }}
           >
-            <img src={bookmarkFilled ? BookmarkImgFilled : BookmarkImg} />
+            <img src={isbook ? BookmarkImgFilled : BookmarkImg} />
             <span>{bk_num}</span>
           </Bookmark>
         </ELWrapper>
