@@ -19,8 +19,19 @@ const LunchNew = props => {
   let owner = props.host?.userid === user?.userid ? true : false;
 
   let lunchend = props.date < new Date();
-  const { title, host, lunchid, date, locations, membernum, applicants } =
-    props;
+  console.log(props);
+  const {
+    title,
+    host,
+    lunchid,
+    date,
+    locations,
+    membernum,
+    applicants,
+    completed,
+  } = props;
+
+  console.log(completed);
 
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
@@ -67,9 +78,17 @@ const LunchNew = props => {
     }
   };
 
+  const goToReview = () => {
+    if (applicants.length < 1) {
+      window.alert("참여자가 없어요!");
+      return;
+    }
+    history.push(`/review/${lunchid}`);
+  };
+
   return (
     <>
-      <Wrapper>
+      <Wrapper completed={completed}>
         <ELWrapper
           margin="0 0 1rem 0"
           flex
@@ -121,9 +140,7 @@ const LunchNew = props => {
             <span>3</span>
           </Bookmark>
         </ELWrapper>
-        {/* <Button onClick={() => history.push(`/review/${lunchid}`)}>
-          리뷰 남기기
-        </Button> */}
+        {completed && <Button onClick={goToReview}>리뷰 남기기</Button>}
       </Wrapper>
     </>
   );
@@ -131,7 +148,7 @@ const LunchNew = props => {
 
 const Wrapper = styled.div`
   width: 280px;
-  height: 270px;
+  height: ${props => (props.completed ? "320px" : "270px")};
   padding: 2rem;
   background-color: white;
   box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16);
@@ -203,7 +220,7 @@ const Bookmark = styled.div`
 
 const Button = styled.button`
   width: 100%;
-  height: 2rem;
+  height: 3rem;
   font-weight: bold;
   font-size: 1.2rem;
   border-radius: 5px;
@@ -211,6 +228,7 @@ const Button = styled.button`
   background-color: ${props => (props.bg ? props.bg : "#ff9841")};
   color: white;
   z-index: 1000;
+  margin-top: 1rem;
 `;
 
 export default LunchNew;
