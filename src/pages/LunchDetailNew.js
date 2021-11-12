@@ -45,7 +45,7 @@ const LunchDetailNew = props => {
     }
     try {
       const data = await apis.applyLunch(lunchId);
-      history.push(`/lunchpost/${lunchId}`);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -54,7 +54,7 @@ const LunchDetailNew = props => {
   const cancelLunch = async () => {
     try {
       const data = await apis.cancelLunch(lunchId);
-      history.push(`/lunchpost/${lunchId}`);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
