@@ -12,6 +12,7 @@ import DetailMember from "../components/DetailMember";
 
 const LunchDetailNew = props => {
   const user = useSelector(state => state.user);
+  console.log(user);
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
@@ -44,7 +45,7 @@ const LunchDetailNew = props => {
     }
     try {
       const data = await apis.applyLunch(lunchId);
-      history.go(0);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -53,7 +54,7 @@ const LunchDetailNew = props => {
   const cancelLunch = async () => {
     try {
       const data = await apis.cancelLunch(lunchId);
-      history.go(0);
+      history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
