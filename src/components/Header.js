@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = (props) => {
+const Header = props => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(state => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -117,12 +117,12 @@ const HeaderWrap = styled.div`
   button {
     border: none;
     background-color: #ffffff;
-    font-size: 1rem;
+    font-size: 1.5rem;
     line-height: 2.2rem;
     color: #3c3c3c;
     padding: 0;
     margin-left: 1.6rem;
-    font-weight: 700;
+    font-weight: 400;
   }
 
   @media only screen and (max-width: 768px) {

@@ -23,13 +23,14 @@ const Home = (props) => {
     <>
       <Container>
         <Wrapper>
-          <Banner />
+          {/* <Banner /> */}
           <CurationTitle>
             <div>
-              <h1>오늘의 점심약속을 만나보세요🍱</h1>
-              <h2>
-                원하시는 점심약속을 찾아보고 새로운 사람과 교류를 늘려보세요
-              </h2>
+              <h1>
+                오늘의 점심약속을 <br />
+                잡아보세요
+              </h1>
+              <h2>가까운 사람들과 점심을 함께해요.</h2>
             </div>
             <button
               onClick={() => {
@@ -43,9 +44,9 @@ const Home = (props) => {
             {lunchList.map((l, idx) => {
               return <LunchNew {...l} key={idx} />;
             })}
+            {/* <FakeDiv />
             <FakeDiv />
-            <FakeDiv />
-            <FakeDiv />
+            <FakeDiv /> */}
           </LunchList>
         </Wrapper>
       </Container>
@@ -55,7 +56,8 @@ const Home = (props) => {
 
 const Container = styled.div`
   max-width: 1200px;
-  margin: 0 auto 15px auto;
+  height: 100%;
+  margin: 0 auto 10rem auto;
 `;
 
 const Wrapper = styled.div`
@@ -82,23 +84,29 @@ const Banner = styled.div`
 
 const CurationTitle = styled.p`
   width: 100%;
+  height: 30vh;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 5rem 0 2rem 0;
+  margin: 10rem 0 5rem 0;
 
   h1 {
-    font-size: 2.4rem;
-    line-height: 2rem;
+    font-size: 5rem;
+    line-height: 5rem;
     color: white;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 3rem;
     line-height: 3rem;
     color: white;
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 5rem;
   }
 
   button {
@@ -140,7 +148,7 @@ const LunchList = styled.div`
 `;
 
 const FakeDiv = styled.div`
-  width: 280px;
+  width: 193px;
 `;
 
 export default Home;

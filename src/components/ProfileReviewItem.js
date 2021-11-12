@@ -5,7 +5,7 @@ import { history } from "../redux/configureStore";
 import ProfileImg from "../assets/profile.png";
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
-const ProfileReviewItem = (props) => {
+const ProfileReviewItem = props => {
   const { reviews } = props;
   console.log("정보가있나?", reviews);
 
