@@ -102,7 +102,7 @@ const LunchNew = props => {
             {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
           </Text>
           <Text weight="800" size="1.4">
-            {applicants?.length}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
           </Text>
         </ELWrapper>
         <ELWrapper

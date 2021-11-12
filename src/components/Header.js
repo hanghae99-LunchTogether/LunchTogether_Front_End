@@ -117,9 +117,8 @@ const HeaderWrap = styled.div`
   }
 
   @media only screen and (max-width: 768px) {
-    min-width: 375px;
+    width: 100%;
     min-height: 50px;
-    padding: 0 5rem 0 0;
   } ;
 `;
 
@@ -135,10 +134,11 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
-  margin-right: 5rem;
+
   button {
     display: flex;
     justify-content: center;
+    font-weight: 700;
   }
 
   div {
