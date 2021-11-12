@@ -10,17 +10,17 @@ import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
+
 const LunchNew = (props) => {
   console.log(props);
   const user = useSelector((state) => state.user.user);
   let participant = props.applicants?.findIndex(
     (u) => u.user.userid === user?.userid
   );
-  // console.log(participant);
+
   let owner = props.host?.userid === user?.userid ? true : false;
-  // console.log(owner);
+
   let lunchend = props.date < new Date();
-  console.log(lunchend);
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
 
@@ -143,10 +143,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  margin: 0 auto;
 
   @media only screen and (max-width: 768px) {
-    margin: auto;
-    height: 200px;
+    justify-content: center;
+    width: 300px;
+    height: 250px;
   }
 `;
 
