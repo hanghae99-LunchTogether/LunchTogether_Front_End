@@ -77,7 +77,6 @@ const Login = (props) => {
         <Logo>
           <img src={LogoImg} />
         </Logo>
-
         <InputWrapper>
           <Text> 이메일</Text>
 
@@ -114,7 +113,7 @@ const Login = (props) => {
             {error}
           </Text>
         )}
-        <Button onClick={logIn}>로그인</Button>
+        <Button onClick={logIn}>이메일로 시작하기</Button>
         <Button
           src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
           onClick={loginWithKakao}
@@ -123,8 +122,8 @@ const Login = (props) => {
           style={{
             width: "400px",
             textAlign: "center",
-            fontSize: "1em",
-            color: "#c4c4c7",
+            fontSize: "1.4rem",
+            color: "white",
             cursor: "pointer",
           }}
           onClick={() => history.push("/signup")}
@@ -146,7 +145,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 8.5rem auto;
+  margin: 10rem auto;
 `;
 
 const Logo = styled.div`
@@ -166,7 +165,7 @@ const InputWrapper = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 1rem;
+  font-size: 1.6rem;
   color: gray;
   min-width: 80px;
 `;
@@ -175,7 +174,7 @@ const Input = styled.input`
   width: 100%;
   height: 48px;
   color: black;
-  font-size: 1rem;
+  font-size: 1.6rem;
   padding: 12px 16px;
   border-radius: 6px;
   border: 1px solid #dfdfdf;
@@ -188,18 +187,16 @@ const Button = styled.button`
   height: 48px;
   font-family: NotoSansKR;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   border: 1px solid #ff9841;
   border-radius: 6px;
-  background-color: white;
-  color: #ff9841;
+  background-color: #ff9841;
+  color: white;
   margin: 1rem 3rem;
-
   min-width: 350px;
 
   &:hover {
-    background-color: #ff9841;
-    color: white;
+    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
   ${(props) =>
     props.src
