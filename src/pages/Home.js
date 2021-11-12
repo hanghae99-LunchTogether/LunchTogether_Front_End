@@ -56,8 +56,7 @@ const Home = props => {
 
 const Container = styled.div`
   max-width: 1200px;
-  height: 100%;
-  margin: 0 auto 10rem auto;
+  margin: 0 auto 15px auto;
 `;
 
 const Wrapper = styled.div`

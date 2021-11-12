@@ -39,7 +39,7 @@ const MemberList = (props) => {
         />
       </InputBox>
       <MemberListWrap>
-        {alluser?.map((user, idx) => {
+        {alluser.map((user, idx) => {
           return <MemberListCard {...user} key={idx} />;
         })}
       </MemberListWrap>
@@ -78,9 +78,12 @@ const MemberListWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-width: 350px;
-  max-width: 600px;
+  max-width: 750px;
   margin: auto;
   box-sizing: border-box;
+  @media only screen and (max-width: 768px) {
+    margin: 0 auto 75px auto;
+  }
 `;
 
 const UpScroll = styled.div`

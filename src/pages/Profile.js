@@ -7,7 +7,7 @@ import { history } from "../redux/configureStore";
 import ProfileLeft from "../components/ProfileLeft";
 import ProfileRight from "../components/ProflieRight";
 
-const Profile = props => {
+const Profile = (props) => {
   const [user, setUser] = useState(null);
   console.log(user);
 
@@ -46,6 +46,7 @@ const Wrapper = styled.div`
   @media only screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 45px;
   }
 `;
 
