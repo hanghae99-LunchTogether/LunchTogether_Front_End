@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
+import LogoImg from "../assets/logofooter.svg";
 
 const Signup = (props) => {
   const [account, setAccount] = useState({
@@ -34,7 +35,9 @@ const Signup = (props) => {
   return (
     <>
       <Wrapper>
-        <Logo />
+        <Logo>
+          <img src={LogoImg} />
+        </Logo>
 
         <InputWrapper>
           <Text> 이메일</Text>
@@ -120,7 +123,6 @@ const Logo = styled.div`
   width: 100px;
   height: 100px;
   margin: auto;
-  background-color: #ff9841;
   margin-bottom: 8em;
 `;
 
