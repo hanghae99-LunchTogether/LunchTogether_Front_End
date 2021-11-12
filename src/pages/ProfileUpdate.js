@@ -9,7 +9,7 @@ import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
-const ProfileUpdate = props => {
+const ProfileUpdate = (props) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const [preview, setPreview] = useState(null);
@@ -18,7 +18,7 @@ const ProfileUpdate = props => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const userId = props.match.params.id;
 
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -28,7 +28,7 @@ const ProfileUpdate = props => {
     });
   };
 
-  const setLocation = place => {
+  const setLocation = (place) => {
     setUserInfo({
       ...userInfo,
       locations: place,
@@ -62,7 +62,7 @@ const ProfileUpdate = props => {
   };
   console.log(userInfo);
 
-  const onSearchKeywordChange = e => {
+  const onSearchKeywordChange = (e) => {
     setPlaceInput(e.target.value);
   };
 
@@ -166,7 +166,7 @@ const ProfileUpdate = props => {
             />
             <SearchButton onClick={searchPlace}>검색</SearchButton>
           </InputWrapper>
-          {userInfo && (
+          {userInfo?.locations && (
             <InputWrapper>
               <FakeDiv />
               <SelectedPlace
@@ -232,7 +232,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 5rem auto;
+  margin: 5rem auto 80px auto;
 `;
 
 const MenuTitleWrapper = styled.div`
