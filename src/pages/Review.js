@@ -56,8 +56,11 @@ const Review = props => {
     targetuserid: 0,
     spoon: currentValue,
     comment: content,
-    lunchid: 0,
+    lunchid: lunchId,
   };
+
+  // 파라미터
+  // targetuserid, spoon , comment, lunchid
 
   const addReviewData = async e => {
     try {
@@ -71,7 +74,7 @@ const Review = props => {
       }
       const data = await apis.addReview(review);
       console.log(data);
-      history.goBack();
+      // history.goBack();
     } catch (error) {
       console.log(error.response);
     }

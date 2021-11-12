@@ -1,15 +1,13 @@
-import { tooltipClasses } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import LunchNew from "./LunchNew";
 import ProfileReviewItem from "./ProfileReviewItem";
-import useTabs from "../shared/useTabs";
 import moment from "moment";
 
 const ProflieRight = props => {
   const { lunchs, usersReviews } = props;
-  console.log(lunchs);
+  console.log(usersReviews);
 
   const today = moment(new Date()).format();
 
@@ -20,8 +18,6 @@ const ProflieRight = props => {
   const completedLunch = totalLunch.filter(
     l => moment(l.date).format() < today
   );
-
-  console.log(scheduledLunch);
 
   const [tabs, setTabs] = useState([
     {
@@ -73,16 +69,15 @@ const ProflieRight = props => {
         ))}
       </ElWrapper>
       <LunchListWrapper>
-        {console.log(tabs[index].content)}
         {tabs[index].content.map((l, idx) =>
           index !== 2 ? (
             index === 0 ? (
-              <LunchNew {...l} />
+              <LunchNew key={idx} {...l} />
             ) : (
-              <LunchNew completed {...l} />
+              <LunchNew key={idx} completed {...l} />
             )
           ) : (
-            <ProfileReviewItem reviews={usersReviews} />
+            <ProfileReviewItem key={idx} reviews={usersReviews} />
           )
         )}
         <FakeDiv />

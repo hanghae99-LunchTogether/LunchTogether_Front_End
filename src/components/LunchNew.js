@@ -19,7 +19,6 @@ const LunchNew = props => {
   let owner = props.host?.userid === user?.userid ? true : false;
 
   let lunchend = props.date < new Date();
-  console.log(props);
   const {
     title,
     host,
@@ -30,8 +29,6 @@ const LunchNew = props => {
     applicants,
     completed,
   } = props;
-
-  console.log(completed);
 
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
