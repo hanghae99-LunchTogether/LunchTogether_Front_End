@@ -36,16 +36,6 @@ const Header = props => {
                 >
                   <img src={LogoImg} />
                 </Logo>
-                <button
-                  onClick={() => {
-                    history.push("/");
-                  }}
-                >
-                  홈
-                </button>
-                <button onClick={() => history.push(`/lunchregister`)}>
-                  점심약속 등록하기
-                </button>
               </Left>
               <Right>
                 <button onClick={logOut}>로그아웃</button>
@@ -155,7 +145,6 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   margin-right: 3rem;
-
   button {
     display: flex;
     justify-content: center;
