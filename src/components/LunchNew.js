@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Grid } from "../elements";
@@ -137,7 +139,6 @@ const LunchNew = props => {
             <span>3</span>
           </Bookmark>
         </ELWrapper>
-        {completed && <Button onClick={goToReview}>리뷰 남기기</Button>}
       </Wrapper>
     </>
   );
@@ -145,7 +146,7 @@ const LunchNew = props => {
 
 const Wrapper = styled.div`
   width: 280px;
-  height: ${props => (props.completed ? "320px" : "270px")};
+  height: "270px";
   padding: 2rem;
   background-color: white;
   box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16);

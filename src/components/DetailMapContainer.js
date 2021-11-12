@@ -4,7 +4,6 @@ const { kakao } = window;
 
 const DetailMapContainer = props => {
   const location = props.location;
-  console.log(location);
   useEffect(() => {
     var mapContainer = document.getElementById("myMap"), // 지도를 표시할 div
       mapOption = {
@@ -25,7 +24,7 @@ const DetailMapContainer = props => {
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
 
-    var iwContent = `<div style="padding:15px; text-align: center; font-size: 1.6rem; font-weight: 700">${location?.place_name} <br><br><a href=${location?.place_url} style="color:blue;"target="_blank">카카오맵 보기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var iwContent = `<div style="padding:10px; text-align: center; font-size: 1rem; font-weight: 600">${location?.place_name} <br><br><a href=${location?.place_url} style="color:blue;"target="_blank">카카오맵 보기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
       iwPosition = new kakao.maps.LatLng(location?.y, location?.x); //인포윈도우 표시 위치입니다
 
     // 인포윈도우를 생성합니다

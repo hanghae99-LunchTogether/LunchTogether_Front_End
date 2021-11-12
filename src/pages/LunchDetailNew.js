@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
@@ -6,6 +8,7 @@ import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import moment from "moment";
 import "moment/locale/ko";
+import DetailMember from "../components/DetailMember";
 
 const LunchDetailNew = props => {
   const user = useSelector(state => state.user);
@@ -139,7 +142,10 @@ const LunchDetailNew = props => {
             호스트 소개
           </Text>
           <ELWrapper flex>
-            <CircleImage size="10" />
+            <CircleImage
+              size="10"
+              src={lunch.host.image ? lunch.host.image : "../assets/cc.png"}
+            />
             <ELWrapper style={{ marginLeft: "2rem" }}>
               <Text size="1.6">호스트</Text>
               <Text
@@ -167,42 +173,9 @@ const LunchDetailNew = props => {
             신청자
           </Text>
           <ELWrapper flex>
-            {lunch.applicants.map((u, idx) => {
-              return (
-                <ELWrapper
-                  key={idx}
-                  flex
-                  style={{
-                    flexDirection: "column",
-                    alignItems: "center",
-                    margin: "0 2rem 1rem 0",
-                  }}
-                >
-                  <CircleImage
-                    size="10"
-                    style={{ marginBottom: "1rem" }}
-                    src={u.user.image}
-                    onClick={() => history.push(`/profile/${u.user.userid}`)}
-                  />
-                  <Text
-                    color="black"
-                    size="1.6"
-                    weight="600"
-                    lineheight="3"
-                    style={{ textAlign: "center" }}
-                  >
-                    {u.user.nickname}
-                  </Text>
-                  <Text
-                    color="black"
-                    size="1.6"
-                    style={{ textAlign: "center" }}
-                  >
-                    {u.user.job ? u.user.job : <div> &nbsp;</div>}
-                  </Text>
-                </ELWrapper>
-              );
-            })}
+            {lunch.applicants.map((u, idx) => (
+              <DetailMember applicant={u} key={idx} lunch={lunch} />
+            ))}
           </ELWrapper>
           <hr style={{ margin: "4rem 0" }} />
           <Text color="black" size="2" weight="800" lineheight="3">
@@ -218,19 +191,6 @@ const LunchDetailNew = props => {
                 ? lunch.locations.road_address_name
                 : lunch.locations.address_name}
             </Text>
-            {/* <a
-              href={lunch.locations.place_url}
-              target="_blank"
-              style={{
-                cursor: "pointer",
-                lineHeight: "3",
-                fontSize: "1.6rem",
-                color: "#909090",
-                marginBottom: "5rem",
-              }}
-            >
-              카카오맵 링크: &nbsp;{lunch.locations.place_url}
-            </a> */}
 
             <DetailMapContainer
               style={{ marginTop: "2rem" }}
@@ -305,13 +265,10 @@ const CircleImage = styled.div`
   height: ${props => props.size}rem;
   border-radius: ${props => props.size}rem;
 
-  background-image: url("${props =>
-    props.src
-      ? props.src
-      : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
+  background-image: url("${props => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: top;
+  background-position: center;
 `;
 
 const Button = styled.button`
@@ -324,6 +281,18 @@ const Button = styled.button`
   background-color: ${props => (props.bg ? props.bg : "#ff9841")};
   color: white;
   margin-bottom: 2rem;
+`;
+
+const ApproveBtn = styled.button`
+  width: 80%;
+  height: 4rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  color: white;
+  margin-top: 1rem;
 `;
 
 export default LunchDetailNew;

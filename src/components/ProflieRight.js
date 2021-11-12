@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
@@ -7,7 +9,6 @@ import moment from "moment";
 
 const ProflieRight = props => {
   const { lunchs, usersReviews } = props;
-  console.log(usersReviews);
 
   const today = moment(new Date()).format();
 
@@ -30,11 +31,11 @@ const ProflieRight = props => {
       active: false,
       content: completedLunch,
     },
-    {
-      title: "리뷰",
-      active: false,
-      content: [1, 2, 3],
-    },
+    // {
+    //   title: "리뷰",
+    //   active: false,
+    //   content: [1, 2, 3],
+    // },
   ]);
   const [index, setIndex] = useState(0);
 
@@ -54,7 +55,11 @@ const ProflieRight = props => {
       </Text>
       <ElWrapper>
         {tabs.map((tab, idx) => (
-          <TabWrapper onClick={() => changeTab(idx)} active={tab.active}>
+          <TabWrapper
+            key={idx}
+            onClick={() => changeTab(idx)}
+            active={tab.active}
+          >
             {tab.title}
             {tab.active && (
               <hr
@@ -69,16 +74,16 @@ const ProflieRight = props => {
         ))}
       </ElWrapper>
       <LunchListWrapper>
-        {tabs[index].content.map((l, idx) =>
-          index !== 2 ? (
+        {tabs[index].content.map(
+          (l, idx) =>
+            // index !== 2 ? (
             index === 0 ? (
               <LunchNew key={idx} {...l} />
             ) : (
               <LunchNew key={idx} completed {...l} />
             )
-          ) : (
-            <ProfileReviewItem key={idx} reviews={usersReviews} />
-          )
+
+          // <ProfileReviewItem key={idx} reviews={usersReviews} />
         )}
         <FakeDiv />
       </LunchListWrapper>

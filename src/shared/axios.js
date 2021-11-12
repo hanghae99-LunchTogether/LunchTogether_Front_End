@@ -158,7 +158,7 @@ export const apis = {
     }),
 
   approveMember: (lunchid, approval) =>
-    instance.patch(`/applicant/approved/${lunchid}`, approval, {
+    instance.patch(`/applicant/${lunchid}`, approval, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 

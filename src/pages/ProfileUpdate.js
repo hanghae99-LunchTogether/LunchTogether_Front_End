@@ -166,7 +166,7 @@ const ProfileUpdate = props => {
             />
             <SearchButton onClick={searchPlace}>검색</SearchButton>
           </InputWrapper>
-          {userInfo && (
+          {userInfo?.locations && (
             <InputWrapper>
               <FakeDiv />
               <SelectedPlace

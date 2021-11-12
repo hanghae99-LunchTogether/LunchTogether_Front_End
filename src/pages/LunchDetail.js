@@ -14,13 +14,13 @@ import { GiKnifeFork } from "react-icons/gi";
 import { Avatar } from "@mui/material";
 import LunchMemberCard from "../components/LunchMemberCard";
 
-const LunchDetail = (props) => {
+const LunchDetail = props => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector(state => state.user.user);
   console.log(user_info);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   const lunchId = props.match.params.lunchid;
 

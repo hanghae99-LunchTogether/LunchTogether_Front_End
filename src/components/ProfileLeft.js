@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
@@ -42,9 +44,9 @@ const ProfileLeft = props => {
         <ELWrapper margin="0 0 2rem 0">
           <Text size="1.4">
             {introduction &&
-              introduction.split("\n").map(l => {
+              introduction.split("\n").map((l, idx) => {
                 return (
-                  <span>
+                  <span key={idx}>
                     {l} <br />
                   </span>
                 );

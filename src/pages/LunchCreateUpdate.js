@@ -11,7 +11,7 @@ import DetailMapContainer from "../components/DetailMapContainer";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
-const LunchCreateUpdate = (props) => {
+const LunchCreateUpdate = props => {
   const targetUser = props.match.params.userid ? props.match.params.userid : "";
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -20,18 +20,18 @@ const LunchCreateUpdate = (props) => {
     title: "",
     content: "",
     locations: "",
-    membernum: "",
+    membernum: "2",
     date: "",
   });
 
-  const setLocation = (place) => {
+  const setLocation = place => {
     setLunch({
       ...lunch,
       locations: place,
     });
   };
 
-  const setDate = (date) => {
+  const setDate = date => {
     setLunch({
       ...lunch,
       date: date,
@@ -44,8 +44,9 @@ const LunchCreateUpdate = (props) => {
   const getLunchData = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
-      const lunch = data.data.data.lunch;
-      setLunch(lunch);
+      const _lunch = data.data.data.lunch;
+      console.log(_lunch);
+      setLunch(_lunch);
     } catch (error) {
       console.log(error);
     }
@@ -60,17 +61,15 @@ const LunchCreateUpdate = (props) => {
     }
   };
 
-  const onChange = (e) => {
+  const onChange = e => {
     const {
       target: { name, value },
     } = e;
     setLunch({
       ...lunch,
       [name]: value,
-      membernum: undefined && 2,
     });
   };
-  console.log(lunch.membernum);
 
   useEffect(() => {
     if (lunchId) {
@@ -80,7 +79,7 @@ const LunchCreateUpdate = (props) => {
     }
   }, []);
 
-  const onSearchKeywordChange = (e) => {
+  const onSearchKeywordChange = e => {
     setPlaceInput(e.target.value);
   };
 
@@ -108,8 +107,13 @@ const LunchCreateUpdate = (props) => {
   };
 
   const updateLunch = async () => {
+    for (const option in lunch) {
+      if (lunch[option] === null && option !== "duration") {
+        window.alert(`${option}값을 확인해주세요`);
+        return;
+      }
+    }
     console.log(lunch);
-
     try {
       const data = await apis.updateLunch(lunchId, lunch);
       console.log(data);
@@ -120,7 +124,6 @@ const LunchCreateUpdate = (props) => {
   };
 
   const deleteLunch = async () => {
-    console.log("클릭");
     try {
       const data = await apis.deleteLunch(lunchId);
       console.log(data);
@@ -220,12 +223,9 @@ const LunchCreateUpdate = (props) => {
             <Select
               name="membernum"
               onChange={onChange}
-              defaultValue="2"
-              value={lunch?.membernum ? lunch?.membernum : 2}
+              value={lunch?.membernum ? lunch?.membernum : "2"}
             >
-              <option value="2" selected>
-                2
-              </option>
+              <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
             </Select>
@@ -234,10 +234,14 @@ const LunchCreateUpdate = (props) => {
           {is_edit ? (
             <>
               <Button onClick={updateLunch}>수정하기</Button>{" "}
-              <Button onClick={deleteLunch}>삭제하기</Button>{" "}
+              <Button style={{ marginBottom: "8rem" }} onClick={deleteLunch}>
+                삭제하기
+              </Button>{" "}
             </>
           ) : (
-            <Button onClick={addLunch}>등록하기</Button>
+            <Button style={{ marginBottom: "8rem" }} onClick={addLunch}>
+              등록하기
+            </Button>
           )}
         </Wrapper>
       )}
@@ -355,7 +359,7 @@ const Button = styled.button`
   border-radius: 6px;
   background-color: white;
   color: #ff9841;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 
   &:hover {
     background-color: #ff9841;
