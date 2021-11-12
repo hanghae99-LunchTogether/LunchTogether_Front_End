@@ -35,7 +35,7 @@ const DetailMember = props => {
         style={{
           flexDirection: "column",
           alignItems: "center",
-          margin: "0 2rem 1rem 0",
+          margin: "0 4rem 1rem 0",
         }}
       >
         <CircleImage
@@ -63,7 +63,10 @@ const DetailMember = props => {
             </ApproveBtn>
           ) : applicant.confirmed === null ? (
             <div style={{ display: "flex" }}>
-              <ApproveBtn onClick={() => approveUser(applicant.userid, true)}>
+              <ApproveBtn
+                style={{ marginRight: "1rem" }}
+                onClick={() => approveUser(applicant.userid, true)}
+              >
                 승인
               </ApproveBtn>
               <ApproveBtn
@@ -135,6 +138,7 @@ const CircleImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
+  cursor: pointer;
 `;
 
 const ApproveBtn = styled.button`

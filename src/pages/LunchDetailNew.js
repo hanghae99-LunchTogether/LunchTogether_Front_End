@@ -145,6 +145,7 @@ const LunchDetailNew = props => {
             <CircleImage
               size="10"
               src={lunch.host.image ? lunch.host.image : "../assets/cc.png"}
+              onClick={() => history.push(`/profile/${lunch.host.userid}`)}
             />
             <ELWrapper style={{ marginLeft: "2rem" }}>
               <Text size="1.6">호스트</Text>
@@ -269,6 +270,7 @@ const CircleImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 `;
 
 const Button = styled.button`
