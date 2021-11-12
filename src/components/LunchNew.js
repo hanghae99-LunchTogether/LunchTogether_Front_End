@@ -11,9 +11,13 @@ import { apis } from "../shared/axios";
 
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
+import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
+import { useHistory } from "react-router";
 
 const LunchNew = props => {
+  console.log("이거??", props);
   const user = useSelector(state => state.user.user);
+
   let participant = props.applicants?.findIndex(
     u => u.user.userid === user?.userid
   );
@@ -21,6 +25,7 @@ const LunchNew = props => {
   let owner = props.host?.userid === user?.userid ? true : false;
 
   let lunchend = props.date < new Date();
+
   const {
     title,
     host,
@@ -29,7 +34,9 @@ const LunchNew = props => {
     locations,
     membernum,
     applicants,
+    bk_num,
     completed,
+    isbook,
   } = props;
 
   const strDate = String(date);
@@ -68,15 +75,13 @@ const LunchNew = props => {
     }
   };
 
-  const deleteBookmarkData = async () => {
-    try {
-      const data = await apis.deleteBookmark();
-      console.log("삭제", data);
-    } catch (error) {
-      console.log(error.response);
-    }
+  const [active, setActive] = useState(false);
+
+  const clickBookmark = () => {
+    addBookmarkData();
   };
 
+  //리뷰
   const goToReview = () => {
     if (applicants.length < 1) {
       window.alert("참여자가 없어요!");
@@ -134,9 +139,13 @@ const LunchNew = props => {
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
 
-          <Bookmark onClick={addBookmarkData}>
-            <img src={BookmarkImg} />
-            <span>3</span>
+          <Bookmark
+            onClick={() => {
+              clickBookmark();
+            }}
+          >
+            <img src={isbook ? BookmarkImgFilled : BookmarkImg} />
+            <span>{bk_num}</span>
           </Bookmark>
         </ELWrapper>
       </Wrapper>
@@ -146,7 +155,7 @@ const LunchNew = props => {
 
 const Wrapper = styled.div`
   width: 280px;
-  height: "270px";
+  height: 270px;
   padding: 2rem;
   background-color: white;
   box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16);
@@ -189,10 +198,7 @@ const CircleImage = styled.div`
   height: ${props => props.size}rem;
   border-radius: ${props => props.size}rem;
 
-  background-image: url("${props =>
-    props.src
-      ? props.src
-      : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
+  background-image: url("${props => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;

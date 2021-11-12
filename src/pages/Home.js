@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
@@ -19,6 +20,16 @@ const Home = (props) => {
   useEffect(() => {
     getLunchList();
   }, []);
+
+  const user = useSelector((state) => state.user.isLoggedIn);
+
+  const moveToLunchRegister = () => {
+    user
+      ? history.push(`/lunchregister`)
+      : window.alert("로그인이 필요한 서비스입니다!");
+    history.push("/login");
+  };
+
   return (
     <>
       <Container>
@@ -32,21 +43,15 @@ const Home = (props) => {
               </h1>
               <h2>가까운 사람들과 점심을 함께해요.</h2>
             </div>
-            <button
-              onClick={() => {
-                history.push("/lunchregister");
-              }}
-            >
-              점심약속 등록하기
-            </button>
+            <button onClick={moveToLunchRegister}>점심약속 등록하기</button>
           </CurationTitle>
           <LunchList>
             {lunchList.map((l, idx) => {
               return <LunchNew {...l} key={idx} />;
             })}
-            {/* <FakeDiv />
             <FakeDiv />
-            <FakeDiv /> */}
+            <FakeDiv />
+            <FakeDiv />
           </LunchList>
         </Wrapper>
       </Container>
@@ -148,7 +153,8 @@ const LunchList = styled.div`
 `;
 
 const FakeDiv = styled.div`
-  width: 193px;
+  width: 280px;
+  margin: 0 auto;
 `;
 
 export default Home;

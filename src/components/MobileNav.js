@@ -19,10 +19,17 @@ const MobaileNav = props => {
   };
 
   const moveToMakeLunch = () => {
-    if (!user?.isLoggedIn) {
-      window.alert("로그인이 필요한 서비스입니다!");
-      history.replace("/login");
-    } else history.push(`/lunchregister`);
+    user.isLoggedIn
+      ? history.push(`/lunchregister`)
+      : window.alert("로그인이 필요한 서비스입니다!");
+    history.push("/login");
+  };
+
+  const moveToNoti = () => {
+    user.isLoggedIn
+      ? history.push(`/notification`)
+      : window.alert("로그인이 필요한 서비스입니다!");
+    history.push("/login");
   };
 
   return (
@@ -46,7 +53,7 @@ const MobaileNav = props => {
           </MenuIcon>
           <MenuText style={{ letterSpacing: "-1px" }}>점약 만들기</MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={() => history.push("/notification")}>
+        <MenuWrapper onClick={moveToNoti}>
           <MenuIcon>
             <IoMdNotificationsOutline color="white" />
           </MenuIcon>
