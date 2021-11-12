@@ -40,10 +40,10 @@ const Home = props => {
           <CurationTitle>
             <div>
               <h1>
-                새로운 사람들과 <br />
-                점심을.
+                매일매일 기대되는 <br />
+                점심시간.
               </h1>
-              <h2>가까운 사람들을 만나 점심시간을 다채롭게</h2>
+              <h2> 새로운 사람들과 즐거운 점심먹어요</h2>
             </div>
             <button onClick={moveToLunchRegister}>점심약속 등록하기</button>
           </CurationTitle>
@@ -62,12 +62,12 @@ const Home = props => {
 };
 
 const Container = styled.div`
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto 60px auto;
 `;
 
 const Wrapper = styled.div`
-  max-width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -12,6 +12,7 @@ import DetailMember from "../components/DetailMember";
 
 const LunchDetailNew = props => {
   const user = useSelector(state => state.user);
+  console.log(user);
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
@@ -44,8 +45,7 @@ const LunchDetailNew = props => {
     }
     try {
       const data = await apis.applyLunch(lunchId);
-      console.log(data);
-      history.go(0);
+      history.push(`/lunchpost/${lunchId}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -54,8 +54,7 @@ const LunchDetailNew = props => {
   const cancelLunch = async () => {
     try {
       const data = await apis.cancelLunch(lunchId);
-      console.log(data);
-      history.go(0);
+      history.push(`/lunchpost/${lunchId}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -120,7 +119,7 @@ const LunchDetailNew = props => {
               신청인원
             </Text>
             <Text color="black" size="1.6">
-              {lunch.applicants.length} / {lunch.membernum}
+              {lunch.applicants.length + 1} / {lunch.membernum}
             </Text>
           </ELWrapper>
           <ELWrapper flex margin="1rem 0 1rem 5rem">
