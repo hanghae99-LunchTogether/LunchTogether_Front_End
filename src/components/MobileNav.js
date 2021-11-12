@@ -15,21 +15,27 @@ const MobaileNav = props => {
     if (!user?.isLoggedIn) {
       window.alert("로그인이 필요한 서비스입니다!");
       history.push("/login");
-    } else history.push(`/profile/${user?.user?.userid}`);
+    } else {
+      history.push(`/profile/${user?.user?.userid}`);
+    }
   };
 
   const moveToMakeLunch = () => {
-    user.isLoggedIn
-      ? history.push(`/lunchregister`)
-      : window.alert("로그인이 필요한 서비스입니다!");
-    history.push("/login");
+    if (!user?.isLoggedIn) {
+      window.alert("로그인이 필요한 서비스입니다!");
+      history.push("/login");
+    } else {
+      history.push(`/lunchregister`);
+    }
   };
 
   const moveToNoti = () => {
-    user.isLoggedIn
-      ? history.push(`/notification`)
-      : window.alert("로그인이 필요한 서비스입니다!");
-    history.push("/login");
+    if (!user?.isLoggedIn) {
+      window.alert("로그인이 필요한 서비스입니다!");
+      history.push("/login");
+    } else {
+      history.push(`/notification`);
+    }
   };
 
   return (
