@@ -8,8 +8,8 @@ import { VscRepoForked } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiProfileLine } from "react-icons/ri";
 
-const MobaileNav = props => {
-  const user = useSelector(state => state.user.user);
+const MobaileNav = (props) => {
+  const user = useSelector((state) => state.user.user);
 
   return (
     <>
@@ -26,7 +26,7 @@ const MobaileNav = props => {
           </MenuIcon>
           <MenuText>멤버</MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={() => history.push("/")}>
+        <MenuWrapper onClick={() => history.push("/lunchregister")}>
           <MenuIcon>
             <VscRepoForked color="white" />
           </MenuIcon>

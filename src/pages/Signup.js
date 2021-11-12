@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
 
-const Signup = props => {
+const Signup = (props) => {
   const [account, setAccount] = useState({
     email: "",
     nickname: "",
@@ -13,7 +13,7 @@ const Signup = props => {
     passwordCheck: "",
   });
 
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -25,7 +25,7 @@ const Signup = props => {
   };
 
   const dispatch = useDispatch();
-  const error = useSelector(state => state.user.error);
+  const error = useSelector((state) => state.user.error);
 
   const signUp = () => {
     dispatch(userActions.signUpAPI(account));
@@ -105,27 +105,31 @@ const Signup = props => {
 export default Signup;
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 33.3%;
+  max-width: 600px;
+  min-width: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0 auto;
-  margin-top: 8em;
+  margin: 8.5rem auto;
+  padding: 2rem;
 `;
 
 const Logo = styled.div`
   width: 100px;
   height: 100px;
+  margin: auto;
   background-color: #ff9841;
   margin-bottom: 8em;
 `;
 
 const InputWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 500px;
   margin-bottom: 1em;
 `;
 
@@ -148,7 +152,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 50%;
+  width: 100%;
+  max-width: 500px;
   min-width: 350px;
   height: 48px;
   font-family: NotoSansKR;
@@ -163,7 +168,7 @@ const Button = styled.button`
     background-color: #ff9841;
     color: white;
   }
-  ${props =>
+  ${(props) =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}

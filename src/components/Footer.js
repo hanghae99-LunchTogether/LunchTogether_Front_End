@@ -3,23 +3,16 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
-import LogoImg from "../assets/logo.svg";
+import LogoImg from "../assets/logofooter.svg";
 
-const Footer = props => {
-  const user = useSelector(state => state.user.user);
+const Footer = (props) => {
+  const user = useSelector((state) => state.user.user);
 
   return (
     <Container>
       <FooterWrap>
         <Info>
           <Nav>
-            <span
-              onClick={() => {
-                history.push("/");
-              }}
-            >
-              홈
-            </span>
             <span
               onClick={() => {
                 user ? history.push("/lunchregister") : history.push("/login");
@@ -214,6 +207,9 @@ const C = styled.div`
 
   @media all and (min-width: 768px) and (max-width: 1023px) {
     flex-direction: row;
+    img {
+      margin-right: 20px;
+    }
   }
 `;
 

@@ -6,14 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
+import LogoImg from "../assets/logofooter.svg";
 
-const Login = props => {
+const Login = (props) => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -35,7 +36,7 @@ const Login = props => {
   const loginWithKakao = () => {
     // 카카오 로그인
     Kakao.Auth.login({
-      success: authObj => {
+      success: (authObj) => {
         console.log(authObj);
 
         // 유저정보 요청코드
@@ -68,12 +69,14 @@ const Login = props => {
     });
   };
 
-  const error = useSelector(state => state.user.error);
+  const error = useSelector((state) => state.user.error);
 
   return (
     <>
       <Wrapper>
-        <Logo />
+        <Logo>
+          <img src={LogoImg} />
+        </Logo>
 
         <InputWrapper>
           <Text> 이메일</Text>
@@ -137,19 +140,18 @@ const Login = props => {
 export default Login;
 
 const Wrapper = styled.div`
-  width: 100%;
   display: flex;
+  width: 33.3%;
   min-width: 350px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 8rem auto;
+  margin: 8.5rem auto;
 `;
 
 const Logo = styled.div`
   width: 100px;
   height: 100px;
-  background-color: #ff9841;
   margin-bottom: 8rem;
 `;
 
@@ -160,7 +162,7 @@ const InputWrapper = styled.div`
   align-items: center;
   margin-bottom: 1rem;
   max-width: 500px;
-  margin: 1rem 3rem;
+  margin: 1rem;
 `;
 
 const Text = styled.p`
@@ -199,7 +201,7 @@ const Button = styled.button`
     background-color: #ff9841;
     color: white;
   }
-  ${props =>
+  ${(props) =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}
