@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = props => {
+const Header = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -36,16 +36,6 @@ const Header = props => {
                 >
                   <img src={LogoImg} />
                 </Logo>
-                <button
-                  onClick={() => {
-                    history.push("/");
-                  }}
-                >
-                  홈
-                </button>
-                <button onClick={() => history.push(`/lunchregister`)}>
-                  점심약속 등록하기
-                </button>
               </Left>
               <Right>
                 <button onClick={logOut}>로그아웃</button>
@@ -79,16 +69,6 @@ const Header = props => {
                 >
                   <img src={LogoImg} />
                 </Logo>
-                <button
-                  onClick={() => {
-                    history.push("/");
-                  }}
-                >
-                  홈
-                </button>
-                <button onClick={() => history.push(`/login`)}>
-                  점심약속 등록하기
-                </button>
               </Left>
               <Right>
                 <button onClick={() => history.push("/login")}>로그인</button>
@@ -155,7 +135,6 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   margin-right: 3rem;
-
   button {
     display: flex;
     justify-content: center;

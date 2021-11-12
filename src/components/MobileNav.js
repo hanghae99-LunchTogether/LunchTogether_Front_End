@@ -8,8 +8,8 @@ import { VscRepoForked } from "react-icons/vsc";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { RiProfileLine } from "react-icons/ri";
 
-const MobaileNav = props => {
-  const user = useSelector(state => state.user);
+const MobaileNav = (props) => {
+  const user = useSelector((state) => state.user);
   console.log(user);
 
   const moveToProfile = () => {
