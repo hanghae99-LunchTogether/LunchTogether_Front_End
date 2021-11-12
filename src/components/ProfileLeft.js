@@ -144,10 +144,7 @@ const CircleImage = styled.div`
   height: ${props => props.size}rem;
   border-radius: ${props => props.size}rem;
 
-  background-image: url("${props =>
-    props.src
-      ? props.src
-      : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
+  background-image: url("${props => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;

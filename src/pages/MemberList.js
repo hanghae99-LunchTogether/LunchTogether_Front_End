@@ -13,11 +13,9 @@ import MemberListCard from "../components/MemberListCard";
 const MemberList = props => {
   const [searchTerm, setSearchTerm] = useState("");
   const [alluser, setAllUser] = useState([]);
-  console.log(alluser);
   const getMemberDate = async () => {
     try {
       const data = await apis.getMemberList();
-      console.log(data);
       setAllUser(data.data.user);
     } catch (error) {
       console.log(error);
