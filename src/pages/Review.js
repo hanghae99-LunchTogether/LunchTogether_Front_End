@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
@@ -53,7 +55,7 @@ const Review = props => {
 
   //api 요청
   const review = {
-    targetuserid: 0,
+    targetuserid: [],
     spoon: currentValue,
     comment: content,
     lunchid: lunchId,

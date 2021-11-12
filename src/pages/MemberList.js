@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -8,7 +10,7 @@ import { RiArrowUpSLine } from "react-icons/ri";
 
 import MemberListCard from "../components/MemberListCard";
 
-const MemberList = (props) => {
+const MemberList = props => {
   const [searchTerm, setSearchTerm] = useState("");
   const [alluser, setAllUser] = useState([]);
   console.log(alluser);
@@ -33,7 +35,7 @@ const MemberList = (props) => {
         <SearchInput
           placeholder="멤버 검색"
           type="text"
-          onClick={(e) => {
+          onClick={e => {
             setSearchTerm(e.target.value);
           }}
         />

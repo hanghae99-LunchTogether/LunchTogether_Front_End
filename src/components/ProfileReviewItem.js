@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
@@ -7,7 +9,7 @@ import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
 const ProfileReviewItem = props => {
   const { reviews } = props;
-  // console.log(reviews);
+  console.log(reviews);
 
   // 평점;
   const ratingValue = 4;

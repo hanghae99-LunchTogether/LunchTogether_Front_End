@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Image from "./Image";
 import Grid from "./Grid";
 

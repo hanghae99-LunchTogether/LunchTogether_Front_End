@@ -1,10 +1,12 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
 
-const Bookmark = (props) => {
+const Bookmark = props => {
   console.log("프롭", props);
   const [bookmarkList, setBookmarkList] = useState([]);
 

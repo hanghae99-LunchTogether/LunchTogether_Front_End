@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Grid } from "../elements";
@@ -12,12 +14,12 @@ import BookmarkImg from "../assets/bookmark.svg";
 import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
 import { useHistory } from "react-router";
 
-const LunchNew = (props) => {
+const LunchNew = props => {
   console.log("이거??", props);
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(state => state.user.user);
 
   let participant = props.applicants?.findIndex(
-    (u) => u.user.userid === user?.userid
+    u => u.user.userid === user?.userid
   );
 
   let owner = props.host?.userid === user?.userid ? true : false;
@@ -45,9 +47,7 @@ const LunchNew = (props) => {
   //참여여부 및 과거날짜 확인
 
   const validateReview = () => {
-    applicants?.findIndex((u) =>
-      u.user.userid === user?.userid ? true : false
-    );
+    applicants?.findIndex(u => (u.user.userid === user?.userid ? true : false));
   };
 
   validateReview();
@@ -148,7 +148,6 @@ const LunchNew = (props) => {
             <span>{bk_num}</span>
           </Bookmark>
         </ELWrapper>
-        {completed && <Button onClick={goToReview}>리뷰 남기기</Button>}
       </Wrapper>
     </>
   );
@@ -156,7 +155,7 @@ const LunchNew = (props) => {
 
 const Wrapper = styled.div`
   width: 280px;
-  height: ${(props) => (props.completed ? "320px" : "270px")};
+  height: 270px;
   padding: 2rem;
   background-color: white;
   box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16);
@@ -173,20 +172,20 @@ const Wrapper = styled.div`
 `;
 
 const ELWrapper = styled.div`
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${(props) => (props.bg ? props.bg : "white")};
-  ${(props) => (props.flex ? `display: flex; align-items: center; ` : "")};
-  ${(props) => (props.center ? `text-align: center` : "")};
-  ${(props) =>
+  ${props => (props.padding ? `padding: ${props.padding};` : "")};
+  ${props => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${props => (props.bg ? props.bg : "white")};
+  ${props => (props.flex ? `display: flex; align-items: center; ` : "")};
+  ${props => (props.center ? `text-align: center` : "")};
+  ${props =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
 `;
 
 const Text = styled.p`
-  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${(props) => (props.weight ? props.weight : "400")};
-  color: ${(props) => (props.color ? props.color : "#909090")};
+  font-size: ${props => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${props => (props.weight ? props.weight : "400")};
+  color: ${props => (props.color ? props.color : "#909090")};
   overflow: hidden;
   /* text-overflow: ellipsis; */
   white-space: nowrap;
@@ -195,14 +194,11 @@ const Text = styled.p`
 `;
 
 const CircleImage = styled.div`
-  width: ${(props) => props.size}rem;
-  height: ${(props) => props.size}rem;
-  border-radius: ${(props) => props.size}rem;
+  width: ${props => props.size}rem;
+  height: ${props => props.size}rem;
+  border-radius: ${props => props.size}rem;
 
-  background-image: url("${(props) =>
-    props.src
-      ? props.src
-      : "http://webimage.10x10.co.kr/image/basic600/165/B001654412.jpg"}");
+  background-image: url("${props => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
@@ -233,7 +229,7 @@ const Button = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
+  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
   color: white;
   z-index: 1000;
   margin-top: 1rem;

@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = (props) => {
+const Header = props => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector(state => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -92,6 +92,7 @@ const Container = styled.div`
   top: 0;
   z-index: 2000;
   margin: 0 auto;
+  padding: 1rem 5rem;
   box-shadow: 0px 5px 8px -9px rgba(0, 0, 0, 75);
 `;
 
@@ -117,8 +118,8 @@ const HeaderWrap = styled.div`
 
   @media only screen and (max-width: 768px) {
     min-width: 375px;
-    padding: 0 3.2rem 0 3.2rem;
     min-height: 50px;
+    padding: 0 5rem 0 0;
   } ;
 `;
 
@@ -134,7 +135,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
-  margin-right: 3rem;
+  margin-right: 5rem;
   button {
     display: flex;
     justify-content: center;
@@ -160,7 +161,6 @@ const Logo = styled.div`
   width: 140px;
   height: 70px;
   cursor: pointer;
-  padding: 10px 0;
   img {
     width: 100%;
     height: 100%;

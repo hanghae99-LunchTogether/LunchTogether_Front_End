@@ -9,7 +9,7 @@ import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
 
-const Home = (props) => {
+const Home = props => {
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
@@ -21,13 +21,15 @@ const Home = (props) => {
     getLunchList();
   }, []);
 
-  const user = useSelector((state) => state.user.isLoggedIn);
+  const user = useSelector(state => state.user.isLoggedIn);
 
   const moveToLunchRegister = () => {
-    user
-      ? history.push(`/lunchregister`)
-      : window.alert("로그인이 필요한 서비스입니다!");
-    history.push("/login");
+    if (!user) {
+      window.alert("로그인이 필요한 서비스입니다!");
+      history.push("/login");
+      return;
+    }
+    history.push(`/lunchregister`);
   };
 
   return (
@@ -38,10 +40,10 @@ const Home = (props) => {
           <CurationTitle>
             <div>
               <h1>
-                오늘의 점심약속을 <br />
-                잡아보세요
+                새로운 사람들과 <br />
+                점심을.
               </h1>
-              <h2>가까운 사람들과 점심을 함께해요.</h2>
+              <h2>가까운 사람들을 만나 점심시간을 다채롭게</h2>
             </div>
             <button onClick={moveToLunchRegister}>점심약속 등록하기</button>
           </CurationTitle>
@@ -77,15 +79,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const Banner = styled.div`
-  width: 100%;
-  height: 30vh;
-  background-image: url("https://images.squarespace-cdn.com/content/v1/5c2d560c5cfd7902be87d759/1551228568578-1R8DDL4VITBS3TNQKBYK/Jeannie-Phan-Illustration-Editorial-Airbnb-Design-Blog-6.jpg?format=1500w");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-`;
-
 const CurationTitle = styled.p`
   width: 100%;
   height: 30vh;
@@ -97,7 +90,7 @@ const CurationTitle = styled.p`
 
   h1 {
     font-size: 5rem;
-    line-height: 5rem;
+    line-height: 6.5rem;
     color: white;
     font-weight: 700;
     margin-bottom: 2rem;
@@ -114,7 +107,7 @@ const CurationTitle = styled.p`
   }
 
   button {
-    width: 308px;
+    width: 50%;
     height: 56px;
     padding: 1.6rem 0 1.6rem 0;
     border-radius: 0.4rem;
@@ -133,6 +126,8 @@ const CurationTitle = styled.p`
 
     button {
       width: 100%;
+      max-width: 300px;
+
       margin-top: 2rem;
     }
   }
