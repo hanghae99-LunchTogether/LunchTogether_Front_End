@@ -19,7 +19,7 @@ const SignUpText = () => {
         </Title>
         <TextImg2 />
         <SubTitle>
-          비대면 시대에 만나서 명함 교환, 불편하지 않으신가요?
+          새로운 멤버와 즐거운 식사시간을 포크에서 경험해보세요
         </SubTitle>
         <Buttom
           onClick={() => {
