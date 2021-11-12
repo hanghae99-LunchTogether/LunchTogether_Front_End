@@ -2,21 +2,44 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
-import { useSelector } from "react-redux";
 import { apis } from "../shared/axios";
 
 import ProfileImg from "../assets/profile.png";
 import BookmarkImg from "../assets/bookmark.svg";
 
 const LunchNew = (props) => {
+  console.log(props);
+  const user = useSelector((state) => state.user.user);
+  let participant = props.applicants?.findIndex(
+    (u) => u.user.userid === user?.userid
+  );
+  // console.log(participant);
+  let owner = props.host?.userid === user?.userid ? true : false;
+  // console.log(owner);
+  let lunchend = props.date < new Date();
+  console.log(lunchend);
   const { title, host, lunchid, date, locations, membernum, applicants } =
     props;
+
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
   const adressDong = locations?.address_name.split(" ")[2];
+
+  //참여여부 및 과거날짜 확인
+
+  const validateReview = () => {
+    applicants?.findIndex((u) =>
+      u.user.userid === user?.userid ? true : false
+    );
+  };
+
+  validateReview();
+
+  //북마크
 
   const getBookmarkData = async () => {
     try {
@@ -65,14 +88,15 @@ const LunchNew = (props) => {
           </Text>
         </ELWrapper>
         <ELWrapper
-          margin="0 0 2rem 0"
+          margin="0 0 3rem 0"
+          style={{ cursor: "pointer" }}
           onClick={() => history.push(`/lunchpost/${lunchid}`)}
         >
           <Text weight="700" size="2" color="black">
             {title}
           </Text>
         </ELWrapper>
-        <ELWrapper flex margin="0 0 1rem 0">
+        <ELWrapper flex margin="0 0 2rem 0">
           <CircleImage
             size="5"
             src={host?.image ? host.image : { ProfileImg }}
@@ -102,6 +126,9 @@ const LunchNew = (props) => {
             <span>3</span>
           </Bookmark>
         </ELWrapper>
+        {/* <Button onClick={() => history.push(`/review/${lunchid}`)}>
+          리뷰 남기기
+        </Button> */}
       </Wrapper>
     </>
   );
@@ -118,7 +145,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
 
   @media only screen and (max-width: 768px) {
-    width: 250px;
+    margin: auto;
     height: 200px;
   }
 `;
@@ -163,6 +190,7 @@ const CircleImage = styled.div`
 const Bookmark = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   img {
     width: 18px;

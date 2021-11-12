@@ -9,6 +9,7 @@ import MobaileNav from "./MobileNav";
 
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
+import BookmarkImg from "../assets/bookmark.svg";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const Header = (props) => {
                     내정보
                   </button>
                   <button onClick={() => history.push(`/bookmark`)}>
-                    북마크
+                    {BookmarkImg}
                   </button>
                   <button onClick={() => history.push(`/notification`)}>
                     <img src={Alarm} />

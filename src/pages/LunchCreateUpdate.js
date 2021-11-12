@@ -11,7 +11,8 @@ import DetailMapContainer from "../components/DetailMapContainer";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 
-const LunchCreateUpdate = props => {
+const LunchCreateUpdate = (props) => {
+  const targetUser = props.match.params.userid ? props.match.params.userid : "";
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
 
@@ -23,10 +24,17 @@ const LunchCreateUpdate = props => {
     date: "",
   });
 
-  const setLocation = place => {
+  const setLocation = (place) => {
     setLunch({
       ...lunch,
       locations: place,
+    });
+  };
+
+  const setDate = (date) => {
+    setLunch({
+      ...lunch,
+      date: date,
     });
   };
 
@@ -43,7 +51,16 @@ const LunchCreateUpdate = props => {
     }
   };
 
-  const onChange = e => {
+  const getUser = async () => {
+    try {
+      const data = await apis.getProfile(targetUser);
+      console.log(data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -56,10 +73,12 @@ const LunchCreateUpdate = props => {
   useEffect(() => {
     if (lunchId) {
       getLunchData();
+    } else if (targetUser) {
+      getUser();
     }
   }, []);
 
-  const onSearchKeywordChange = e => {
+  const onSearchKeywordChange = (e) => {
     setPlaceInput(e.target.value);
   };
 
@@ -68,12 +87,19 @@ const LunchCreateUpdate = props => {
   };
 
   const addLunch = async () => {
+    console.log(targetUser);
+    console.log(lunch);
     try {
-      const data = await apis.createLunch(lunch);
-      console.log(data);
-      const newLunchId = data.data.data.lunch.lunchid;
-      console.log(newLunchId);
-      history.push(`/lunchpost/${newLunchId}`);
+      if (targetUser) {
+        const data = await apis.createPrivatelunch(targetUser, lunch);
+        const newLunchId = data.data.data.lunch.lunchid;
+        history.push(`/lunchpost/${newLunchId}`);
+      } else {
+        const data = await apis.createLunch(lunch);
+        console.log(data);
+        const newLunchId = data.data.data.lunch.lunchid;
+        history.push(`/lunchpost/${newLunchId}`);
+      }
     } catch (error) {
       console.log(error.response);
     }
@@ -132,7 +158,7 @@ const LunchCreateUpdate = props => {
           </InputWrapper>
           <InputWrapper>
             <Text>날짜/시간</Text>
-            <Calendar setLunch={setLunch} lunch={lunch} />
+            <Calendar setDate={setDate} date={lunch?.date && lunch.date} />
           </InputWrapper>
           <InputWrapper>
             <Text>장소</Text>
@@ -149,12 +175,12 @@ const LunchCreateUpdate = props => {
               <InputWrapper>
                 <FakeDiv />
                 <SelectedPlace>
-                  <Text style={{ color: "black", lineHeight: "3rem" }}>
+                  <Text style={{ color: "#909090", lineHeight: "3rem" }}>
                     장소명: {lunch.locations.place_name}
                   </Text>
                   <Text
                     style={{
-                      color: "black",
+                      color: "#909090",
                       lineHeight: "3rem",
                     }}
                   >
@@ -168,7 +194,7 @@ const LunchCreateUpdate = props => {
                       fontSize: "1.6rem",
                       color: "blue",
                       lineHeight: "3rem",
-                      fontWeight: "600z",
+                      fontWeight: "600",
                     }}
                   >
                     카카오 지도 링크
@@ -221,6 +247,9 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 5rem auto;
+  @media only screen and (max-width: 768px) {
+    margin: 5rem auto 70px auto;
+  }
 `;
 
 const MenuTitleWrapper = styled.div`
@@ -238,7 +267,7 @@ const Text = styled.p`
   color: gray;
   min-width: 8rem;
   color: white;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const InputWrapper = styled.div`

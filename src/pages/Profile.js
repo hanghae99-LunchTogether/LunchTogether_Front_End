@@ -9,6 +9,7 @@ import ProfileRight from "../components/ProflieRight";
 
 const Profile = (props) => {
   const [user, setUser] = useState(null);
+  console.log(user);
 
   const userId = props.match.params.id;
 
@@ -45,6 +46,7 @@ const Wrapper = styled.div`
   @media only screen and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 45px;
   }
 `;
 

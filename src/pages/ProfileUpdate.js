@@ -11,12 +11,11 @@ import { history } from "../redux/configureStore";
 
 const ProfileUpdate = props => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log(userInfo);
+
   const [preview, setPreview] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [placeInput, setPlaceInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [location, setLocation] = useState("");
   const userId = props.match.params.id;
 
   const onChange = e => {
@@ -26,7 +25,13 @@ const ProfileUpdate = props => {
     setUserInfo({
       ...userInfo,
       [name]: value,
-      locations: location,
+    });
+  };
+
+  const setLocation = place => {
+    setUserInfo({
+      ...userInfo,
+      locations: place,
     });
   };
 
@@ -38,10 +43,7 @@ const ProfileUpdate = props => {
     const formData = new FormData();
     formData.append("image", file);
     setUploadImage(formData);
-    setUserInfo({
-      ...userInfo,
-      image: formData,
-    });
+
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreview(reader.result);
@@ -58,6 +60,7 @@ const ProfileUpdate = props => {
       console.log(error);
     }
   };
+  console.log(userInfo);
 
   const onSearchKeywordChange = e => {
     setPlaceInput(e.target.value);
@@ -67,9 +70,9 @@ const ProfileUpdate = props => {
     setSearchKeyword(placeInput);
   };
 
-  console.log(userInfo);
-
   const onUpdateProfile = async () => {
+    console.log(userInfo);
+
     try {
       console.log(userInfo, "요청직전");
       console.log(uploadImage);
@@ -163,23 +166,45 @@ const ProfileUpdate = props => {
             />
             <SearchButton onClick={searchPlace}>검색</SearchButton>
           </InputWrapper>
-          {location && (
+          {userInfo && (
             <InputWrapper>
               <FakeDiv />
-              <SelectedPlace style={{ lineHeight: "1.5rem" }}>
-                <Text style={{ fontSize: "1.4rem" }}>
-                  장소명: {location.place_name}
+              <SelectedPlace
+                style={{
+                  lineHeight: "1.5rem",
+                  height: "8rem",
+                  padding: "1rem",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: "1.6rem",
+                    lineHeight: "1.3",
+                    fontWeight: "600",
+                    color: "#909090",
+                  }}
+                >
+                  장소명: {userInfo?.locations.place_name}
                 </Text>
-                <Text style={{ fontSize: "1.4rem" }}>
-                  주소: {location.road_address_name}
+                <Text
+                  style={{
+                    fontSize: "1.6rem",
+                    lineHeight: "1.3",
+                    fontWeight: "600",
+                    color: "#909090",
+                  }}
+                >
+                  주소: {userInfo?.locations.road_address_name}
                 </Text>
                 <a
-                  href={location.place_url}
+                  href={userInfo?.locations.place_url}
                   target="_blank"
                   style={{
                     cursor: "pointer",
-                    fontSize: "1.4rem",
+                    fontSize: "1.6rem",
                     color: "blue",
+                    lineHeight: "1.3",
+                    fontWeight: "600",
                   }}
                 >
                   카카오 지도 링크
@@ -239,8 +264,9 @@ const InputWrapper = styled.div`
 
 const Text = styled.p`
   font-size: 1.6rem;
-  color: gray;
+  color: white;
   min-width: 8rem;
+  font-weight: 600;
 `;
 
 const Input = styled.input`
