@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+import ChoolChool from "../assets/cc.png";
 
 const ProfileLeft = props => {
   const user = useSelector(state => state.user);
@@ -21,11 +22,13 @@ const ProfileLeft = props => {
     userid,
   } = props.user;
 
+  console.log(image);
+
   return (
     <>
       <Wrapper>
         <ELWrapper margin="0 0 2rem 0">
-          <CircleImage size="10" src={image} />
+          <CircleImage size="10" src={image ? image : ChoolChool} />
         </ELWrapper>
         <ELWrapper margin="0 0 1rem 0">
           <Text color="black" weight="700">

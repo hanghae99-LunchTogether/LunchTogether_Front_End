@@ -140,7 +140,7 @@ const LunchCreateUpdate = props => {
           <MenuTitleWrapper>
             <MenuTitle>점심약속 등록하기</MenuTitle>
             <Text style={{ textAlign: "center", margin: "1rem" }}>
-              맛있게 먹어봐
+              내 주변 새로운 사람들과 점심약속을 만들어볼까요?
             </Text>
           </MenuTitleWrapper>
           <InputWrapper>
@@ -263,6 +263,7 @@ const Wrapper = styled.div`
 
 const MenuTitleWrapper = styled.div`
   margin: 20px;
+  text-align: center;
 `;
 
 const MenuTitle = styled.h1`

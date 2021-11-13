@@ -7,13 +7,11 @@ import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
 
 const Bookmark = props => {
-  console.log("프롭", props);
   const [bookmarkList, setBookmarkList] = useState([]);
 
   const getBookmarkData = async () => {
     try {
       const data = await apis.getBookmark();
-      console.log("데이터", data);
       const bookmarkList = data.data.bookmarks;
       setBookmarkList(bookmarkList);
     } catch (error) {

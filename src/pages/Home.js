@@ -24,7 +24,6 @@ const Home = props => {
     }
     const data = await apis.getLunchListMain(page);
     const lunchs = data.data.lunch;
-    console.log(lunchs);
     setLunchList([...lunchList, ...lunchs]);
     if (lunchs.length < 11) {
       setNext(false);
