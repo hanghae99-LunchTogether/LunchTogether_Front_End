@@ -9,8 +9,9 @@ import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
 
-const Home = props => {
+const Home = (props) => {
   const [lunchList, setLunchList] = useState([]);
+
   const getLunchList = async () => {
     const data = await apis.getLunchListMain();
     console.log(data);
@@ -21,7 +22,7 @@ const Home = props => {
     getLunchList();
   }, []);
 
-  const user = useSelector(state => state.user.isLoggedIn);
+  const user = useSelector((state) => state.user.isLoggedIn);
 
   const moveToLunchRegister = () => {
     if (!user) {
@@ -48,8 +49,14 @@ const Home = props => {
             <button onClick={moveToLunchRegister}>점심약속 등록하기</button>
           </CurationTitle>
           <LunchList>
-            {lunchList.map((l, idx) => {
-              return <LunchNew {...l} key={idx} />;
+            {lunchList.map((item, idx) => {
+              return (
+                <LunchNew
+                  setLunchListFunction={setLunchList}
+                  {...item}
+                  key={idx}
+                />
+              );
             })}
             <FakeDiv />
             <FakeDiv />

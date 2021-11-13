@@ -6,14 +6,12 @@ import { apis } from "../shared/axios";
 import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
 
-const Bookmark = props => {
-  console.log("프롭", props);
+const Bookmark = (props) => {
   const [bookmarkList, setBookmarkList] = useState([]);
 
   const getBookmarkData = async () => {
     try {
       const data = await apis.getBookmark();
-      console.log("데이터", data);
       const bookmarkList = data.data.bookmarks;
       setBookmarkList(bookmarkList);
     } catch (error) {
@@ -29,8 +27,8 @@ const Bookmark = props => {
     <Wrap>
       <Title>관심있는 약속에 참여해보세요!👀</Title>
       <BookmarkList>
-        {bookmarkList.map((l, idx) => {
-          return <LunchNew {...l} key={idx} />;
+        {bookmarkList.map((item, idx) => {
+          return <LunchNew {...item} key={idx} />;
         })}
         <FakeDiv />
         <FakeDiv />
