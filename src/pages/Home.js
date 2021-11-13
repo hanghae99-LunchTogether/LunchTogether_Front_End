@@ -11,16 +11,24 @@ import LunchNew from "../components/LunchNew";
 import lunch from "../redux/modules/lunch";
 
 const Home = props => {
+  const [page, setPage] = useState(1);
+  const [next, setNext] = useState(true);
   const [fetching, setFetching] = useState(false);
-  console.log(fetching);
 
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
     setFetching(true);
-    console.log("무한스크롤");
-    const data = await apis.getLunchListMain();
+    setPage(page + 1);
+    if (!next) {
+      return;
+    }
+    const data = await apis.getLunchListMain(page);
     const lunchs = data.data.lunch;
+    console.log(lunchs);
     setLunchList([...lunchList, ...lunchs]);
+    if (lunchs.length < 11) {
+      setNext(false);
+    }
     setFetching(false);
   };
 

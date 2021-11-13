@@ -103,7 +103,7 @@ const Wrapper = styled.div`
   padding: 5rem 2rem 5rem 2rem;
   background-color: white;
   border-radius: 10px;
-  margin-right: 1rem;
+  margin-right: 3rem;
 
   @media only screen and (max-width: 768px) {
     margin-right: 0;

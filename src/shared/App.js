@@ -18,6 +18,7 @@ import ProfileUpdate from "../pages/ProfileUpdate";
 import LunchDetail from "../pages/LunchDetail";
 import Review from "../pages/Review";
 import Bookmark from "../pages/Bookmark";
+import LunchDetailForPrivate from "../pages/LunchDetailForPrivate";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -74,6 +75,11 @@ function App() {
             path="/private/:userid"
             exact
             component={LunchCreateUpdate}
+          ></Route>
+          <Route
+            path="/privatelunch/:lunchid"
+            exact
+            component={LunchDetailForPrivate}
           ></Route>
           <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>

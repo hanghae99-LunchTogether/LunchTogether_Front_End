@@ -11,7 +11,7 @@ import ChoolChool from "../assets/cc.png";
 import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
 
-const LunchDetailNew = props => {
+const LunchDetailForPrivate = props => {
   const user = useSelector(state => state.user);
 
   const lunchId = props.match.params.lunchid;
@@ -203,10 +203,10 @@ const LunchDetailNew = props => {
               </Button>
             ) : isApplied ? (
               <Button bg="gray" onClick={cancelLunch}>
-                신청취소
+                거절하기
               </Button>
             ) : (
-              <Button onClick={applyLunch}>점심약속 신청하기</Button>
+              <Button onClick={applyLunch}>점심약속 수락하기</Button>
             )}
           </ELWrapper>
           <ELWrapper></ELWrapper>
@@ -294,4 +294,4 @@ const ApproveBtn = styled.button`
   margin-top: 1rem;
 `;
 
-export default LunchDetailNew;
+export default LunchDetailForPrivate;

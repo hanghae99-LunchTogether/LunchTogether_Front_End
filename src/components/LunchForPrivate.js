@@ -14,8 +14,7 @@ import BookmarkImg from "../assets/bookmark.svg";
 import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
 import { useHistory } from "react-router";
 
-const LunchNew = props => {
-  console.log("이거??", props);
+const LunchForPrivate = props => {
   const user = useSelector(state => state.user.user);
 
   let participant = props.applicants?.findIndex(
@@ -108,7 +107,7 @@ const LunchNew = props => {
         <ELWrapper
           margin="0 0 3rem 0"
           style={{ cursor: "pointer" }}
-          onClick={() => history.push(`/lunchpost/${lunchid}`)}
+          onClick={() => history.push(`/privatelunch/${lunchid}`)}
         >
           <Text weight="700" size="2" color="black">
             {title}
@@ -163,7 +162,7 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
-    width: 250px;
+    width: 330px;
     height: 230px;
   }
 `;
@@ -232,4 +231,4 @@ const Button = styled.button`
   margin-top: 1rem;
 `;
 
-export default LunchNew;
+export default LunchForPrivate;

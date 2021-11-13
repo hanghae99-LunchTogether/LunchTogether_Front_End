@@ -15,6 +15,7 @@ import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
 import { useHistory } from "react-router";
 
 const LunchNew = props => {
+  console.log(props);
   const user = useSelector(state => state.user.user);
 
   let participant = props.applicants?.findIndex(
@@ -53,17 +54,17 @@ const LunchNew = props => {
 
   //북마크
 
-  const getBookmarkData = async () => {
-    try {
-      const data = await apis.getBookmark();
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+  // const getBookmarkData = async () => {
+  //   try {
+  //     const data = await apis.getBookmark();
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
 
-  useEffect(() => {
-    getBookmarkData();
-  }, []);
+  // useEffect(() => {
+  //   getBookmarkData();
+  // }, []);
 
   const addBookmarkData = async () => {
     try {
@@ -162,7 +163,7 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
-    width: 250px;
+    width: 330px;
     height: 230px;
   }
 `;
