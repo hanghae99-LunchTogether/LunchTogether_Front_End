@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 const ProfileLeft = props => {
   const user = useSelector(state => state.user);
-  console.log(user);
   const {
     dislikemenu,
     image,
@@ -56,10 +55,10 @@ const ProfileLeft = props => {
 
         <ELWrapper flex margin="0 0 1rem 0">
           <Text size="1.2" weight="600">
-            포크력
+            MBTI
           </Text>
           <Text size="1.2" weight="600">
-            포크력
+            {mbti}
           </Text>
         </ELWrapper>
         <ELWrapper flex margin="0 0 1rem 0">

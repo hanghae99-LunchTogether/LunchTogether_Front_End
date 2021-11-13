@@ -16,6 +16,8 @@ const LunchDetailForPrivate = props => {
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
+  console.log(lunch);
+
   let isApplied = false;
 
   const getLunch = async () => {
@@ -37,24 +39,34 @@ const LunchDetailForPrivate = props => {
 
   confirmApplied();
 
-  const applyLunch = async () => {
+  const acceptLunch = async () => {
     console.log(user);
     if (!user.isLoggedIn) {
       window.alert("로그인을 해주세요!");
       history.replace("/login");
     }
+    const confirmData = {
+      confirmed: true,
+    };
+    console.log(confirmData);
     try {
-      const data = await apis.applyLunch(lunchId);
-      history.push(`/profile/${user?.user?.userid}`);
+      const data = await apis.acceptLunch(lunchId, confirmData);
+      console.log(data);
+      // history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
   };
 
-  const cancelLunch = async () => {
+  const rejectLunch = async () => {
+    const confirmData = {
+      confirmed: false,
+    };
     try {
-      const data = await apis.cancelLunch(lunchId);
-      history.push(`/profile/${user?.user?.userid}`);
+      const data = await apis.acceptLunch(lunchId, confirmData);
+      console.log(data);
+
+      // history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -169,15 +181,6 @@ const LunchDetailForPrivate = props => {
           </ELWrapper>
           <hr style={{ margin: "4rem 0" }} />
           <Text color="black" size="2" weight="800" lineheight="3">
-            신청자
-          </Text>
-          <ELWrapper flex>
-            {lunch.applicants.map((u, idx) => (
-              <DetailMember applicant={u} key={idx} lunch={lunch} />
-            ))}
-          </ELWrapper>
-          <hr style={{ margin: "4rem 0" }} />
-          <Text color="black" size="2" weight="800" lineheight="3">
             약속장소 상세정보
           </Text>
           <ELWrapper>
@@ -197,16 +200,19 @@ const LunchDetailForPrivate = props => {
             />
           </ELWrapper>
           <ELWrapper>
+            <Button bg="gray" onClick={rejectLunch}>
+              거절하기
+            </Button>
             {user?.user?.userid === lunch?.host.userid ? (
               <Button onClick={() => history.push(`/lunchregister/${lunchId}`)}>
                 수정하기
               </Button>
             ) : isApplied ? (
-              <Button bg="gray" onClick={cancelLunch}>
+              <Button bg="gray" onClick={rejectLunch}>
                 거절하기
               </Button>
             ) : (
-              <Button onClick={applyLunch}>점심약속 수락하기</Button>
+              <Button onClick={acceptLunch}>수락하기</Button>
             )}
           </ELWrapper>
           <ELWrapper></ELWrapper>

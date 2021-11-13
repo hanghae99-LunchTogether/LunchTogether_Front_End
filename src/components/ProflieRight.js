@@ -14,7 +14,6 @@ const ProflieRight = props => {
   const today = moment(new Date()).format();
 
   const totalLunch = lunchs.applied.concat(lunchs.owned).concat(lunchs.offered);
-  console.log(lunchs);
   const scheduledLunch = totalLunch.filter(
     l => moment(l.date).format() > today
   );

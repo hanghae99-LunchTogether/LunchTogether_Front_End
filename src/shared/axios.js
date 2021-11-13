@@ -152,11 +152,13 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  // 신청하기
   applyLunch: lunchid =>
     instance.post(`/applicant/${lunchid}`, null, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  // 멤버 승인하기
   approveMember: (lunchid, approval) =>
     instance.patch(`/applicant/${lunchid}`, approval, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -192,8 +194,15 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  // 점심약속 취소
   cancelLunch: lunchid =>
     instance.delete(`/applicant/${lunchid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 점심약속 수락
+  acceptLunch: (lunchid, confirmed) =>
+    instance.patch(`/offer/confirmed/${lunchid}`, confirmed, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };
