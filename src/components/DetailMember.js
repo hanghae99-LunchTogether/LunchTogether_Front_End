@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 import { useSelector } from "react-redux";
+import ChoolChool from "../assets/cc.png";
 
 const DetailMember = props => {
   const user = useSelector(state => state.user);
@@ -40,7 +41,7 @@ const DetailMember = props => {
         <CircleImage
           size="10"
           style={{ marginBottom: "1rem" }}
-          src={applicant.user.image ? applicant.user.image : "../assets/cc.png"}
+          src={applicant.user.image ? applicant.user.image : ChoolChool}
           onClick={() => history.push(`/profile/${user.userid}`)}
         />
         <Text

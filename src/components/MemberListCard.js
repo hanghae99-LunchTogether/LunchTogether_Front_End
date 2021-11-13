@@ -26,7 +26,9 @@ const MemberListCard = ({ userid, nickname, image, introduction, job }) => {
         </CardTop>
         <CardBottom>
           <MemberDesc>{introduction}</MemberDesc>
-          <MemberButton>신청하기</MemberButton>
+          <MemberButton onClick={() => history.push(`/private/${userid}`)}>
+            신청하기
+          </MemberButton>
         </CardBottom>
       </MemberCard>
     </>

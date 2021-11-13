@@ -8,16 +8,31 @@ import { history } from "../redux/configureStore";
 import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
+import lunch from "../redux/modules/lunch";
 
 const Home = (props) => {
+  const [page, setPage] = useState(1);
+  const [next, setNext] = useState(true);
+  const [fetching, setFetching] = useState(false);
+
   const [lunchList, setLunchList] = useState([]);
 
   const getLunchList = async () => {
-    const data = await apis.getLunchListMain();
-    console.log(data);
-    const lunchList = data.data.lunch;
-    setLunchList(lunchList);
+    setFetching(true);
+    setPage(page + 1);
+    if (!next) {
+      return;
+    }
+    const data = await apis.getLunchListMain(page);
+    const lunchs = data.data.lunch;
+    console.log(lunchs);
+    setLunchList([...lunchList, ...lunchs]);
+    if (lunchs.length < 11) {
+      setNext(false);
+    }
+    setFetching(false);
   };
+
   useEffect(() => {
     getLunchList();
   }, []);
@@ -32,6 +47,23 @@ const Home = (props) => {
     }
     history.push(`/lunchregister`);
   };
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight && !fetching) {
+      getLunchList();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
     <>
