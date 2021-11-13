@@ -8,15 +8,22 @@ import { history } from "../redux/configureStore";
 import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
+import lunch from "../redux/modules/lunch";
 
 const Home = props => {
+  const [fetching, setFetching] = useState(false);
+  console.log(fetching);
+
   const [lunchList, setLunchList] = useState([]);
   const getLunchList = async () => {
+    setFetching(true);
+    console.log("무한스크롤");
     const data = await apis.getLunchListMain();
-    console.log(data);
-    const lunchList = data.data.lunch;
-    setLunchList(lunchList);
+    const lunchs = data.data.lunch;
+    setLunchList([...lunchList, ...lunchs]);
+    setFetching(false);
   };
+
   useEffect(() => {
     getLunchList();
   }, []);
@@ -31,6 +38,23 @@ const Home = props => {
     }
     history.push(`/lunchregister`);
   };
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight && !fetching) {
+      getLunchList();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
     <>

@@ -15,6 +15,7 @@ import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
 import { useHistory } from "react-router";
 
 const LunchNew = props => {
+  console.log("이거??", props);
   const user = useSelector(state => state.user.user);
 
   let participant = props.applicants?.findIndex(

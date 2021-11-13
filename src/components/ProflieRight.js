@@ -134,7 +134,7 @@ const LunchListWrapper = styled.div`
   margin-bottom: 5rem;
   gap: 2rem 2rem;
   margin-top: 2rem;
-  justify-content: center;
+  /* justify-content: center; */
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
@@ -154,7 +154,7 @@ const Button = styled.button`
 `;
 
 const FakeDiv = styled.div`
-  width: 295px;
+  width: 315px;
 `;
 
 export default ProflieRight;

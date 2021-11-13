@@ -39,7 +39,7 @@ const Profile = props => {
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 1920px;
+  max-width: 1200px;
   height: 100%;
   justify-content: center;
   padding: 5rem 0 5rem 0;
