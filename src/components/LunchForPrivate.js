@@ -14,8 +14,7 @@ import BookmarkImg from "../assets/bookmark.svg";
 import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
 import { useHistory } from "react-router";
 
-const LunchNew = props => {
-  console.log(props);
+const LunchForPrivate = props => {
   const user = useSelector(state => state.user.user);
 
   let participant = props.applicants?.findIndex(
@@ -54,17 +53,17 @@ const LunchNew = props => {
 
   //북마크
 
-  // const getBookmarkData = async () => {
-  //   try {
-  //     const data = await apis.getBookmark();
-  //   } catch (error) {
-  //     console.log(error.response);
-  //   }
-  // };
+  const getBookmarkData = async () => {
+    try {
+      const data = await apis.getBookmark();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
-  // useEffect(() => {
-  //   getBookmarkData();
-  // }, []);
+  useEffect(() => {
+    getBookmarkData();
+  }, []);
 
   const addBookmarkData = async () => {
     try {
@@ -108,7 +107,7 @@ const LunchNew = props => {
         <ELWrapper
           margin="0 0 3rem 0"
           style={{ cursor: "pointer" }}
-          onClick={() => history.push(`/lunchpost/${lunchid}`)}
+          onClick={() => history.push(`/privatelunch/${lunchid}`)}
         >
           <Text weight="700" size="2" color="black">
             {title}
@@ -232,4 +231,4 @@ const Button = styled.button`
   margin-top: 1rem;
 `;
 
-export default LunchNew;
+export default LunchForPrivate;

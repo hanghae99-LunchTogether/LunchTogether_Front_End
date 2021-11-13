@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import LunchNew from "./LunchNew";
+import LunchForPrivate from "./LunchForPrivate";
 import ProfileReviewItem from "./ProfileReviewItem";
 import moment from "moment";
 
@@ -13,9 +14,15 @@ const ProflieRight = props => {
   const today = moment(new Date()).format();
 
   const totalLunch = lunchs.applied.concat(lunchs.owned).concat(lunchs.offered);
+  console.log(lunchs);
   const scheduledLunch = totalLunch.filter(
     l => moment(l.date).format() > today
   );
+
+  const offeredLunch = lunchs.offered.filter(
+    l => moment(l.date).format() > today
+  );
+
   const completedLunch = totalLunch.filter(
     l => moment(l.date).format() < today
   );
@@ -27,15 +34,15 @@ const ProflieRight = props => {
       content: scheduledLunch,
     },
     {
+      title: "제안받은 점심약속",
+      active: false,
+      content: offeredLunch,
+    },
+    {
       title: "완료된 점심약속",
       active: false,
       content: completedLunch,
     },
-    // {
-    //   title: "리뷰",
-    //   active: false,
-    //   content: [1, 2, 3],
-    // },
   ]);
   const [index, setIndex] = useState(0);
 
@@ -50,7 +57,7 @@ const ProflieRight = props => {
 
   return (
     <Wrapper>
-      <Text size="2.6" color="black" weight="800">
+      <Text size="2.6" color="white" weight="800">
         나의 점심약속
       </Text>
       <ElWrapper>
@@ -69,10 +76,10 @@ const ProflieRight = props => {
         {tabs[index].content.map(
           (l, idx) =>
             // index !== 2 ? (
-            index === 0 ? (
+            index !== 1 ? (
               <LunchNew key={idx} {...l} />
             ) : (
-              <LunchNew key={idx} completed {...l} />
+              <LunchForPrivate key={idx} completed {...l} />
             )
 
           // <ProfileReviewItem key={idx} reviews={usersReviews} />
@@ -109,7 +116,7 @@ const TabWrapper = styled.div`
   margin-right: 2rem;
   cursor: pointer;
   margin-top: 2rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   ${props =>
     props.active
       ? "color: black; font-weight: 800;"
@@ -134,7 +141,7 @@ const LunchListWrapper = styled.div`
   margin-bottom: 5rem;
   gap: 2rem 2rem;
   margin-top: 2rem;
-  justify-content: center;
+  /* justify-content: center; */
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
@@ -154,7 +161,7 @@ const Button = styled.button`
 `;
 
 const FakeDiv = styled.div`
-  width: 295px;
+  width: 315px;
 `;
 
 export default ProflieRight;
