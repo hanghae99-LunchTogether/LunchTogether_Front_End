@@ -8,13 +8,13 @@ import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 import LogoImg from "../assets/logofooter.svg";
 
-const Login = props => {
+const Login = (props) => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = e => {
+  const onChange = (e) => {
     const {
       target: { name, value },
     } = e;
@@ -36,7 +36,7 @@ const Login = props => {
   const loginWithKakao = () => {
     // 카카오 로그인
     Kakao.Auth.login({
-      success: authObj => {
+      success: (authObj) => {
         console.log(authObj);
 
         // 유저정보 요청코드
@@ -69,7 +69,7 @@ const Login = props => {
     });
   };
 
-  const error = useSelector(state => state.user.error);
+  const error = useSelector((state) => state.user.error);
 
   return (
     <>
@@ -148,7 +148,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 4rem auto 3rem auto;
+  margin: 4rem auto 8rem auto;
 `;
 
 const Logo = styled.div`
@@ -202,7 +202,7 @@ const Button = styled.button`
   &:hover {
     box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
-  ${props =>
+  ${(props) =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}
