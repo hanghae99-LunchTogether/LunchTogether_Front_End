@@ -19,7 +19,7 @@ const LunchNew = (props) => {
   const user = useSelector((state) => state.user.user);
 
   let participant = props.applicants?.findIndex(
-    (u) => u.user.userid === user?.userid,
+    (u) => u.user.userid === user?.userid
   );
 
   let owner = props.host?.userid === user?.userid ? true : false;
@@ -37,6 +37,7 @@ const LunchNew = (props) => {
     bk_num,
     completed,
     isbook,
+    setLunchListFunction,
   } = props;
 
   const strDate = String(date);
@@ -48,7 +49,7 @@ const LunchNew = (props) => {
 
   const validateReview = () => {
     applicants?.findIndex((u) =>
-      u.user.userid === user?.userid ? true : false,
+      u.user.userid === user?.userid ? true : false
     );
   };
 
@@ -56,28 +57,22 @@ const LunchNew = (props) => {
 
   //북마크
 
-  // const getBookmarkData = async () => {
-  //   try {
-  //     const data = await apis.getBookmark();
-  //   } catch (error) {
-  //     console.log(error.response);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getBookmarkData();
-  // }, []);
-
   const addBookmarkData = async () => {
     try {
       const data = await apis.addBookmark(lunchid);
+      setLunchListFunction((prev) => {
+        return prev.map((item) => {
+          if (item.lunchid === lunchid) {
+            item.isbook = !item.isbook;
+          }
+          return item;
+        });
+      });
       console.log("추가", data);
     } catch (error) {
       console.log(error.response);
     }
   };
-
-  const [active, setActive] = useState(false);
 
   const clickBookmark = () => {
     addBookmarkData();
@@ -144,7 +139,7 @@ const LunchNew = (props) => {
             }}
           >
             <img src={isbook ? BookmarkImgFilled : BookmarkImg} />
-            <span>{bk_num}</span>
+            {/* <span>{bk_num}</span> */}
           </Bookmark>
         </ELWrapper>
       </Wrapper>

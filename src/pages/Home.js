@@ -10,12 +10,13 @@ import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
 import lunch from "../redux/modules/lunch";
 
-const Home = props => {
+const Home = (props) => {
   const [page, setPage] = useState(1);
   const [next, setNext] = useState(true);
   const [fetching, setFetching] = useState(false);
 
   const [lunchList, setLunchList] = useState([]);
+
   const getLunchList = async () => {
     setFetching(true);
     setPage(page + 1);
@@ -36,7 +37,7 @@ const Home = props => {
     getLunchList();
   }, []);
 
-  const user = useSelector(state => state.user.isLoggedIn);
+  const user = useSelector((state) => state.user.isLoggedIn);
 
   const moveToLunchRegister = () => {
     if (!user) {
@@ -80,8 +81,14 @@ const Home = props => {
             <button onClick={moveToLunchRegister}>점심약속 등록하기</button>
           </CurationTitle>
           <LunchList>
-            {lunchList.map((l, idx) => {
-              return <LunchNew {...l} key={idx} />;
+            {lunchList.map((item, idx) => {
+              return (
+                <LunchNew
+                  setLunchListFunction={setLunchList}
+                  {...item}
+                  key={idx}
+                />
+              );
             })}
             <FakeDiv />
             <FakeDiv />
