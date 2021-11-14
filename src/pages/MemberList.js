@@ -10,21 +10,51 @@ import { RiArrowUpSLine } from "react-icons/ri";
 
 import MemberListCard from "../components/MemberListCard";
 
-const MemberList = props => {
+const MemberList = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
+
+  //무한스크롤
+  const [page, setPage] = useState(1);
+  const [next, setNext] = useState(true);
+  const [fetching, setFetching] = useState(false);
+
   const [alluser, setAllUser] = useState([]);
   const getMemberDate = async () => {
-    try {
-      const data = await apis.getMemberList();
-      setAllUser(data.data.user);
-    } catch (error) {
-      console.log(error);
+    setFetching(true);
+    setPage(page + 1);
+    if (!next) {
+      return;
     }
+    const data = await apis.getMemberList(page);
+    const allusers = data.data.user;
+    console.log(allusers);
+    setAllUser([...alluser, ...allusers]);
+    if (allusers.length < 11) {
+      setNext(false);
+    }
+    setFetching(false);
   };
 
   useEffect(() => {
     getMemberDate();
   }, []);
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight && !fetching) {
+      getMemberDate();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
     <>
@@ -33,7 +63,7 @@ const MemberList = props => {
         <SearchInput
           placeholder="멤버 검색"
           type="text"
-          onClick={e => {
+          onClick={(e) => {
             setSearchTerm(e.target.value);
           }}
         />
