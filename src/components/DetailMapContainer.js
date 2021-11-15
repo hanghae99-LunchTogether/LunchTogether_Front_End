@@ -17,7 +17,7 @@ const DetailMapContainer = props => {
     var markerPosition = new kakao.maps.LatLng(location?.y, location?.x);
 
     // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
+    let marker = new kakao.maps.Marker({
       position: markerPosition,
     });
 

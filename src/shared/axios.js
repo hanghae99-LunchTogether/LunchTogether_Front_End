@@ -26,6 +26,8 @@ export const apis = {
       },
     }),
 
+  logOut: () => instance.get("/logout"),
+
   kakaologin: user =>
     instance.post(`/kakaologin`, user, {
       headers: {

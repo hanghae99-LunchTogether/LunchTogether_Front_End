@@ -80,9 +80,16 @@ export const logInAPI = account => {
 
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
+    console.log("로그아웃");
+    apis
+      .logOut()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
     localStorage.removeItem("token");
     dispatch(logOut());
-    history.replace("/");
+    // history.replace("/");
   };
 };
 
