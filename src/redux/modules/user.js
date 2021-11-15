@@ -66,8 +66,8 @@ export const logInAPI = account => {
         // const token = res.data.token;
         // const user = res.data.data.user;
         // localStorage.setItem("token", token);
-        dispatch(setUser(user));
-        history.push("/");
+        // dispatch(setUser(user));
+        // history.push("/");
       })
       .catch(err => {
         console.log(err.response);
