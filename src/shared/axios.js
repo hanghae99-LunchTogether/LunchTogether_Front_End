@@ -29,7 +29,7 @@ export const apis = {
     }),
 
   logout: () =>
-  instance.get(`/logout,`),
+  instance.get(`/logout`),
 
   kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {

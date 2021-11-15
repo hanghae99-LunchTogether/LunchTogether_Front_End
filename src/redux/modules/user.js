@@ -62,12 +62,10 @@ export const logInAPI = account => {
     apis
       .logIn(account)
       .then(res => {
-        console.log(res);
-        // const token = res.data.token;
-        // const user = res.data.data.user;
+        const user = res.data.user;
         // localStorage.setItem("token", token);
-        // dispatch(setUser(user));
-        // history.push("/");
+        dispatch(setUser(user));
+        history.push("/");
       })
       .catch(err => {
         console.log(err.response);
