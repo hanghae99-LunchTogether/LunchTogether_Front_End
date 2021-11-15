@@ -3,9 +3,11 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://lebania.shop",
+  baseURL: "http://localhost",
+  withCredentials:true
 });
-
+// axios.defaults.withCredentials = true;
+// https://lebania.shop
 // "proxy": "http://3.35.54.135:3000"
 export const apis = {
   //회원가입
@@ -25,6 +27,9 @@ export const apis = {
         accept: "application/json",
       },
     }),
+
+  logout: () =>
+  instance.get(`/logout,`),
 
   kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
