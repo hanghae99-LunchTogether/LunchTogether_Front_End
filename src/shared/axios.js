@@ -30,6 +30,9 @@ export const apis = {
 
   logout: () =>
   instance.get(`/logout`),
+  
+  testkakao:()=> instance.get('/kakao'),
+
 
   kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {

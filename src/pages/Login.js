@@ -30,7 +30,9 @@ const Login = (props) => {
   const logIn = () => {
     dispatch(userActions.logInAPI(account));
   };
-
+  const testin = () => {
+    dispatch(userActions.testkakakAPI());
+  };
   const { Kakao } = window;
 
   const loginWithKakao = () => {
@@ -116,7 +118,7 @@ const Login = (props) => {
         <Button onClick={logIn}>이메일로 시작하기</Button>
         <Button
           src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          onClick={loginWithKakao}
+          onClick={testin}
         ></Button>
         <Text
           style={{

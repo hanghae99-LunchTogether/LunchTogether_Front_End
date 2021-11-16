@@ -63,9 +63,26 @@ export const logInAPI = account => {
       .logIn(account)
       .then(res => {
         const user = res.data.user;
-        // localStorage.setItem("token", token);
+        const token = res.data.token;
+        localStorage.setItem("token", token);
         dispatch(setUser(user));
         history.push("/");
+      })
+      .catch(err => {
+        console.log(err.response);
+        console.log(err);
+        dispatch(setError(err.response.data.msg));
+      });
+  };
+};
+
+
+export const testkakakAPI = () => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .testkakao()
+      .then(res => {
+        console.log(res)
       })
       .catch(err => {
         console.log(err.response);
@@ -74,6 +91,7 @@ export const logInAPI = account => {
       });
   };
 };
+
 
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
@@ -130,6 +148,7 @@ const userActions = {
   logInAPI,
   logOutAPI,
   getUserAPI,
+  testkakakAPI
 };
 
 export { userActions };

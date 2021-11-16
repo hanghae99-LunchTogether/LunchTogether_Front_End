@@ -16,6 +16,7 @@ const Header = props => {
   const { Kakao } = window;
 
   const logOut = () => {
+    
     Kakao.Auth.logout(() => {
       console.log(Kakao.Auth.getAccessToken());
     });
