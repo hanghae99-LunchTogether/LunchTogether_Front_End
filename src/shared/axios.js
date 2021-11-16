@@ -33,7 +33,6 @@ export const apis = {
   
   testkakao:(code)=> instance.get(`/kakao/callback?code=${code}`),
 
-
   kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
       headers: {
@@ -204,4 +203,23 @@ export const apis = {
     instance.delete(`/applicant/${lunchid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
+
+
+
+
+  //여기서 부터 채팅 테스트를 위한 실험
+  //생성되어 있는 채팅 방을 불러옵니다.
+  getroom:()=>instance.get('/getroom'),
+
+
+  //챗을 위한 방을 생성합니다.
+  // EX) 예시
+  // body:{
+  //   title : "타이틀",
+  //   max : "수용수 최대 인원",
+  //   password : "방의 비밀번호"
+  // }
+  createroom:(body)=>instance.post('/room',body,{
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  }),
 };
