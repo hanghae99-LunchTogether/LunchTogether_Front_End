@@ -29,6 +29,7 @@ import Notification from "../pages/Notification";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProfileReviewItem from "../components/ProfileReviewItem";
 import LunchDetailNew from "../pages/LunchDetailNew";
+import KakaoLoginRedirection from "../pages/kakaore"
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ function App() {
           <Route path="/review/:lunchid" exact component={Review}></Route>
           <Route path="/bookmark" exact component={Bookmark}></Route>
           <Route path="/pr" exact component={ProfileReviewItem}></Route>
+          <Route path="/kakao/callback" exact component={KakaoLoginRedirection}></Route>
         </Switch>
         <Footer />
       </ConnectedRouter>

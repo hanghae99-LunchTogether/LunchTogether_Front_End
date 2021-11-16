@@ -31,44 +31,47 @@ const Login = (props) => {
     dispatch(userActions.logInAPI(account));
   };
   const testin = () => {
-    dispatch(userActions.testkakakAPI());
+    document.location = 'http://localhost:3000/oauth/authorize?client_id=96fe0871dd5342bc65e0a1643e0210b9&redirect_uri=http://localhost:3000/kakao/callback&response_type=code'
   };
   const { Kakao } = window;
-
   const loginWithKakao = () => {
     // 카카오 로그인
-    Kakao.Auth.login({
-      success: (authObj) => {
-        console.log(authObj);
+    Kakao.Auth.authorize({ redirectUri: 'http://localhost:3000/kakao/callback'});
 
-        // 유저정보 요청코드
-        Kakao.API.request({
-          url: "/v2/user/me",
-          data: {
-            property_keys: ["properties.profile_image", "properties.nickname"],
-          },
-          success: async function (res) {
-            const user = {
-              id: res.id,
-              image: res.properties.profile_image,
-              nickname: res.properties.nickname,
-            };
-            const data = await apis.kakaologin(user);
-            const token = data.data.token;
-            if (token) {
-              localStorage.setItem("token", token);
-              dispatch(userActions.getUserAPI());
-              history.push("/");
-            } else {
-              window.alert("로그인에 실패했습니다.");
-            }
-          },
-          fail: function (error) {
-            console.log(error);
-          },
-        });
-      },
-    });
+
+
+    // Kakao.Auth.login({
+    //   success: (authObj) => {
+    //     console.log(authObj);
+
+    //     // 유저정보 요청코드
+    //     Kakao.API.request({
+    //       url: "/v2/user/me",
+    //       data: {
+    //         property_keys: ["properties.profile_image", "properties.nickname"],
+    //       },
+    //       success: async function (res) {
+    //         const user = {
+    //           id: res.id,
+    //           image: res.properties.profile_image,
+    //           nickname: res.properties.nickname,
+    //         };
+    //         const data = await apis.kakaologin(user);
+    //         const token = data.data.token;
+    //         if (token) {
+    //           localStorage.setItem("token", token);
+    //           dispatch(userActions.getUserAPI());
+    //           history.push("/");
+    //         } else {
+    //           window.alert("로그인에 실패했습니다.");
+    //         }
+    //       },
+    //       fail: function (error) {
+    //         console.log(error);
+    //       },
+    //     });
+    //   },
+    // });
   };
 
   const error = useSelector((state) => state.user.error);
@@ -118,7 +121,7 @@ const Login = (props) => {
         <Button onClick={logIn}>이메일로 시작하기</Button>
         <Button
           src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          onClick={testin}
+          onClick={loginWithKakao}
         ></Button>
         <Text
           style={{

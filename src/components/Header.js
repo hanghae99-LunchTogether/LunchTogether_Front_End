@@ -13,13 +13,14 @@ import Alarm from "../assets/alarm.svg";
 const Header = props => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.user);
+  console.log(user)
   const { Kakao } = window;
 
   const logOut = () => {
     
-    Kakao.Auth.logout(() => {
-      console.log(Kakao.Auth.getAccessToken());
-    });
+    // Kakao.Auth.logout(() => {
+    //   console.log(Kakao.Auth.getAccessToken());
+    // });
     dispatch(userActions.logOutAPI());
   };
 

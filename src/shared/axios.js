@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+const { createProxyMiddleware } = require('http-proxy-middleware');
 import axios from "axios";
 
 const instance = axios.create({
@@ -31,7 +31,7 @@ export const apis = {
   logout: () =>
   instance.get(`/logout`),
   
-  testkakao:()=> instance.get('/kakao'),
+  testkakao:(code)=> instance.get(`/kakao/callback?code=${code}`),
 
 
   kakaologin: (user) =>

@@ -62,7 +62,9 @@ export const logInAPI = account => {
     apis
       .logIn(account)
       .then(res => {
-        const user = res.data.user;
+        
+        const user = res.data.data.user;
+        console.log(res);
         const token = res.data.token;
         localStorage.setItem("token", token);
         dispatch(setUser(user));
@@ -76,21 +78,6 @@ export const logInAPI = account => {
   };
 };
 
-
-export const testkakakAPI = () => {
-  return function (dispatch, getState, { history }) {
-    apis
-      .testkakao()
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err.response);
-        console.log(err);
-        // dispatch(setError(err.response.data.msg));
-      });
-  };
-};
 
 
 export const logOutAPI = () => {
@@ -147,8 +134,7 @@ const userActions = {
   signUpAPI,
   logInAPI,
   logOutAPI,
-  getUserAPI,
-  testkakakAPI
+  getUserAPI
 };
 
 export { userActions };
