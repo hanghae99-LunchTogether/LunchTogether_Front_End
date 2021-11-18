@@ -101,7 +101,13 @@ const ProfileUpdate = (props) => {
               size="100"
               src={preview ? preview : userInfo.image}
             />
-            <input type="file" onChange={selectFile} ref={profileImage} />
+            <Label for="ex_file">이미지 업로드</Label>
+            <FileInput
+              type="file"
+              id="ex_file"
+              onChange={selectFile}
+              ref={profileImage}
+            />
           </ImageWrapper>
           <InputWrapper>
             <Text>닉네임</Text>
@@ -270,6 +276,35 @@ const InputWrapper = styled.div`
   margin-bottom: 1.6rem;
   max-width: 500px;
   min-width: 350px;
+`;
+
+const Label = styled.label`
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.5em 0.75em;
+  color: #ed6653;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #ffedee;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
+  &:hover {
+    border: 1px solid #ed6653;
+  }
+`;
+
+const FileInput = styled.input`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 `;
 
 const Text = styled.p`
