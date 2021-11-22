@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const Bookmark = (props) => {
   const [bookmarkList, setBookmarkList] = useState([]);
+  console.log("ddd", bookmarkList);
 
   const getBookmarkData = async () => {
     try {

@@ -10,8 +10,8 @@ import "moment/locale/ko";
 import { apis } from "../shared/axios";
 import ChoolChool from "../assets/cc.png";
 import ProfileImg from "../assets/profile.png";
-import BookmarkImg from "../assets/bookmark.svg";
-import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
+import BookmarkBtn from "./BookmarkBtn";
+
 import { useHistory } from "react-router";
 
 const LunchNew = (props) => {
@@ -54,29 +54,6 @@ const LunchNew = (props) => {
   };
 
   validateReview();
-
-  //북마크
-
-  const addBookmarkData = async () => {
-    try {
-      const data = await apis.addBookmark(lunchid);
-      setLunchListFunction((prev) => {
-        return prev.map((item) => {
-          if (item.lunchid === lunchid) {
-            item.isbook = !item.isbook;
-          }
-          return item;
-        });
-      });
-      console.log("추가", data);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const clickBookmark = () => {
-    addBookmarkData();
-  };
 
   //리뷰
   const goToReview = () => {
@@ -132,16 +109,9 @@ const LunchNew = (props) => {
             <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
-
-          <Bookmark
-            onClick={() => {
-              clickBookmark();
-            }}
-          >
-            <img src={isbook ? BookmarkImgFilled : BookmarkImg} />
-            {/* <span>{bk_num}</span> */}
-          </Bookmark>
+          <BookmarkBtn bk_num={bk_num} isbook={isbook} lunchid={lunchid} />
         </ELWrapper>
+        {/* <Button onClick={goToReview}>리뷰 남기기</Button> */}
       </Wrapper>
     </>
   );
@@ -197,23 +167,6 @@ const CircleImage = styled.div`
   background-size: cover;
   background-position: top;
   margin-right: 1rem;
-`;
-
-const Bookmark = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  img {
-    width: 18px;
-    height: 21px;
-  }
-  span {
-    font-size: 1.4rem;
-    color: #64656a;
-    opacity: 0.3;
-    margin-left: 0.6rem;
-  }
 `;
 
 const Button = styled.button`

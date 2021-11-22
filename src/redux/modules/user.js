@@ -10,9 +10,9 @@ const LOG_OUT = "LOG_OUT";
 const SET_ERROR = "SET_ERROR";
 
 const signUp = createAction(SIGN_UP);
-const setUser = createAction(SET_USER, user => ({ user }));
+const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT);
-const setError = createAction(SET_ERROR, error => ({ error }));
+const setError = createAction(SET_ERROR, (error) => ({ error }));
 
 const initialState = {
   user: null,
@@ -20,7 +20,7 @@ const initialState = {
   error: [],
 };
 
-export const signUpAPI = _account => {
+export const signUpAPI = (_account) => {
   return function (dispatch, getState, { history }) {
     const account = {
       email: _account.email,
@@ -29,40 +29,41 @@ export const signUpAPI = _account => {
     };
     apis
       .checkEmail(account.email)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         apis
           .checkNickname(account.nickname)
-          .then(res => {
+          .then((res) => {
             console.log(res);
             apis
               .registerUser(account)
-              .then(res => {
+              .then((res) => {
                 console.log(res);
                 history.push("/login");
               })
-              .catch(err => {
+              .catch((err) => {
+                // console.log(err.response);
+                alert(err.response.data.msg);
                 dispatch(setError(err.response.data.msg));
               });
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err.response);
             dispatch(setError(err.response.data.msg));
           });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
         dispatch(setError(err.response.data.msg));
       });
   };
 };
 
-export const logInAPI = account => {
+export const logInAPI = (account) => {
   return function (dispatch, getState, { history }) {
-    console.log(account);
     apis
       .logIn(account)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         const token = res.data.token;
         const user = res.data.data.user;
@@ -70,9 +71,9 @@ export const logInAPI = account => {
         dispatch(setUser(user));
         history.push("/");
       })
-      .catch(err => {
-        console.log(err.response);
-        console.log(err);
+      .catch((err) => {
+        // console.log(err.response);
+        alert(err.response.data.msg);
         dispatch(setError(err.response.data.msg));
       });
   };
@@ -88,7 +89,7 @@ export const logOutAPI = () => {
 
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
-    apis.getUser().then(res => {
+    apis.getUser().then((res) => {
       const user = res.data.data.user[0];
       dispatch(setUser(user));
     });
@@ -98,21 +99,21 @@ export const getUserAPI = () => {
 export default handleActions(
   {
     [SIGN_UP]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         console.log(action);
       }),
     [SET_USER]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.isLoggedIn = true;
       }),
     [LOG_OUT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.user = null;
         draft.isLoggedIn = false;
       }),
     [SET_ERROR]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.error.push(action.payload.error);
       }),
   },

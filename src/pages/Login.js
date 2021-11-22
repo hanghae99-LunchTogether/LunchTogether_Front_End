@@ -7,28 +7,21 @@ import { userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 import LogoImg from "../assets/logofooter.svg";
+import { useForm } from "react-hook-form";
 
-const Login = props => {
-  const [account, setAccount] = useState({
-    email: "",
-    password: "",
-  });
-
-  const onChange = e => {
-    const {
-      target: { name, value },
-    } = e;
-
-    setAccount({
-      ...account,
-      [name]: value,
-    });
-  };
+const Login = (props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
 
   const dispatch = useDispatch();
 
-  const logIn = () => {
-    dispatch(userActions.logInAPI(account));
+  const onSubmit = (data) => {
+    // console.log("데이타", data);
+    dispatch(userActions.logInAPI(data));
   };
 
   const { Kakao } = window;
@@ -36,7 +29,7 @@ const Login = props => {
   const loginWithKakao = () => {
     // 카카오 로그인
     Kakao.Auth.login({
-      success: authObj => {
+      success: (authObj) => {
         console.log(authObj);
 
         // 유저정보 요청코드
@@ -69,68 +62,43 @@ const Login = props => {
     });
   };
 
-  const error = useSelector(state => state.user.error);
-
   return (
     <>
-      <Wrapper>
+      <Wrapper onSubmit={handleSubmit(onSubmit)}>
         <Logo>
           <img src={LogoImg} />
         </Logo>
-        <InputWrapper>
-          <Text> 이메일</Text>
 
+        <InputWrapper>
           <Input
-            name="email"
-            placeholder="이메일"
             type="text"
-            onChange={onChange}
-            value={account.email}
-            required
+            placeholder="이메일을 입력해주세요."
+            {...register("email", {
+              required: "이메일을 입력해주세요.",
+            })}
           />
+          {errors && <SubmitMsg>{errors?.email?.message}</SubmitMsg>}
         </InputWrapper>
-        <InputWrapper>
-          <Text> 비밀번호</Text>
 
+        <InputWrapper>
           <Input
-            name="password"
-            placeholder="비밀번호"
             type="password"
-            onChange={onChange}
-            value={account.paasword}
-            required
+            placeholder="비밀번호를 입력해주세요."
+            {...register("password", {
+              required: "비밀번호를 입력해주세요.",
+            })}
           />
+          {errors.password && <SubmitMsg>{errors.password.message}</SubmitMsg>}
         </InputWrapper>
-        {error && (
-          <Text
-            style={{
-              width: "100%",
-              color: "red",
-              textAlign: "center",
-              marginBottom: "1rem",
-            }}
-          >
-            {error}
-          </Text>
-        )}
-        <Button onClick={logIn}>이메일로 시작하기</Button>
+
+        <Button type="submit" onClick={handleSubmit(onSubmit)}>
+          이메일로 시작하기
+        </Button>
         <Button
           src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
           onClick={loginWithKakao}
         ></Button>
-        <Text
-          style={{
-            width: "400px",
-            textAlign: "center",
-            fontSize: "1.8rem",
-            fontWeight: "700",
-            color: "white",
-            cursor: "pointer",
-            marginTop: "2rem",
-            marginBottom: "8rem",
-          }}
-          onClick={() => history.push("/signup")}
-        >
+        <Text onClick={() => history.push("/signup")}>
           아직 회원이 아니신가요?{" "}
           <span style={{ fontWeight: "bold", color: "black" }}>회원가입 </span>
         </Text>
@@ -148,62 +116,74 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 4rem auto 3rem auto;
+  margin: 8.5rem auto;
+  padding: 2rem;
 `;
 
 const Logo = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-bottom: 5rem;
+  width: 15rem;
+  height: 15rem;
+  margin-bottom: 2rem;
 `;
 
 const InputWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-  max-width: 500px;
-  margin: 1rem;
+  margin-bottom: 2rem;
+  min-width: 350px;
+  flex-direction: column;
 `;
 
 const Text = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: white;
-  min-width: 80px;
   font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 8rem;
 `;
 
 const Input = styled.input`
   width: 100%;
-  height: 48px;
-  color: black;
+  height: 50px;
   font-size: 1.6rem;
-  padding: 12px 16px;
-  border-radius: 6px;
+  padding: 2rem;
+  border-radius: 0.5rem;
   border: 1px solid #dfdfdf;
   background-color: #fff;
+
+  ::placeholder {
+    color: #abb0b5;
+    font-weight: 600;
+  }
 `;
 
 const Button = styled.button`
-  max-width: 500px;
   width: 100%;
-  height: 48px;
+  height: 50px;
+  min-width: 350px;
   font-family: NotoSansKR;
   font-weight: bold;
   font-size: 1.6rem;
   border: 1px solid #ff9841;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   background-color: #ff9841;
   color: white;
   margin: 1rem 3rem;
-  min-width: 350px;
 
   &:hover {
     box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }
-  ${props =>
+  ${(props) =>
     props.src
       ? `background-image: url(${props.src}); background-size: contain; border: none; background-position: center; background-repeat: no-repeat; background-color: #FFEB02; &:hover {background-color: #FFEB02;}`
       : ""}
+`;
+
+const SubmitMsg = styled.p`
+  font-size: 1.4rem;
+  color: red;
+  margin-top: 0.5rem;
 `;
