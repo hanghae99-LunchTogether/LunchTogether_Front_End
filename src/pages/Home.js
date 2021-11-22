@@ -82,13 +82,7 @@ const Home = (props) => {
           </CurationTitle>
           <LunchList>
             {lunchList.map((item, idx) => {
-              return (
-                <LunchNew
-                  setLunchListFunction={setLunchList}
-                  {...item}
-                  key={idx}
-                />
-              );
+              return <LunchNew {...item} key={idx} />;
             })}
             <FakeDiv />
             <FakeDiv />
