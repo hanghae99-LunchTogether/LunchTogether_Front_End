@@ -7,8 +7,8 @@ import { history } from "../redux/configureStore";
 
 import LogoImg from "../assets/logofooter.svg";
 
-const Footer = props => {
-  const user = useSelector(state => state.user.user);
+const Footer = (props) => {
+  const user = useSelector((state) => state.user.user);
 
   return (
     <Container>

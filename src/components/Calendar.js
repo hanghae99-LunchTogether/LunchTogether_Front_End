@@ -14,7 +14,7 @@ const Calendar = ({ setDate, date }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
-        renderInput={params => (
+        renderInput={(params) => (
           <TextField
             sx={{ width: 500, fontSize: "1.6rem" }}
             style={{ fontSize: "1.6rem", backgroundColor: "white" }}
@@ -23,7 +23,8 @@ const Calendar = ({ setDate, date }) => {
         )}
         value={date}
         inputFormat="yyyy-MM-dd a hh:mm"
-        onChange={newValue => {
+        disablePast
+        onChange={(newValue) => {
           setValue(newValue);
           setDate(newValue);
         }}

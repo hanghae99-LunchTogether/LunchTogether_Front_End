@@ -10,9 +10,9 @@ import MobaileNav from "./MobileNav";
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
 
-const Header = props => {
+const Header = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const { Kakao } = window;
 
   const logOut = () => {
@@ -32,6 +32,7 @@ const Header = props => {
                 <Logo
                   onClick={() => {
                     history.push("/");
+                    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                   }}
                 >
                   <img src={LogoImg} />
