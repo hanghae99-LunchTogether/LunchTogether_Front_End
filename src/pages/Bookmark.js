@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { apis } from "../shared/axios";
 import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const Bookmark = (props) => {
+  const today = moment(new Date()).format();
   const [bookmarkList, setBookmarkList] = useState([]);
-  console.log("ddd", bookmarkList);
 
   const getBookmarkData = async () => {
     try {
@@ -29,7 +30,12 @@ const Bookmark = (props) => {
       <Title>관심있는 약속에 참여해보세요!👀</Title>
       <BookmarkList>
         {bookmarkList.map((item, idx) => {
-          return <LunchNew {...item} key={idx} />;
+          if (today < item.date) {
+            return <LunchNew {...item} key={idx} />;
+          } else {
+            return null;
+          }
+          // return <LunchNew {...item} key={idx} />;
         })}
         <FakeDiv />
         <FakeDiv />
