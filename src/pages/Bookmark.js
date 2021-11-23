@@ -35,7 +35,6 @@ const Bookmark = (props) => {
           } else {
             return null;
           }
-          // return <LunchNew {...item} key={idx} />;
         })}
         <FakeDiv />
         <FakeDiv />
@@ -49,7 +48,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 0;
+  padding: 5rem;
   min-height: 100vh;
 `;
 
@@ -61,13 +60,12 @@ const Title = styled.h1`
 `;
 
 const BookmarkList = styled.div`
-  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin: 0 auto 3.2rem auto;
+  margin-bottom: 3.2rem;
   gap: 2rem 2rem;
 
   @media only screen and (max-width: 768px) {
