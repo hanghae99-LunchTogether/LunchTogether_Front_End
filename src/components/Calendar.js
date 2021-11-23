@@ -16,8 +16,7 @@ const Calendar = ({ setDate, date }) => {
       <DateTimePicker
         renderInput={(params) => (
           <TextField
-            sx={{ width: 500, fontSize: "1.6rem" }}
-            style={{ fontSize: "1.6rem", backgroundColor: "white" }}
+            sx={{ width: 500, backgroundColor: "white" }}
             {...params}
           />
         )}
