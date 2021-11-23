@@ -2,20 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { apis } from "../shared/axios";
-
-import { ReactComponent as ForkImg } from "../assets/fork.svg";
-import Cross from "../assets/cross.svg";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+import { apis } from "../shared/axios";
+import { ReactComponent as ForkImg } from "../assets/fork.svg";
+import Cross from "../assets/cross.svg";
 
-const Review = props => {
-  const user = useSelector(state => state.user.user);
+const Review = (props) => {
+  const user = useSelector((state) => state.user.user);
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
 
   const applicants = lunch?.applicants.filter(
-    u => u.user.userid !== user?.userid
+    (u) => u.user.userid !== user?.userid
   );
   const host = lunch?.host;
 
@@ -32,7 +31,7 @@ const Review = props => {
   const [content, setContent] = useState("");
   const [checkError, setCheckError] = useState("");
 
-  const onChangeContent = e => {
+  const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
@@ -41,11 +40,11 @@ const Review = props => {
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
-  const handleClick = value => {
+  const handleClick = (value) => {
     setCurrentValue(value);
   };
 
-  const handleMouseOver = newHoverValue => {
+  const handleMouseOver = (newHoverValue) => {
     setHoverValue(newHoverValue);
   };
 
@@ -64,7 +63,7 @@ const Review = props => {
   // 파라미터
   // targetuserid, spoon , comment, lunchid
 
-  const addReviewData = async e => {
+  const addReviewData = async (e) => {
     try {
       if (content === "") {
         setCheckError("작성되지 않은 리뷰가 남아있어요 :(");
@@ -89,7 +88,7 @@ const Review = props => {
   return (
     <>
       <Wrapper onClick={() => history.goBack()}>
-        <ReviewContainar onClick={e => e.stopPropagation()}>
+        <ReviewContainar onClick={(e) => e.stopPropagation()}>
           {applicants?.map((u, idx) => {
             <div key={idx}> u.user.userid</div>;
           })}
