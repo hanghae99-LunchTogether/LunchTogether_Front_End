@@ -5,12 +5,15 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
+import moment from "moment";
 import CarouselSlide from "../components/CarouselSlide";
 import Lunch from "../components/Lunch";
 import LunchNew from "../components/LunchNew";
 import lunch from "../redux/modules/lunch";
 
 const Home = (props) => {
+  const today = moment(new Date()).format();
+
   const [page, setPage] = useState(1);
   const [next, setNext] = useState(true);
   const [fetching, setFetching] = useState(false);
@@ -25,7 +28,7 @@ const Home = (props) => {
     }
     const data = await apis.getLunchListMain(page);
     const lunchs = data.data.lunch;
-    console.log(lunchs);
+
     setLunchList([...lunchList, ...lunchs]);
     if (lunchs.length < 11) {
       setNext(false);
@@ -82,7 +85,11 @@ const Home = (props) => {
           </CurationTitle>
           <LunchList>
             {lunchList.map((item, idx) => {
-              return <LunchNew {...item} key={idx} />;
+              if (today < item.date) {
+                return <LunchNew {...item} key={idx} />;
+              } else {
+                return null;
+              }
             })}
             <FakeDiv />
             <FakeDiv />
