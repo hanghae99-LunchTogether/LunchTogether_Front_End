@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { apis } from "../shared/axios";
 import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const Bookmark = (props) => {
+  const today = moment(new Date()).format();
   const [bookmarkList, setBookmarkList] = useState([]);
-  console.log("ddd", bookmarkList);
 
   const getBookmarkData = async () => {
     try {
@@ -29,7 +30,11 @@ const Bookmark = (props) => {
       <Title>관심있는 약속에 참여해보세요!👀</Title>
       <BookmarkList>
         {bookmarkList.map((item, idx) => {
-          return <LunchNew {...item} key={idx} />;
+          if (today < item.date) {
+            return <LunchNew {...item} key={idx} />;
+          } else {
+            return null;
+          }
         })}
         <FakeDiv />
         <FakeDiv />
@@ -43,7 +48,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 0;
+  padding: 5rem;
   min-height: 100vh;
 `;
 
@@ -55,13 +60,12 @@ const Title = styled.h1`
 `;
 
 const BookmarkList = styled.div`
-  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin: 0 auto 3.2rem auto;
+  margin-bottom: 3.2rem;
   gap: 2rem 2rem;
 
   @media only screen and (max-width: 768px) {

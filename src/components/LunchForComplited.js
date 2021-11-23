@@ -10,11 +10,12 @@ import "moment/locale/ko";
 import { apis } from "../shared/axios";
 import ChoolChool from "../assets/cc.png";
 import ProfileImg from "../assets/profile.png";
-import BookmarkImg from "../assets/bookmark.svg";
-import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
+import BookmarkBtn from "./BookmarkBtn";
+
 import { useHistory } from "react-router";
 
-const LunchForPrivate = (props) => {
+const LunchForComplited = (props) => {
+  console.log("오잉", props);
   const user = useSelector((state) => state.user.user);
 
   let participant = props.applicants?.findIndex(
@@ -36,6 +37,7 @@ const LunchForPrivate = (props) => {
     bk_num,
     completed,
     isbook,
+    setLunchListFunction,
   } = props;
 
   const strDate = String(date);
@@ -52,35 +54,6 @@ const LunchForPrivate = (props) => {
   };
 
   validateReview();
-
-  //북마크
-
-  const getBookmarkData = async () => {
-    try {
-      const data = await apis.getBookmark();
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  useEffect(() => {
-    getBookmarkData();
-  }, []);
-
-  const addBookmarkData = async () => {
-    try {
-      const data = await apis.addBookmark(lunchid);
-      console.log("추가", data);
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
-  const [active, setActive] = useState(false);
-
-  const clickBookmark = () => {
-    addBookmarkData();
-  };
 
   //리뷰
   const goToReview = () => {
@@ -109,7 +82,7 @@ const LunchForPrivate = (props) => {
         <ELWrapper
           margin="0 0 3rem 0"
           style={{ cursor: "pointer" }}
-          onClick={() => history.push(`/privatelunch/${lunchid}`)}
+          onClick={() => history.push(`/lunchpost/${lunchid}`)}
         >
           <Text weight="700" size="2" color="black">
             {title}
@@ -136,16 +109,9 @@ const LunchForPrivate = (props) => {
             <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
-
-          <Bookmark
-            onClick={() => {
-              clickBookmark();
-            }}
-          >
-            <img src={isbook ? BookmarkImgFilled : BookmarkImg} />
-            <span>{bk_num}</span>
-          </Bookmark>
+          <BookmarkBtn bk_num={bk_num} isbook={isbook} lunchid={lunchid} />
         </ELWrapper>
+        {/* <Button onClick={goToReview}>리뷰 남기기</Button> */}
       </Wrapper>
     </>
   );
@@ -203,23 +169,6 @@ const CircleImage = styled.div`
   margin-right: 1rem;
 `;
 
-const Bookmark = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  img {
-    width: 18px;
-    height: 21px;
-  }
-  span {
-    font-size: 1.4rem;
-    color: #64656a;
-    opacity: 0.3;
-    margin-left: 0.6rem;
-  }
-`;
-
 const Button = styled.button`
   width: 100%;
   height: 3rem;
@@ -233,4 +182,4 @@ const Button = styled.button`
   margin-top: 1rem;
 `;
 
-export default LunchForPrivate;
+export default LunchForComplited;

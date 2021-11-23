@@ -6,8 +6,12 @@ import { apis } from "../shared/axios";
 import { history } from "../redux/configureStore";
 import ProfileLeft from "../components/ProfileLeft";
 import ProfileRight from "../components/ProflieRight";
+import { useSelector } from "react-redux";
 
-const Profile = props => {
+const Profile = (props) => {
+  const profile_list = useSelector((state) => state);
+  console.log("프로필", profile_list);
+
   const [user, setUser] = useState(null);
 
   const userId = props.match.params.id;

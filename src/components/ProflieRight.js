@@ -7,8 +7,9 @@ import LunchNew from "./LunchNew";
 import LunchForPrivate from "./LunchForPrivate";
 import ProfileReviewItem from "./ProfileReviewItem";
 import moment from "moment";
+import LunchForComplited from "./LunchForComplited";
 
-const ProflieRight = props => {
+const ProflieRight = (props) => {
   const { lunchs, usersReviews } = props;
 
   const today = moment(new Date()).format();
@@ -16,15 +17,15 @@ const ProflieRight = props => {
   const totalLunch = lunchs.applied.concat(lunchs.owned).concat(lunchs.offered);
   console.log(lunchs);
   const scheduledLunch = totalLunch.filter(
-    l => moment(l.date).format() > today
+    (l) => moment(l.date).format() > today
   );
 
   const offeredLunch = lunchs.offered.filter(
-    l => moment(l.date).format() > today
+    (l) => moment(l.date).format() > today
   );
 
   const completedLunch = totalLunch.filter(
-    l => moment(l.date).format() < today
+    (l) => moment(l.date).format() < today
   );
 
   const [tabs, setTabs] = useState([
@@ -46,7 +47,7 @@ const ProflieRight = props => {
   ]);
   const [index, setIndex] = useState(0);
 
-  const changeTab = index => {
+  const changeTab = (index) => {
     setTabs(
       tabs.map((tab, i) =>
         i === index ? { ...tab, active: true } : { ...tab, active: false }
@@ -75,12 +76,21 @@ const ProflieRight = props => {
       <LunchListWrapper>
         {tabs[index].content.map(
           (l, idx) =>
-            // index !== 2 ? (
-            index !== 1 ? (
+            index === 0 ? (
               <LunchNew key={idx} {...l} />
-            ) : (
+            ) : index === 1 ? (
               <LunchForPrivate key={idx} completed {...l} />
+            ) : (
+              // <LunchForComplited />
+              <LunchNew key={idx} {...l} />
             )
+
+          // index !== 2 ? (
+          // index !== 1 ? (
+          //   <LunchNew key={idx} {...l} />
+          // ) : (
+          //   <LunchForPrivate key={idx} completed {...l} />
+          // )
 
           // <ProfileReviewItem key={idx} reviews={usersReviews} />
         )}
@@ -117,16 +127,16 @@ const TabWrapper = styled.div`
   cursor: pointer;
   margin-top: 2rem;
   font-size: 1.8rem;
-  ${props =>
+  ${(props) =>
     props.active
       ? "color: black; font-weight: 800;"
       : "color: white; font-weight: 400;"};
 `;
 
 const Text = styled.p`
-  font-size: ${props => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${props => (props.weight ? props.weight : "400")};
-  color: ${props => (props.color ? props.color : "#909090")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "400")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
@@ -155,7 +165,7 @@ const Button = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
   color: white;
   z-index: 1000;
 `;
