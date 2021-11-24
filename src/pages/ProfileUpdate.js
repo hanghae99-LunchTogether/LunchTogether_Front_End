@@ -93,8 +93,13 @@ const ProfileUpdate = (props) => {
   const onUpdateProfile = () => {
     apis
       .updateProfile(userInfo)
-      .then((res) => console.log("레스값", res))
-      .catch((error) => console.log("에러", error.response));
+      .then((res) => {
+        console.log(res);
+        history.push(`/profile/${userId}`);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
     // try {
     //   console.log("유저인포", userInfo);
     //   // console.log("업로드이미지", uploadImage);
