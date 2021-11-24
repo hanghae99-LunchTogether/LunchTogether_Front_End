@@ -56,8 +56,10 @@ const ProfileUpdate = (props) => {
   };
 
   const uploadFB = (file) => {
-    // let image = profileImage.current.files[0];
-    const _upload = storage.ref(`images/1234`).putString(file, "data_url");
+    let image = profileImage.current.files[0];
+    const _upload = storage
+      .ref(`images/${image.name}`)
+      .putString(file, "data_url");
 
     _upload.then((snapshot) => {
       snapshot.ref.getDownloadURL().then((url) => {
@@ -65,9 +67,7 @@ const ProfileUpdate = (props) => {
           ...userInfo,
           image: url,
         });
-        // console.log(url);
       });
-      // console.log("스냅샷", snapshot);
     });
   };
 
@@ -75,7 +75,6 @@ const ProfileUpdate = (props) => {
     try {
       const data = await apis.getProfile(userId);
       const user = data.data;
-      // const user = data.data.data.user;
       setUserInfo(user);
       setUploadImage(user.image);
     } catch (error) {
@@ -91,16 +90,20 @@ const ProfileUpdate = (props) => {
     setSearchKeyword(placeInput);
   };
 
-  const onUpdateProfile = async () => {
-    try {
-      console.log("유저인포", userInfo);
-      // console.log("업로드이미지", uploadImage);
-      const data = await apis.updateProfile(userInfo);
-      // console.log(data);
-      // history.push(`/profile/${userId}`);
-    } catch (error) {
-      console.log(error.response);
-    }
+  const onUpdateProfile = () => {
+    apis
+      .updateProfile(userInfo)
+      .then((res) => console.log("레스값", res))
+      .catch((error) => console.log("에러", error.response));
+    // try {
+    //   console.log("유저인포", userInfo);
+    //   // console.log("업로드이미지", uploadImage);
+    //   const data = await apis.updateProfile(userInfo);
+    //   // console.log(data);
+    //   history.push(`/profile/${userId}`);
+    // } catch (error) {
+    //   console.log(error.response);
+    // }
   };
 
   useEffect(() => {
@@ -254,7 +257,6 @@ const ProfileUpdate = (props) => {
               searchKeyword={searchKeyword}
             />
           </InputWrapper>
-          {/* <Button onClick={uploadFB}>수정하기</Button> */}
           <Button onClick={onUpdateProfile}>수정하기</Button>
         </Wrapper>
       )}
