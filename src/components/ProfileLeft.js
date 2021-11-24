@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 
-const ProfileLeft = props => {
-  const user = useSelector(state => state.user);
+const ProfileLeft = (props) => {
+  const user = useSelector((state) => state.user);
   console.log(user);
   const {
     dislikemenu,
@@ -21,6 +21,8 @@ const ProfileLeft = props => {
     snsurl,
     userid,
   } = props.user;
+
+  console.log("이미지받아오기", image);
 
   return (
     <>
@@ -115,23 +117,23 @@ const ELWrapper = styled.div`
   text-align: center;
   display: flex;
   justify-content: center;
-  ${props => (props.padding ? `padding: ${props.padding};` : "")};
-  ${props => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${props => (props.bg ? props.bg : "white")};
-  ${props =>
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${(props) => (props.bg ? props.bg : "white")};
+  ${(props) =>
     props.flex
       ? `display: flex; align-items: center; justify-content: space-between`
       : ""};
-  ${props => (props.center ? `text-align: center` : "")};
-  ${props =>
+  ${(props) => (props.center ? `text-align: center` : "")};
+  ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
 `;
 
 const Text = styled.p`
-  font-size: ${props => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${props => (props.weight ? props.weight : "400")};
-  color: ${props => (props.color ? props.color : "#909090")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "400")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
@@ -140,11 +142,11 @@ const Text = styled.p`
 `;
 
 const CircleImage = styled.div`
-  width: ${props => props.size}rem;
-  height: ${props => props.size}rem;
-  border-radius: ${props => props.size}rem;
+  width: ${(props) => props.size}rem;
+  height: ${(props) => props.size}rem;
+  border-radius: ${(props) => props.size}rem;
 
-  background-image: url("${props => props.src}");
+  background-image: url("${(props) => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;

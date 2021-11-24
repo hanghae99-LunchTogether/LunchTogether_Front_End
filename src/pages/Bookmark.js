@@ -6,6 +6,7 @@ import { apis } from "../shared/axios";
 import LunchNew from "../components/LunchNew";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { secondsToMilliseconds } from "date-fns";
 
 const Bookmark = (props) => {
   const today = moment(new Date()).format();
@@ -14,7 +15,7 @@ const Bookmark = (props) => {
   const getBookmarkData = async () => {
     try {
       const data = await apis.getBookmark();
-      const bookmarkList = data.data.bookmarks;
+      const bookmarkList = data.data;
       setBookmarkList(bookmarkList);
     } catch (error) {
       console.log(error.response);

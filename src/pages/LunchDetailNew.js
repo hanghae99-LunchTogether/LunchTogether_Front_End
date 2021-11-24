@@ -21,7 +21,7 @@ const LunchDetailNew = (props) => {
   const getLunch = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
-      const lunch = data.data.data.lunch;
+      const lunch = data.data;
       setLunch(lunch);
     } catch (error) {
       console.log(error.response);
@@ -30,7 +30,7 @@ const LunchDetailNew = (props) => {
 
   const confirmApplied = () => {
     const index = lunch?.applicants?.findIndex(
-      (u) => u.user.userid === user?.user?.userid,
+      (u) => u.user.userid === user?.user?.userid
     );
     index !== -1 ? (isApplied = true) : (isApplied = false);
   };

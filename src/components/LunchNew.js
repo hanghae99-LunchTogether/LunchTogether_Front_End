@@ -17,8 +17,6 @@ import { useHistory } from "react-router";
 const LunchNew = (props) => {
   const user = useSelector((state) => state.user.user);
 
-  console.log("이거보세요", props);
-
   // let participant = props.applicants?.findIndex(
   //   (u) => u.user.userid === user?.userid
   // );

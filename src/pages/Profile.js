@@ -16,7 +16,7 @@ const Profile = (props) => {
   const getProfile = async () => {
     try {
       const data = await apis.getProfile(userId);
-      setUser(data.data.data.user);
+      setUser(data.data);
     } catch (error) {
       console.log(error.response);
     }
