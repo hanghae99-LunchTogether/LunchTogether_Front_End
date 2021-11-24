@@ -56,8 +56,10 @@ const ProfileUpdate = (props) => {
   };
 
   const uploadFB = (file) => {
-    // let image = profileImage.current.files[0];
-    const _upload = storage.ref(`images/1234`).putString(file, "data_url");
+    let image = profileImage.current.files[0];
+    const _upload = storage
+      .ref(`images/${image.name}`)
+      .putString(file, "data_url");
 
     _upload.then((snapshot) => {
       snapshot.ref.getDownloadURL().then((url) => {
@@ -91,16 +93,26 @@ const ProfileUpdate = (props) => {
     setSearchKeyword(placeInput);
   };
 
-  const onUpdateProfile = async () => {
-    try {
-      console.log("유저인포", userInfo);
-      // console.log("업로드이미지", uploadImage);
-      const data = await apis.updateProfile(userInfo);
-      // console.log(data);
-      // history.push(`/profile/${userId}`);
-    } catch (error) {
-      console.log(error.response);
-    }
+  const onUpdateProfile = () => {
+    apis
+      .updateProfile(userInfo)
+      .then((res) => {
+        console.log(res);
+        history.push(`/profile/${userId}`);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    // try {
+    //   console.log("유저인포", userInfo);
+    //   // console.log("업로드이미지", uploadImage);
+    //   const data = await apis.updateProfile(userInfo);
+    //   console.log(data)
+    //   // console.log(data);
+    //   // history.push(`/profile/${userId}`);
+    // } catch (error) {
+    //   console.log(error.response);
+    // }
   };
 
   useEffect(() => {
