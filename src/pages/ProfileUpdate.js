@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import styled from "styled-components";
-import { Image } from "../elements";
-
 import { useSelector } from "react-redux";
+
+import { Image } from "../elements";
 import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
+import { storage } from "../shared/firebase";
 
 const ProfileUpdate = (props) => {
   const [userInfo, setUserInfo] = useState(null);
@@ -37,7 +38,10 @@ const ProfileUpdate = (props) => {
 
   const profileImage = useRef();
 
-  const selectFile = () => {
+  const selectFile = (e) => {
+    console.log("타켓쩜파일", e.target.files[0]);
+    console.log("ref확인", profileImage.current.files[0]);
+
     const reader = new FileReader();
     const file = profileImage.current.files[0];
     const formData = new FormData();
@@ -47,20 +51,37 @@ const ProfileUpdate = (props) => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreview(reader.result);
+      uploadFB(reader.result);
     };
+  };
+
+  const uploadFB = (file) => {
+    // let image = profileImage.current.files[0];
+    const _upload = storage.ref(`images/1234`).putString(file, "data_url");
+
+    _upload.then((snapshot) => {
+      snapshot.ref.getDownloadURL().then((url) => {
+        setUserInfo({
+          ...userInfo,
+          image: url,
+        });
+        // console.log(url);
+      });
+      // console.log("스냅샷", snapshot);
+    });
   };
 
   const getProfileData = async () => {
     try {
       const data = await apis.getProfile(userId);
-      const user = data.data.data.user;
+      const user = data.data;
+      // const user = data.data.data.user;
       setUserInfo(user);
       setUploadImage(user.image);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(userInfo);
 
   const onSearchKeywordChange = (e) => {
     setPlaceInput(e.target.value);
@@ -71,14 +92,12 @@ const ProfileUpdate = (props) => {
   };
 
   const onUpdateProfile = async () => {
-    console.log(userInfo);
-
     try {
-      console.log(userInfo, "요청직전");
-      console.log(uploadImage);
-      const data = await apis.updateProfile(userInfo, uploadImage);
-      console.log(data);
-      history.push(`/profile/${userId}`);
+      console.log("유저인포", userInfo);
+      // console.log("업로드이미지", uploadImage);
+      const data = await apis.updateProfile(userInfo);
+      // console.log(data);
+      // history.push(`/profile/${userId}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -235,6 +254,7 @@ const ProfileUpdate = (props) => {
               searchKeyword={searchKeyword}
             />
           </InputWrapper>
+          {/* <Button onClick={uploadFB}>수정하기</Button> */}
           <Button onClick={onUpdateProfile}>수정하기</Button>
         </Wrapper>
       )}

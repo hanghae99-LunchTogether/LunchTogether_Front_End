@@ -15,7 +15,6 @@ import BookmarkBtn from "./BookmarkBtn";
 import { useHistory } from "react-router";
 
 const LunchNew = (props) => {
-  console.log("런치뉴", props);
   const user = useSelector((state) => state.user.user);
 
   // let participant = props.applicants?.findIndex(
@@ -71,9 +70,10 @@ const LunchNew = (props) => {
       {today < date ? (
         <Wrapper completed={completed}>
           <ELWrapper
+            onClick={() => history.push(`/lunchpost/${lunchid}`)}
             margin="0 0 1rem 0"
             flex
-            style={{ justifyContent: "space-between" }}
+            style={{ justifyContent: "space-between", cursor: "pointer" }}
           >
             <Text weight="600" size="1.4" color="#FFC428">
               {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
@@ -91,7 +91,12 @@ const LunchNew = (props) => {
               {title}
             </Text>
           </ELWrapper>
-          <ELWrapper flex margin="0 0 2rem 0">
+          <ELWrapper
+            flex
+            margin="0 0 2rem 0"
+            style={{ cursor: "pointer" }}
+            onClick={() => history.push(`/profile/${host.userid}`)}
+          >
             <CircleImage size="5" src={host?.image ? host.image : ChoolChool} />
             <ELWrapper>
               <Text weight="600" color="black" size="1.4">
@@ -106,7 +111,10 @@ const LunchNew = (props) => {
             flex
             style={{ justifyContent: "space-between" }}
           >
-            <ELWrapper>
+            <ELWrapper
+              style={{ cursor: "pointer" }}
+              onClick={() => history.push(`/lunchpost/${lunchid}`)}
+            >
               <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
               <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
             </ELWrapper>

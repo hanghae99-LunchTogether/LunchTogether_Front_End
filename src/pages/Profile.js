@@ -9,9 +9,6 @@ import ProfileRight from "../components/ProflieRight";
 import { useSelector } from "react-redux";
 
 const Profile = (props) => {
-  const profile_list = useSelector((state) => state);
-  console.log("프로필", profile_list);
-
   const [user, setUser] = useState(null);
 
   const userId = props.match.params.id;
@@ -19,7 +16,7 @@ const Profile = (props) => {
   const getProfile = async () => {
     try {
       const data = await apis.getProfile(userId);
-      setUser(data.data.data.user);
+      setUser(data.data);
     } catch (error) {
       console.log(error.response);
     }

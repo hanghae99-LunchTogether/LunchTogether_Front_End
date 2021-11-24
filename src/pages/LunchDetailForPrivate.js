@@ -11,8 +11,8 @@ import ChoolChool from "../assets/cc.png";
 import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
 
-const LunchDetailForPrivate = props => {
-  const user = useSelector(state => state.user);
+const LunchDetailForPrivate = (props) => {
+  const user = useSelector((state) => state.user);
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
@@ -21,7 +21,7 @@ const LunchDetailForPrivate = props => {
   const getLunch = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
-      const lunch = data.data.data.lunch;
+      const lunch = data.data;
       setLunch(lunch);
     } catch (error) {
       console.log(error.response);
@@ -30,7 +30,7 @@ const LunchDetailForPrivate = props => {
 
   const confirmApplied = () => {
     const index = lunch?.applicants?.findIndex(
-      u => u.user.userid === user?.user?.userid
+      (u) => u.user.userid === user?.user?.userid
     );
     index !== -1 ? (isApplied = true) : (isApplied = false);
   };
@@ -234,36 +234,36 @@ const Wrapper = styled.div`
 
 const ELWrapper = styled.div`
   height: 100%;
-  ${props => props.center && `justify-content: center`};
-  ${props => (props.padding ? `padding: ${props.padding};` : "")};
-  ${props => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${props => (props.bg ? props.bg : "white")};
-  ${props => (props.flex ? `display: flex; align-items: center;` : "")};
+  ${(props) => props.center && `justify-content: center`};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${(props) => (props.bg ? props.bg : "white")};
+  ${(props) => (props.flex ? `display: flex; align-items: center;` : "")};
 
-  ${props =>
+  ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   margin: 1rem 0 0.5rem 0;
 `;
 
 const Text = styled.p`
   width: 100%;
-  font-size: ${props => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${props => (props.weight ? props.weight : "400")};
-  color: ${props => (props.color ? props.color : "#909090")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "400")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
   letter-spacing: -1.1px;
-  width: ${props => props.width && props.width}rem;
-  line-height: ${props => props.lineheight && props.lineheight}rem;
+  width: ${(props) => props.width && props.width}rem;
+  line-height: ${(props) => props.lineheight && props.lineheight}rem;
 `;
 
 const CircleImage = styled.div`
-  width: ${props => props.size}rem;
-  height: ${props => props.size}rem;
-  border-radius: ${props => props.size}rem;
+  width: ${(props) => props.size}rem;
+  height: ${(props) => props.size}rem;
+  border-radius: ${(props) => props.size}rem;
 
-  background-image: url("${props => props.src}");
+  background-image: url("${(props) => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -277,7 +277,7 @@ const Button = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
   color: white;
   margin-bottom: 2rem;
 `;
@@ -289,7 +289,7 @@ const ApproveBtn = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
   color: white;
   margin-top: 1rem;
 `;

@@ -90,7 +90,7 @@ export const logOutAPI = () => {
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getUser().then((res) => {
-      const user = res.data.data.user[0];
+      const user = res.data.user;
       dispatch(setUser(user));
     });
   };
