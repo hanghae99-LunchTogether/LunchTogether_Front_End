@@ -39,9 +39,6 @@ const ProfileUpdate = (props) => {
   const profileImage = useRef();
 
   const selectFile = (e) => {
-    console.log("타켓쩜파일", e.target.files[0]);
-    console.log("ref확인", profileImage.current.files[0]);
-
     const reader = new FileReader();
     const file = profileImage.current.files[0];
     const formData = new FormData();
@@ -67,9 +64,7 @@ const ProfileUpdate = (props) => {
           ...userInfo,
           image: url,
         });
-        // console.log(url);
       });
-      // console.log("스냅샷", snapshot);
     });
   };
 
@@ -77,7 +72,6 @@ const ProfileUpdate = (props) => {
     try {
       const data = await apis.getProfile(userId);
       const user = data.data;
-      // const user = data.data.data.user;
       setUserInfo(user);
       setUploadImage(user.image);
     } catch (error) {
@@ -103,16 +97,6 @@ const ProfileUpdate = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-    // try {
-    //   console.log("유저인포", userInfo);
-    //   // console.log("업로드이미지", uploadImage);
-    //   const data = await apis.updateProfile(userInfo);
-    //   console.log(data)
-    //   // console.log(data);
-    //   // history.push(`/profile/${userId}`);
-    // } catch (error) {
-    //   console.log(error.response);
-    // }
   };
 
   useEffect(() => {
@@ -266,7 +250,6 @@ const ProfileUpdate = (props) => {
               searchKeyword={searchKeyword}
             />
           </InputWrapper>
-          {/* <Button onClick={uploadFB}>수정하기</Button> */}
           <Button onClick={onUpdateProfile}>수정하기</Button>
         </Wrapper>
       )}

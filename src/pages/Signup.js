@@ -19,7 +19,6 @@ const Signup = (props) => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    console.log("데이타", data);
     dispatch(userActions.signUpAPI(data));
   };
 
