@@ -39,9 +39,6 @@ const ProfileUpdate = (props) => {
   const profileImage = useRef();
 
   const selectFile = (e) => {
-    console.log("타켓쩜파일", e.target.files[0]);
-    console.log("ref확인", profileImage.current.files[0]);
-
     const reader = new FileReader();
     const file = profileImage.current.files[0];
     const formData = new FormData();
@@ -100,15 +97,6 @@ const ProfileUpdate = (props) => {
       .catch((err) => {
         console.log(err.response);
       });
-    // try {
-    //   console.log("유저인포", userInfo);
-    //   // console.log("업로드이미지", uploadImage);
-    //   const data = await apis.updateProfile(userInfo);
-    //   // console.log(data);
-    //   history.push(`/profile/${userId}`);
-    // } catch (error) {
-    //   console.log(error.response);
-    // }
   };
 
   useEffect(() => {
