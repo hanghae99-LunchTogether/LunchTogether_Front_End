@@ -6,7 +6,6 @@ import { Avatar } from "@mui/material";
 import { history } from "../redux/configureStore";
 
 const MemberListCard = ({ userid, nickname, image, introduction, job }) => {
-  console.log(userid, nickname, image, introduction, job);
   return (
     <>
       <MemberCard
