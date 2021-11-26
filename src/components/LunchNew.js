@@ -49,7 +49,7 @@ const LunchNew = (props) => {
 
   const validateReview = () => {
     applicants?.findIndex((u) =>
-      u.user.userid === user?.userid ? true : false
+      u.user.userid === user?.userid ? true : false,
     );
   };
 

@@ -92,7 +92,7 @@ export const logOutAPI = () => {
 export const getUserAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.getUser().then((res) => {
-      const user = res.data.user;
+      const user = res.data;
       dispatch(setUser(user));
     });
   };
@@ -119,7 +119,7 @@ export default handleActions(
         draft.error.push(action.payload.error);
       }),
   },
-  initialState
+  initialState,
 );
 
 const userActions = {

@@ -27,7 +27,6 @@ const MemberList = (props) => {
     }
     const data = await apis.getMemberList(page);
     const allusers = data.data.user;
-    console.log(allusers);
     setAllUser([...alluser, ...allusers]);
     if (allusers.length < 11) {
       setNext(false);
