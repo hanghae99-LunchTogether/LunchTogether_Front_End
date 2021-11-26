@@ -88,11 +88,12 @@ const LunchCreateUpdate = (props) => {
   };
 
   const addLunch = async () => {
-    console.log(targetUser);
-    console.log(lunch);
+    console.log("타겟유저", targetUser);
+    console.log("fjscl", lunch);
     try {
       if (targetUser) {
         const data = await apis.createPrivatelunch(targetUser, lunch);
+        console.log("데이타타탙", data);
         const newLunchId = data.data.data.lunch.lunchid;
         history.push(`/lunchpost/${newLunchId}`);
       } else {

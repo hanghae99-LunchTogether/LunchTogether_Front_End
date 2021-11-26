@@ -36,6 +36,7 @@ const LunchNew = (props) => {
     bk_num,
     completed,
     isbook,
+    end,
     setLunchListFunction,
   } = props;
 
@@ -55,7 +56,7 @@ const LunchNew = (props) => {
   validateReview();
 
   //리뷰
-  const today = moment(new Date()).format();
+  const today = moment(new Date()).utc().format();
 
   const goToReview = () => {
     if (applicants.length < 1) {
@@ -67,7 +68,41 @@ const LunchNew = (props) => {
 
   return (
     <>
-      {today < date ? (
+      {end ? (
+        <Wrapper completed={completed}>
+          <ELWrapper
+            margin="0 0 1rem 0"
+            flex
+            style={{ justifyContent: "space-between" }}
+          >
+            <Text weight="600" size="1.4" color="#FFC428">
+              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
+            </Text>
+            <Text weight="800" size="1.4">
+              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            </Text>
+          </ELWrapper>
+          <ELWrapper
+            margin="0 0 3rem 0"
+            style={{ cursor: "pointer" }}
+            onClick={() => history.push(`/lunchpost/${lunchid}`)}
+          >
+            <Text weight="700" size="2" color="black">
+              {title}
+            </Text>
+          </ELWrapper>
+          <ELWrapper flex margin="0 0 2rem 0">
+            <CircleImage size="5" src={host?.image ? host.image : ChoolChool} />
+            <ELWrapper>
+              <Text weight="600" color="black" size="1.4">
+                {host?.nickname}
+              </Text>
+              <Text size="1.4">{host?.job}</Text>
+            </ELWrapper>
+          </ELWrapper>
+          <Button onClick={goToReview}>리뷰 남기기</Button>
+        </Wrapper>
+      ) : (
         <Wrapper completed={completed}>
           <ELWrapper
             onClick={() => history.push(`/lunchpost/${lunchid}`)}
@@ -120,40 +155,6 @@ const LunchNew = (props) => {
             </ELWrapper>
             <BookmarkBtn bk_num={bk_num} isbook={isbook} lunchid={lunchid} />
           </ELWrapper>
-        </Wrapper>
-      ) : (
-        <Wrapper completed={completed}>
-          <ELWrapper
-            margin="0 0 1rem 0"
-            flex
-            style={{ justifyContent: "space-between" }}
-          >
-            <Text weight="600" size="1.4" color="#FFC428">
-              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
-            </Text>
-            <Text weight="800" size="1.4">
-              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-            </Text>
-          </ELWrapper>
-          <ELWrapper
-            margin="0 0 3rem 0"
-            style={{ cursor: "pointer" }}
-            onClick={() => history.push(`/lunchpost/${lunchid}`)}
-          >
-            <Text weight="700" size="2" color="black">
-              {title}
-            </Text>
-          </ELWrapper>
-          <ELWrapper flex margin="0 0 2rem 0">
-            <CircleImage size="5" src={host?.image ? host.image : ChoolChool} />
-            <ELWrapper>
-              <Text weight="600" color="black" size="1.4">
-                {host?.nickname}
-              </Text>
-              <Text size="1.4">{host?.job}</Text>
-            </ELWrapper>
-          </ELWrapper>
-          <Button onClick={goToReview}>리뷰 남기기</Button>
         </Wrapper>
       )}
     </>
