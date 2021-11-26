@@ -8,17 +8,17 @@ import { history } from "../redux/configureStore";
 const MemberListCard = ({ userid, nickname, image, introduction, job }) => {
   return (
     <>
-      <MemberCard
-        onClick={() => {
-          history.push(`profile/${userid}`);
-        }}
-      >
+      <MemberCard>
         <CardTop>
           <Avatar
             src={`${image && image}`}
             sx={{ width: "60px", height: "60px" }}
           />
-          <MemberInfo>
+          <MemberInfo
+            onClick={() => {
+              history.push(`profile/${userid}`);
+            }}
+          >
             <MemberName>{nickname}</MemberName>
             <Memberjob>{job}</Memberjob>
           </MemberInfo>
@@ -41,7 +41,6 @@ const MemberCard = styled.div`
   border-radius: 10px;
   width: 365px;
   margin: 5px;
-  cursor: pointer;
   box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   &:hover {
     background-color: #f2f4f6;
@@ -58,6 +57,7 @@ const CardTop = styled.div`
 `;
 
 const MemberInfo = styled.div`
+  cursor: pointer;
   margin: 0 10px;
 `;
 

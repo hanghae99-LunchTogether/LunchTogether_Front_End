@@ -11,7 +11,7 @@ const Notification = (props) => {
           <Text>
             <span className="nickname">만수르</span>
             <span className="message">
-              만수르님과의 점심약속 신청이 확정되었습니다:) 약속시간을 꼭
+              만수르님과의 점심약속 신청이 확정되었습니다 약속시간을 꼭
               지켜주세요!
             </span>
           </Text>
