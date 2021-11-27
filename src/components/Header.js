@@ -41,6 +41,9 @@ const Header = (props) => {
               <Right>
                 <button onClick={logOut}>로그아웃</button>
                 <div>
+                  <button onClick={() => history.push(`/memberlist`)}>
+                    멤버
+                  </button>
                   <button
                     onClick={() => history.push(`/profile/${user.userid}`)}
                   >
