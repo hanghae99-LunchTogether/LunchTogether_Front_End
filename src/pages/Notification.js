@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Notification = (props) => {
+  const user = useSelector((state) => state.user.user);
+
   return (
     <Container>
-      <h1>봄봄님 알림이 도착했습니다💌</h1>
+      <h1>{user.nickname}님 알림이 도착했습니다💌</h1>
       <NotiWrapper>
         <Content>
           <Img src="https://cdn.topstarnews.net/news/photo/first/201711/img_322443_1.jpg" />

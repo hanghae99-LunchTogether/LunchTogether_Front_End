@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://lebania.shop",
+  baseURL: process.env.REACT_APP_server,
 });
 
 // "proxy": "http://3.35.54.135:3000"
@@ -148,11 +148,6 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  applyLunch: (lunchid) =>
-    instance.post(`/applicant/${lunchid}`, null, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
-
   approveMember: (lunchid, approval) =>
     instance.patch(`/applicant/${lunchid}`, approval, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -190,6 +185,11 @@ export const apis = {
 
   cancelLunch: (lunchid) =>
     instance.delete(`/applicant/${lunchid}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  applyLunch: (lunchid, apply) =>
+    instance.patch(`/offer/confirmed/${lunchid}`, apply, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };

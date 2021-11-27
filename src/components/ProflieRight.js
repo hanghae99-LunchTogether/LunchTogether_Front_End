@@ -8,14 +8,15 @@ import LunchForPrivate from "./LunchForPrivate";
 import ProfileReviewItem from "./ProfileReviewItem";
 import moment from "moment";
 import LunchForComplited from "./LunchForComplited";
+import LunchForReserved from "./LunchForReserved";
 
 const ProflieRight = (props) => {
   const { lunchs, usersReviews } = props;
 
+  const totalLunch = lunchs.applied.concat(lunchs.owned);
+
   const today = moment(new Date()).format();
 
-  const totalLunch = lunchs.applied.concat(lunchs.owned).concat(lunchs.offered);
-  console.log(lunchs);
   const scheduledLunch = totalLunch.filter(
     (l) => moment(l.date).format() > today
   );
@@ -30,17 +31,22 @@ const ProflieRight = (props) => {
 
   const [tabs, setTabs] = useState([
     {
-      title: "예정된 점심약속",
+      title: "예정된 약속",
       active: true,
       content: scheduledLunch,
     },
     {
-      title: "제안받은 점심약속",
+      title: "제안받은 약속",
       active: false,
       content: offeredLunch,
     },
     {
-      title: "완료된 점심약속",
+      title: "완료된 약속",
+      active: false,
+      content: completedLunch,
+    },
+    {
+      title: "리뷰",
       active: false,
       content: completedLunch,
     },
@@ -74,25 +80,17 @@ const ProflieRight = (props) => {
         ))}
       </ElWrapper>
       <LunchListWrapper>
-        {tabs[index].content.map(
-          (l, idx) =>
-            index === 0 ? (
-              <LunchNew key={idx} {...l} />
-            ) : index === 1 ? (
-              <LunchForPrivate key={idx} completed {...l} />
-            ) : (
-              // <LunchForComplited />
-              <LunchNew key={idx} {...l} />
-            )
-
-          // index !== 2 ? (
-          // index !== 1 ? (
-          //   <LunchNew key={idx} {...l} />
-          // ) : (
-          //   <LunchForPrivate key={idx} completed {...l} />
-          // )
-
-          // <ProfileReviewItem key={idx} reviews={usersReviews} />
+        {tabs[index].content.map((item, idx) =>
+          index === 0 ? (
+            <LunchForReserved key={idx} {...item} />
+          ) : index === 1 ? (
+            <LunchForPrivate key={idx} completed {...item} />
+          ) : index === 2 ? (
+            // <LunchForComplited />
+            <LunchNew key={idx} {...item} />
+          ) : (
+            <h1>리뷰페이지</h1>
+          )
         )}
         <FakeDiv />
       </LunchListWrapper>

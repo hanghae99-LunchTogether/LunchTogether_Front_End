@@ -9,7 +9,6 @@ import moment from "moment";
 import { secondsToMilliseconds } from "date-fns";
 
 const Bookmark = (props) => {
-  const today = moment(new Date()).format();
   const [bookmarkList, setBookmarkList] = useState([]);
 
   const getBookmarkData = async () => {
@@ -31,7 +30,7 @@ const Bookmark = (props) => {
       <Title>관심있는 약속에 참여해보세요!👀</Title>
       <BookmarkList>
         {bookmarkList.map((item, idx) => {
-          if (today < item.date) {
+          if (item.end === false) {
             return <LunchNew {...item} key={idx} />;
           } else {
             return null;

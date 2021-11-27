@@ -9,10 +9,12 @@ import MobaileNav from "./MobileNav";
 
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
+import Bookmark from "../assets/bookmarkFilled.svg";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
   const { Kakao } = window;
 
   const logOut = () => {
@@ -47,7 +49,7 @@ const Header = (props) => {
                     내정보
                   </button>
                   <button onClick={() => history.push(`/bookmark`)}>
-                    북마크
+                    <img src={Bookmark} />
                   </button>
                   <button onClick={() => history.push(`/notification`)}>
                     <img src={Alarm} />

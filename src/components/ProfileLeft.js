@@ -22,8 +22,6 @@ const ProfileLeft = (props) => {
     userid,
   } = props.user;
 
-  console.log("이미지받아오기", image);
-
   return (
     <>
       <Wrapper>
