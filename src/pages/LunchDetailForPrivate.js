@@ -7,16 +7,16 @@ import DetailMapContainer from "../components/DetailMapContainer";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import moment from "moment";
-import ChoolChool from "../assets/cc.png";
+import ProfileImg from "../assets/profile.png";
 import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
+import { stubFalse } from "lodash";
 
 const LunchDetailForPrivate = (props) => {
   const user = useSelector((state) => state.user);
 
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
-  let isApplied = false;
 
   const getLunch = async () => {
     try {
@@ -28,23 +28,20 @@ const LunchDetailForPrivate = (props) => {
     }
   };
 
-  const confirmApplied = () => {
-    const index = lunch?.applicants?.findIndex(
-      (u) => u.user.userid === user?.user?.userid
-    );
-    index !== -1 ? (isApplied = true) : (isApplied = false);
-  };
+  useEffect(() => {
+    getLunch();
+  }, []);
 
-  confirmApplied();
+  const confirm = lunch?.useroffers[0].confirmed;
 
   const applyLunch = async () => {
-    console.log(user);
     if (!user.isLoggedIn) {
       window.alert("로그인을 해주세요!");
       history.replace("/login");
     }
     try {
-      const data = await apis.applyLunch(lunchId);
+      const apply = { confirmed: true };
+      const data = await apis.applyLunch(lunchId, apply);
       history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
@@ -52,17 +49,18 @@ const LunchDetailForPrivate = (props) => {
   };
 
   const cancelLunch = async () => {
+    if (!user.isLoggedIn) {
+      window.alert("로그인을 해주세요!");
+      history.replace("/login");
+    }
     try {
-      const data = await apis.cancelLunch(lunchId);
+      const apply = { confirmed: false };
+      const data = await apis.applyLunch(lunchId, apply);
       history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
     }
   };
-
-  useEffect(() => {
-    getLunch();
-  }, []);
 
   return (
     <>
@@ -142,7 +140,7 @@ const LunchDetailForPrivate = (props) => {
           <ELWrapper flex>
             <CircleImage
               size="10"
-              src={lunch.host.image ? lunch.host.image : ChoolChool}
+              src={lunch.host.image ? lunch.host.image : ProfileImg}
               onClick={() => history.push(`/profile/${lunch.host.userid}`)}
             />
             <ELWrapper style={{ marginLeft: "2rem" }}>
@@ -201,9 +199,16 @@ const LunchDetailForPrivate = (props) => {
               <Button onClick={() => history.push(`/lunchregister/${lunchId}`)}>
                 수정하기
               </Button>
-            ) : isApplied ? (
+            ) : confirm === null ? (
+              <>
+                <Button onClick={applyLunch}>점심약속 수락하기</Button>
+                <Button bg="gray" onClick={cancelLunch}>
+                  점심약속 거절하기
+                </Button>
+              </>
+            ) : confirm === true ? (
               <Button bg="gray" onClick={cancelLunch}>
-                거절하기
+                점심약속 취소하기
               </Button>
             ) : (
               <Button onClick={applyLunch}>점심약속 수락하기</Button>

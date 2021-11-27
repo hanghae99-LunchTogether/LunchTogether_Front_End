@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import io from "socket.io-client";
 
@@ -9,6 +10,8 @@ const ENDPOINT = "https://lebania.shop/test";
 let socket;
 
 const Notification = (props) => {
+  const user = useSelector((state) => state.user.user);
+
   useEffect(() => {
     socket = io.connect(ENDPOINT, {
       transports: ["websocket"],
@@ -27,7 +30,7 @@ const Notification = (props) => {
 
   return (
     <Container>
-      <h1>봄봄님 알림이 도착했습니다💌</h1>
+      <h1>{user.nickname}님 알림이 도착했습니다💌</h1>
       <NotiWrapper>
         <Content>
           <Img src="https://cdn.topstarnews.net/news/photo/first/201711/img_322443_1.jpg" />

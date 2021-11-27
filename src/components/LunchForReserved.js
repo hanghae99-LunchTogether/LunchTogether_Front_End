@@ -1,13 +1,19 @@
 /* eslint-disable */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
+import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
+import { useHistory } from "react-router";
 
-const LunchForPrivate = (props) => {
+const LunchForReserved = (props) => {
+  const user = useSelector((state) => state.user.user);
+
   const {
     title,
     host,
@@ -17,21 +23,30 @@ const LunchForPrivate = (props) => {
     membernum,
     applicants,
     completed,
-    useroffers,
   } = props;
-
-  const confirm = useroffers[0].confirmed;
 
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
   const adressDong = locations?.address_name.split(" ")[2];
 
+  //참여여부 및 과거날짜 확인
+
+  // const validateReview = () => {
+  //   applicants?.findIndex((u) =>
+  //     u.user.userid === user?.userid ? true : false
+  //   );
+  // };
+  // validateReview();
+
+  const validate = applicants.findIndex((todo) => todo.confirmed === false);
+
+  console.log("dddddddd", validate);
+
   return (
     <>
       <Wrapper completed={completed}>
         <ELWrapper
-          onClick={() => history.push(`/privatelunch/${lunchid}`)}
           margin="0 0 1rem 0"
           flex
           style={{ justifyContent: "space-between" }}
@@ -45,17 +60,14 @@ const LunchForPrivate = (props) => {
         </ELWrapper>
         <ELWrapper
           margin="0 0 3rem 0"
+          style={{ cursor: "pointer" }}
           onClick={() => history.push(`/privatelunch/${lunchid}`)}
         >
           <Text weight="700" size="2" color="black">
             {title}
           </Text>
         </ELWrapper>
-        <ELWrapper
-          onClick={() => history.push(`/profile/${host.userid}`)}
-          flex
-          margin="0 0 2rem 0"
-        >
+        <ELWrapper flex margin="0 0 2rem 0">
           <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
           <ELWrapper>
             <Text weight="600" color="black" size="1.4">
@@ -68,7 +80,6 @@ const LunchForPrivate = (props) => {
         <hr />
 
         <ELWrapper
-          onClick={() => history.push(`/privatelunch/${lunchid}`)}
           margin="0 0 1rem 0"
           flex
           style={{ justifyContent: "space-between" }}
@@ -77,19 +88,9 @@ const LunchForPrivate = (props) => {
             <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
-          {confirm === null ? (
-            <Text weight="700" size="2" color="#FE7022">
-              수락대기
-            </Text>
-          ) : confirm === true ? (
-            <Text weight="700" size="2" color="black">
-              수락완료
-            </Text>
-          ) : (
-            <Text weight="700" size="2" color="black">
-              거절완료
-            </Text>
-          )}
+          <Text weight="700" size="2" color="black">
+            {applicants.confirmed == true ? "승인완료" : "승인대기중"}
+          </Text>
         </ELWrapper>
       </Wrapper>
     </>
@@ -123,7 +124,6 @@ const ELWrapper = styled.div`
   ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
-  cursor: pointer;
 `;
 
 const Text = styled.p`
@@ -131,7 +131,6 @@ const Text = styled.p`
   font-weight: ${(props) => (props.weight ? props.weight : "400")};
   color: ${(props) => (props.color ? props.color : "#909090")};
   overflow: hidden;
-  /* text-overflow: ellipsis; */
   white-space: nowrap;
   letter-spacing: -1.1px;
   line-height: 2.2rem;
@@ -149,4 +148,34 @@ const CircleImage = styled.div`
   margin-right: 1rem;
 `;
 
-export default LunchForPrivate;
+const Bookmark = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 18px;
+    height: 21px;
+  }
+  span {
+    font-size: 1.4rem;
+    color: #64656a;
+    opacity: 0.3;
+    margin-left: 0.6rem;
+  }
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 3rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
+  color: white;
+  z-index: 1000;
+  margin-top: 1rem;
+`;
+
+export default LunchForReserved;

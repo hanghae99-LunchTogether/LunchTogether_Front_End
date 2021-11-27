@@ -2,13 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
 import { apis } from "../shared/axios";
-import ChoolChool from "../assets/cc.png";
 import ProfileImg from "../assets/profile.png";
 import BookmarkBtn from "./BookmarkBtn";
 
@@ -49,15 +47,13 @@ const LunchNew = (props) => {
 
   const validateReview = () => {
     applicants?.findIndex((u) =>
-      u.user.userid === user?.userid ? true : false,
+      u.user.userid === user?.userid ? true : false
     );
   };
 
   validateReview();
 
   //리뷰
-  const today = moment(new Date()).utc().format();
-
   const goToReview = () => {
     if (applicants.length < 1) {
       window.alert("참여자가 없어요!");
@@ -71,6 +67,7 @@ const LunchNew = (props) => {
       {end ? (
         <Wrapper completed={completed}>
           <ELWrapper
+            onClick={() => history.push(`/lunchpost/${lunchid}`)}
             margin="0 0 1rem 0"
             flex
             style={{ justifyContent: "space-between" }}
@@ -84,15 +81,18 @@ const LunchNew = (props) => {
           </ELWrapper>
           <ELWrapper
             margin="0 0 3rem 0"
-            style={{ cursor: "pointer" }}
             onClick={() => history.push(`/lunchpost/${lunchid}`)}
           >
             <Text weight="700" size="2" color="black">
               {title}
             </Text>
           </ELWrapper>
-          <ELWrapper flex margin="0 0 2rem 0">
-            <CircleImage size="5" src={host?.image ? host.image : ChoolChool} />
+          <ELWrapper
+            flex
+            margin="0 0 2rem 0"
+            onClick={() => history.push(`/profile/${host.userid}`)}
+          >
+            <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
             <ELWrapper>
               <Text weight="600" color="black" size="1.4">
                 {host?.nickname}
@@ -108,7 +108,7 @@ const LunchNew = (props) => {
             onClick={() => history.push(`/lunchpost/${lunchid}`)}
             margin="0 0 1rem 0"
             flex
-            style={{ justifyContent: "space-between", cursor: "pointer" }}
+            style={{ justifyContent: "space-between" }}
           >
             <Text weight="600" size="1.4" color="#FFC428">
               {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
@@ -119,7 +119,6 @@ const LunchNew = (props) => {
           </ELWrapper>
           <ELWrapper
             margin="0 0 3rem 0"
-            style={{ cursor: "pointer" }}
             onClick={() => history.push(`/lunchpost/${lunchid}`)}
           >
             <Text weight="700" size="2" color="black">
@@ -129,10 +128,9 @@ const LunchNew = (props) => {
           <ELWrapper
             flex
             margin="0 0 2rem 0"
-            style={{ cursor: "pointer" }}
             onClick={() => history.push(`/profile/${host.userid}`)}
           >
-            <CircleImage size="5" src={host?.image ? host.image : ChoolChool} />
+            <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
             <ELWrapper>
               <Text weight="600" color="black" size="1.4">
                 {host?.nickname}
@@ -146,10 +144,7 @@ const LunchNew = (props) => {
             flex
             style={{ justifyContent: "space-between" }}
           >
-            <ELWrapper
-              style={{ cursor: "pointer" }}
-              onClick={() => history.push(`/lunchpost/${lunchid}`)}
-            >
+            <ELWrapper onClick={() => history.push(`/lunchpost/${lunchid}`)}>
               <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
               <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
             </ELWrapper>
@@ -188,6 +183,7 @@ const ELWrapper = styled.div`
   ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
+  cursor: pointer;
 `;
 
 const Text = styled.p`
