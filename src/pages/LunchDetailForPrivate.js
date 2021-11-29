@@ -41,7 +41,7 @@ const LunchDetailForPrivate = (props) => {
     }
     try {
       const apply = { confirmed: true };
-      const data = await apis.applyLunch(lunchId, apply);
+      const data = await apis.offerApplyLunch(lunchId, apply);
       history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);
@@ -55,7 +55,7 @@ const LunchDetailForPrivate = (props) => {
     }
     try {
       const apply = { confirmed: false };
-      const data = await apis.applyLunch(lunchId, apply);
+      const data = await apis.offerApplyLunch(lunchId, apply);
       history.push(`/profile/${user?.user?.userid}`);
     } catch (error) {
       console.log(error.response);

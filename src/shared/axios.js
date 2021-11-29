@@ -90,11 +90,6 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  updateProfile: (profile) =>
-    instance.patch("/myprofile", profile, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
-
   // 댓글 조회
   getComment: (lunchId) =>
     instance.get(`/comment/${lunchId}`, {
@@ -119,14 +114,20 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  getProfileLunch: (userid) =>
-    instance.get(`/applicant/user/${userid}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
-
   // 내 프로필 조회
   editMyProfile: () =>
     instance.get("/myProfile", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 프로필 수정
+  updateProfile: (profile) =>
+    instance.patch("/myprofile", profile, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  getProfileLunch: (userid) =>
+    instance.get(`/applicant/user/${userid}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
@@ -145,11 +146,6 @@ export const apis = {
   //리뷰 조회
   getReview: (userid) =>
     instance.get(`/spoon/${userid}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
-
-  approveMember: (lunchid, approval) =>
-    instance.patch(`/applicant/${lunchid}`, approval, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
@@ -177,6 +173,11 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
+  approveMember: (lunchid, approval) =>
+    instance.patch(`/applicant/${lunchid}`, approval, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
   // 2인 점심약속 만들기
   createPrivatelunch: (targetUser, lunch) =>
     instance.post(`/offer/${targetUser}`, lunch, {
@@ -188,8 +189,15 @@ export const apis = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 
-  applyLunch: (lunchid, apply) =>
+  // 점심약속 제안 수락
+  offerApplyLunch: (lunchid, apply) =>
     instance.patch(`/offer/confirmed/${lunchid}`, apply, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
+
+  // 점심약속 신청하기
+  applyLunch: (lunchid) =>
+    instance.post(`/applicant/${lunchid}`, null, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
 };

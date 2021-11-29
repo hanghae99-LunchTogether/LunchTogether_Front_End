@@ -62,6 +62,13 @@ const Login = (props) => {
     });
   };
 
+  //Enter 로그인(미완성, onSubmit 안먹힘)
+  const handleKeyPress = (e) => {
+    if (e.key == "Enter") {
+      // console.log("잘됨");
+    }
+  };
+
   return (
     <>
       <Wrapper onSubmit={handleSubmit(onSubmit)}>
@@ -76,6 +83,7 @@ const Login = (props) => {
             {...register("email", {
               required: "이메일을 입력해주세요.",
             })}
+            onKeyPress={handleKeyPress}
           />
           {errors && <SubmitMsg>{errors?.email?.message}</SubmitMsg>}
         </InputWrapper>
@@ -87,6 +95,7 @@ const Login = (props) => {
             {...register("password", {
               required: "비밀번호를 입력해주세요.",
             })}
+            onKeyPress={handleKeyPress}
           />
           {errors.password && <SubmitMsg>{errors.password.message}</SubmitMsg>}
         </InputWrapper>

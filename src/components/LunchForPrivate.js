@@ -20,6 +20,7 @@ const LunchForPrivate = (props) => {
     useroffers,
   } = props;
 
+  //수락상태 확인
   const confirm = useroffers[0].confirmed;
 
   const strDate = String(date);
