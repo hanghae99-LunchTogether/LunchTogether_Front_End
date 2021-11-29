@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
 import ProfileImg from "../assets/profile.png";
+import People from "../assets/people.svg";
 
 const LunchForReserved = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -47,12 +48,22 @@ const LunchForReserved = (props) => {
           flex
           style={{ justifyContent: "space-between" }}
         >
-          <Text weight="600" size="1.4" color="#FFC428">
-            {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
-          </Text>
-          <Text weight="800" size="1.4">
-            {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-          </Text>
+          <div>
+            <Text weight="600" size="1.4" color="#FFC428">
+              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
+            </Text>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+            }}
+          >
+            <img src={People} style={{ width: "20%", marginRight: "0.5rem" }} />
+            <Text weight="800" size="1.4">
+              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            </Text>
+          </div>
         </ELWrapper>
         <ELWrapper margin="0 0 3rem 0" onClick={handleClick}>
           <Text weight="700" size="2" color="black">
@@ -87,21 +98,21 @@ const LunchForReserved = (props) => {
           </ELWrapper>
 
           {itsme[0] && itsme[0].confirmed == true ? (
-            <Text weight="700" size="2" color="black">
+            <StateBtn color="#E88F46" border="#E88F46">
               약속확정
-            </Text>
+            </StateBtn>
           ) : itsme[0] && itsme[0].confirmed == false ? (
-            <Text weight="700" size="2" color="black">
-              승인거절됨
-            </Text>
+            <StateBtn color="#666666" border="#666666">
+              승인거절
+            </StateBtn>
           ) : itsme[0] && itsme[0].confirmed == null ? (
-            <Text weight="700" size="2" color="black">
-              승인대기중
-            </Text>
+            <StateBtn color="#EBAE17" border="#EBAE17">
+              승인대기
+            </StateBtn>
           ) : (
-            <Text weight="700" size="2" color="black">
-              승인하러가기
-            </Text>
+            <StateBtn color="#CF9F51" border="#CF9F51">
+              승인하기
+            </StateBtn>
           )}
         </ELWrapper>
       </Wrapper>
@@ -161,17 +172,18 @@ const CircleImage = styled.div`
   margin-right: 1rem;
 `;
 
-const Button = styled.button`
-  width: 100%;
+const StateBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
   height: 3rem;
-  font-weight: bold;
-  font-size: 1.2rem;
-  border-radius: 5px;
-  border: none;
-  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
-  color: white;
-  z-index: 1000;
-  margin-top: 1rem;
+  border: 2px solid;
+  border-radius: 1.5rem;
+  border-color: ${(props) => (props.border ? props.border : "black")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "500")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
 `;
 
 export default LunchForReserved;

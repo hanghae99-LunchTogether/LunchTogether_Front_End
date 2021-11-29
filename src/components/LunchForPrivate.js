@@ -6,6 +6,7 @@ import { history } from "../redux/configureStore";
 import moment from "moment";
 import "moment/locale/ko";
 import ProfileImg from "../assets/profile.png";
+import People from "../assets/people.svg";
 
 const LunchForPrivate = (props) => {
   const {
@@ -37,12 +38,22 @@ const LunchForPrivate = (props) => {
           flex
           style={{ justifyContent: "space-between" }}
         >
-          <Text weight="600" size="1.4" color="#FFC428">
-            {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
-          </Text>
-          <Text weight="800" size="1.4">
-            {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-          </Text>
+          <div>
+            <Text weight="600" size="1.4" color="#FFC428">
+              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
+            </Text>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+            }}
+          >
+            <img src={People} style={{ width: "20%", marginRight: "0.5rem" }} />
+            <Text weight="800" size="1.4">
+              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            </Text>
+          </div>
         </ELWrapper>
         <ELWrapper
           margin="0 0 3rem 0"
@@ -79,17 +90,17 @@ const LunchForPrivate = (props) => {
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
           {confirm === null ? (
-            <Text weight="700" size="2" color="#FE7022">
+            <StateBtn color="#EBAE17" border="#EBAE17">
               수락대기
-            </Text>
+            </StateBtn>
           ) : confirm === true ? (
-            <Text weight="700" size="2" color="black">
+            <StateBtn color="#E88F46" border="#E88F46">
               수락완료
-            </Text>
+            </StateBtn>
           ) : (
-            <Text weight="700" size="2" color="black">
+            <StateBtn color="#666666" border="#666666">
               거절완료
-            </Text>
+            </StateBtn>
           )}
         </ELWrapper>
       </Wrapper>
@@ -148,6 +159,20 @@ const CircleImage = styled.div`
   background-size: cover;
   background-position: top;
   margin-right: 1rem;
+`;
+
+const StateBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  height: 3rem;
+  border: 2px solid;
+  border-radius: 1.5rem;
+  border-color: ${(props) => (props.border ? props.border : "black")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "500")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
 `;
 
 export default LunchForPrivate;
