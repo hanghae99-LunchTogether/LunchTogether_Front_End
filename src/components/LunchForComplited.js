@@ -7,6 +7,7 @@ import moment from "moment";
 import "moment/locale/ko";
 import ProfileImg from "../assets/profile.png";
 import ReviewModal from "./ReviewModal";
+import People from "../assets/people.svg";
 
 const LunchForComplited = (props) => {
   const { title, host, lunchid, date, membernum, applicants, completed } =
@@ -34,12 +35,22 @@ const LunchForComplited = (props) => {
           flex
           style={{ justifyContent: "space-between" }}
         >
-          <Text weight="600" size="1.4">
-            {schedule}
-          </Text>
-          <Text weight="800" size="1.4">
-            {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-          </Text>
+          <div>
+            <Text weight="600" size="1.4">
+              {schedule}
+            </Text>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+            }}
+          >
+            <img src={People} style={{ width: "20%", marginRight: "0.5rem" }} />
+            <Text weight="800" size="1.4">
+              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            </Text>
+          </div>
         </ELWrapper>
         <ELWrapper margin="0 0 3rem 0" onClick={handleClick}>
           <Text weight="700" size="2" color="black">

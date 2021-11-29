@@ -4,6 +4,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_server,
+  withCredentials: true,
 });
 
 // "proxy": "http://3.35.54.135:3000"
