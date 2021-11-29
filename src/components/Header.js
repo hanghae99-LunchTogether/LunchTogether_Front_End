@@ -52,7 +52,7 @@ const Header = (props) => {
                     내정보
                   </button>
                   <button onClick={() => history.push(`/bookmark`)}>
-                    <img src={Bookmark} />
+                    즐겨찾기
                   </button>
                   <button onClick={() => history.push(`/notification`)}>
                     <img src={Alarm} />

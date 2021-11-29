@@ -14,10 +14,8 @@ const ReviewModal = (props) => {
   console.log("프롭", props);
   const user = useSelector((state) => state.user.user);
 
-  const [lunch, setLunch] = useState(null);
-
+  //본인 걸러내기
   const notMe = applicants.filter((u) => u.userid !== user.userid);
-
   const targetuserid = notMe.map((u) => u.userid);
 
   //한줄리뷰 작성칸
@@ -28,8 +26,10 @@ const ReviewModal = (props) => {
   };
 
   // 평점;
-  const [currentValue, setCurrentValue] = useState(0);
-  const [hoverValue, setHoverValue] = useState(undefined);
+  const [currentValue, setCurrentValue] = useState([]);
+  const [hoverValue, setHoverValue] = useState([]);
+  // const [currentValue, setCurrentValue] = useState(0);
+  // const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
   const handleClick = (value) => {
@@ -99,7 +99,7 @@ const ReviewModal = (props) => {
                       <RatingBox>
                         <h2>{u.user.nickname}님과의 식사는 어떠셨나요?</h2>
                         <Rating>
-                          {forks.map((_, index) => {
+                          {forks.map((item, index) => {
                             return (
                               <ForkImg
                                 style={{
