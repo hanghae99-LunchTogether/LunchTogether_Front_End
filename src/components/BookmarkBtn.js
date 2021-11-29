@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 
-import BookmarkImg from "../assets/bookmark.svg";
-import BookmarkImgFilled from "../assets/bookmarkFilled.svg";
+import StarFill from "../assets/starFill.svg";
+import Star from "../assets/star.svg";
 
 const BookmarkBtn = (props) => {
   const { bk_num, isbook, lunchid } = props;
@@ -29,7 +29,7 @@ const BookmarkBtn = (props) => {
 
   return (
     <Bookmark onClick={addBookmarkData}>
-      <img src={active ? BookmarkImgFilled : BookmarkImg} />
+      <img src={active ? StarFill : Star} />
       <span>{num}</span>
     </Bookmark>
   );

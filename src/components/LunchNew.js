@@ -8,8 +8,8 @@ import moment from "moment";
 import "moment/locale/ko";
 import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
+import People from "../assets/people.svg";
 import BookmarkBtn from "./BookmarkBtn";
-
 import { useHistory } from "react-router";
 
 const LunchNew = (props) => {
@@ -69,12 +69,22 @@ const LunchNew = (props) => {
           flex
           style={{ justifyContent: "space-between" }}
         >
-          <Text weight="600" size="1.4" color="#FFC428">
-            {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
-          </Text>
-          <Text weight="800" size="1.4">
-            {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-          </Text>
+          <div>
+            <Text weight="600" size="1.4" color="#FFC428">
+              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
+            </Text>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+            }}
+          >
+            <img src={People} style={{ width: "20%", marginRight: "0.5rem" }} />
+            <Text weight="800" size="1.4">
+              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+            </Text>
+          </div>
         </ELWrapper>
         <ELWrapper
           margin="0 0 3rem 0"

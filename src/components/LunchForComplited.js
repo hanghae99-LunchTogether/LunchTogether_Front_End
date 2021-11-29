@@ -11,7 +11,6 @@ import ReviewModal from "./ReviewModal";
 const LunchForComplited = (props) => {
   const { title, host, lunchid, date, membernum, applicants, completed } =
     props;
-  console.log("완료점약", props);
   function handleClick() {
     if (props.private === true) {
       history.push(`/privatelunch/${lunchid}`);

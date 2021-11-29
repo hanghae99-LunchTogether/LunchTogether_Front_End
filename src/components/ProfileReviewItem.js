@@ -33,7 +33,6 @@ const ProfileReviewItem = (props) => {
             <div>
               <span className="title">약속장소</span>
               <span>{lunch.location}</span>
-              {/* 장소수정해야함 */}
             </div>
             <div>
               <span className="title">참여인원</span>
