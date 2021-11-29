@@ -34,10 +34,8 @@ const LunchNew = (props) => {
     bk_num,
     completed,
     isbook,
-    end,
-    setLunchListFunction,
   } = props;
-
+  console.log("런치뉴프롭스", props);
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
@@ -45,13 +43,13 @@ const LunchNew = (props) => {
 
   //참여여부 및 과거날짜 확인
 
-  const validateReview = () => {
-    applicants?.findIndex((u) =>
-      u.user.userid === user?.userid ? true : false
-    );
-  };
+  // const validateReview = () => {
+  //   applicants?.findIndex((u) =>
+  //     u.user.userid === user?.userid ? true : false
+  //   );
+  // };
 
-  validateReview();
+  // validateReview();
 
   //리뷰
   const goToReview = () => {
@@ -64,94 +62,54 @@ const LunchNew = (props) => {
 
   return (
     <>
-      {end ? (
-        <Wrapper completed={completed}>
-          <ELWrapper
-            onClick={() => history.push(`/lunchpost/${lunchid}`)}
-            margin="0 0 1rem 0"
-            flex
-            style={{ justifyContent: "space-between" }}
-          >
-            <Text weight="600" size="1.4" color="#FFC428">
-              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
+      <Wrapper completed={completed}>
+        <ELWrapper
+          onClick={() => history.push(`/lunchpost/${lunchid}`)}
+          margin="0 0 1rem 0"
+          flex
+          style={{ justifyContent: "space-between" }}
+        >
+          <Text weight="600" size="1.4" color="#FFC428">
+            {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
+          </Text>
+          <Text weight="800" size="1.4">
+            {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
+          </Text>
+        </ELWrapper>
+        <ELWrapper
+          margin="0 0 3rem 0"
+          onClick={() => history.push(`/lunchpost/${lunchid}`)}
+        >
+          <Text weight="700" size="2" color="black">
+            {title}
+          </Text>
+        </ELWrapper>
+        <ELWrapper
+          flex
+          margin="0 0 2rem 0"
+          onClick={() => history.push(`/profile/${host.userid}`)}
+        >
+          <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
+          <ELWrapper>
+            <Text weight="600" color="black" size="1.4">
+              {host?.nickname}
             </Text>
-            <Text weight="800" size="1.4">
-              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-            </Text>
+            <Text size="1.4">{host?.job}</Text>
           </ELWrapper>
-          <ELWrapper
-            margin="0 0 3rem 0"
-            onClick={() => history.push(`/lunchpost/${lunchid}`)}
-          >
-            <Text weight="700" size="2" color="black">
-              {title}
-            </Text>
+        </ELWrapper>
+        <hr />
+        <ELWrapper
+          margin="0 0 1rem 0"
+          flex
+          style={{ justifyContent: "space-between" }}
+        >
+          <ELWrapper onClick={() => history.push(`/lunchpost/${lunchid}`)}>
+            <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
+            <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
-          <ELWrapper
-            flex
-            margin="0 0 2rem 0"
-            onClick={() => history.push(`/profile/${host.userid}`)}
-          >
-            <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
-            <ELWrapper>
-              <Text weight="600" color="black" size="1.4">
-                {host?.nickname}
-              </Text>
-              <Text size="1.4">{host?.job}</Text>
-            </ELWrapper>
-          </ELWrapper>
-          <Button onClick={goToReview}>리뷰 남기기</Button>
-        </Wrapper>
-      ) : (
-        <Wrapper completed={completed}>
-          <ELWrapper
-            onClick={() => history.push(`/lunchpost/${lunchid}`)}
-            margin="0 0 1rem 0"
-            flex
-            style={{ justifyContent: "space-between" }}
-          >
-            <Text weight="600" size="1.4" color="#FFC428">
-              {adressDong}&nbsp;&nbsp;|&nbsp;&nbsp; {scheduleTime}
-            </Text>
-            <Text weight="800" size="1.4">
-              {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
-            </Text>
-          </ELWrapper>
-          <ELWrapper
-            margin="0 0 3rem 0"
-            onClick={() => history.push(`/lunchpost/${lunchid}`)}
-          >
-            <Text weight="700" size="2" color="black">
-              {title}
-            </Text>
-          </ELWrapper>
-          <ELWrapper
-            flex
-            margin="0 0 2rem 0"
-            onClick={() => history.push(`/profile/${host.userid}`)}
-          >
-            <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
-            <ELWrapper>
-              <Text weight="600" color="black" size="1.4">
-                {host?.nickname}
-              </Text>
-              <Text size="1.4">{host?.job}</Text>
-            </ELWrapper>
-          </ELWrapper>
-          <hr />
-          <ELWrapper
-            margin="0 0 1rem 0"
-            flex
-            style={{ justifyContent: "space-between" }}
-          >
-            <ELWrapper onClick={() => history.push(`/lunchpost/${lunchid}`)}>
-              <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
-              <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
-            </ELWrapper>
-            <BookmarkBtn bk_num={bk_num} isbook={isbook} lunchid={lunchid} />
-          </ELWrapper>
-        </Wrapper>
-      )}
+          <BookmarkBtn bk_num={bk_num} isbook={isbook} lunchid={lunchid} />
+        </ELWrapper>
+      </Wrapper>
     </>
   );
 };
@@ -207,19 +165,6 @@ const CircleImage = styled.div`
   background-size: cover;
   background-position: top;
   margin-right: 1rem;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 5rem;
-  font-weight: bold;
-  font-size: 1.6rem;
-  border-radius: 5px;
-  border: none;
-  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
-  color: white;
-  z-index: 1000;
-  margin-top: 1rem;
 `;
 
 export default LunchNew;

@@ -7,7 +7,7 @@ import DetailMapContainer from "../components/DetailMapContainer";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import moment from "moment";
-import ChoolChool from "../assets/cc.png";
+import ProfileImg from "../assets/profile.png";
 import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
 
@@ -142,7 +142,7 @@ const LunchDetailNew = (props) => {
           <ELWrapper flex>
             <CircleImage
               size="10"
-              src={lunch.host.image ? lunch.host.image : ChoolChool}
+              src={lunch.host.image ? lunch.host.image : ProfileImg}
               onClick={() => history.push(`/profile/${lunch.host.userid}`)}
             />
             <ELWrapper style={{ marginLeft: "2rem" }}>

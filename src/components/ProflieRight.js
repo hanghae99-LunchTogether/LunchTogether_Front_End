@@ -2,13 +2,11 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configureStore";
-import LunchNew from "./LunchNew";
-import LunchForPrivate from "./LunchForPrivate";
-import ProfileReviewItem from "./ProfileReviewItem";
 import moment from "moment";
-import LunchForComplited from "./LunchForComplited";
 import LunchForReserved from "./LunchForReserved";
+import LunchForPrivate from "./LunchForPrivate";
+import LunchForComplited from "./LunchForComplited";
+import ProfileReviewItem from "./ProfileReviewItem";
 
 const ProflieRight = (props) => {
   const { lunchs, usersReviews } = props;
@@ -48,7 +46,7 @@ const ProflieRight = (props) => {
     {
       title: "리뷰",
       active: false,
-      content: completedLunch,
+      content: props.usersReviews,
     },
   ]);
   const [index, setIndex] = useState(0);
@@ -86,10 +84,9 @@ const ProflieRight = (props) => {
           ) : index === 1 ? (
             <LunchForPrivate key={idx} completed {...item} />
           ) : index === 2 ? (
-            // <LunchForComplited />
-            <LunchNew key={idx} {...item} />
+            <LunchForComplited key={idx} {...item} />
           ) : (
-            <h1>리뷰페이지</h1>
+            <ProfileReviewItem key={idx} {...item} />
           )
         )}
         <FakeDiv />

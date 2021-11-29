@@ -30,6 +30,14 @@ const LunchForReserved = (props) => {
   const scheduleTime = moment(strDate).format("A hh시 mm분");
   const adressDong = locations?.address_name.split(" ")[2];
 
+  function handleClick() {
+    if (props.private === true) {
+      history.push(`/privatelunch/${lunchid}`);
+    } else {
+      history.push(`/lunchpost/${lunchid}`);
+    }
+  }
+
   //참여여부 및 과거날짜 확인
 
   // const validateReview = () => {
@@ -39,14 +47,19 @@ const LunchForReserved = (props) => {
   // };
   // validateReview();
 
-  const validate = applicants.findIndex((todo) => todo.confirmed === false);
+  //약속 승인결과
+  // const waiting = applicants.findIndex((apply) => apply.confirmed === null);
+  // const confirm = applicants.findIndex((apply) => apply.confirmed === true);
+  // const refuse = applicants.findIndex((apply) => apply.confirmed === false);
 
-  console.log("dddddddd", validate);
+  // console.log("넓값찾기", confirm);
+  console.log("예정된약속프롭스", props);
 
   return (
     <>
       <Wrapper completed={completed}>
         <ELWrapper
+          onClick={handleClick}
           margin="0 0 1rem 0"
           flex
           style={{ justifyContent: "space-between" }}
@@ -58,16 +71,16 @@ const LunchForReserved = (props) => {
             {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
           </Text>
         </ELWrapper>
-        <ELWrapper
-          margin="0 0 3rem 0"
-          style={{ cursor: "pointer" }}
-          onClick={() => history.push(`/privatelunch/${lunchid}`)}
-        >
+        <ELWrapper margin="0 0 3rem 0" onClick={handleClick}>
           <Text weight="700" size="2" color="black">
             {title}
           </Text>
         </ELWrapper>
-        <ELWrapper flex margin="0 0 2rem 0">
+        <ELWrapper
+          flex
+          margin="0 0 2rem 0"
+          onClick={() => history.push(`/profile/${host.userid}`)}
+        >
           <CircleImage size="5" src={host?.image ? host.image : ProfileImg} />
           <ELWrapper>
             <Text weight="600" color="black" size="1.4">
@@ -80,6 +93,7 @@ const LunchForReserved = (props) => {
         <hr />
 
         <ELWrapper
+          onClick={handleClick}
           margin="0 0 1rem 0"
           flex
           style={{ justifyContent: "space-between" }}
@@ -124,6 +138,7 @@ const ELWrapper = styled.div`
   ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   align-items: center;
+  cursor: pointer;
 `;
 
 const Text = styled.p`
@@ -146,23 +161,6 @@ const CircleImage = styled.div`
   background-size: cover;
   background-position: top;
   margin-right: 1rem;
-`;
-
-const Bookmark = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  img {
-    width: 18px;
-    height: 21px;
-  }
-  span {
-    font-size: 1.4rem;
-    color: #64656a;
-    opacity: 0.3;
-    margin-left: 0.6rem;
-  }
 `;
 
 const Button = styled.button`

@@ -1,18 +1,15 @@
 /* eslint-disable */
 
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { history } from "../redux/configureStore";
-
+import moment from "moment";
 import ProfileImg from "../assets/profile.png";
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
-const ProfileReviewItem = props => {
-  const { reviews } = props;
-  console.log(reviews);
+const ProfileReviewItem = (props) => {
+  const { comments, spoon, lunch, rater } = props;
 
   // 평점;
-  const ratingValue = 4;
   const forks = Array(5).fill(0);
 
   return (
@@ -20,24 +17,27 @@ const ProfileReviewItem = props => {
       <Wrapper>
         <Info>
           <Writer>
-            <img src={ProfileImg} />
+            <img src={rater.image ? rater.image : ProfileImg} />
             <div>
-              <span className="nickname">닉네임</span>
-              <span className="job">직업</span>
+              <span className="nickname">{rater.nickname}</span>
+              <span className="job">{rater.job}</span>
             </div>
           </Writer>
           <Record>
             <div>
               <span className="title">날짜시간</span>
-              <span>2021년 11월 11일(금) 오후 12:00~1:00</span>
+              <span>
+                {moment(lunch.date).format("YYYY-MM-DD(ddd) A hh시 mm분")}
+              </span>
             </div>
             <div>
               <span className="title">약속장소</span>
-              <span>하이디라오 강남점</span>
+              <span>{lunch.location}</span>
+              {/* 장소수정해야함 */}
             </div>
             <div>
               <span className="title">참여인원</span>
-              <span>4/4</span>
+              <span>4 / {lunch.membernum}</span>
             </div>
           </Record>
         </Info>
@@ -51,16 +51,13 @@ const ProfileReviewItem = props => {
                   height: "14px",
                 }}
                 key={index}
-                fill={ratingValue > index ? "#ff9841" : "#efefef"}
+                fill={spoon > index ? "#ff9841" : "#efefef"}
               />
             );
           })}
-          <span>{ratingValue}점</span>
+          <span>{spoon}점</span>
         </Rating>
-        <ReviewComment>
-          맛집을 많이 알고 있고 식사 예절이 좋으셔서 나중에도 같이 먹고싶어요.
-          업무에 대한 고민도 같이 들어주셔서 감사합니다!
-        </ReviewComment>
+        <ReviewComment>{comments}</ReviewComment>
       </Wrapper>
     </>
   );

@@ -9,6 +9,7 @@ import { apis } from "../shared/axios";
 import MapContainer from "../components/MapContainer";
 import { history } from "../redux/configureStore";
 import { storage } from "../shared/firebase";
+import ProfileImg from "../assets/profile.png";
 
 const ProfileUpdate = (props) => {
   const [userInfo, setUserInfo] = useState(null);
@@ -114,7 +115,9 @@ const ProfileUpdate = (props) => {
             <Image
               shape="circle"
               size="100"
-              src={preview ? preview : userInfo.image}
+              src={
+                preview ? preview : userInfo.image ? userInfo.image : ProfileImg
+              }
             />
             <Label for="ex_file">이미지 업로드</Label>
             <FileInput

@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
+import ProfileImg from "../assets/profile.png";
 
 const ProfileLeft = (props) => {
   const user = useSelector((state) => state.user);
@@ -26,7 +27,7 @@ const ProfileLeft = (props) => {
     <>
       <Wrapper>
         <ELWrapper margin="0 0 2rem 0">
-          <CircleImage size="10" src={image} />
+          <CircleImage size="10" src={image ? image : ProfileImg} />
         </ELWrapper>
         <ELWrapper margin="0 0 1rem 0">
           <Text color="black" weight="700">
@@ -100,13 +101,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 2rem 5rem 2rem;
+  padding: 5rem 2rem;
   background-color: white;
   border-radius: 10px;
   margin-right: 3rem;
 
   @media only screen and (max-width: 768px) {
     margin-right: 0;
+    padding: 2rem 2rem;
   }
 `;
 const ELWrapper = styled.div`
