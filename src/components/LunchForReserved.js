@@ -1,15 +1,12 @@
 /* eslint-disable */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import "moment/locale/ko";
-import { apis } from "../shared/axios";
 import ProfileImg from "../assets/profile.png";
-import { useHistory } from "react-router";
 
 const LunchForReserved = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -38,22 +35,8 @@ const LunchForReserved = (props) => {
     }
   }
 
-  //참여여부 및 과거날짜 확인
-
-  // const validateReview = () => {
-  //   applicants?.findIndex((u) =>
-  //     u.user.userid === user?.userid ? true : false
-  //   );
-  // };
-  // validateReview();
-
   //약속 승인결과
-  // const waiting = applicants.findIndex((apply) => apply.confirmed === null);
-  // const confirm = applicants.findIndex((apply) => apply.confirmed === true);
-  // const refuse = applicants.findIndex((apply) => apply.confirmed === false);
-
-  // console.log("넓값찾기", confirm);
-  console.log("예정된약속프롭스", props);
+  const itsme = applicants.filter((item) => item.userid === user.userid);
 
   return (
     <>
@@ -102,9 +85,24 @@ const LunchForReserved = (props) => {
             <Text size="1.4">📍&nbsp;&nbsp; {locations?.place_name}</Text>
             <Text size="1.4">📆&nbsp;&nbsp; {schedule}</Text>
           </ELWrapper>
-          <Text weight="700" size="2" color="black">
-            {applicants.confirmed == true ? "승인완료" : "승인대기중"}
-          </Text>
+
+          {itsme[0] && itsme[0].confirmed == true ? (
+            <Text weight="700" size="2" color="black">
+              약속확정
+            </Text>
+          ) : itsme[0] && itsme[0].confirmed == false ? (
+            <Text weight="700" size="2" color="black">
+              승인거절됨
+            </Text>
+          ) : itsme[0] && itsme[0].confirmed == null ? (
+            <Text weight="700" size="2" color="black">
+              승인대기중
+            </Text>
+          ) : (
+            <Text weight="700" size="2" color="black">
+              승인하러가기
+            </Text>
+          )}
         </ELWrapper>
       </Wrapper>
     </>

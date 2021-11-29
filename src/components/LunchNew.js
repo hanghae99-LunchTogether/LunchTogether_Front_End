@@ -35,7 +35,7 @@ const LunchNew = (props) => {
     completed,
     isbook,
   } = props;
-  console.log("런치뉴프롭스", props);
+
   const strDate = String(date);
   const schedule = moment(strDate).format("YYYY-MM-DD(ddd)");
   const scheduleTime = moment(strDate).format("A hh시 mm분");
