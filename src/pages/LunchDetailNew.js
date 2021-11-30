@@ -12,13 +12,12 @@ import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
 import CommentWrite from "../components/CommentWrite";
 
-const LunchDetailNew = (props) => {
+const LunchDetailNew = (props, { socket }) => {
   const user = useSelector((state) => state.user);
-
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
   let isApplied = false;
-
+  console.log(user);
   const getLunch = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
@@ -43,7 +42,7 @@ const LunchDetailNew = (props) => {
     if (!user.isLoggedIn) {
       window.alert("로그인을 해주세요!");
       history.replace("/login");
-    } else if (!lunch.applicants.length + 1 > lunch.membernum) {
+    } else if (!(lunch.applicants.length + 1 >= lunch.membernum)) {
       try {
         const data = await apis.applyLunch(lunchId);
         history.push(`/profile/${user?.user?.userid}`);

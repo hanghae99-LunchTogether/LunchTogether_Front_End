@@ -9,13 +9,8 @@ import MobaileNav from "./MobileNav";
 
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
-import io from "socket.io-client";
 
-const ENDPOINT = "https://lebania.shop/userin";
-
-let socket;
-
-const Header = (props) => {
+const Header = (props, { socket }) => {
   const dispatch = useDispatch();
   console.log(history);
   const user = useSelector((state) => state.user.user);
@@ -33,22 +28,14 @@ const Header = (props) => {
   };
 
   //socket
+  const [notifications, setNotifications] = useState([]);
   useEffect(() => {
-    socket = io.connect(ENDPOINT, {
-      transports: ["websocket"],
-      forceNew: true,
+    socket?.on("apply", (data) => {
+      setNotifications((prev) => [...prev, data]);
     });
-    console.log(socket);
-    socket.emit("join", "hi");
-  }, []);
+  }, [socket]);
 
-  useEffect(() => {
-    socket.on("message", (date) => {
-      console.log(date);
-      console.log("메세지를 보낸다.");
-      socket.emit("sendMessage", "클라이언트로부터 메세지");
-    });
-  });
+  console.log(notifications);
 
   return (
     <>
