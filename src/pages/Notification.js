@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Notification = (props) => {
+  const user = useSelector((state) => state.user.user);
   return (
     <Container>
       <h1>{user.nickname}님 알림이 도착했습니다💌</h1>
