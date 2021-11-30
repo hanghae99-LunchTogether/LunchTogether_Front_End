@@ -3,31 +3,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import io from "socket.io-client";
-
-const ENDPOINT = "https://lebania.shop/test";
-
-let socket;
 
 const Notification = (props) => {
   const user = useSelector((state) => state.user.user);
-
-  useEffect(() => {
-    socket = io.connect(ENDPOINT, {
-      transports: ["websocket"],
-      forceNew: true,
-    });
-    socket.emit("join", "hi");
-  }, []);
-
-  useEffect(() => {
-    socket.on("message", (date) => {
-      console.log(date);
-      console.log("메세지를 보낸다.");
-      socket.emit("sendMessage", "클라이언트로부터 메세지");
-    });
-  });
-
   return (
     <Container>
       <h1>{user.nickname}님 알림이 도착했습니다💌</h1>

@@ -83,9 +83,17 @@ export const logInAPI = (account) => {
 
 export const logOutAPI = () => {
   return function (dispatch, getState, { history }) {
-    localStorage.removeItem("token");
-    dispatch(logOut());
-    history.replace("/");
+    apis
+      .logOut()
+      .then((res) => {
+        console.log(res);
+        localStorage.removeItem("token");
+        dispatch(logOut());
+        history.replace("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
@@ -119,7 +127,7 @@ export default handleActions(
         draft.error.push(action.payload.error);
       }),
   },
-  initialState,
+  initialState
 );
 
 const userActions = {

@@ -7,7 +7,6 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-// "proxy": "http://3.35.54.135:3000"
 export const apis = {
   //회원가입
   registerUser: (user) =>
@@ -29,6 +28,15 @@ export const apis = {
 
   kakaologin: (user) =>
     instance.post(`/kakaologin`, user, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
+
+  //로그아웃
+  logOut: () =>
+    instance.get(`/logout`, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json",

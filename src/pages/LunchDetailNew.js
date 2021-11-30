@@ -30,7 +30,7 @@ const LunchDetailNew = (props) => {
 
   const confirmApplied = () => {
     const index = lunch?.applicants?.findIndex(
-      (u) => u.user.userid === user?.user?.userid
+      (u) => u.user.userid === user?.user?.userid,
     );
     index !== -1 ? (isApplied = true) : (isApplied = false);
   };
@@ -42,12 +42,15 @@ const LunchDetailNew = (props) => {
     if (!user.isLoggedIn) {
       window.alert("로그인을 해주세요!");
       history.replace("/login");
-    }
-    try {
-      const data = await apis.applyLunch(lunchId);
-      history.push(`/profile/${user?.user?.userid}`);
-    } catch (error) {
-      console.log(error.response);
+    } else if (!lunch.applicants.length + 1 > lunch.membernum) {
+      try {
+        const data = await apis.applyLunch(lunchId);
+        history.push(`/profile/${user?.user?.userid}`);
+      } catch (error) {
+        console.log(error.response);
+      }
+    } else {
+      window.alert("신청인원이 가득 찼습니다.");
     }
   };
 
@@ -121,14 +124,6 @@ const LunchDetailNew = (props) => {
               {lunch.applicants.length + 1} / {lunch.membernum}
             </Text>
           </ELWrapper>
-          {/* <ELWrapper flex margin="1rem 0 1rem 5rem">
-            <Text size="1.6" width="10">
-              진행시간
-            </Text>
-            <Text color="black" size="1.6">
-              {lunch.duration ? lunch.duration : "30분"}
-            </Text>
-          </ELWrapper> */}
           <hr style={{ margin: "4rem 0" }} />
           <Text
             color="black"
