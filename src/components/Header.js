@@ -35,9 +35,7 @@ const Header = (props) => {
       forceNew: true,
     });
     console.log(socket);
-    {
-      user && socket.emit("join", "hi");
-    }
+    socket.emit("join", "hi");
   }, []);
 
   useEffect(() => {
