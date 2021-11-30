@@ -65,7 +65,7 @@ const Login = (props) => {
   //Enter 로그인(미완성, onSubmit 안먹힘)
   const handleKeyPress = (e) => {
     if (e.key == "Enter") {
-      // console.log("잘됨");
+      console.log("잘됨");
     }
   };
 
