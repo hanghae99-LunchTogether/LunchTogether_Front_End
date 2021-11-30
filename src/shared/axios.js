@@ -7,7 +7,6 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-// "proxy": "http://3.35.54.135:3000"
 export const apis = {
   //회원가입
   registerUser: (user) =>
@@ -35,6 +34,15 @@ export const apis = {
       },
     }),
 
+  //로그아웃
+  logOut: () =>
+    instance.get(`/logout`, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        accept: "application/json",
+      },
+    }),
+
   // 이메일 중복확인
   checkEmail: (email) =>
     instance.post(
@@ -45,7 +53,7 @@ export const apis = {
           "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
         },
-      },
+      }
     ),
 
   // 닉네임 중복확인
@@ -58,7 +66,7 @@ export const apis = {
           "content-type": "application/json;charset=UTF-8",
           accept: "application/json",
         },
-      },
+      }
     ),
 
   //회원정보 요청
