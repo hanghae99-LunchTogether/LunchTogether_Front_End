@@ -30,15 +30,16 @@ export const signUpAPI = (_account) => {
     apis
       .checkEmail(account.email)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         apis
           .checkNickname(account.nickname)
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             apis
               .registerUser(account)
               .then((res) => {
-                console.log(res);
+                // console.log(res);
+                alert("회원가입이 완료되었습니다🎉");
                 history.push("/login");
               })
               .catch((err) => {

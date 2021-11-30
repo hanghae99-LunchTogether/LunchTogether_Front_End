@@ -30,7 +30,6 @@ const Header = (props) => {
     });
     dispatch(userActions.logOutAPI());
     localStorage.removeItem("token");
-    history.go();
   };
 
   //socket
