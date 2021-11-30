@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import styled from "styled-components";
@@ -9,7 +9,11 @@ import MobaileNav from "./MobileNav";
 
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
-import Bookmark from "../assets/bookmarkFilled.svg";
+import io from "socket.io-client";
+
+const ENDPOINT = "https://lebania.shop/userin";
+
+let socket;
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +27,26 @@ const Header = (props) => {
     });
     dispatch(userActions.logOutAPI());
   };
+
+  //socket
+  useEffect(() => {
+    socket = io.connect(ENDPOINT, {
+      transports: ["websocket"],
+      forceNew: true,
+    });
+    console.log(socket);
+    {
+      user && socket.emit("join", "hi");
+    }
+  }, []);
+
+  useEffect(() => {
+    socket.on("message", (date) => {
+      console.log(date);
+      console.log("메세지를 보낸다.");
+      socket.emit("sendMessage", "클라이언트로부터 메세지");
+    });
+  });
 
   return (
     <>
@@ -54,8 +78,12 @@ const Header = (props) => {
                   <button onClick={() => history.push(`/bookmark`)}>
                     즐겨찾기
                   </button>
-                  <button onClick={() => history.push(`/notification`)}>
-                    <img src={Alarm} />
+                  <button
+                    className="icon"
+                    onClick={() => history.push(`/notification`)}
+                  >
+                    <img className="iconImg" src={Alarm} />
+                    <div className="counter">2</div>
                   </button>
                 </div>
               </Right>
@@ -145,15 +173,41 @@ const Right = styled.div`
     display: flex;
     justify-content: center;
     font-weight: 700;
+    color: #ff9841;
+  }
+
+  button:hover {
+    color: #fe7022;
   }
 
   div {
     display: flex;
   }
 
+  .icon {
+    position: relative;
+  }
+
   img {
-    width: 1.6rem;
-    height: 1.95rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .counter {
+    font-weight: 400;
+    color: white;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+    padding: 7px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5px;
+    right: -5px;
   }
 
   @media only screen and (max-width: 768px) {
