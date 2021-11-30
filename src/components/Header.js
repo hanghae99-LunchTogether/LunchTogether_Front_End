@@ -9,7 +9,6 @@ import MobaileNav from "./MobileNav";
 
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
-import Bookmark from "../assets/bookmarkFilled.svg";
 
 const Header = (props) => {
   const dispatch = useDispatch();
