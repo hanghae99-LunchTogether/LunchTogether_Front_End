@@ -24,7 +24,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [userId]);
 
   return (
     <>

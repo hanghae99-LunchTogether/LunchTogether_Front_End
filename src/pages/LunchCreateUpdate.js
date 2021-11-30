@@ -137,7 +137,12 @@ const LunchCreateUpdate = (props) => {
       {lunch && (
         <Wrapper>
           <MenuTitleWrapper>
-            <MenuTitle>점심약속 등록하기</MenuTitle>
+            {targetUser == "" ? (
+              <MenuTitle>점심약속 등록하기</MenuTitle>
+            ) : (
+              <MenuTitle>점심약속 제안하기</MenuTitle>
+            )}
+
             <Text style={{ textAlign: "center", margin: "1rem" }}>
               맛있게 먹어봐
             </Text>

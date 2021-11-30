@@ -10,6 +10,7 @@ import moment from "moment";
 import ProfileImg from "../assets/profile.png";
 import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
+import CommentWrite from "../components/CommentWrite";
 
 const LunchDetailNew = (props) => {
   const user = useSelector((state) => state.user);
@@ -30,7 +31,7 @@ const LunchDetailNew = (props) => {
 
   const confirmApplied = () => {
     const index = lunch?.applicants?.findIndex(
-      (u) => u.user.userid === user?.user?.userid,
+      (u) => u.user.userid === user?.user?.userid
     );
     index !== -1 ? (isApplied = true) : (isApplied = false);
   };
@@ -204,7 +205,7 @@ const LunchDetailNew = (props) => {
               <Button onClick={applyLunch}>점심약속 신청하기</Button>
             )}
           </ELWrapper>
-          <ELWrapper></ELWrapper>
+          <CommentWrite></CommentWrite>
         </Wrapper>
       )}
     </>
