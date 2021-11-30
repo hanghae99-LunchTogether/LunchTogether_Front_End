@@ -17,7 +17,10 @@ let socket;
 
 const Header = (props) => {
   const dispatch = useDispatch();
+  console.log(history);
   const user = useSelector((state) => state.user.user);
+  console.log(user);
+  const token = localStorage.getItem("token");
 
   const { Kakao } = window;
 
@@ -26,6 +29,8 @@ const Header = (props) => {
       console.log(Kakao.Auth.getAccessToken());
     });
     dispatch(userActions.logOutAPI());
+    localStorage.removeItem("token");
+    history.go();
   };
 
   //socket
@@ -35,9 +40,7 @@ const Header = (props) => {
       forceNew: true,
     });
     console.log(socket);
-    {
-      user && socket.emit("join", "hi");
-    }
+    socket.emit("join", "hi");
   }, []);
 
   useEffect(() => {

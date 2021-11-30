@@ -9,16 +9,16 @@ const MemberListCard = ({ userid, nickname, image, introduction, job }) => {
   return (
     <>
       <MemberCard>
-        <CardTop>
+        <CardTop
+          onClick={() => {
+            history.push(`profile/${userid}`);
+          }}
+        >
           <Avatar
             src={`${image && image}`}
             sx={{ width: "60px", height: "60px" }}
           />
-          <MemberInfo
-            onClick={() => {
-              history.push(`profile/${userid}`);
-            }}
-          >
+          <MemberInfo>
             <MemberName>{nickname}</MemberName>
             <Memberjob>{job}</Memberjob>
           </MemberInfo>
@@ -54,10 +54,10 @@ const CardTop = styled.div`
   margin: 15px 0;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const MemberInfo = styled.div`
-  cursor: pointer;
   margin: 0 10px;
 `;
 
