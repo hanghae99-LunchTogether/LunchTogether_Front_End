@@ -93,11 +93,13 @@ const LunchCreateUpdate = (props) => {
         const data = await apis.createPrivatelunch(targetUser, lunch);
         console.log("데이타타탙", data);
         const newLunchId = data.data.lunchid;
+        window.alert("제안완료 했습니다!");
         history.push(`/lunchpost/${newLunchId}`);
       } else {
         const data = await apis.createLunch(lunch);
         console.log(data);
         const newLunchId = data.data.lunchid;
+        window.alert("등록완료 했습니다!");
         history.push(`/lunchpost/${newLunchId}`);
       }
     } catch (error) {
