@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoPeopleOutline } from "react-icons/io5";
 import { VscRepoForked } from "react-icons/vsc";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { AiOutlineStar } from "react-icons/ai";
 import { RiProfileLine } from "react-icons/ri";
 
-const MobaileNav = props => {
-  const user = useSelector(state => state.user);
+const MobaileNav = (props) => {
+  const user = useSelector((state) => state.user);
 
   const moveToProfile = () => {
     if (!user?.isLoggedIn) {
@@ -29,12 +29,12 @@ const MobaileNav = props => {
     }
   };
 
-  const moveToNoti = () => {
+  const moveFavor = () => {
     if (!user?.isLoggedIn) {
       window.alert("로그인이 필요한 서비스입니다!");
       history.push("/login");
     } else {
-      history.push(`/notification`);
+      history.push(`/bookmark`);
     }
   };
 
@@ -59,11 +59,11 @@ const MobaileNav = props => {
           </MenuIcon>
           <MenuText style={{ letterSpacing: "-1px" }}>점약 만들기</MenuText>
         </MenuWrapper>
-        <MenuWrapper onClick={moveToNoti}>
+        <MenuWrapper onClick={moveFavor}>
           <MenuIcon>
-            <IoMdNotificationsOutline color="white" />
+            <AiOutlineStar color="white" />
           </MenuIcon>
-          <MenuText>알림</MenuText>
+          <MenuText>즐겨찾기</MenuText>
         </MenuWrapper>
         <MenuWrapper onClick={moveToProfile}>
           <MenuIcon>

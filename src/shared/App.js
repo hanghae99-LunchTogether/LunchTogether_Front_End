@@ -47,14 +47,15 @@ function App() {
   }, []);
 
   //socket
+  socket = io.connect(ENDPOINT, {
+    transports: ["websocket"],
+    forceNew: true,
+  });
+
   useEffect(() => {
-    socket = io.connect(ENDPOINT, {
-      transports: ["websocket"],
-      forceNew: true,
-    });
-    console.log(socket);
     socket.emit("join", "hi");
   }, [socket]);
+  console.log(socket);
 
   useEffect(() => {
     socket.on("message", (date) => {
@@ -78,12 +79,7 @@ function App() {
           <Route path="/" exact component={Home}></Route>
           <Route path="/signup" exact component={Signup}></Route>
           <Route path="/login" exact component={Login}></Route>
-          <Route
-            path="/profile/:id"
-            exact
-            component={Profile}
-            socket={socket}
-          ></Route>
+          <Route path="/profile/:id" exact component={Profile}></Route>
           <Route
             path="/profileupdate/:id"
             exact
@@ -93,7 +89,6 @@ function App() {
             path="/lunchpost/:lunchid"
             exact
             component={LunchDetailNew}
-            socket={socket}
           ></Route>
           <Route
             path="/lunchregister"
@@ -115,12 +110,7 @@ function App() {
             exact
             component={LunchDetailForPrivate}
           ></Route>
-          <Route
-            path="/memberlist"
-            exact
-            component={MemberList}
-            socket={socket}
-          ></Route>
+          <Route path="/memberlist" exact component={MemberList}></Route>
           <Route path="/notification" exact component={Notification}></Route>
           <Route path="/review/:lunchid" exact component={Review}></Route>
           <Route path="/bookmark" exact component={Bookmark}></Route>
