@@ -17,7 +17,7 @@ const LunchDetailNew = (props, { socket }) => {
   const lunchId = props.match.params.lunchid;
   const [lunch, setLunch] = useState(null);
   let isApplied = false;
-  console.log(user);
+
   const getLunch = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
