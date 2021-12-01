@@ -5,16 +5,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../redux/modules/user";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
+import { apis } from "../shared/axios";
+
 import MobaileNav from "./MobileNav";
 
 import LogoImg from "../assets/logo.svg";
 import Alarm from "../assets/alarm.svg";
+import { RiNotification2Fill } from "react-icons/ri";
 
-const Header = (props, { socket }) => {
+const Header = ({ socket }) => {
+  console.log(socket);
   const dispatch = useDispatch();
   console.log(history);
   const user = useSelector((state) => state.user.user);
-  console.log(user);
   const token = localStorage.getItem("token");
 
   const { Kakao } = window;
@@ -29,13 +32,55 @@ const Header = (props, { socket }) => {
 
   //socket
   const [notifications, setNotifications] = useState([]);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     socket?.on("apply", (data) => {
+      console.log(data);
+      setNotifications((prev) => [...prev, data]);
+    });
+    socket?.on("offer", (data) => {
+      setNotifications((prev) => [...prev, data]);
+    });
+    socket?.on("confirm", (data) => {
+      setNotifications((prev) => [...prev, data]);
+    });
+    socket?.on("offercon", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
   }, [socket]);
 
   console.log(notifications);
+
+  const displayNotification = ({ sender, kind }) => {
+    let action;
+
+    if (kind === "apply") {
+      action = "약속신청";
+    } else if (kind === "offer") {
+      action = "약속제안";
+    } else if (kind === "confirmYes") {
+      action = "약속수락";
+    } else if (kind === "confirmNo") {
+      action = "약속거절";
+    } else if (kind === "offerconYes") {
+      action = "제안수락";
+    } else if (kind === "offerconNo") {
+      action = "제안거절";
+    }
+    return (
+      <span className="notification">{`${sender}가 ${action}을 했습니다.`}</span>
+    );
+  };
+
+  const handleRead = async () => {
+    setNotifications([]);
+    setOpen(false);
+    try {
+      const data = await apis.handleRead();
+      console.log(data);
+    } catch {}
+  };
 
   return (
     <>
@@ -67,14 +112,21 @@ const Header = (props, { socket }) => {
                   <button onClick={() => history.push(`/bookmark`)}>
                     즐겨찾기
                   </button>
-                  <button
-                    className="icon"
-                    onClick={() => history.push(`/notification`)}
-                  >
-                    <img className="iconImg" src={Alarm} />
-                    <div className="counter">2</div>
-                  </button>
                 </div>
+                <button className="icon" onClick={() => setOpen(!open)}>
+                  <RiNotification2Fill className="iconImg" />
+                  {notifications.length > 0 && (
+                    <div className="counter">{notifications.length}</div>
+                  )}
+                </button>
+                {open && (
+                  <div className="notifications">
+                    {notifications.map((n) => displayNotification(n))}
+                    <button className="nButton" onClick={handleRead}>
+                      읽음 표시
+                    </button>
+                  </div>
+                )}
               </Right>
             </HeaderWrap>
           </Container>
@@ -157,7 +209,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
-
+  position: relative;
   button {
     display: flex;
     justify-content: center;
@@ -197,6 +249,33 @@ const Right = styled.div`
     position: absolute;
     top: -5px;
     right: -5px;
+  }
+
+  .notifications {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #f6f6e9;
+    color: black;
+    font-weight: 300;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px 0 30px 20px;
+  }
+
+  .notification {
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .nButton {
+    width: 80%;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: #fff591;
+    border-radius: 10px;
   }
 
   @media only screen and (max-width: 768px) {

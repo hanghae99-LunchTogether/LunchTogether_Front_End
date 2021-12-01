@@ -12,10 +12,10 @@ import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
 import CommentWrite from "../components/CommentWrite";
 
-const LunchDetailNew = (props, { socket }) => {
+const LunchDetailNew = (props) => {
+  const [lunch, setLunch] = useState(null);
   const user = useSelector((state) => state.user);
   const lunchId = props.match.params.lunchid;
-  const [lunch, setLunch] = useState(null);
   let isApplied = false;
 
   const getLunch = async () => {
