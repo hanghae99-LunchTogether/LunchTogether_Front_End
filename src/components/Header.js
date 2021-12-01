@@ -33,6 +33,18 @@ const Header = ({ socket }) => {
   //socket
   const [notifications, setNotifications] = useState([]);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    socket.on("message", (data) => {
+      console.log(data);
+      console.log("메세지를 보낸다.");
+      if (data.length) {
+        data.forEach((data) => {
+          setNotifications((prev) => [...prev, data]);
+        });
+      }
+      socket.emit("sendMessage", "클라이언트로부터 메세지");
+    });
+  });
 
   useEffect(() => {
     socket?.on("apply", (data) => {
