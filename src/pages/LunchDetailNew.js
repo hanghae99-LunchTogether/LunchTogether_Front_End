@@ -11,10 +11,10 @@ import ProfileImg from "../assets/profile.png";
 import "moment/locale/ko";
 import DetailMember from "../components/DetailMember";
 
-const LunchDetailNew = (props, { socket }) => {
+const LunchDetailNew = (props) => {
+  const [lunch, setLunch] = useState(null);
   const user = useSelector((state) => state.user);
   const lunchId = props.match.params.lunchid;
-  const [lunch, setLunch] = useState(null);
   let isApplied = false;
   console.log(user);
   const getLunch = async () => {
