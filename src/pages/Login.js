@@ -62,13 +62,6 @@ const Login = (props) => {
     });
   };
 
-  //Enter 로그인(미완성, onSubmit 안먹힘)
-  const handleKeyPress = (e) => {
-    if (e.key == "Enter") {
-      console.log("잘됨");
-    }
-  };
-
   return (
     <>
       <Wrapper onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +76,6 @@ const Login = (props) => {
             {...register("email", {
               required: "이메일을 입력해주세요.",
             })}
-            onKeyPress={handleKeyPress}
           />
           {errors && <SubmitMsg>{errors?.email?.message}</SubmitMsg>}
         </InputWrapper>
@@ -95,7 +87,6 @@ const Login = (props) => {
             {...register("password", {
               required: "비밀번호를 입력해주세요.",
             })}
-            onKeyPress={handleKeyPress}
           />
           {errors.password && <SubmitMsg>{errors.password.message}</SubmitMsg>}
         </InputWrapper>
@@ -118,7 +109,7 @@ const Login = (props) => {
 
 export default Login;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   width: 33.3%;
   min-width: 350px;
@@ -162,7 +153,6 @@ const Input = styled.input`
   border-radius: 0.5rem;
   border: 1px solid #dfdfdf;
   background-color: #fff;
-
   ::placeholder {
     color: #abb0b5;
     font-weight: 600;
@@ -181,7 +171,6 @@ const Button = styled.button`
   background-color: #ff9841;
   color: white;
   margin: 1rem 3rem;
-
   &:hover {
     box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
   }

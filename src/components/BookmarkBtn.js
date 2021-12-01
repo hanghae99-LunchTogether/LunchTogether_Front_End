@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { apis } from "../shared/axios";
 
@@ -6,6 +7,8 @@ import StarFill from "../assets/starFill.svg";
 import Star from "../assets/star.svg";
 
 const BookmarkBtn = (props) => {
+  const user = useSelector((state) => state.user.user);
+
   const { bk_num, isbook, lunchid } = props;
 
   const [active, setActive] = useState(isbook);
@@ -27,11 +30,24 @@ const BookmarkBtn = (props) => {
     }
   };
 
+  const notUser = () => {
+    alert("로그인 후 이용가능한 서비스입니다😉");
+  };
+
   return (
-    <Bookmark onClick={addBookmarkData}>
-      <img src={active ? StarFill : Star} />
-      <span>{num}</span>
-    </Bookmark>
+    <>
+      {user ? (
+        <Bookmark onClick={addBookmarkData}>
+          <img src={active ? StarFill : Star} />
+          <span>{num}</span>
+        </Bookmark>
+      ) : (
+        <Bookmark onClick={notUser}>
+          <img src={Star} />
+          <span>{num}</span>
+        </Bookmark>
+      )}
+    </>
   );
 };
 const Bookmark = styled.div`

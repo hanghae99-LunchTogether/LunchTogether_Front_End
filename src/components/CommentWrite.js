@@ -10,6 +10,9 @@ import CommentList from "./CommentList";
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.comment.commentList.comment);
+  const commentLength = useSelector(
+    (state) => state.comment.commentList.length
+  );
   const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
   const user = useSelector((state) => state.user);
@@ -45,10 +48,10 @@ const CommentWrite = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Count>{commentList?.length}개의 댓글</Count>
+        <Count>댓글({commentLength})</Count>
         <InputBtn>
           <Input
-            placeholder="댓글을 작성하세요"
+            placeholder="댓글을 입력해주세요. (140자 미만)"
             onChange={onChangeContent}
             value={content}
           />
@@ -57,7 +60,7 @@ const CommentWrite = (props) => {
               onClickWrite();
             }}
           >
-            댓글 작성
+            작성
           </Button>
         </InputBtn>
       </Container>
@@ -79,13 +82,13 @@ const Count = styled.h4`
   max-width: 768px;
   min-width: 452px;
   width: 100%;
-  font-size: 1.125rem;
-  line-height: 1.5;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
   font-weight: 600;
-  color: #343a40;
+  color: #64656a;
   display: block;
   text-align: left;
-  margin: 0 auto 1rem auto;
+  margin-bottom: 1.6rem;
 `;
 
 const InputBtn = styled.div`
@@ -124,17 +127,17 @@ const Button = styled.button`
   color: white;
   border-radius: 4px;
   padding: 0.625rem 1.25rem;
-  height: 2rem;
+  height: 4rem;
   min-height: 4rem;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-family: inherit;
   box-sizing: inherit;
   outline: none;
-  width: 92px;
+  width: 9rem;
   transition: 0.6s;
   &:hover {
     background-color: #ff9841;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 `;
 

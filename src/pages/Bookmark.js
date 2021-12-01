@@ -23,7 +23,7 @@ const Bookmark = (props) => {
 
   useEffect(() => {
     getBookmarkData();
-  }, []);
+  }, [bookmarkList]);
 
   return (
     <Wrap>

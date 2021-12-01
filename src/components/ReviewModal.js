@@ -6,12 +6,13 @@ import { Modal } from "react-bootstrap";
 import { history } from "../redux/configureStore";
 import { useSelector } from "react-redux";
 import { apis } from "../shared/axios";
-import { ReactComponent as ForkImg } from "../assets/fork.svg";
+// import { ReactComponent as ForkImg } from "../assets/fork.svg";
 import Cross from "../assets/cross.svg";
+import ReviewRating from "./ReviewRating";
 
 const ReviewModal = (props) => {
   const { host, lunchid, applicants, onHide } = props;
-  console.log("프롭", props);
+
   const user = useSelector((state) => state.user.user);
 
   //본인 걸러내기
@@ -26,23 +27,25 @@ const ReviewModal = (props) => {
   };
 
   // 평점;
-  const [currentValue, setCurrentValue] = useState([]);
-  const [hoverValue, setHoverValue] = useState([]);
-  // const [currentValue, setCurrentValue] = useState(0);
-  // const [hoverValue, setHoverValue] = useState(undefined);
-  const forks = Array(5).fill(0);
+  const [currentValue, setCurrentValue] = useState(0);
 
-  const handleClick = (value) => {
+  const getValue = (value) => {
     setCurrentValue(value);
   };
+  // const [hoverValue, setHoverValue] = useState(undefined);
+  // const forks = Array(5).fill(0);
 
-  const handleMouseOver = (newHoverValue) => {
-    setHoverValue(newHoverValue);
-  };
+  // const handleClick = (value) => {
+  //   setCurrentValue(value);
+  // };
 
-  const handleMouseLeave = () => {
-    setHoverValue(undefined);
-  };
+  // const handleMouseOver = (newHoverValue) => {
+  //   setHoverValue(newHoverValue);
+  // };
+
+  // const handleMouseLeave = () => {
+  //   setHoverValue(undefined);
+  // };
 
   //공백입력방지
   const [checkError, setCheckError] = useState("");
@@ -98,7 +101,8 @@ const ReviewModal = (props) => {
                       </User>
                       <RatingBox>
                         <h2>{u.user.nickname}님과의 식사는 어떠셨나요?</h2>
-                        <Rating>
+                        <ReviewRating getValue={getValue} />
+                        {/* <Rating>
                           {forks.map((item, index) => {
                             return (
                               <ForkImg
@@ -121,7 +125,7 @@ const ReviewModal = (props) => {
                             );
                           })}
                           <span>{currentValue}점</span>
-                        </Rating>
+                        </Rating> */}
                       </RatingBox>
                     </UserInfo>
                     <Comment>
@@ -152,7 +156,8 @@ const ReviewModal = (props) => {
                     </User>
                     <RatingBox>
                       <h2>호스트 {host?.nickname}님과의 식사는 어떠셨나요?</h2>
-                      <Rating>
+                      <ReviewRating getValue={getValue} />
+                      {/* <Rating>
                         {forks.map((_, index) => {
                           return (
                             <ForkImg
@@ -175,7 +180,7 @@ const ReviewModal = (props) => {
                           );
                         })}
                         <span>{currentValue}점</span>
-                      </Rating>
+                      </Rating> */}
                     </RatingBox>
                   </UserInfo>
                   <Comment>
@@ -321,14 +326,14 @@ const RatingBox = styled.div`
   }
 `;
 
-const Rating = styled.div`
-  display: flex;
-  span {
-    font-size: 1.4rem;
-    color: #64656a;
-    margin-left: 10px;
-  }
-`;
+// const Rating = styled.div`
+//   display: flex;
+//   span {
+//     font-size: 1.4rem;
+//     color: #64656a;
+//     margin-left: 10px;
+//   }
+// `;
 
 const Comment = styled.div`
   width: 527px;
