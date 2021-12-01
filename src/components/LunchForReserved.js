@@ -37,7 +37,7 @@ const LunchForReserved = (props) => {
   }
 
   //약속 승인결과
-  const itsme = applicants.filter((item) => item.userid === user.userid);
+  const itsme = applicants.filter((item) => item?.userid === user?.userid);
 
   return (
     <>
