@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
 const ReviewRating = (props) => {
-  //   const { currentValue, setCurrentValue } = props;
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
   const handleClick = (value) => {
-    setCurrentValue(value);
+    props.getValue(setCurrentValue(value));
   };
 
   const handleMouseOver = (newHoverValue) => {

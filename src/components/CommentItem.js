@@ -8,12 +8,12 @@ import { MdDelete } from "react-icons/md";
 
 import ProfileImg from "../assets/profile.png";
 
-const CommentItem = props => {
+const CommentItem = (props) => {
   const dispatch = useDispatch();
 
   const { comment, user, time, commentid } = props;
-  const myId = useSelector(state => state.user.user.userid);
-  const url = useSelector(state => state.router);
+  const myId = useSelector((state) => state.user.user.userid);
+  const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
 
   const onClickDelete = () => {

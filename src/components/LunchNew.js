@@ -80,7 +80,10 @@ const LunchNew = (props) => {
               justifyContent: "right",
             }}
           >
-            <img src={People} style={{ width: "20%", marginRight: "0.5rem" }} />
+            <img
+              src={People}
+              style={{ width: "2rem", marginRight: "0.5rem" }}
+            />
             <Text weight="800" size="1.4">
               {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
             </Text>

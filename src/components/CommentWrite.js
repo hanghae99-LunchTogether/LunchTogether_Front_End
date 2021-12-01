@@ -10,6 +10,9 @@ import CommentList from "./CommentList";
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.comment.commentList.comment);
+  const commentLength = useSelector(
+    (state) => state.comment.commentList.length
+  );
   const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
   const user = useSelector((state) => state.user);
@@ -45,7 +48,7 @@ const CommentWrite = (props) => {
   return (
     <React.Fragment>
       <Container>
-        <Count>댓글({commentList?.length})</Count>
+        <Count>댓글({commentLength})</Count>
         <InputBtn>
           <Input
             placeholder="댓글을 입력해주세요. (140자 미만)"

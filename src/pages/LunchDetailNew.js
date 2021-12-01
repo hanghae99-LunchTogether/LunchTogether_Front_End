@@ -204,7 +204,7 @@ const LunchDetailNew = (props, { socket }) => {
               <Button onClick={applyLunch}>점심약속 신청하기</Button>
             )}
           </ELWrapper>
-          <CommentWrite></CommentWrite>
+          <CommentWrite />
         </Wrapper>
       )}
     </>

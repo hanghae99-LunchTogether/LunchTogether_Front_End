@@ -12,7 +12,7 @@ import ReviewRating from "./ReviewRating";
 
 const ReviewModal = (props) => {
   const { host, lunchid, applicants, onHide } = props;
-  console.log("프롭", props);
+
   const user = useSelector((state) => state.user.user);
 
   //본인 걸러내기
@@ -28,6 +28,10 @@ const ReviewModal = (props) => {
 
   // 평점;
   const [currentValue, setCurrentValue] = useState(0);
+
+  const getValue = (value) => {
+    setCurrentValue(value);
+  };
   // const [hoverValue, setHoverValue] = useState(undefined);
   // const forks = Array(5).fill(0);
 
@@ -97,10 +101,7 @@ const ReviewModal = (props) => {
                       </User>
                       <RatingBox>
                         <h2>{u.user.nickname}님과의 식사는 어떠셨나요?</h2>
-                        <ReviewRating
-                          currentValue={currentValue}
-                          setCurrentValue={setCurrentValue}
-                        />
+                        <ReviewRating getValue={getValue} />
                         {/* <Rating>
                           {forks.map((item, index) => {
                             return (
@@ -155,10 +156,7 @@ const ReviewModal = (props) => {
                     </User>
                     <RatingBox>
                       <h2>호스트 {host?.nickname}님과의 식사는 어떠셨나요?</h2>
-                      <ReviewRating
-                        currentValue={currentValue}
-                        setCurrentValue={setCurrentValue}
-                      />
+                      <ReviewRating getValue={getValue} />
                       {/* <Rating>
                         {forks.map((_, index) => {
                           return (

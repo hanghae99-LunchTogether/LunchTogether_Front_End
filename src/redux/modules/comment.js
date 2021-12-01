@@ -39,11 +39,10 @@ const getCommentAPI = (lunchId) => {
 
 const addCommentAPI = (comment) => {
   return function (dispatch, getState, { history }) {
-    console.log("연결됨");
     apis
       .addComment(comment)
       .then((res) => {
-        dispatch(getCommentAPI(comment, lunchId));
+        dispatch(getCommentAPI(comment.lunchId));
       })
       .catch((e) => {
         console.log(e.response);

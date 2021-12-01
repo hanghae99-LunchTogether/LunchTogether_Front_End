@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 
 const Profile = (props) => {
   const [user, setUser] = useState(null);
-
   const userId = props.match.params.id;
 
   const getProfile = async () => {
