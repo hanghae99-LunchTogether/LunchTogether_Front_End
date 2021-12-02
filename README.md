@@ -1,4 +1,4 @@
-# FORK(포크)
+<img src="https://user-images.githubusercontent.com/66337717/144428910-c1a8cb86-7bf3-4c0c-87bf-b2002e47b4ff.jpg" width="150" height="45">
 
 **매일 먹는 점심, 매번 같은 사람과 지겹지 않나요?**
 
@@ -24,20 +24,22 @@ https://lunchfork.co.kr
 
 - 이름: FORK 포크
 - 기간: 2021.10.23 ~ 2021.12.02
-- 팀원
-  - Front-end(React): 김덕현,박새봄,이민국
-  - Back-end(Node.js): 김도형,이보훈,정창우
-  - Designer(UI/UX): 김주성
+[github](#https://github.com/MinGuk90/)
+## 🤖 멤버소개
+- Front (React)
+    - 김덕현
+    - 박새봄
+    - 이민국
+- Back-end (Node.js)
+    - 김도형
+    - 이보훈
+    - 정창우
+- Designer(UI/UX)
+    - 김주성
 
 ## 🛠Architecture
 
 ![아키텍쳐](https://user-images.githubusercontent.com/89914920/144398054-1c23497f-7e77-46aa-83ee-a4897c487195.png)
-
-- REST API: AWS EC2(Ubuntu 18.04 LTS)
-- Framework: Express
-- ORM : Sequelize
-- Database: Amazon RDS (MySQL)
-- Image Storage : AWS S3
 
 ## 📚 주요 라이브러리
 
