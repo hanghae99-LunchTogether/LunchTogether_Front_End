@@ -26,14 +26,14 @@ https://lunchfork.co.kr
 - 기간: 2021.10.23 ~ 2021.12.02
 [github](#https://github.com/MinGuk90/)
 ## 🤖 멤버소개
-- Front (React)
-    - 김덕현
-    - 박새봄
-    - 이민국
-- Back-end (Node.js)
-    - 김도형
-    - 이보훈
-    - 정창우
+- Front ([React](https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End))
+    - 김덕현([github](https://github.com/deokhyun-dev))
+    - 박새봄([github](https://github.com/bomboming))
+    - 이민국([github](https://github.com/MinGuk90))
+- Back-end ([Node.js](https://github.com/hanghae99-LunchTogether/LunchTogether_Back_End))
+    - 김도형([github](https://github.com/leubenia))
+    - 이보훈([github](https://github.com/ebohoon))
+    - 정창우([github](https://github.com/togongs))
 - Designer(UI/UX)
     - 김주성
 
@@ -76,14 +76,9 @@ https://lunchfork.co.kr
 
 ## 🔨 주요 개선 사항
 
-## 👨‍🎨 FORK QA 시트
+## [👨‍🎨 FORK QA 시트](https://docs.google.com/spreadsheets/d/1swGMGL0hEIzGJwoVXUWcogfXgQszD_1iiOhAsA6Lp6s/edit#gid=0)
 
-https://docs.google.com/spreadsheets/d/1swGMGL0hEIzGJwoVXUWcogfXgQszD_1iiOhAsA6Lp6s/edit#gid=0
+## [🎨 프로젝트 초기 기획 노션](https://juniper-airbus-ec4.notion.site/3-FORK-42f7f98d28924584b813293e16706382)
 
-## 🎨 프로젝트 초기 기획 노션
 
-https://juniper-airbus-ec4.notion.site/3-FORK-42f7f98d28924584b813293e16706382
 
-## 📌 Back-End(React) 깃허브
-
-https://github.com/hanghae99-LunchTogether/LunchTogether_Back_End
