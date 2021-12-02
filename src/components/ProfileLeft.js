@@ -8,7 +8,7 @@ import ProfileImg from "../assets/profile.png";
 
 const ProfileLeft = (props) => {
   const user = useSelector((state) => state.user);
-  console.log("left", props);
+
   const {
     dislikemenu,
     image,
@@ -22,6 +22,16 @@ const ProfileLeft = (props) => {
     snsurl,
     userid,
   } = props.user;
+
+  const handleClick = () => {
+    if (!user.isLoggedIn) {
+      window.alert("로그인이 필요한 서비스입니다😊");
+      history.push("/login");
+      return;
+    } else {
+      history.push(`/private/${userid}`);
+    }
+  };
 
   return (
     <>
@@ -84,9 +94,7 @@ const ProfileLeft = (props) => {
             프로필 업데이트
           </Button>
         ) : (
-          <Button onClick={() => history.push(`/private/${userid}`)}>
-            점심 제안하기
-          </Button>
+          <Button onClick={handleClick}>점심 제안하기</Button>
         )}
       </Wrapper>
     </>

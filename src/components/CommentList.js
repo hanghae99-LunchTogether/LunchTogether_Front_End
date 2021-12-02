@@ -4,8 +4,7 @@ import CommentItem from "./CommentItem";
 
 const CommentList = (props) => {
   const commentList = useSelector((state) => state.comment.commentList);
-  // const commentList = useSelector((state) => state.comment.commentList.comment);
-  console.log("List", commentList);
+
   return (
     <>
       {commentList && (

@@ -5,13 +5,13 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { apis } from "../shared/axios";
 import { useSelector } from "react-redux";
-import ChoolChool from "../assets/cc.png";
+import ProfileImg from "../assets/profile.png";
 
-const DetailMember = props => {
-  const user = useSelector(state => state.user);
+const DetailMember = (props) => {
+  const user = useSelector((state) => state.user);
   const { applicant, lunch } = props;
   const [active, setActive] = useState(user?.confirmed);
-
+  console.log("dddd", applicant.userid);
   const approveUser = async (userid, bool) => {
     setActive(!active);
     console.log(bool);
@@ -41,8 +41,8 @@ const DetailMember = props => {
         <CircleImage
           size="10"
           style={{ marginBottom: "1rem" }}
-          src={applicant.user.image ? applicant.user.image : ChoolChool}
-          onClick={() => history.push(`/profile/${user.userid}`)}
+          src={applicant.user.image ? applicant.user.image : ProfileImg}
+          onClick={() => history.push(`/profile/${applicant.userid}`)}
         />
         <Text
           color="black"
@@ -106,35 +106,35 @@ const DetailMember = props => {
 
 const ELWrapper = styled.div`
   height: 100%;
-  ${props => props.center && `justify-content: center`};
-  ${props => (props.padding ? `padding: ${props.padding};` : "")};
-  ${props => (props.margin ? `margin: ${props.margin};` : "")};
-  background-color: ${props => (props.bg ? props.bg : "white")};
-  ${props => (props.flex ? `display: flex; align-items: center;` : "")};
+  ${(props) => props.center && `justify-content: center`};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : "")};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  background-color: ${(props) => (props.bg ? props.bg : "white")};
+  ${(props) => (props.flex ? `display: flex; align-items: center;` : "")};
 
-  ${props =>
+  ${(props) =>
     props.shadow ? `box-shadow: 5px 5px 5px 2px rgba(55, 50, 40, 0.16)` : ""};
   margin: 1rem 0 0.5rem 0;
 `;
 
 const Text = styled.p`
   width: 100%;
-  font-size: ${props => (props.size ? props.size : "1.6")}rem;
-  font-weight: ${props => (props.weight ? props.weight : "400")};
-  color: ${props => (props.color ? props.color : "#909090")};
+  font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
+  font-weight: ${(props) => (props.weight ? props.weight : "400")};
+  color: ${(props) => (props.color ? props.color : "#909090")};
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
   letter-spacing: -1.1px;
-  width: ${props => props.width && props.width}rem;
-  line-height: ${props => props.lineheight && props.lineheight}rem;
+  width: ${(props) => props.width && props.width}rem;
+  line-height: ${(props) => props.lineheight && props.lineheight}rem;
 `;
 
 const CircleImage = styled.div`
-  width: ${props => props.size}rem;
-  height: ${props => props.size}rem;
-  border-radius: ${props => props.size}rem;
-  background-image: url("${props => props.src}");
+  width: ${(props) => props.size}rem;
+  height: ${(props) => props.size}rem;
+  border-radius: ${(props) => props.size}rem;
+  background-image: url("${(props) => props.src}");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
@@ -148,7 +148,7 @@ const ApproveBtn = styled.button`
   font-size: 1.2rem;
   border-radius: 5px;
   border: none;
-  background-color: ${props => (props.bg ? props.bg : "#ff9841")};
+  background-color: ${(props) => (props.bg ? props.bg : "#ff9841")};
   color: white;
   margin-top: 1rem;
 `;

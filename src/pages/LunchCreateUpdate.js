@@ -87,22 +87,23 @@ const LunchCreateUpdate = (props) => {
     setSearchKeyword(placeInput);
   };
 
+  //약속 등록
   const addLunch = async () => {
     try {
       if (targetUser) {
         const data = await apis.createPrivatelunch(targetUser, lunch);
-        console.log("데이타타탙", data);
         const newLunchId = data.data.lunchid;
-        window.alert("제안완료 했습니다!");
+        window.alert("약속제안이 완료 되었습니다😊");
         history.push(`/lunchpost/${newLunchId}`);
       } else {
         const data = await apis.createLunch(lunch);
         console.log(data);
         const newLunchId = data.data.lunchid;
-        window.alert("등록완료 했습니다!");
+        window.alert("등록이 완료 되었습니다😊");
         history.push(`/lunchpost/${newLunchId}`);
       }
     } catch (error) {
+      window.alert("빈칸을 채워주세요😅");
       console.log(error.response);
     }
   };
@@ -245,7 +246,11 @@ const LunchCreateUpdate = (props) => {
               </Button>{" "}
             </>
           ) : (
-            <Button style={{ marginBottom: "8rem" }} onClick={addLunch}>
+            <Button
+              style={{ marginBottom: "8rem" }}
+              type="submit"
+              onClick={addLunch}
+            >
               등록하기
             </Button>
           )}
@@ -255,7 +260,7 @@ const LunchCreateUpdate = (props) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   width: 100vw;
   display: flex;
   justify-content: center;

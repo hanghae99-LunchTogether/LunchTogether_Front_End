@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
 const ReviewRating = (props) => {
-  const [currentValue, setCurrentValue] = useState(0);
+  const [clickValue, setClickValue] = useState(0);
+  // const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const forks = Array(5).fill(0);
 
   const handleClick = (value) => {
-    props.getValue(setCurrentValue(value));
+    props.getValue(setClickValue(value));
   };
 
   const handleMouseOver = (newHoverValue) => {
@@ -34,11 +35,11 @@ const ReviewRating = (props) => {
             onClick={() => handleClick(index + 1)}
             onMouseOver={() => handleMouseOver(index + 1)}
             onMouseLeave={handleMouseLeave}
-            fill={(hoverValue || currentValue) > index ? "#ff9841" : "#efefef"}
+            fill={(hoverValue || clickValue) > index ? "#ff9841" : "#efefef"}
           />
         );
       })}
-      <span>{currentValue}점</span>
+      <span>{clickValue}점</span>
     </Wrap>
   );
 };

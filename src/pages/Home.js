@@ -40,7 +40,7 @@ const Home = (props) => {
 
   const moveToLunchRegister = () => {
     if (!user) {
-      window.alert("로그인이 필요한 서비스입니다!");
+      window.alert("로그인이 필요한 서비스입니다😊");
       history.push("/login");
       return;
     }

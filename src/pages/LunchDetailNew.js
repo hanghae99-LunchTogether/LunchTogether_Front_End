@@ -17,7 +17,7 @@ const LunchDetailNew = (props) => {
   const user = useSelector((state) => state.user);
   const lunchId = props.match.params.lunchid;
   let isApplied = false;
-  console.log(user);
+
   const getLunch = async () => {
     try {
       const data = await apis.getOneLunch(lunchId);
