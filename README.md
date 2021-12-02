@@ -41,7 +41,7 @@ https://lunchfork.co.kr
 
 ## 📚 주요 라이브러리
 
-axios, class-validator, passport, multer, dotenv, helmet, cors, joi, socket.io, redis, swagger
+<img src="https://img.shields.io/badge/React-17.0.2-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-5.3.0-CA4245?style=flat-square&logo=React Router&logoColor=white"/> <img src="https://img.shields.io/badge/firebase-1.22.15-FFCA28?style=flat-square&logo=firebase&logoColor=white"/> <img src="https://img.shields.io/badge/Axios-0.23.0-764ABC?style=flat-square&logo=Axios&logoColor=white"/> <img src="https://img.shields.io/badge/Socket.io-4.4.0-010101?style=flat-square&logo=Socket.io&logoColor=white"/> <img src="https://img.shields.io/badge/Redux-4.1.1-764ABC?style=flat-square&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/Lodash-4.17.21-3492FF?style=flat-square&logo=Lodash&logoColor=white"/> <img src="https://img.shields.io/badge/styled components-5.3.1-DB7093?style=flat-square&logo=styled-components&logoColor=white"/> <img src="https://img.shields.io/badge/MaterialUI-5.0.6-0081CB?style=flat-square&logo=Material-UI&logoColor=white"/>
 
 ## ✨ 주요 기능
 
