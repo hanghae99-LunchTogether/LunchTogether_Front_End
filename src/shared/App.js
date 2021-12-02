@@ -57,19 +57,6 @@ function App() {
   }, [socket]);
   console.log(socket);
 
-  useEffect(() => {
-    socket.on("message", (date) => {
-      console.log(date);
-      console.log("메세지를 보낸다.");
-      socket.emit("sendMessage", "클라이언트로부터 메세지");
-    });
-    socket.on("offer", (date) => {
-      console.log(date);
-      console.log("메세지를 보낸다.");
-      socket.emit("sendMessage", "클라이언트로부터 메세지1");
-    });
-  });
-
   return (
     <React.Fragment>
       <GlobalStyle />
