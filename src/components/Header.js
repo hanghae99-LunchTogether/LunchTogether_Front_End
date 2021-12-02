@@ -81,7 +81,7 @@ const Header = ({ socket }) => {
       action = "제안거절";
     }
     return (
-      <span className="notification">{`${sender}가 ${action}을 했습니다.`}</span>
+      <span className="notification">{`${sender}님이 ${action}을 했습니다.`}</span>
     );
   };
 
@@ -270,7 +270,7 @@ const Right = styled.div`
     background-color: #f6f6e9;
     color: black;
     font-weight: 300;
-    width: 200px;
+    width: 250px;
     display: flex;
     flex-direction: column;
     padding: 10px;
