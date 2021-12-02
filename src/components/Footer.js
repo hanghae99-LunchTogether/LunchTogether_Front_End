@@ -36,7 +36,6 @@ const Footer = (props) => {
                 <h1>Design</h1>
                 <div>
                   <span>김주성</span>
-                  <span>최화정</span>
                 </div>
               </Design>
               <Git>

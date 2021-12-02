@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# FORK(포크)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**매일 먹는 점심, 매번 같은 사람과 지겹지 않나요?**
 
-## Available Scripts
+**새로운 사람들과 먹고 싶은 음식, 하고 싶은 이야기 나누며 함께하면 어떨까요?**
 
-In the project directory, you can run:
+![포크](https://user-images.githubusercontent.com/89914920/144397596-916fb4e0-afa5-410e-92a7-6035ac258bc4.png)
 
-### `yarn start`
+## 🖥 웹 사이트
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://lunchfork.co.kr
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 👨‍🎨 FORK 소개
 
-### `yarn test`
+**FORK(포크)는**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 내 위치에 기반해서
+- 주변에 있는 사람들 중 함께하고 싶은 사람들과
+- 점심약속을 만들고, 신청할 수 있는
 
-### `yarn build`
+**위치기반 점심약속 커뮤니티 웹서비스입니다.**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📌 개요
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 이름: FORK 포크
+- 기간: 2021.10.23 ~ 2021.12.02
+- 팀원
+  - Front-end(React): 김덕현,박새봄,이민국
+  - Back-end(Node.js): 김도형,이보훈,정창우
+  - Designer(UI/UX): 김주성
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠Architecture
 
-### `yarn eject`
+![아키텍쳐](https://user-images.githubusercontent.com/89914920/144398054-1c23497f-7e77-46aa-83ee-a4897c487195.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- REST API: AWS EC2(Ubuntu 18.04 LTS)
+- Framework: Express
+- ORM : Sequelize
+- Database: Amazon RDS (MySQL)
+- Image Storage : AWS S3
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📚 주요 라이브러리
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+axios, class-validator, passport, multer, dotenv, helmet, cors, joi, socket.io, redis, swagger
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## ✨ 주요 기능
 
-## Learn More
+1. 로그인
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 로컬 로그인, 카카오 계정 소셜 로그인 방식을 사용합니다.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. 점심 약속 잡기
 
-### Code Splitting
+-
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🔨 주요 개선 사항
 
-### Analyzing the Bundle Size
+## 👨‍🎨 FORK QA 시트
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+https://docs.google.com/spreadsheets/d/1swGMGL0hEIzGJwoVXUWcogfXgQszD_1iiOhAsA6Lp6s/edit#gid=0
 
-### Making a Progressive Web App
+## 🎨 프로젝트 초기 기획 노션
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+https://juniper-airbus-ec4.notion.site/3-FORK-42f7f98d28924584b813293e16706382
 
-### Advanced Configuration
+## 📌 Front-End(React) 깃허브
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End
