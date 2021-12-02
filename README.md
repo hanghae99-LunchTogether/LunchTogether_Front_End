@@ -63,6 +63,6 @@ https://docs.google.com/spreadsheets/d/1swGMGL0hEIzGJwoVXUWcogfXgQszD_1iiOhAsA6L
 
 https://juniper-airbus-ec4.notion.site/3-FORK-42f7f98d28924584b813293e16706382
 
-## 📌 Front-End(React) 깃허브
+## 📌 Back-End(React) 깃허브
 
-https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End
+https://github.com/hanghae99-LunchTogether/LunchTogether_Back_End
