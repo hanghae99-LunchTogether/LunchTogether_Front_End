@@ -20,9 +20,7 @@ const Footer = (props) => {
                 <h1>Front-end</h1>
                 <div>
                   <span>김덕현</span>
-                  <span>
-                    박새봄<p>wanaful1990@gmail.com</p>
-                  </span>
+                  <span>박새봄</span>
                   <span>이민국</span>
                 </div>
               </Front>
@@ -42,12 +40,18 @@ const Footer = (props) => {
               </Design>
               <Git>
                 <h1>Repository</h1>
-                <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
-                  Front
-                </a>
-                <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
-                  Back
-                </a>
+                <div>
+                  <div style={{ marginBottom: "1rem" }}>
+                    <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
+                      Front
+                    </a>
+                  </div>
+                  <div>
+                    <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
+                      Back
+                    </a>
+                  </div>
+                </div>
               </Git>
             </Member>
             <C
@@ -176,7 +180,6 @@ const Design = styled.div`
 `;
 const Git = styled.div`
   display: flex;
-  flex-direction: column;
   font-size: 1.6rem;
   font-weight: 600;
   margin-left: 4rem;
@@ -187,6 +190,11 @@ const Git = styled.div`
     font-size: 1.4rem;
     font-weight: 500;
     margin-left: 2rem;
+
+    a {
+      text-decoration: underline;
+      text-underline-position: under;
+    }
   }
 `;
 
