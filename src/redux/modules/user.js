@@ -72,7 +72,7 @@ export const logInAPI = (account) => {
         console.log("유저", user);
         localStorage.setItem("token", token);
         dispatch(setUser(user));
-        history.push("/");
+        window.location.replace("/");
       })
       .catch((err) => {
         // console.log(err.response);
@@ -128,7 +128,7 @@ export default handleActions(
         draft.error.push(action.payload.error);
       }),
   },
-  initialState
+  initialState,
 );
 
 const userActions = {

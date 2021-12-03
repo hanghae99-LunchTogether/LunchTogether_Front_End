@@ -35,7 +35,6 @@ const Header = ({ socket }) => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     socket.on("message", (data) => {
-      console.log(data);
       console.log("메세지를 보낸다.");
       if (data.length) {
         data?.forEach((data) => {

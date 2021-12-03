@@ -49,7 +49,7 @@ const Login = (props) => {
             if (token) {
               localStorage.setItem("token", token);
               dispatch(userActions.getUserAPI());
-              history.push("/");
+              window.location.replace("/");
             } else {
               window.alert("로그인에 실패했습니다.");
             }
