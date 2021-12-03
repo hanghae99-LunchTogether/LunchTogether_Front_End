@@ -146,7 +146,7 @@ const CurationTitle = styled.p`
     width: 50%;
     height: 56px;
     padding: 1.6rem 0 1.6rem 0;
-    border-radius: 3rem 0.4rem 3rem 0.4rem;
+    border-radius: 2rem;
     background-color: #ff9841;
     border: none;
     font-size: 1.6rem;
@@ -156,8 +156,6 @@ const CurationTitle = styled.p`
     transition: 0.3s;
     &:hover {
       background-color: #de4307;
-      width: 52%;
-      border-radius: 0.4rem;
     }
   }
 

@@ -40,7 +40,18 @@ const Footer = (props) => {
               </Design>
               <Git>
                 <h1>Repository</h1>
-                <div>깃주소</div>
+                <div>
+                  <div style={{ marginBottom: "1rem" }}>
+                    <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
+                      Front
+                    </a>
+                  </div>
+                  <div>
+                    <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
+                      Back
+                    </a>
+                  </div>
+                </div>
               </Git>
             </Member>
             <C
@@ -179,6 +190,11 @@ const Git = styled.div`
     font-size: 1.4rem;
     font-weight: 500;
     margin-left: 2rem;
+
+    a {
+      text-decoration: underline;
+      text-underline-position: under;
+    }
   }
 `;
 

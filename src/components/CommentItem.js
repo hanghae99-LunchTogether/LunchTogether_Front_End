@@ -12,7 +12,7 @@ const CommentItem = (props) => {
   const dispatch = useDispatch();
 
   const { comment, user, time, commentid } = props;
-  const myId = useSelector((state) => state.user.user.userid);
+  const userInfo = useSelector((state) => state.user);
   const url = useSelector((state) => state.router);
   const lunchId = url.location.pathname.slice(11);
 
@@ -26,7 +26,7 @@ const CommentItem = (props) => {
 
   return (
     <>
-      {user.userid === myId ? (
+      {userInfo.isLoggedIn == false ? (
         <React.Fragment>
           <Container>
             <User>
@@ -37,11 +37,6 @@ const CommentItem = (props) => {
                   <Time>{time}</Time>
                 </div>
               </UserInfo>
-              <Edit>
-                <span onClick={onClickDelete}>
-                  <MdDelete />
-                </span>
-              </Edit>
             </User>
             <Content>{comment}</Content>
           </Container>
@@ -57,6 +52,13 @@ const CommentItem = (props) => {
                   <Time>{time}</Time>
                 </div>
               </UserInfo>
+              {user.userid === userInfo.user.userid ? (
+                <Edit>
+                  <span onClick={onClickDelete}>
+                    <MdDelete />
+                  </span>
+                </Edit>
+              ) : null}
             </User>
             <Content>{comment}</Content>
           </Container>

@@ -60,13 +60,13 @@ const LunchNew = (props) => {
     history.push(`/review/${lunchid}`);
   };
 
-  console.log(
-    membernum,
-    typeof membernum,
-    applicants.length + 1,
-    typeof applicants.length,
-    membernum === applicants.length + 1
-  );
+  // console.log(
+  //   membernum,
+  //   typeof membernum,
+  //   applicants.length + 1,
+  //   typeof applicants.length,
+  //   membernum === applicants.length + 1
+  // );
 
   return (
     <>
