@@ -7,8 +7,8 @@ import ProfileImg from "../assets/profile.png";
 import { ReactComponent as ForkImg } from "../assets/fork.svg";
 
 const ProfileReviewItem = (props) => {
-  const { comments, spoon, lunch, rater, createdAt } = props;
-  console.log(props);
+  console.log("프롭스", props);
+  const { comment, spoon, lunch, reviewer } = props;
 
   // 평점;
   const forks = Array(5).fill(0);
@@ -18,15 +18,15 @@ const ProfileReviewItem = (props) => {
       <Wrapper>
         <Info>
           <Writer>
-            <img src={rater.image ? rater.image : ProfileImg} />
+            <img src={reviewer?.image ? reviewer?.image : ProfileImg} />
             <div>
-              <span className="nickname">{rater.nickname}</span>
-              <span className="job">{rater.job}</span>
+              <span className="nickname">{reviewer?.nickname}</span>
+              <span className="job">{reviewer?.job}</span>
             </div>
           </Writer>
           <Record>
             <div>
-              <span className="title">약속날짜</span>
+              <span className="title">날짜시간</span>
               <span>
                 {moment(lunch.date).format("YYYY-MM-DD(ddd) A hh시 mm분")}
               </span>
@@ -38,9 +38,19 @@ const ProfileReviewItem = (props) => {
             <div>
               <span className="title">등록시간</span>
               <span>
-                {moment(createdAt).format("YYYY-MM-DD(ddd) A hh시 mm분")}
+                {moment(reviewer.updatedAt).format(
+                  "YYYY-MM-DD(ddd) A hh시 mm분"
+                )}
               </span>
             </div>
+            {/* <div>
+              <span className="title">약속장소</span>
+              <span>{lunch.location}</span>
+            </div>
+            <div>
+              <span className="title">참여인원</span>
+              <span>4 / {lunch.membernum}</span>
+            </div> */}
           </Record>
         </Info>
         <Rating>
@@ -59,7 +69,7 @@ const ProfileReviewItem = (props) => {
           })}
           <span>{spoon}점</span>
         </Rating>
-        <ReviewComment>{comments}</ReviewComment>
+        <ReviewComment>{comment}</ReviewComment>
       </Wrapper>
     </>
   );
@@ -92,17 +102,20 @@ const Writer = styled.div`
     height: 54px;
     border-radius: 50%;
   }
+
   div {
     display: flex;
     flex-direction: column;
     margin-left: 1.4rem;
     letter-spacing: -1.1px;
     line-height: 2.2rem;
+
     .nickname {
       font-size: 1.4rem;
       font-weight: 600;
       color: black;
     }
+
     .job {
       font-size: 1.4rem;
       color: #909090;
@@ -117,6 +130,7 @@ const Record = styled.div`
   color: #c4c4c7;
   letter-spacing: -1.1px;
   line-height: 2.2rem;
+
   .title {
     margin-right: 1.6rem;
   }

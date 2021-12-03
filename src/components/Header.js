@@ -38,7 +38,7 @@ const Header = ({ socket }) => {
       console.log(data);
       console.log("메세지를 보낸다.");
       if (data.length) {
-        data.forEach((data) => {
+        data?.forEach((data) => {
           setNotifications((prev) => [...prev, data]);
         });
       }
