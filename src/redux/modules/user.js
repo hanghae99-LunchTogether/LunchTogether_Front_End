@@ -72,7 +72,7 @@ export const logInAPI = (account) => {
         console.log("유저", user);
         localStorage.setItem("token", token);
         dispatch(setUser(user));
-        window.location.replace("/main");
+        window.location.replace("/");
       })
       .catch((err) => {
         // console.log(err.response);
