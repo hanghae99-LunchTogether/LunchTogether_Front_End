@@ -60,6 +60,14 @@ const LunchNew = (props) => {
     history.push(`/review/${lunchid}`);
   };
 
+  // console.log(
+  //   membernum,
+  //   typeof membernum,
+  //   applicants.length + 1,
+  //   typeof applicants.length,
+  //   membernum === applicants.length + 1
+  // );
+
   return (
     <>
       <Wrapper completed={completed}>
@@ -84,7 +92,11 @@ const LunchNew = (props) => {
               src={People}
               style={{ width: "2rem", marginRight: "0.5rem" }}
             />
-            <Text weight="800" size="1.4">
+            <Text
+              weight="800"
+              size="1.4"
+              max={(applicants?.length + 1).toString() === membernum}
+            >
               {applicants?.length + 1}&nbsp;&nbsp;/&nbsp;&nbsp;{membernum}
             </Text>
           </div>
@@ -160,7 +172,7 @@ const ELWrapper = styled.div`
 const Text = styled.p`
   font-size: ${(props) => (props.size ? props.size : "1.6")}rem;
   font-weight: ${(props) => (props.weight ? props.weight : "400")};
-  color: ${(props) => (props.color ? props.color : "#909090")};
+  color: ${(props) => (props.max ? "red" : "#909090")};
   overflow: hidden;
   /* text-overflow: ellipsis; */
   white-space: nowrap;
