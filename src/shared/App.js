@@ -53,8 +53,10 @@ function App() {
   });
 
   useEffect(() => {
-    socket.emit("join", "hi");
-  }, [socket]);
+    if (token) {
+      socket.emit("join", "hi");
+    }
+  }, [token, socket]);
   console.log(socket);
 
   return (
