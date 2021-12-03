@@ -153,8 +153,9 @@ const CurationTitle = styled.p`
     font-weight: 700;
     color: #ffffff;
     box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
-    transition: 1s;
+    transition: 0.3s;
     &:hover {
+      background-color: #de4307;
       width: 52%;
       border-radius: 0.4rem;
     }

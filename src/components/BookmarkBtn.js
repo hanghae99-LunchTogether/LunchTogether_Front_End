@@ -5,6 +5,7 @@ import { apis } from "../shared/axios";
 
 import StarFill from "../assets/starFill.svg";
 import Star from "../assets/star.svg";
+import { history } from "../redux/configureStore";
 
 const BookmarkBtn = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -18,9 +19,13 @@ const BookmarkBtn = (props) => {
     if (active) {
       setActive(!active);
       setNum(num - 1);
+      window.alert("즐겨찾기 등록취소!");
+      history.push("/");
     } else {
       setActive(!active);
       setNum(num + 1);
+      window.alert("즐겨찾기 등록완료!");
+      history.push("/bookmark");
     }
     try {
       const data = await apis.addBookmark(lunchid);
