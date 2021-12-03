@@ -11,6 +11,7 @@ const DetailMember = (props) => {
   const user = useSelector((state) => state.user);
   const { applicant, lunch } = props;
   const [active, setActive] = useState(user?.confirmed);
+  console.log(lunch);
 
   const approveUser = async (userid, bool) => {
     setActive(!active);
@@ -22,7 +23,7 @@ const DetailMember = (props) => {
     };
     try {
       const data = await apis.approveMember(lunch?.lunchid, approval);
-      history.push(`/profile/${user?.user?.userid}`);
+      window.location.replace(`/lunchpost/${lunch?.lunchid}`);
     } catch (error) {
       console.log(error.response);
     }
@@ -73,7 +74,7 @@ const DetailMember = (props) => {
                 style={{ backgroundColor: "red" }}
                 onClick={() => approveUser(applicant.userid, false)}
               >
-                거절하기
+                거절
               </ApproveBtn>
             </div>
           ) : applicant.confirmed === false ? (
