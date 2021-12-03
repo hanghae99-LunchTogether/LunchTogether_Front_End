@@ -11,7 +11,7 @@ const DetailMember = (props) => {
   const user = useSelector((state) => state.user);
   const { applicant, lunch } = props;
   const [active, setActive] = useState(user?.confirmed);
-  console.log("dddd", applicant.userid);
+
   const approveUser = async (userid, bool) => {
     setActive(!active);
     console.log(bool);

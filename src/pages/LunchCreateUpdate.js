@@ -103,7 +103,7 @@ const LunchCreateUpdate = (props) => {
         history.push(`/lunchpost/${newLunchId}`);
       }
     } catch (error) {
-      window.alert("빈칸을 채워주세요😅");
+      // window.alert("빈칸을 채워주세요😅");
       console.log(error.response);
     }
   };
@@ -246,11 +246,7 @@ const LunchCreateUpdate = (props) => {
               </Button>{" "}
             </>
           ) : (
-            <Button
-              style={{ marginBottom: "8rem" }}
-              type="submit"
-              onClick={addLunch}
-            >
+            <Button style={{ marginBottom: "8rem" }} onClick={addLunch}>
               등록하기
             </Button>
           )}

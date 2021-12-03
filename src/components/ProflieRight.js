@@ -105,7 +105,6 @@ const Wrapper = styled.div`
   padding: 3rem 0 5rem 0;
   background-color: #ffc428;
   border-radius: 10px;
-
   @media only screen and (max-width: 768px) {
     margin-top: 1rem;
     max-width: 330px;
@@ -147,7 +146,6 @@ const LunchListWrapper = styled.div`
   gap: 2rem 2rem;
   margin-top: 2rem;
   /* justify-content: center; */
-
   @media only screen and (max-width: 768px) {
     justify-content: center;
   }
