@@ -46,7 +46,7 @@ const addCommentAPI = (comment) => {
       })
       .catch((e) => {
         console.log(e.response);
-        alert("댓글을 작성하는데 실패하였습니다.");
+        // alert("댓글을 작성하는데 실패하였습니다.");
       });
   };
 };

@@ -20,7 +20,9 @@ const Footer = (props) => {
                 <h1>Front-end</h1>
                 <div>
                   <span>김덕현</span>
-                  <span>박새봄</span>
+                  <span>
+                    박새봄<p>wanaful1990@gmail.com</p>
+                  </span>
                   <span>이민국</span>
                 </div>
               </Front>
@@ -40,7 +42,12 @@ const Footer = (props) => {
               </Design>
               <Git>
                 <h1>Repository</h1>
-                <div>깃주소</div>
+                <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
+                  Front
+                </a>
+                <a href="https://github.com/hanghae99-LunchTogether/LunchTogether_Front_End">
+                  Back
+                </a>
               </Git>
             </Member>
             <C
@@ -169,6 +176,7 @@ const Design = styled.div`
 `;
 const Git = styled.div`
   display: flex;
+  flex-direction: column;
   font-size: 1.6rem;
   font-weight: 600;
   margin-left: 4rem;
